@@ -1,0 +1,11 @@
+FROM debian:buster
+
+RUN apt-get update
+RUN apt-get install -y debian-keyring
+RUN apt-get install -y debian-archive-keyring
+RUN apt-get install -y apt-transport-https
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/isc/kea-1-6/cfg/gpg/gpg.0607E2621F1564A6.key' | apt-key add -
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/isc/kea-1-6/cfg/setup/config.deb.txt?distro=ubuntu&codename=xenial' > /etc/apt/sources.list.d/isc-kea-1-6.list
+RUN apt-get update
+
+CMD ["sh"]
