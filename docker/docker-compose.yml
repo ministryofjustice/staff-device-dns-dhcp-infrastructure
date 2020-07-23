@@ -1,0 +1,28 @@
+version: "3"
+services:
+  dhcp-config:
+    build: ./dhcp-config
+    depends_on:
+      - db
+  dhcp:
+    build: ./dhcp-service
+    depends_on:
+      - db
+      - dhcp-config
+    ports:
+      - 67:67
+      - 68:68
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: kea
+      MYSQL_USER: kea
+      MYSQL_PASSWORD: kea
+      MYSQL_DATABASE: kea
+    ports:
+    - 3306:3306
+volumes:
+  db_data: {}
