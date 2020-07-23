@@ -43,7 +43,7 @@ module "vpc" {
   source     = "./modules/vpc"
   prefix     = module.label.id
   region     = data.aws_region.current_region.id
-  cidr_block = "10.0.0.1/16"
+  cidr_block = "10.0.0.0/16"
 
   providers = {
     aws = aws.env
