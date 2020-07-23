@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 terraform {
   required_version = "> 0.12.0"
 
@@ -67,15 +66,6 @@ module "dhcp" {
   }
 }
 
-# TODO: Either remove from this repo entirely or allow prefixes
-# module "dhcp_registry" {
-#   source = "./modules/container_registry"
-
-#     providers = {
-#       aws = aws.env
-#     }
-# }
-=======
 module "cognito" {
   source = "./modules/authentication"
 
@@ -83,4 +73,3 @@ module "cognito" {
     aws = aws.env
   }
 }
->>>>>>> 7354157... Added invocation of module to the main.tf
