@@ -9,7 +9,7 @@ Initialise the repo:
 
 Select your workspace
 ```shell
-  aws-vault exec moj-pttp-shared-services -- terraform workspace select emile
+  aws-vault exec moj-pttp-shared-services -- terraform workspace select "your-user-name"
 ```
 
 Select your workspace
