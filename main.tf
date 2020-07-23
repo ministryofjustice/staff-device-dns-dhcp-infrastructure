@@ -49,3 +49,14 @@ module "vpc" {
     aws = aws.env
   }
 }
+
+module "dhcp" {
+  source  = "./modules/dhcp"
+  prefix  = module.dhcp_label.id
+  subnets = module.vpc.public_subnets
+  tags    = module.dhcp_label.tags
+
+  providers = {
+    aws = aws.env
+  }
+}
