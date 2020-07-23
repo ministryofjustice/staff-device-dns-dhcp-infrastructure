@@ -10,4 +10,8 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/isc/kea-1-6/cfg/setup/config.deb
 RUN apt-get update
 RUN apt-get install -y isc-kea-*
 
-CMD ["sh"]
+COPY ./config.json /etc/kea/config.json
+RUN  mkdir /var/run/kea
+
+ENTRYPOINT ["kea-dhcp4"]
+CMD ["-c", "/etc/kea/config.json"]
