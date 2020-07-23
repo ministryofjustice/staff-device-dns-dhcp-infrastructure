@@ -18,7 +18,6 @@ resource "aws_cognito_identity_provider" "cognito_identity_provider" {
   provider_type = "SAML"
 
   provider_details {
-    authorize_scopes       = "email,openid,aws.cognito.signin.user.admin"
     MetaDataUrl            = var.meta_data_url
   }
 
