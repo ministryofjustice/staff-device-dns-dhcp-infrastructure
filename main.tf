@@ -39,9 +39,11 @@ module "label" {
 data "aws_region" "current_region" {}
 data "aws_caller_identity" "shared_services_account" {}
 
-module "hello" {
-  source      = "./modules/hello"
-  prefix_name = module.label.id
+module "vpc" {
+  source     = "./modules/vpc"
+  prefix     = module.label.id
+  region     = data.aws_region.current_region.id
+  cidr_block = "10.0.0.1/16"
 
   providers = {
     aws = aws.env
