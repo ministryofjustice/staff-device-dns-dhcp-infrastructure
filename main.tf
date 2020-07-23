@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 terraform {
   required_version = "> 0.12.0"
 
@@ -74,3 +75,12 @@ module "dhcp" {
 #       aws = aws.env
 #     }
 # }
+=======
+module "cognito" {
+  source = "./modules/authentication"
+
+   providers = {
+    aws = aws.env
+  }
+}
+>>>>>>> 7354157... Added invocation of module to the main.tf
