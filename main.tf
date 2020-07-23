@@ -16,13 +16,13 @@ provider "aws" {
   }
 }
 
-module "label" {
+module "dhcp_label" {
   source  = "cloudposse/label/null"
   version = "0.16.0"
 
   namespace = "staff-device"
   stage     = terraform.workspace
-  name      = "dns-dhcp"
+  name      = "dhcp"
   delimiter = "-"
 
   tags = {
@@ -41,7 +41,7 @@ data "aws_caller_identity" "shared_services_account" {}
 
 module "vpc" {
   source     = "./modules/vpc"
-  prefix     = module.label.id
+  prefix     = module.dhcp_label.id
   region     = data.aws_region.current_region.id
   cidr_block = "10.0.0.0/16"
 
