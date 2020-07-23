@@ -12,5 +12,7 @@ RUN apt-get install -y isc-kea-*
 
 RUN apt-get install -y default-mysql-client
 
-ENTRYPOINT ["kea-admin"]
+COPY ./scripts/wait-for-it.sh wait-for-it.sh
+
+ENTRYPOINT ["./wait-for-it.sh", "db:3306", "--", "kea-admin"]
 CMD ["db-init", "mysql", "-u", "kea", "-p", "kea", "-n", "kea", "-h", "db"]

@@ -13,5 +13,7 @@ RUN apt-get install -y isc-kea-*
 COPY ./config.json /etc/kea/config.json
 RUN  mkdir /var/run/kea
 
-ENTRYPOINT ["kea-dhcp4"]
+COPY ./scripts/wait-for-it.sh wait-for-it.sh
+
+ENTRYPOINT ["./wait-for-it.sh", "db:3306", "--", "kea-dhcp4"]
 CMD ["-c", "/etc/kea/config.json"]
