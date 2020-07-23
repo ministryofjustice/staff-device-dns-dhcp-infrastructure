@@ -2,7 +2,7 @@ terraform {
   required_version = "> 0.12.0"
 
   backend "s3" {
-    bucket         = "pttp-ci-infrastructure-build-dns-dhcp-artifacts-bucket"
+    bucket         = "pttp-ci-infrastructure-dns-dhcp-build-artifact-bucket"
     dynamodb_table = "pttp-ci-infrastructure-client-core-tf-dns-dhcp-lock-table"
     region         = "eu-west-2"
   }
