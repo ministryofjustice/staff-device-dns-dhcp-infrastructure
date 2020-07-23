@@ -6,7 +6,7 @@ env:
     TF_INPUT: 0
     TF_VAR_owner_email: pttp@justice.gov.uk
   parameter-store:
-    TF_VAR_assume_role:                      "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
+    TF_VAR_assume_role: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
 
 phases:
   install:
