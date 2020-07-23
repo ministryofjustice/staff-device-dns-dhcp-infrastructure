@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     bucket         = "pttp-ci-infrastructure-dns-dhcp-client-core-tf-state"
-    dynamodb_table = "pttp-ci-infrastructure-dns-dhcp-client-core-tf-dns-dhcp-lock-table"
+    dynamodb_table = "pttp-ci-infrastructure-dns-dhcp-client-core-tf-lock-table"
     region         = "eu-west-2"
   }
 }
