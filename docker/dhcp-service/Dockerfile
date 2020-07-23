@@ -15,5 +15,8 @@ RUN  mkdir /var/run/kea
 
 COPY ./scripts/wait-for-it.sh wait-for-it.sh
 
+EXPOSE 67
+EXPOSE 68
+
 ENTRYPOINT ["./wait-for-it.sh", "db:3306", "--", "kea-dhcp4"]
 CMD ["-c", "/etc/kea/config.json"]

@@ -9,6 +9,9 @@ services:
     depends_on:
       - db
       - dhcp-config
+    ports:
+      - 67:67
+      - 68:68
   db:
     image: mysql:5.7
     volumes:
