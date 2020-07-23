@@ -1,27 +1,12 @@
-resource "aws_ecs_cluster" "dhcp_cluster" {
+resource "aws_ecs_cluster" "server_cluster" {
   name = "${var.prefix}-cluster"
 }
 
-resource "aws_ecs_service" "dhcp_service" {
-  name            = "${var.prefix}-service"
-  cluster         = "${aws_ecs_cluster.dhcp_cluster.id}"
-  task_definition = "${aws_ecs_task_definition.dhcp_task.arn}"
-  desired_count   = "1"
+resource "aws_ecs_task_definition" "server_task" {
+  family        = "${var.prefix}-server-task"
+  task_role_arn = aws_iam_role.ecs_task_role.arn
 
-  ordered_placement_strategy {
-    type  = "spread"
-    field = "instanceId"
-  }
-}
-
-resource "aws_ecs_task_definition" "dhcp_task" {
-  family        = "pttp-test"
-  task_role_arn = "${aws_iam_role.ecs-task-role.arn}"
-
-  depends_on = [
-    aws_ecr_repository.govwifi-frontend-ecr
-  ]
-
+  # Port 3000 is required to be mapped for healthchecks over TCP
   container_definitions = <<EOF
 [
   {
@@ -33,56 +18,24 @@ resource "aws_ecs_task_definition" "dhcp_task" {
         "protocol": "tcp"
       },
       {
-        "hostPort": 1530,
-        "containerPort": 1530,
-        "protocol": "udp"
-      },
-      {
-        "hostPort": 53,
-        "containerPort": 53,
+        "hostPort": 67,
+        "containerPort": 67,
         "protocol": "udp"
       }
     ],
     "essential": true,
-    "name": "frontend-radius",
+    "name": "dhcp-server",
     "environment": [
       {
-        "name": "AUTHORISATION_API_BASE_URL",
-        "value": "test"
-      },{
-        "name": "LOGGING_API_BASE_URL",
-        "value": "test"
-      },{
-        "name": "BACKEND_API_KEY",
-        "value": "test"
-      },{
-        "name": "HEALTH_CHECK_RADIUS_KEY",
-        "value": "test"
-      },{
-        "name": "HEALTH_CHECK_SSID",
-        "value": "test"
-      },{
-        "name": "HEALTH_CHECK_IDENTITY",
-        "value": "test"
-      },{
-        "name": "HEALTH_CHECK_PASSWORD",
-        "value": "test"
-      },{
-        "name": "SERVICE_DOMAIN",
-        "value": "test"
-      },{
-        "name": "RADIUSD_PARAMS",
-        "value": "test"
-      },{
-        "name": "RACK_ENV",
+        "name": "ENV",
         "value": "test"
       }
     ],
-    "image": "261219435789.dkr.ecr.eu-west-2.amazonaws.com/govwifi-frontend:latest",
+    "image": "tbc",
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "${aws_cloudwatch_log_group.frontend-log-group.name}",
+        "awslogs-group": "${aws_cloudwatch_log_group.server_log_group.name}",
         "awslogs-region": "eu-west-2",
         "awslogs-stream-prefix": "eu-west-2-docker-logs"
       }
@@ -92,4 +45,16 @@ resource "aws_ecs_task_definition" "dhcp_task" {
   }
 ]
 EOF
+}
+
+resource "aws_ecs_service" "service" {
+  name            = "${var.prefix}-service"
+  cluster         = aws_ecs_cluster.server_cluster.id
+  task_definition = aws_ecs_task_definition.server_task.arn
+  desired_count   = "1"
+
+  ordered_placement_strategy {
+    type  = "spread"
+    field = "instanceId"
+  }
 }
