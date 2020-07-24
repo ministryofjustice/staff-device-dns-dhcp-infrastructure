@@ -1,6 +1,6 @@
 resource "aws_iam_role_policy" "ecs_instance_policy" {
   name = "${var.prefix}-ecs-instance-policy"
-  role = "${aws_iam_role.ecs-instance-role.id}"
+  role = aws_iam_role.ecs_instance_role.id
 
   policy = <<EOF
 {
@@ -72,13 +72,13 @@ EOF
 
 resource "aws_iam_instance_profile" "ecs_instance_profile" {
   name = "${var.prefix}-ecs-instance-profile"
-  role = "${aws_iam_role.ecs-instance-role.name}"
+  role = aws_iam_role.ecs_instance_role.name
 }
 
 # Unused until a loadbalancer is set up
 resource "aws_iam_role_policy" "ecs_service_policy" {
   name = "${var.prefix}-ecs-service"
-  role = "${aws_iam_role.ecs-task-role.id}"
+  role = aws_iam_role.ecs_task_role.id
 
   policy = <<EOF
 {
