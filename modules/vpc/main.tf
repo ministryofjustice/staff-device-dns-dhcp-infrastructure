@@ -4,7 +4,7 @@ module "vpc" {
   name    = var.prefix
 
   cidr               = var.cidr_block
-  enable_nat_gateway = false
+  enable_nat_gateway = true
 
   azs = [
     "${var.region}a",
