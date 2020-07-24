@@ -60,3 +60,11 @@ module "dhcp" {
     aws = aws.env
   }
 }
+
+module "registry" {
+  source = "./modules/container_registry"
+
+    providers = {
+      aws = aws.env
+    }
+}
