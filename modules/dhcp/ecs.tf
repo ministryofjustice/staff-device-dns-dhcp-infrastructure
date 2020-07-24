@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "test"
       }
     ],
-    "image": "tbc",
+    "image": "${aws_ecr_repository.docker_dhcp_repository.repository_url}",
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {

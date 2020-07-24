@@ -8,6 +8,10 @@ terraform {
   }
 }
 
+provider "tls" {
+  version = "> 2.1"
+}
+
 provider "aws" {
   version = "~> 2.68"
   alias   = "env"
@@ -55,6 +59,7 @@ module "dhcp" {
   prefix  = module.dhcp_label.id
   subnets = module.vpc.public_subnets
   tags    = module.dhcp_label.tags
+  vpc_id  = module.vpc.vpc_id
 
   providers = {
     aws = aws.env
