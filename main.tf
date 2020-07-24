@@ -61,7 +61,7 @@ module "dhcp" {
   }
 }
 
-module "registry" {
+module "dhcp_registry" {
   source = "./modules/container_registry"
 
     providers = {
