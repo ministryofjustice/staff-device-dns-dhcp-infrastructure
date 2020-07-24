@@ -75,7 +75,6 @@ resource "aws_iam_instance_profile" "ecs_instance_profile" {
   role = aws_iam_role.ecs_instance_role.name
 }
 
-# Unused until a loadbalancer is set up
 resource "aws_iam_role_policy" "ecs_service_policy" {
   name = "${var.prefix}-ecs-service"
   role = aws_iam_role.ecs_task_role.id
@@ -98,7 +97,6 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
 EOF
 }
 
-# Unused until a loadbalancer is set up
 resource "aws_iam_role" "ecs_task_role" {
   name = "ecs-task-role"
 
