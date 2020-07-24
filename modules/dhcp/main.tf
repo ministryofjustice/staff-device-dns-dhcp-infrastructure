@@ -1,5 +1,5 @@
 resource "aws_lb" "load_balancer" {
-  name               = "${var.prefix}-nlb"
+  name               = var.prefix
   internal           = false
   load_balancer_type = "network"
   subnets            = var.subnets
