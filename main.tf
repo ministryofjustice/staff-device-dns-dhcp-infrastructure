@@ -32,7 +32,7 @@ module "dhcp_label" {
     "owner"         = var.owner_email
 
     "environment-name" = "global"
-    "source-code"      = "https://github.com/ministryofjustice/staff-device-dhcp-dns"
+    "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
   }
 }
 
