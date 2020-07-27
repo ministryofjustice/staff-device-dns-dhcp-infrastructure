@@ -1,15 +1,17 @@
 resource "aws_cognito_user_pool" "pool" {
   name = "azure-ad-pool"
+  auto_verified_attributes = ["email"]
 }
 
 resource "aws_cognito_user_pool_client" "client" {
   name = "azure-ad-client"
   user_pool_id = aws_cognito_user_pool.pool.id
-
+  explicit_auth_flows = ["ALLOW_ADMIN_USER_PASSWORD_AUTH", "ALLOW_CUSTOM_AUTH", "ALLOW_USER_PASSWORD_AUTH", "ALLOW_USER_SRP_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
+  callback_urls = ["http://localhost:80"]
+  logout_urls = ["http://localhost:80"]
   supported_identity_providers = [aws_cognito_identity_provider.cognito_identity_provider.provider_name]
-
-  callback_urls = ["https://localhost:4200"]
-  logout_urls = ["https://localhost:4200"]
+  allowed_oauth_flows = ["code", "implicit"]
+  allowed_oauth_scopes = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
 }
 
 resource "aws_cognito_user_pool_domain" "main" {
