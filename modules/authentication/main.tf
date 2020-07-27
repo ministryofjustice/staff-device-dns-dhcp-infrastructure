@@ -5,6 +5,11 @@ resource "aws_cognito_user_pool" "pool" {
 resource "aws_cognito_user_pool_client" "client" {
   name = "azure-ad-client"
   user_pool_id = aws_cognito_user_pool.pool.id
+
+  supported_identity_providers = [aws_cognito_identity_provider.cognito_identity_provider.provider_name]
+
+  callback_urls = ["https://localhost:4200"]
+  logout_urls = ["https://localhost:4200"]
 }
 
 resource "aws_cognito_user_pool_domain" "main" {
@@ -17,11 +22,11 @@ resource "aws_cognito_identity_provider" "cognito_identity_provider" {
   provider_name = "Azure"
   provider_type = "SAML"
 
-  provider_details {
-    MetaDataUrl            = var.meta_data_url
+  provider_details = {
+    MetadataURL            = var.meta_data_url
   }
 
-  attribute_mapping {
+  attribute_mapping = {
     email = "email"
   }
 }
