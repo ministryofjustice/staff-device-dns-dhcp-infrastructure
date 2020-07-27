@@ -22,3 +22,6 @@ output "identifier-uri" {
   value = "urn:amazon:cognito:sp:${module.cognito.cognito-pool-id}"
 }
 
+# output "registry_token" {
+#   value = module.dhcp_registry.token
+# }
