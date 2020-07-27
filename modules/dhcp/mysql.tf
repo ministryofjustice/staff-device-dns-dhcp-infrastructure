@@ -6,7 +6,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   auto_minor_version_upgrade  = true
   allow_major_version_upgrade = false
   apply_immediately           = true
-  instance_class              = "db.t2.micro" #TODO bump this
+  instance_class              = "db.t2.medium" #TODO bump this
   identifier                  = "${var.prefix}-db"
   name                        = replace(var.prefix, "-", "")
   username                    = "root"
@@ -21,7 +21,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   # maintenance_window          = "${var.db-maintenance-window}" #TODO set this
   # backup_window               = "${var.db-backup-window}" #TODO set this
   skip_final_snapshot         = true
-  deletion_protection         = true
+  deletion_protection         = false
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
   option_group_name               = aws_db_option_group.mariadb_audit.name
