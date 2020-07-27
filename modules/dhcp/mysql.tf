@@ -73,7 +73,7 @@ resource "aws_db_parameter_group" "db_parameters" {
 }
 
 resource "aws_db_subnet_group" "db" {
-  name       = "main"
+  name       = "${var.prefix}-main"
   subnet_ids = var.subnets
 
   tags = var.tags
