@@ -11,3 +11,7 @@ variable "owner_email" {
 variable "assume_role" {
   type = string
 }
+
+variable "meta_data_url" {
+  type = string
+}

@@ -1,0 +1,13 @@
+{
+  "identifierUris": [
+    "${identifierUris}"
+  ],
+  "replyUrlsWithType": [
+    {
+      "url": "${url}",
+      "type": "Web"
+    }
+  ],
+  "logoutUrl": "${logoutUrl}",
+  "signInUrl": "${signInUrl}"
+}

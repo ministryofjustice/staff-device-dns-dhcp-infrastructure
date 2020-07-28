@@ -20,6 +20,10 @@ provider "aws" {
   }
 }
 
+provider "template" {
+  version = "~> 2.1"
+}
+
 module "dhcp_label" {
   source  = "cloudposse/label/null"
   version = "0.16.0"
@@ -66,10 +70,26 @@ module "dhcp" {
   }
 }
 
+locals {
+  domain = "https://${module.cognito.amazon-cognito-domain}.auth.${data.aws_region.current_region.id}.amazoncognito.com"
+}
+
+data "template_file" "manifest" {
+  template = file("./manifest.json")
+  vars = {
+    signInUrl = "${local.domain}/login?response_type=code&client_id=${module.cognito.azure-client-id}&redirect_uri=http://localhost:80"
+    logoutUrl = "${local.domain}/logout?response_type=code&client_id=${module.cognito.azure-client-id}&redirect_uri=http://localhost:80"
+    url = "${local.domain}/saml2/idpresponse"
+    identifierUris = "urn:amazon:cognito:sp:${module.cognito.cognito-pool-id}"
+  }
+}
+
 module "cognito" {
   source = "./modules/authentication"
 
-   providers = {
+  meta_data_url = var.meta_data_url
+
+  providers = {
     aws = aws.env
   }
 }
