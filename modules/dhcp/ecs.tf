@@ -27,6 +27,30 @@ resource "aws_ecs_task_definition" "server_task" {
     "name": "dhcp-server",
     "environment": [
       {
+        "name": "DB_NAME",
+        "value": "${aws_db_instance.dhcp_server_db.name}"
+      },
+      {
+        "name": "DB_USER",
+        "value": "${var.dhcp_db_username}"
+      },
+      {
+        "name": "DB_PASS",
+        "value": "${var.dhcp_db_password}"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "${aws_db_instance.dhcp_server_db.address}"
+      },
+      {
+        "name": "DB_PORT",
+        "value": "${aws_db_instance.dhcp_server_db.port}"
+      },
+      {
+        "name": "INTERFACE",
+        "value": "eth0"
+      },
+      {
         "name": "ENV",
         "value": "test"
       }
