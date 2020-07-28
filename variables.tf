@@ -15,3 +15,8 @@ variable "assume_role" {
 variable "meta_data_url" {
   type = string
 }
+
+variable "enable_authentication"{
+  type = bool
+  default = false
+}

@@ -70,24 +70,11 @@ module "dhcp" {
   }
 }
 
-locals {
-  domain = "https://${module.cognito.amazon-cognito-domain}.auth.${data.aws_region.current_region.id}.amazoncognito.com"
-}
-
-data "template_file" "manifest" {
-  template = file("./manifest.json")
-  vars = {
-    signInUrl = "${local.domain}/login?response_type=code&client_id=${module.cognito.azure-client-id}&redirect_uri=http://localhost:80"
-    logoutUrl = "${local.domain}/logout?response_type=code&client_id=${module.cognito.azure-client-id}&redirect_uri=http://localhost:80"
-    url = "${local.domain}/saml2/idpresponse"
-    identifierUris = "urn:amazon:cognito:sp:${module.cognito.cognito-pool-id}"
-  }
-}
-
 module "cognito" {
   source = "./modules/authentication"
-
   meta_data_url = var.meta_data_url
+  prefix = module.dhcp_label.id
+  enable_authentication = var.enable_authentication
 
   providers = {
     aws = aws.env
