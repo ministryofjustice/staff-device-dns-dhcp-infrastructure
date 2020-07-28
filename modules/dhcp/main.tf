@@ -2,8 +2,11 @@ resource "aws_lb" "load_balancer" {
   name               = var.prefix
   internal           = false
   load_balancer_type = "network"
-  subnets            = var.subnets
-  allocation_id = aws_eip.example1.id
+
+  subnet_mapping {
+    subnet_id     = var.subnets[0]
+    allocation_id = aws_eip.public_ip.id
+  }
 
   enable_deletion_protection = false
 
