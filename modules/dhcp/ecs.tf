@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "test"
       }
     ],
-    "image": "tbc",
+    "image": "${aws_ecr_repository.docker_dhcp_repository.repository_url}",
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
@@ -56,5 +56,14 @@ resource "aws_ecs_service" "service" {
   ordered_placement_strategy {
     type  = "spread"
     field = "instanceId"
+  }
+}
+
+resource "aws_ecr_repository" "docker_dhcp_repository" {
+  name                 = "${var.prefix}-docker-dhcp"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
   }
 }
