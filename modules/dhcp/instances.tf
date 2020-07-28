@@ -170,19 +170,3 @@ data "aws_ami" "dhcp_server" {
     values = ["hvm"]
   }
 }
-
-data "aws_ami" "dhcp_server" {
-  most_recent      = true
-  name_regex       = "^amzn-ami-.*-amazon-ecs-optimized$"
-  owners           = ["amazon"]
-
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
