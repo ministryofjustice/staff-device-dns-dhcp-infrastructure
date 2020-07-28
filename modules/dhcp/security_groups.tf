@@ -4,24 +4,16 @@ resource "aws_security_group" "dhcp_server" {
   vpc_id      = var.vpc_id
 
   egress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    security_groups = [aws_security_group.dhcp_db_in.id]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "TCP"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    from_port   = 67
-    to_port     = 67
-    protocol    = "UDP"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -36,9 +28,17 @@ resource "aws_security_group" "dhcp_db_in" {
   tags = var.tags
 
   ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = var.public_subnet_cidr_blocks
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    #cidr_blocks = var.public_subnet_cidr_blocks
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
