@@ -9,11 +9,11 @@ resource "aws_db_instance" "dhcp_server_db" {
   instance_class              = "db.t2.medium" #TODO bump this
   identifier                  = "${var.prefix}-db"
   name                        = replace(var.prefix, "-", "")
-  username                    = "root"
-  password                    = "rootroot"
+  username                    = var.dhcp_db_username
+  password                    = var.dhcp_db_password
   backup_retention_period     = "30"
   multi_az                    = true
-  storage_encrypted           = false #TODO encrypt
+  storage_encrypted           = true #TODO encrypt
   db_subnet_group_name        = aws_db_subnet_group.db.name
   vpc_security_group_ids      = [aws_security_group.dhcp_server.id] #TODO create sg for db
   # monitoring_role_arn         = "${var.rds-monitoring-role}" #TODO set this

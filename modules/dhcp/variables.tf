@@ -13,3 +13,12 @@ variable "tags" {
 variable "vpc_id" {
   type = string
 }
+
+variable "dhcp_db_username" {
+  type = string
+}
+
+variable "dhcp_db_password" {
+  type = string
+}
+

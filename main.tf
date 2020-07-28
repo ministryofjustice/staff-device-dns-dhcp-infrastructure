@@ -55,11 +55,14 @@ module "vpc" {
 }
 
 module "dhcp" {
-  source  = "./modules/dhcp"
-  prefix  = module.dhcp_label.id
-  subnets = module.vpc.public_subnets
-  tags    = module.dhcp_label.tags
-  vpc_id  = module.vpc.vpc_id
+  source           = "./modules/dhcp"
+  prefix           = module.dhcp_label.id
+  subnets          = module.vpc.public_subnets
+  tags             = module.dhcp_label.tags
+  vpc_id           = module.vpc.vpc_id
+  dhcp_db_password = var.dhcp_db_password
+  dhcp_db_username = var.dhcp_db_username
+
 
   providers = {
     aws = aws.env

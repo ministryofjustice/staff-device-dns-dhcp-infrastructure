@@ -7,7 +7,9 @@ env:
     TF_VAR_owner_email: staf-device-dns-dhcp@justice.gov.uk
   parameter-store:
     TF_VAR_assume_role: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
-
+    TF_VAR_dhcp_db_username: "/codebuild/dhcp/$ENV/db/username"
+    TF_VAR_dhcp_db_password: "/codebuild/dhcp/$ENV/db/password"
+    
 phases:
   install:
     commands:
