@@ -1,4 +1,3 @@
-resource "aws_eip" "lb" {
-  network_interface = "${aws_instance.web.id}"
+resource "aws_eip" "public_ip" {
   vpc               = true
 }
