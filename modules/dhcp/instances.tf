@@ -1,5 +1,5 @@
 resource "aws_instance" "dhcp_server" {
-  ami           = "ami-04967dd60612d3b49"
+  ami           = data.aws_ami.dhcp_server.id
   instance_type = "t2.medium"
   subnet_id     = var.subnets[1]
 
@@ -153,6 +153,22 @@ DATA
 
   lifecycle {
     create_before_destroy = true
+  }
+}
+
+data "aws_ami" "dhcp_server" {
+  most_recent      = true
+  name_regex       = "^amzn-ami-.*-amazon-ecs-optimized$"
+  owners           = ["amazon"]
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
   }
 }
 
