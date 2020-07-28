@@ -65,12 +65,3 @@ module "dhcp" {
     aws = aws.env
   }
 }
-
-# TODO: Either remove from this repo entirely or allow prefixes
-# module "dhcp_registry" {
-#   source = "./modules/container_registry"
-
-#     providers = {
-#       aws = aws.env
-#     }
-# }
