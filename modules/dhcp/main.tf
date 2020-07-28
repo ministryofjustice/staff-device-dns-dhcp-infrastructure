@@ -3,6 +3,7 @@ resource "aws_lb" "load_balancer" {
   internal           = false
   load_balancer_type = "network"
   subnets            = var.subnets
+  allocation_id = aws_eip.example1.id
 
   enable_deletion_protection = false
 
