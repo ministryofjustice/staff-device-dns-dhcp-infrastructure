@@ -1,5 +1,5 @@
 resource "aws_db_instance" "dhcp_server_db" {
-  allocated_storage           = 20 # TODO check this is enough
+  allocated_storage           = 20
   storage_type                = "gp2"
   engine                      = "mysql"
   engine_version              = "5.7"

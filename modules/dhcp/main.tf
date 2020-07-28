@@ -13,7 +13,7 @@ resource "aws_lb_target_group" "target_group" {
   port = 67
   protocol = "UDP"
   vpc_id = var.vpc_id
-  
+
   health_check {
     protocol = "TCP"
     port = 80

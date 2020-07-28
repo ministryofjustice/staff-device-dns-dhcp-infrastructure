@@ -164,16 +164,3 @@ resource "aws_key_pair" "bastion_public_key_pair" {
   key_name   = "${var.prefix}-dhcp-server"
   public_key = tls_private_key.ec2.public_key_openssh
 }
-
-# resource "aws_ssm_parameter" "instance_private_key" {
-#   name        = "/ec2/master"
-#   type        = "SecureString"
-#   value       = tls_private_key.ec2.private_key_pem
-#   overwrite   = true
-#   description = "master ssh key for env"
-# }
-
-//resource "aws_eip_association" "eip_assoc" {
-//  instance_id = "${element(aws_instance.radius.*.id, count.index)}"
-//  public_ip   = "${replace(element(var.elastic-ip-list, count.index), "/32", "")}"
-//}
