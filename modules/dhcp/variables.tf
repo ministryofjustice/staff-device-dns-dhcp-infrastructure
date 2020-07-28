@@ -22,3 +22,6 @@ variable "dhcp_db_password" {
   type = string
 }
 
+variable "public_subnet_cidr_blocks" {
+  type = list(string)
+}

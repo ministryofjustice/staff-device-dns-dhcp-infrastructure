@@ -15,7 +15,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   multi_az                    = true
   storage_encrypted           = true #TODO encrypt
   db_subnet_group_name        = aws_db_subnet_group.db.name
-  vpc_security_group_ids      = [aws_security_group.dhcp_server.id] #TODO create sg for db
+  vpc_security_group_ids      = [aws_security_group.dhcp_db_in.id]
   # monitoring_role_arn         = "${var.rds-monitoring-role}" #TODO set this
   # monitoring_interval         = "${var.db-monitoring-interval}"  #TODO set this
   # maintenance_window          = "${var.db-maintenance-window}" #TODO set this

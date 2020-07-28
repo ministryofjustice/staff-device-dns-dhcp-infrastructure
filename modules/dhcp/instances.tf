@@ -6,7 +6,6 @@ resource "aws_instance" "dhcp_server" {
   vpc_security_group_ids = [
     aws_security_group.dhcp_server.id
   ]
-  key_name               = aws_key_pair.bastion_public_key_pair.key_name
   associate_public_ip_address = true
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
   monitoring           = true
@@ -170,13 +169,4 @@ data "aws_ami" "dhcp_server" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-}
-
-resource "tls_private_key" "ec2" {
-  algorithm = "RSA"
-}
-
-resource "aws_key_pair" "bastion_public_key_pair" {
-  key_name   = "${var.prefix}-dhcp-server"
-  public_key = tls_private_key.ec2.public_key_openssh
 }
