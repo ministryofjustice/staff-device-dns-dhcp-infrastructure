@@ -63,6 +63,7 @@ module "dhcp" {
   dhcp_db_password          = var.dhcp_db_password
   dhcp_db_username          = var.dhcp_db_username
   public_subnet_cidr_blocks = module.vpc.public_subnet_cidr_blocks
+  env                       = var.env
 
   providers = {
     aws = aws.env
