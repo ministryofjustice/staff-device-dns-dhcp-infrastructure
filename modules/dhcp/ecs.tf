@@ -91,9 +91,6 @@ resource "aws_ecr_repository" "docker_dhcp_repository" {
     scan_on_push = true
   }
 }
-<<<<<<< HEAD
 
 data "aws_ecr_authorization_token" "token" {
 }
-=======
->>>>>>> main

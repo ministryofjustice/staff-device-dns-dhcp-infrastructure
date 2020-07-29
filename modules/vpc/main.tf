@@ -5,11 +5,8 @@ module "vpc" {
 
   cidr               = var.cidr_block
   enable_nat_gateway = true
-<<<<<<< HEAD
-=======
   enable_dns_hostnames = true
   enable_dns_support   = true
->>>>>>> main
 
   azs = [
     "${var.region}a",

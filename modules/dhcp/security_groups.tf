@@ -19,8 +19,6 @@ resource "aws_security_group" "dhcp_server" {
 
   tags = var.tags
 }
-<<<<<<< HEAD
-=======
 
 resource "aws_security_group" "dhcp_db_in" {
   name        = "dhcp-db-in"
@@ -44,4 +42,3 @@ resource "aws_security_group" "dhcp_db_in" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
->>>>>>> main

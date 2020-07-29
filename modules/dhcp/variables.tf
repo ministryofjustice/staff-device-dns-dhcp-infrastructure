@@ -17,8 +17,6 @@ variable "tags" {
 variable "vpc_id" {
   type = string
 }
-<<<<<<< HEAD
-=======
 
 variable "dhcp_db_username" {
   type = string
@@ -31,4 +29,3 @@ variable "dhcp_db_password" {
 variable "public_subnet_cidr_blocks" {
   type = list(string)
 }
->>>>>>> main

@@ -1,19 +1,13 @@
 resource "aws_instance" "dhcp_server" {
-<<<<<<< HEAD
   ami           = "ami-04967dd60612d3b49"
-=======
   ami           = data.aws_ami.dhcp_server.id
->>>>>>> main
   instance_type = "t2.medium"
   subnet_id     = var.subnets[1]
 
   vpc_security_group_ids = [
     aws_security_group.dhcp_server.id
   ]
-<<<<<<< HEAD
   key_name               = aws_key_pair.bastion_public_key_pair.key_name
-=======
->>>>>>> main
   associate_public_ip_address = true
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
   monitoring           = true
@@ -34,7 +28,6 @@ MIME-Version: 1.0
 Content-Type: text/x-shellscript; charset="us-ascii"
 #!/bin/bash
 sudo yum install perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https -y
-<<<<<<< HEAD
 sudo yum -y install perl-Digest-SHA perl-URI perl-libwww-perl perl-MIME-tools perl-Crypt-SSLeay perl-XML-LibXML unzip curl
 mkdir -p /home/ec2-user/scripts
 cd /home/ec2-user/scripts
@@ -48,8 +41,6 @@ MIME-Version: 1.0
 Content-Type: text/x-shellscript; charset="us-ascii"
 #!/bin/bash
 sudo yum install perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https -y
-=======
->>>>>>> main
 sudo yum -y install perl-Digest-SHA perl-URI perl-libwww-perl perl-MIME-tools perl-Crypt-SSLeay perl-XML-LibXML unzip
 mkdir -p /home/ec2-user/scripts
 cd /home/ec2-user/scripts
@@ -57,16 +48,13 @@ curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScrip
 unzip CloudWatchMonitoringScripts-1.2.2.zip
 rm CloudWatchMonitoringScripts-1.2.2.zip
 mv aws-scripts-mon /home/ec2-user/scripts/mon
-<<<<<<< HEAD
 cd /home/ec2-user/scripts/mon
 
 
-=======
 amazon-linux-extras install nginx1.12 -y
 service nginx start
 cd /home/ec2-user/scripts/mon
 
->>>>>>> main
 EOF
 
 sudo cp ./crontab /etc/crontab
@@ -185,7 +173,6 @@ DATA
   }
 }
 
-<<<<<<< HEAD
 resource "tls_private_key" "ec2" {
   algorithm = "RSA"
 }
@@ -207,7 +194,6 @@ resource "aws_key_pair" "bastion_public_key_pair" {
 //  instance_id = "${element(aws_instance.radius.*.id, count.index)}"
 //  public_ip   = "${replace(element(var.elastic-ip-list, count.index), "/32", "")}"
 //}
-=======
 data "aws_ami" "dhcp_server" {
   most_recent      = true
   name_regex       = "^amzn-ami-.*-amazon-ecs-optimized$"
@@ -223,4 +209,3 @@ data "aws_ami" "dhcp_server" {
     values = ["hvm"]
   }
 }
->>>>>>> main

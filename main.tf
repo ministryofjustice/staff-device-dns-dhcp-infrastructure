@@ -59,13 +59,11 @@ module "vpc" {
 }
 
 module "dhcp" {
-<<<<<<< HEAD
   source  = "./modules/dhcp"
   prefix  = module.dhcp_label.id
   subnets = module.vpc.public_subnets
   tags    = module.dhcp_label.tags
   vpc_id  = module.vpc.vpc_id
-=======
   source                    = "./modules/dhcp"
   prefix                    = module.dhcp_label.id
   subnets                   = module.vpc.public_subnets
@@ -75,13 +73,11 @@ module "dhcp" {
   dhcp_db_username          = var.dhcp_db_username
   public_subnet_cidr_blocks = module.vpc.public_subnet_cidr_blocks
   env                       = var.env
->>>>>>> main
 
   providers = {
     aws = aws.env
   }
 }
-<<<<<<< HEAD
 
 module "cognito" {
   source = "./modules/authentication"
@@ -93,5 +89,3 @@ module "cognito" {
     aws = aws.env
   }
 }
-=======
->>>>>>> main
