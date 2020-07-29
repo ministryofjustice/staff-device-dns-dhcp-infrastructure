@@ -100,7 +100,7 @@ resource "aws_ecr_repository_policy" "docker_dhcp_repository_policy" {
     "Version": "2008-10-17",
     "Statement": [
         {
-            "Sid": "",
+            "Sid": "1",
             "Effect": "Allow",
             "Principal": "*",
             "Action": [
