@@ -19,3 +19,7 @@ variable "dhcp_db_username" {
 variable "dhcp_db_password" {
   type = string
 }
+
+variable "env" {
+  type = string
+}
