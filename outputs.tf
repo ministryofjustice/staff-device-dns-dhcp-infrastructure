@@ -2,7 +2,7 @@ locals {
   domain = "https://${module.cognito.amazon-cognito-domain}.auth.${data.aws_region.current_region.id}.amazoncognito.com"
 }
 output "logoutUrl" {
-  value = "\"${local.domain}/logout?response_type=code&client_id=${module.cognito.azure-client-id}&redirect_uri=https://localhost:80\""
+  value = "\"${local.domain}/logout?response_type=code&client_id=${module.cognito.azure-client-id}&redirect_uri=http://localhost:80\""
 }
 
 output "url" {
