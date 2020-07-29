@@ -6,10 +6,6 @@ variable "subnets" {
   type = list(string)
 }
 
-variable "database_subnets" {
-  type = list(string)
-}
-
 variable "tags" {
   type = map(string)
 }
