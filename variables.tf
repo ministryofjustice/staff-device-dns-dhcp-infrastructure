@@ -23,3 +23,12 @@ variable "dhcp_db_password" {
 variable "env" {
   type = string
 }
+
+variable "meta_data_url" {
+  type = string
+}
+
+variable "enable_authentication"{
+  type = bool
+  default = false
+}

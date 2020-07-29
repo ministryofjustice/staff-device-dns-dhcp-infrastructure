@@ -4,12 +4,14 @@ env:
   variables:
     TF_IN_AUTOMATION: true
     TF_INPUT: 0
-    TF_VAR_owner_email: staf-device-dns-dhcp@justice.gov.uk
+    TF_VAR_owner_email: staff-device-dns-dhcp@justice.gov.uk
     TF_VAR_env: $ENV
   parameter-store:
     TF_VAR_assume_role: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
     TF_VAR_dhcp_db_username: "/codebuild/dhcp/$ENV/db/username"
     TF_VAR_dhcp_db_password: "/codebuild/dhcp/$ENV/db/password"
+    TF_VAR_meta_data_url: "/codebuild/pttp-ci-infrastructure-core-pipeline/meta_data_url"
+    AZURE_APP_ID: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/azure_app_id"
 
 phases:
   install:
@@ -17,6 +19,7 @@ phases:
       - wget --no-verbose -O terraform.zip https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
       - unzip terraform.zip
       - mv terraform /bin
+      - curl -L https://aka.ms/InstallAzureCli | bash
 
   build:
     commands:
@@ -25,3 +28,7 @@ phases:
       - terraform workspace new $ENV || true
       - terraform workspace select $ENV
       - terraform apply --auto-approve -no-color
+      - logoutUrl=$(terraform output logoutUrl) && url=$(terraform output url) && identifierUris=$(terraform output identifierUris)
+      - az ad app update --id $AZURE_APP_ID --set logoutUrl=$logoutUrl
+      - az ad app update --id $AZURE_APP_ID --reply-urls $url
+      - az ad app update --id $AZURE_APP_ID --identifier-uris $identifierUris
