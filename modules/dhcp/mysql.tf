@@ -16,6 +16,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   storage_encrypted           = true #TODO encrypt
   db_subnet_group_name        = aws_db_subnet_group.db.name
   vpc_security_group_ids      = [aws_security_group.dhcp_db_in.id]
+  publicly_accessible         = true
   # monitoring_role_arn         = "${var.rds-monitoring-role}" #TODO set this
   # monitoring_interval         = "${var.db-monitoring-interval}"  #TODO set this
   # maintenance_window          = "${var.db-maintenance-window}" #TODO set this
@@ -61,6 +62,11 @@ resource "aws_db_parameter_group" "db_parameters" {
 
   parameter {
     name  = "log_queries_not_using_indexes"
+    value = 1
+  }
+
+  parameter {
+    name  = "log_bin_trust_function_creators"
     value = 1
   }
 
