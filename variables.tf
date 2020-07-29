@@ -12,6 +12,7 @@ variable "assume_role" {
   type = string
 }
 
+<<<<<<< HEAD
 variable "meta_data_url" {
   type = string
 }
@@ -19,4 +20,16 @@ variable "meta_data_url" {
 variable "enable_authentication"{
   type = bool
   default = false
+=======
+variable "dhcp_db_username" {
+  type = string
+}
+
+variable "dhcp_db_password" {
+  type = string
+}
+
+variable "env" {
+  type = string
+>>>>>>> main
 }
