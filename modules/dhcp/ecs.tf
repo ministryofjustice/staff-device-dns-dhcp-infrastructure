@@ -124,3 +124,9 @@ resource "aws_ecr_repository_policy" "docker_dhcp_repository_policy" {
 }
 EOF
 }
+
+resource "aws_s3_bucket" "config_bucket" {
+  bucket = "${var.prefix}-config-bucket"
+  acl    = "private"
+  tags   = var.tags
+}
