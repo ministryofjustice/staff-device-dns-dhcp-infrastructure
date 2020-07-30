@@ -8,6 +8,10 @@ terraform {
   }
 }
 
+provider "template" {
+  version = "~> 2.1"
+}
+
 provider "tls" {
   version = "> 2.1"
 }
@@ -64,6 +68,17 @@ module "dhcp" {
   dhcp_db_username          = var.dhcp_db_username
   public_subnet_cidr_blocks = module.vpc.public_subnet_cidr_blocks
   env                       = var.env
+
+  providers = {
+    aws = aws.env
+  }
+}
+
+module "cognito" {
+  source = "./modules/authentication"
+  meta_data_url = var.meta_data_url
+  prefix = module.dhcp_label.id
+  enable_authentication = var.enable_authentication
 
   providers = {
     aws = aws.env
