@@ -17,6 +17,7 @@ resource "aws_cognito_user_pool_client" "client" {
   logout_urls = ["http://localhost:80"]
   supported_identity_providers = [aws_cognito_identity_provider.cognito_identity_provider[0].provider_name]
   allowed_oauth_flows = ["code", "implicit"]
+  allowed_oauth_flows_user_pool_client = true
   allowed_oauth_scopes = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
 }
 
