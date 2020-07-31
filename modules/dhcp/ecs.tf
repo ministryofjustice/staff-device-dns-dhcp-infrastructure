@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "eth0"
       },
       {
-        "name": "CONFIG_URL",
+        "name": "KEA_CONFIG_URL",
         "value": "https://${aws_s3_bucket.config_bucket.bucket_regional_domain_name}/config.json"
       },
       {
