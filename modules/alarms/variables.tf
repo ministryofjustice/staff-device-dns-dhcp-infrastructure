@@ -13,3 +13,7 @@ variable "enable_critical_notifications"{
 variable "topic_name"{
   type = string
 }
+
+variable "critical_notification_recipients" {
+  type    = list
+}

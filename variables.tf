@@ -33,7 +33,12 @@ variable "enable_authentication"{
   default = false
 }
 
-variable "critical_notifications_count"{
+variable "enable_critical_notifications"{
   type = bool
   default = false
+}
+
+variable "critical_notification_recipients" {
+  type    = list
+  default = []
 }

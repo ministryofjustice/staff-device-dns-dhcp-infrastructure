@@ -11,6 +11,7 @@ env:
     TF_VAR_dhcp_db_username: "/codebuild/dhcp/$ENV/db/username"
     TF_VAR_dhcp_db_password: "/codebuild/dhcp/$ENV/db/password"
     TF_VAR_meta_data_url: "/codebuild/pttp-ci-infrastructure-core-pipeline/meta_data_url"
+    TF_VAR_critical_notification_recipients: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/critical_notification_recipients"
 
 phases:
   install:

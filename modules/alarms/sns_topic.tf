@@ -1,5 +1,5 @@
 locals {
-  critical_notifications_count = var.enable_critical_notifications ? 1 : 0
+  enabled = var.enable_critical_notifications ? 1 : 0
 }
 
 resource "aws_sns_topic" "this" {
@@ -7,15 +7,15 @@ resource "aws_sns_topic" "this" {
 }
 
 data "template_file" "email_subscription" {
-  count = "${length(var.emails)}"
+  count = "${length(var.critical_notification_recipients)}"
   vars = {
-    email     = "${element(var.emails, count.index)}"
+    email     = "${element(var.critical_notification_recipients, count.index)}"
     index     = "${count.index}"
     topic_arn = "${aws_sns_topic.this.arn}"
 
     # Name must be alphanumeric, unique, but also consistent based on the email address.
     # It also needs to stay under 255 characters.
-    name = "${sha256("${var.topic-name}-${element(var.emails, count.index)}")}"
+    name = "${sha256("${var.topic_name}-${element(var.critical_notification_recipients, count.index)}")}"
   }
 
   template = <<-STACK
@@ -31,8 +31,8 @@ data "template_file" "email_subscription" {
 }
 
 resource "aws_cloudformation_stack" "email" {
-  count = local.critical_notifications_count
-  name  = "${var.prefix}-${var.topic-name}-subscriptions"
+  count = local.enabled
+  name  = "${var.prefix}-${var.topic_name}-subscriptions"
 
   template_body = <<-STACK
   {

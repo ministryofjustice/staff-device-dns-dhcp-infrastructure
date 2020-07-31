@@ -64,7 +64,4 @@ Due to us not having configured the Azure CLI/Terraform provider for Azure there
     
     }
   ```
-<<<<<<< HEAD
   
-=======
->>>>>>> 62ba82239da4000c8f90b50bd9ee606adf3e970b

@@ -90,8 +90,10 @@ module "alarms" {
   dhcp_cluster_name = module.dhcp.aws_ecs_cluster_name
   prefix = module.dhcp_label.id
   enable_critical_notifications = var.enable_critical_notifications
+  critical_notification_recipients = var.critical_notification_recipients
   topic_name  = "critical-notifications"
   providers = {
     aws = aws.env
   }
 }
+
