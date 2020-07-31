@@ -31,7 +31,6 @@ Select your workspace
 The ISC Kea DHCP service hosted by this service runs in a Docker container.
 The code for building this container can be found [here](https://github.com/ministryofjustice/staff-device-dhcp-server).
 
-
 ## Azure Manual Steps
 N.B. This is only required for complete recreation of the Azure flow.
 
@@ -65,4 +64,7 @@ Due to us not having configured the Azure CLI/Terraform provider for Azure there
     
     }
   ```
+<<<<<<< HEAD
   
+=======
+>>>>>>> 62ba82239da4000c8f90b50bd9ee606adf3e970b

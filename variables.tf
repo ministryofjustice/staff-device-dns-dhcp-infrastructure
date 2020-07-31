@@ -32,3 +32,8 @@ variable "enable_authentication"{
   type = bool
   default = false
 }
+
+variable "critical_notifications_count"{
+  type = bool
+  default = false
+}
