@@ -89,10 +89,16 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
        "ec2:AuthorizeSecurityGroupIngress",
        "ec2:Describe*",
        "rds:*",
-       "ecr:*",
-       "s3:*"
+       "ecr:*"
       ],
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+       "s3:GetObject"
+      ],
+      "Resource": "${aws_s3_bucket.config_bucket.arn}/config.json"
     }
   ]
 }
