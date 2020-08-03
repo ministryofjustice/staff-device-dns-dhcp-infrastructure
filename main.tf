@@ -91,6 +91,7 @@ module "alarms" {
   prefix = module.dhcp_label.id
   enable_critical_notifications = var.enable_critical_notifications
   critical_notification_recipients = var.critical_notification_recipients
+  rds_identifier = module.dhcp.rds_identifier
   topic_name  = "critical-notifications"
   providers = {
     aws = aws.env

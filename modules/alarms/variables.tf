@@ -17,3 +17,7 @@ variable "topic_name"{
 variable "critical_notification_recipients" {
   type    = list
 }
+
+variable "rds_identifier" {
+  type = string
+}
