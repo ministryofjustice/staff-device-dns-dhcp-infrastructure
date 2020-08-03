@@ -86,11 +86,11 @@ resource "aws_ecs_service" "service" {
     field = "instanceId"
   }
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.target_group.arn
-    container_name   = "dhcp-server"
-    container_port   = "67"
-  }
+  # load_balancer {
+  #   target_group_arn = aws_lb_target_group.target_group.arn
+  #   container_name   = "dhcp-server"
+  #   container_port   = "67"
+  # }
 }
 
 resource "aws_ecr_repository" "docker_dhcp_repository" {
