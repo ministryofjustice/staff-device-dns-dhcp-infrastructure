@@ -6,15 +6,15 @@ resource "aws_ecs_task_definition" "server_task" {
   family        = "${var.prefix}-server-task"
   task_role_arn = aws_iam_role.ecs_task_role.arn
 
-  # Port 3000 is required to be mapped for healthchecks over TCP
+  # Port 80 is required to be mapped for healthchecks over TCP
   container_definitions = <<EOF
 [
   {
     "memory": 1500,
     "portMappings": [
       {
-        "hostPort": 3000,
-        "containerPort": 3000,
+        "hostPort": 80,
+        "containerPort": 80,
         "protocol": "tcp"
       },
       {
