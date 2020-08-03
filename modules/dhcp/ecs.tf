@@ -133,24 +133,21 @@ resource "aws_s3_bucket" "config_bucket" {
   bucket = "${var.prefix}-config-bucket"
   acl    = "private"
   tags   = var.tags
+  versioning {
+    enabled = true
+  }
+}
+
+data "template_file" "config_bucket_policy" {
+  template = file("${path.module}/policies/config_bucket_policy.json")
+
+  vars = {
+    config_bucket_arn = aws_s3_bucket.config_bucket.arn
+  }
 }
 
 resource "aws_s3_bucket_policy" "config_bucket_policy" {
   bucket = aws_s3_bucket.config_bucket.id
 
-  policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Id": "ConfigFetch",
-  "Statement": [
-    {
-      "Sid": "Get DHCP config",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "${aws_s3_bucket.config_bucket.arn}/config.json"
-    }
-  ]
-}
-POLICY
+  policy = data.template_file.config_bucket_policy.rendered
 }
