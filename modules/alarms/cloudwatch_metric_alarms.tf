@@ -21,7 +21,7 @@ resource "aws_cloudwatch_metric_alarm" "dhcp-cluster-cpu-utilization" {
 
 resource "aws_cloudwatch_metric_alarm" "dhcp-database-utilization" {
   count               = local.enabled
-  alarm_name          = "${var.prefix}-dhcp-database-utilization"
+  alarm_name          = "${var.prefix}-database-utilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
@@ -32,6 +32,27 @@ resource "aws_cloudwatch_metric_alarm" "dhcp-database-utilization" {
 
   dimensions = {
     DBInstanceIdentifier = var.rds_identifier
+  }
+
+  alarm_actions = [aws_sns_topic.this.arn]
+
+  alarm_description  = "This alarm monitors the cpu utilization"
+  treat_missing_data = "breaching"
+}
+
+resource "aws_cloudwatch_metric_alarm" "dhcp-load-balancer-health" {
+  count               = local.enabled
+  alarm_name          = "${var.prefix}-unhealthy-load-count"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "UnHealthyHostCount"
+  namespace           = "AWS/NetworkELB"
+  period              = "60"
+  statistic           = "Maximum"
+  threshold           = "1"
+
+  dimensions = {
+    LoadBalancer = var.load_balancer
   }
 
   alarm_actions = [aws_sns_topic.this.arn]

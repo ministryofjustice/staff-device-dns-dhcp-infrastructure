@@ -21,3 +21,7 @@ variable "critical_notification_recipients" {
 variable "rds_identifier" {
   type = string
 }
+
+variable "load_balancer" {
+  type = string
+}
