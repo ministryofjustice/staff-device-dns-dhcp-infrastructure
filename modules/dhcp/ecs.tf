@@ -51,6 +51,10 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "eth0"
       },
       {
+        "name": "KEA_CONFIG_URL",
+        "value": "https://${aws_s3_bucket.config_bucket.bucket_regional_domain_name}/config.json"
+      },
+      {
         "name": "ENV",
         "value": "test"
       }
@@ -129,4 +133,27 @@ resource "aws_ecr_repository_policy" "docker_dhcp_repository_policy" {
     ]
 }
 EOF
+}
+
+resource "aws_s3_bucket" "config_bucket" {
+  bucket = "${var.prefix}-config-bucket"
+  acl    = "private"
+  tags   = var.tags
+  versioning {
+    enabled = true
+  }
+}
+
+data "template_file" "config_bucket_policy" {
+  template = file("${path.module}/policies/config_bucket_policy.json")
+
+  vars = {
+    config_bucket_arn = aws_s3_bucket.config_bucket.arn
+  }
+}
+
+resource "aws_s3_bucket_policy" "config_bucket_policy" {
+  bucket = aws_s3_bucket.config_bucket.id
+
+  policy = data.template_file.config_bucket_policy.rendered
 }
