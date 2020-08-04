@@ -148,7 +148,8 @@ data "template_file" "config_bucket_policy" {
   template = file("${path.module}/policies/config_bucket_policy.json")
 
   vars = {
-    config_bucket_arn = aws_s3_bucket.config_bucket.arn
+    config_bucket_arn = aws_s3_bucket.config_bucket.arn,
+    ecs_task_role_arn = aws_iam_role.ecs_task_role.arn
   }
 }
 
