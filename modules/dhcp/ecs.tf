@@ -51,8 +51,8 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "eth0"
       },
       {
-        "name": "KEA_CONFIG_URL",
-        "value": "https://${aws_s3_bucket.config_bucket.bucket_regional_domain_name}/config.json"
+        "name": "KEA_CONFIG_BUCKET_NAME",
+        "value": "${var.prefix}-config-bucket"
       },
       {
         "name": "ENV",
@@ -74,6 +74,8 @@ resource "aws_ecs_task_definition" "server_task" {
 ]
 EOF
 }
+# TODO: fix bucket name to use dynamically from bucket
+        # fix region to fetch dynamically
 
 resource "aws_ecs_service" "service" {
   name            = "${var.prefix}-service"
