@@ -25,3 +25,7 @@ variable "rds_identifier" {
 variable "load_balancer" {
   type = string
 }
+
+variable "admin_db_identifier" {
+  type = string
+}

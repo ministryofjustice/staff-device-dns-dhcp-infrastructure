@@ -58,6 +58,17 @@ module "vpc" {
   }
 }
 
+module "admin_vpc" {
+  source     = "./modules/vpc"
+  prefix     = "${module.dhcp_label.id}-admin"
+  region     = data.aws_region.current_region.id
+  cidr_block = "10.0.0.0/16"
+
+  providers = {
+    aws = aws.env
+  }
+}
+
 module "dhcp" {
   source                    = "./modules/dhcp"
   prefix                    = module.dhcp_label.id
@@ -74,10 +85,29 @@ module "dhcp" {
   }
 }
 
+module "admin" {
+  source                   = "./modules/admin"
+  prefix                   = module.dhcp_label.id
+  tags                     = module.dhcp_label.tags
+  vpc_id                   = module.admin_vpc.vpc_id
+  admin_db_password        = var.admin_db_password
+  admin_db_username        = var.admin_db_username
+  subnet_ids               = module.admin_vpc.public_subnets
+  sentry_dsn               = "tbc"
+  secret_key_base          = "tbc"
+  kea_config_bucket_arn    = module.dhcp.kea_config_bucket_arn
+  region                   = data.aws_region.current_region.id
+  vpn_hosted_zone_id       = var.vpn_hosted_zone_id
+
+  providers = {
+    aws = aws.env
+  }
+}
+
 module "cognito" {
-  source = "./modules/authentication"
-  meta_data_url = var.meta_data_url
-  prefix = module.dhcp_label.id
+  source                = "./modules/authentication"
+  meta_data_url         = var.meta_data_url
+  prefix                = module.dhcp_label.id
   enable_authentication = var.enable_authentication
 
   providers = {
@@ -86,14 +116,15 @@ module "cognito" {
 }
 
 module "alarms" {
-  source = "./modules/alarms"
-  dhcp_cluster_name = module.dhcp.aws_ecs_cluster_name
-  prefix = module.dhcp_label.id
-  enable_critical_notifications = var.enable_critical_notifications
+  source                           = "./modules/alarms"
+  dhcp_cluster_name                = module.dhcp.aws_ecs_cluster_name
+  prefix                           = module.dhcp_label.id
+  enable_critical_notifications    = var.enable_critical_notifications
   critical_notification_recipients = var.critical_notification_recipients
-  rds_identifier = module.dhcp.rds_identifier
-  load_balancer = module.dhcp.load_balancer
-  topic_name  = "critical-notifications"
+  rds_identifier                   = module.dhcp.rds_identifier
+  load_balancer                    = module.dhcp.load_balancer
+  topic_name                       = "critical-notifications"
+  admin_db_identifier              = module.admin.admin_db_identifier
   providers = {
     aws = aws.env
   }
