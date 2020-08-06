@@ -23,6 +23,8 @@ resource "aws_db_parameter_group" "db_parameters" {
     value = "FILE"
   }
 
+  depends_on = [aws_db_instance.admin_db]
+
   tags = var.tags
 }
 
@@ -36,6 +38,8 @@ resource "aws_db_option_group" "mariadb_audit" {
   option {
     option_name = "MARIADB_AUDIT_PLUGIN"
   }
+
+  depends_on = [aws_db_instance.admin_db]
 
   tags = var.tags
 }
