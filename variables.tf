@@ -28,17 +28,29 @@ variable "meta_data_url" {
   type = string
 }
 
-variable "enable_authentication"{
-  type = bool
+variable "enable_authentication" {
+  type    = bool
   default = false
 }
 
-variable "enable_critical_notifications"{
-  type = bool
+variable "enable_critical_notifications" {
+  type    = bool
   default = false
 }
 
 variable "critical_notification_recipients" {
   type    = list
   default = []
+}
+
+variable "admin_db_username" {
+  type = string
+}
+
+variable "admin_db_password" {
+  type = string
+}
+
+variable "vpn_hosted_zone_id" {
+  type = string
 }

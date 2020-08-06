@@ -1,5 +1,5 @@
 locals {
-  domain = var.enable_authentication ? "https://${module.cognito.amazon-cognito-domain[0]}.auth.${data.aws_region.current_region.id}.amazoncognito.com" : "" 
+  domain = var.enable_authentication ? "https://${module.cognito.amazon-cognito-domain[0]}.auth.${data.aws_region.current_region.id}.amazoncognito.com" : ""
 }
 
 output "logoutUrl" {

@@ -46,7 +46,7 @@ resource "aws_db_option_group" "mariadb_audit" {
 }
 
 resource "aws_db_parameter_group" "db_parameters" {
-  name        = "${var.prefix}-admin-db-parameter-group"
+  name        = "${var.prefix}-db-parameter-group"
   family      = "mysql5.7"
   description = "DB parameter configuration for DHCP server"
 

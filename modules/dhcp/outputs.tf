@@ -9,3 +9,7 @@ output "rds_identifier" {
 output "load_balancer" {
     value = aws_lb.load_balancer.id
 }
+
+output "kea_config_bucket_arn" {
+    value = aws_s3_bucket.config_bucket.arn
+}
