@@ -48,3 +48,7 @@ variable "kea_config_bucket_arn" {
 variable "vpn_hosted_zone_id" {
   type = string
 }
+
+variable "admin_db_backup_retention_period" {
+  type = number
+}

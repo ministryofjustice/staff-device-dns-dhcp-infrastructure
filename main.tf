@@ -86,19 +86,20 @@ module "dhcp" {
 }
 
 module "admin" {
-  source                   = "./modules/admin"
-  prefix                   = "${module.dhcp_label.id}-admin"
-  short_prefix             = "${module.dhcp_label.stage}-admin" # avoid 32 char limit on certain resources
-  tags                     = module.dhcp_label.tags
-  vpc_id                   = module.admin_vpc.vpc_id
-  admin_db_password        = var.admin_db_password
-  admin_db_username        = var.admin_db_username
-  subnet_ids               = module.admin_vpc.public_subnets
-  sentry_dsn               = "tbc"
-  secret_key_base          = "tbc"
-  kea_config_bucket_arn    = module.dhcp.kea_config_bucket_arn
-  region                   = data.aws_region.current_region.id
-  vpn_hosted_zone_id       = var.vpn_hosted_zone_id
+  source                           = "./modules/admin"
+  prefix                           = "${module.dhcp_label.id}-admin"
+  short_prefix                     = "${module.dhcp_label.stage}-admin" # avoid 32 char limit on certain resources
+  tags                             = module.dhcp_label.tags
+  vpc_id                           = module.admin_vpc.vpc_id
+  admin_db_password                = var.admin_db_password
+  admin_db_username                = var.admin_db_username
+  subnet_ids                       = module.admin_vpc.public_subnets
+  sentry_dsn                       = "tbc"
+  secret_key_base                  = "tbc"
+  kea_config_bucket_arn            = module.dhcp.kea_config_bucket_arn
+  region                           = data.aws_region.current_region.id
+  vpn_hosted_zone_id               = var.vpn_hosted_zone_id
+  admin_db_backup_retention_period = var.admin_db_backup_retention_period
 
   providers = {
     aws = aws.env

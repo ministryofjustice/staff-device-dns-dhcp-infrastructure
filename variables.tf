@@ -54,3 +54,8 @@ variable "admin_db_password" {
 variable "vpn_hosted_zone_id" {
   type = string
 }
+
+variable "admin_db_backup_retention_period" {
+  type    = number
+  default = 0
+}

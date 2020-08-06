@@ -53,7 +53,7 @@ resource "aws_db_instance" "admin_db" {
   name                        = replace(var.prefix, "-", "")
   username                    = var.admin_db_username
   password                    = var.admin_db_password
-  backup_retention_period     = 30
+  backup_retention_period     = var.admin_db_backup_retention_period
   multi_az                    = true
   storage_encrypted           = true
   db_subnet_group_name        = aws_db_subnet_group.admin_db_group.name
