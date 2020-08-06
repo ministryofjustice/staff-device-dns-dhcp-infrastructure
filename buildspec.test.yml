@@ -11,31 +11,8 @@ env:
 phases:
   install:
     commands:
-      - wget --no-verbose -O terraform.zip https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
-      - unzip terraform.zip
-      - mv terraform /bin
-      - wget --no-verbose -O gotestsum.tar.gz https://github.com/gotestyourself/gotestsum/releases/download/v0.5.1/gotestsum_0.5.1_linux_amd64.tar.gz
-      - tar -xzvf gotestsum.tar.gz
-      - mv gotestsum /bin
-      - TEMP_ROLE=`aws sts assume-role --role-arn $ROLE_ARN --role-session-name test-$BUILD_ID`
-      - export TEMP_ROLE
-      - export AWS_ACCESS_KEY_ID=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.AccessKeyId')
-      - export AWS_SECRET_ACCESS_KEY=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SecretAccessKey')
-      - export AWS_SESSION_TOKEN=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SessionToken')
+      - echo install
 
   build:
     commands:
-      # - cd test
-      # - go mod download
-      # - gotestsum --format testname --junitfile unit-tests.xml -- -timeout 30m
       - echo test
-
-# reports:
-#   terratestReports:
-#     files:
-#       - unit-tests.xml
-#     base-directory: test
-
-# cache:
-#   paths:
-#     - '/go/pkg/**/*'
