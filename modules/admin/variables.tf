@@ -29,6 +29,10 @@ variable "prefix" {
   type = string
 }
 
+variable "short_prefix" {
+  type = string
+}
+
 variable "region" {
   type = string
 }

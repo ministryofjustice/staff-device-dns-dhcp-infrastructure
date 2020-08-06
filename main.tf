@@ -88,6 +88,7 @@ module "dhcp" {
 module "admin" {
   source                   = "./modules/admin"
   prefix                   = "${module.dhcp_label.id}-admin"
+  short_prefix             = "${module.dhcp_label.stage}-admin" # avoid 32 char limit on certain resources
   tags                     = module.dhcp_label.tags
   vpc_id                   = module.admin_vpc.vpc_id
   admin_db_password        = var.admin_db_password

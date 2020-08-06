@@ -1,5 +1,5 @@
 resource "aws_lb" "admin_alb" {
-  name     = replace(var.prefix, "-", "")
+  name     = "${var.short_prefix}-lb"
   internal = false
   subnets  = var.subnet_ids
 
