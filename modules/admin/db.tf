@@ -60,8 +60,6 @@ resource "aws_db_instance" "admin_db" {
   vpc_security_group_ids      = [aws_security_group.admin_db_in.id]
   monitoring_role_arn         = aws_iam_role.rds_monitoring_role.arn
   monitoring_interval         = 60
-  # maintenance_window          = var.db_maintenance_window
-  # backup_window               = var.db_backup_window
   skip_final_snapshot         = true
   deletion_protection         = false
 
