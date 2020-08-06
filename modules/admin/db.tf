@@ -58,8 +58,8 @@ resource "aws_db_instance" "admin_db" {
   storage_encrypted           = true
   db_subnet_group_name        = aws_db_subnet_group.admin_db_group.name
   vpc_security_group_ids      = [aws_security_group.admin_db_in.id]
-  # monitoring_role_arn         = var.rds_monitoring_role
-  # monitoring_interval         = var.db_monitoring_interval
+  monitoring_role_arn         = aws_iam_role.rds_monitoring_role.arn
+  monitoring_interval         = 300
   # maintenance_window          = var.db_maintenance_window
   # backup_window               = var.db_backup_window
   skip_final_snapshot         = true
