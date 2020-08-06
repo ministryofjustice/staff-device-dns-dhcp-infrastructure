@@ -116,9 +116,9 @@ EOF
 }
 
 resource "aws_iam_role_policy" "rds_monitoring_policy" {
-  depends_on = [aws_iam_role.rds-monitoring-role]
+  depends_on = [aws_iam_role.rds_monitoring_role]
   name       = "${var.prefix}-rds-monitoring-policy"
-  role       = aws_iam_role.rds-monitoring-role.name
+  role       = aws_iam_role.rds_monitoring_role.name
 
   policy = <<EOF
 {
