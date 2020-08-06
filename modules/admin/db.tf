@@ -1,5 +1,5 @@
 resource "aws_db_parameter_group" "db_parameters" {
-  name        = "${var.prefix}-admin-db-parameter-group"
+  name        = "${var.prefix}-db-parameter-group"
   family      = "mysql5.7"
   description = "DB parameter configuration for admin"
 
@@ -27,7 +27,7 @@ resource "aws_db_parameter_group" "db_parameters" {
 }
 
 resource "aws_db_option_group" "mariadb_audit" {
-  name = "${var.prefix}-admin-db-audit"
+  name = "${var.prefix}-db-audit"
 
   option_group_description = "Mariadb audit configuration for DNS / DHCP admin"
   engine_name              = "mysql"
@@ -49,7 +49,7 @@ resource "aws_db_instance" "admin_db" {
   allow_major_version_upgrade = false
   apply_immediately           = true
   instance_class              = "db.t2.medium"
-  identifier                  = "${var.prefix}-admin-db"
+  identifier                  = "${var.prefix}-db"
   name                        = replace(var.prefix, "-", "")
   username                    = var.admin_db_username
   password                    = var.admin_db_password
@@ -73,7 +73,7 @@ resource "aws_db_instance" "admin_db" {
 }
 
 resource "aws_db_subnet_group" "admin_db_group" {
-  name       = "${var.prefix}-admin-db-group"
+  name       = "${var.prefix}-db-group"
   subnet_ids = var.subnet_ids
 
   tags = var.tags

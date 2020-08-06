@@ -1,5 +1,5 @@
 resource "aws_iam_role_policy" "ecs_admin_instance_policy" {
-  name       = "${var.prefix}-ecs-admin-instance-policy"
+  name       = "${var.prefix}-ecs-instance-policy"
   role       = aws_iam_role.ecs_admin_instance_role.id
 
   policy = <<EOF
@@ -65,7 +65,7 @@ EOF
 }
 
 resource "aws_iam_role" "ecs_admin_instance_role" {
-  name = "${var.prefix}-ecs-admin-instance-role"
+  name = "${var.prefix}-ecs-instance-role"
 
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 
@@ -73,7 +73,7 @@ resource "aws_iam_role" "ecs_admin_instance_role" {
 }
 
 resource "aws_iam_role" "ecsTaskExecutionRole" {
-  name               = "${var.prefix}admin-ecsTaskExecutionRole"
+  name               = "${var.prefix}-ecsTaskExecutionRole"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 
   tags = var.tags

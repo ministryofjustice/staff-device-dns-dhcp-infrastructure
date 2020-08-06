@@ -1,5 +1,5 @@
 resource "aws_security_group" "admin_alb_in" {
-  name        = "${var.prefix}-admin-alb-in"
+  name        = "${var.prefix}-alb-in"
   description = "Allow Inbound Traffic to the admin platform ALB"
   vpc_id      = var.vpc_id
 
@@ -14,7 +14,7 @@ resource "aws_security_group" "admin_alb_in" {
 }
 
 resource "aws_security_group" "admin_alb_out" {
-  name        = "${var.prefix}-admin-alb-out"
+  name        = "${var.prefix}-alb-out"
   description = "Allow Outbound Traffic from the admin platform ALB"
   vpc_id      = var.vpc_id
 
@@ -29,7 +29,7 @@ resource "aws_security_group" "admin_alb_out" {
 }
 
 resource "aws_security_group" "admin_db_in" {
-  name        = "${var.prefix}-admin-db-in"
+  name        = "${var.prefix}-db-in"
   description = "Allow connections to the DB"
   vpc_id      = var.vpc_id
 

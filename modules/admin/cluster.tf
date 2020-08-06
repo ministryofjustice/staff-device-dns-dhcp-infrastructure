@@ -1,11 +1,11 @@
 resource "aws_ecs_cluster" "admin_cluster" {
-  name = "${var.prefix}-admin-cluster"
+  name = "${var.prefix}-cluster"
 
   tags = var.tags
 }
 
 resource "aws_cloudwatch_log_group" "admin_log_group" {
-  name = "${var.prefix}-admin-log-group"
+  name = "${var.prefix}-log-group"
 
   retention_in_days = 7
 
@@ -13,13 +13,13 @@ resource "aws_cloudwatch_log_group" "admin_log_group" {
 }
 
 resource "aws_ecr_repository" "admin_ecr" {
-  name = "${var.prefix}-admin"
+  name = var.prefix
 
   tags = var.tags
 }
 
 resource "aws_ecs_task_definition" "admin_task" {
-  family                   = "admin-task-${var.prefix}"
+  family                   = "${var.prefix}-task"
   requires_compatibilities = ["FARGATE"]
   task_role_arn            = aws_iam_role.ecs_admin_instance_role.arn
   execution_role_arn       = aws_iam_role.ecsTaskExecutionRole.arn
@@ -78,7 +78,7 @@ resource "aws_ecs_task_definition" "admin_task" {
         "options": {
           "awslogs-group": "${aws_cloudwatch_log_group.admin_log_group.name}",
           "awslogs-region": "${var.region}",
-          "awslogs-stream-prefix": "${var.prefix}-admin-docker-logs"
+          "awslogs-stream-prefix": "${var.prefix}-docker-logs"
         }
       },
       "expanded": true
@@ -89,7 +89,7 @@ EOF
 
 resource "aws_ecs_service" "admin-service" {
   depends_on      = [aws_alb_listener.alb_listener]
-  name            = "${var.prefix}-admin"
+  name            = var.prefix
   cluster         = aws_ecs_cluster.admin_cluster.id
   task_definition = aws_ecs_task_definition.admin_task.arn
   desired_count   = 3

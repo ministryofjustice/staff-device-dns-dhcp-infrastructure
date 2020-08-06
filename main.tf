@@ -87,7 +87,7 @@ module "dhcp" {
 
 module "admin" {
   source                   = "./modules/admin"
-  prefix                   = module.dhcp_label.id
+  prefix                   = "${module.dhcp_label.id}-admin"
   tags                     = module.dhcp_label.tags
   vpc_id                   = module.admin_vpc.vpc_id
   admin_db_password        = var.admin_db_password
