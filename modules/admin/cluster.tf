@@ -13,7 +13,7 @@ resource "aws_cloudwatch_log_group" "admin_log_group" {
 }
 
 resource "aws_ecr_repository" "admin_ecr" {
-  name = var.prefix
+  name = "${var.short_prefix}-admin"
 
   tags = var.tags
 }
