@@ -99,6 +99,7 @@ module "admin" {
   kea_config_bucket_arn            = module.dhcp.kea_config_bucket_arn
   region                           = data.aws_region.current_region.id
   vpn_hosted_zone_id               = var.vpn_hosted_zone_id
+  vpn_hosted_zone_domain           = var.vpn_hosted_zone_domain
   admin_db_backup_retention_period = var.admin_db_backup_retention_period
 
   providers = {

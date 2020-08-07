@@ -49,6 +49,10 @@ variable "vpn_hosted_zone_id" {
   type = string
 }
 
+variable "vpn_hosted_zone_domain" {
+  type = string
+}
+
 variable "admin_db_backup_retention_period" {
   type = number
 }
