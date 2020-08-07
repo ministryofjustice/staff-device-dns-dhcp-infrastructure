@@ -18,6 +18,39 @@ resource "aws_ecr_repository" "admin_ecr" {
   tags = var.tags
 }
 
+resource "aws_ecr_repository_policy" "admin_docker_dhcp_repository_policy" {
+  repository = aws_ecr_repository.admin_ecr.name
+
+  policy = <<EOF
+{
+    "Version": "2008-10-17",
+    "Statement": [
+        {
+            "Sid": "1",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:PutImage",
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload",
+                "ecr:DescribeRepositories",
+                "ecr:GetRepositoryPolicy",
+                "ecr:ListImages",
+                "ecr:DeleteRepository",
+                "ecr:BatchDeleteImage",
+                "ecr:SetRepositoryPolicy",
+                "ecr:DeleteRepositoryPolicy"
+            ]
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_ecs_task_definition" "admin_task" {
   family                   = "${var.prefix}-task"
   requires_compatibilities = ["FARGATE"]
