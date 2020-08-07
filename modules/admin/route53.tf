@@ -1,6 +1,6 @@
 resource "aws_route53_record" "admin_lb" {
   zone_id        = var.vpn_hosted_zone_id
-  name           = "${var.short_prefix}.${var.vpn_hosted_zone_domain}"
+  name           = "staff-device-admin-${var.short_prefix}.${var.vpn_hosted_zone_domain}"
   type           = "A"
   set_identifier = var.region
 
