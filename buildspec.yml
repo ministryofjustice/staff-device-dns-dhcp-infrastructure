@@ -35,4 +35,4 @@ phases:
       - terraform workspace select $ENV
       - terraform apply --auto-approve -no-color
       - aws sts get-caller-identity
-      - aws s3 ssm get-parameters
+      - aws ssm get-parameters
