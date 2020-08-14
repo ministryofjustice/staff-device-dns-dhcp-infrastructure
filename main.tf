@@ -85,6 +85,7 @@ module "dhcp" {
   }
 }
 
+/*
 module "admin" {
   source                           = "./modules/admin"
   prefix                           = "${module.dhcp_label.id}-admin"
@@ -105,7 +106,7 @@ module "admin" {
   providers = {
     aws = aws.env
   }
-}
+}*/
 
 module "cognito" {
   source                = "./modules/authentication"
