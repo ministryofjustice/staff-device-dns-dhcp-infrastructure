@@ -30,7 +30,7 @@ variable "meta_data_url" {
 
 variable "enable_authentication" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "enable_critical_notifications" {
