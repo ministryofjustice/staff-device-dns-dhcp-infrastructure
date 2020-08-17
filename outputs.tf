@@ -3,7 +3,7 @@ locals {
 }
 
 output "logoutUrl" {
-  value = var.enable_authentication ? "\"${local.domain}/logout?response_type=code&client_id=${module.cognito.azure-client-id[0]}&redirect_uri=http://localhost:80\"" : ""
+  value = var.enable_authentication ? "\"${local.domain}/logout?response_type=code&client_id=${module.cognito.cognito_user_pool_client_id}&redirect_uri=http://localhost:80\"" : ""
 }
 
 output "url" {
