@@ -85,7 +85,6 @@ module "dhcp" {
   }
 }
 
-/*
 module "admin" {
   source                           = "./modules/admin"
   prefix                           = "${module.dhcp_label.id}-admin"
@@ -102,11 +101,15 @@ module "admin" {
   vpn_hosted_zone_id               = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain           = var.vpn_hosted_zone_domain
   admin_db_backup_retention_period = var.admin_db_backup_retention_period
+  cognito_user_pool_id             = module.cognito.cognito_user_pool_id
+  cognito_user_pool_domain         = module.cognito.cognito_user_pool_domain
+  cognito_user_pool_client_id      = module.cognito.cognito_user_pool_client_id
+  cognito_user_pool_client_secret  = module.cognito.cognito_user_pool_client_secret
 
   providers = {
     aws = aws.env
   }
-}*/
+}
 
 module "cognito" {
   source                = "./modules/authentication"

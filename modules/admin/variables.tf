@@ -56,3 +56,19 @@ variable "vpn_hosted_zone_domain" {
 variable "admin_db_backup_retention_period" {
   type = number
 }
+
+variable "cognito_user_pool_id" {
+  type = string
+}
+
+variable "cognito_user_pool_domain" {
+  type = string
+}
+
+variable "cognito_user_pool_client_id" {
+  type = string
+}
+
+variable "cognito_user_pool_client_secret" {
+  type = string
+}

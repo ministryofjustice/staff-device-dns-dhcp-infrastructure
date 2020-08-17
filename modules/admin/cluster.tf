@@ -106,19 +106,19 @@ resource "aws_ecs_task_definition" "admin_task" {
         },
         {
           "name": "COGNITO_CLIENT_ID",
-          "value": "${aws_cognito_user_pool_client.client[0].id}"
+          "value": "${var.cognito_user_pool_client_id}"
         },
         {
           "name": "COGNITO_CLIENT_SECRET",
-          "value": "${aws_cognito_user_pool_client.client[0].client_secret}"
+          "value": "${var.cognito_user_pool_client_secret}"
         },
         {
           "name": "COGNITO_USER_POOL_SITE",
-          "value": "https://${aws_cognito_user_pool_domain.main[0].domain}.auth.${data.aws_region.current_region.id}.amazoncognito.com"
+          "value": "https://${var.cognito_user_pool_domain}.auth.${var.region}.amazoncognito.com"
         },
         {
           "name": "COGNITO_USER_POOL_ID",
-          "value": "${aws_cognito_user_pool.pool[0].id}"
+          "value": "${var.cognito_user_pool_id}"
         }
       ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
