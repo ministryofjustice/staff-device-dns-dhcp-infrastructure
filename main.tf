@@ -116,6 +116,7 @@ module "cognito" {
   meta_data_url         = var.meta_data_url
   prefix                = module.dhcp_label.id
   enable_authentication = var.enable_authentication
+  admin_url             = module.admin.admin_url
 
   providers = {
     aws = aws.env
