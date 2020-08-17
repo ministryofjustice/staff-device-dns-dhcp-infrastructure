@@ -19,11 +19,12 @@ resource "aws_cognito_user_pool_client" "client" {
   allowed_oauth_flows = ["code", "implicit"]
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_scopes = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
+  generate_secret = true
 }
 
 resource "aws_cognito_user_pool_domain" "main" {
   count = local.enabled
-  # domain names can't have underscores 
+  # domain names can't have underscores
   domain       = "${var.prefix}-azure-ad-authentication"
   user_pool_id = aws_cognito_user_pool.pool[0].id
 }

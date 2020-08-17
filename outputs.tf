@@ -1,9 +1,9 @@
 locals {
-  domain = var.enable_authentication ? "https://${module.cognito.amazon-cognito-domain[0]}.auth.${data.aws_region.current_region.id}.amazoncognito.com" : ""
+  domain = var.enable_authentication ? "https://${module.cognito.cognito_user_pool_domain}.auth.${data.aws_region.current_region.id}.amazoncognito.com" : ""
 }
 
 output "logoutUrl" {
-  value = var.enable_authentication ? "\"${local.domain}/logout?response_type=code&client_id=${module.cognito.azure-client-id[0]}&redirect_uri=http://localhost:80\"" : ""
+  value = var.enable_authentication ? "\"${local.domain}/logout?response_type=code&client_id=${module.cognito.cognito_user_pool_client_id}&redirect_uri=http://localhost:80\"" : ""
 }
 
 output "url" {
@@ -11,5 +11,13 @@ output "url" {
 }
 
 output "identifierUris" {
-  value = var.enable_authentication ? "\"urn:amazon:cognito:sp:${module.cognito.cognito-pool-id[0]}\"" : ""
+  value = var.enable_authentication ? "\"urn:amazon:cognito:sp:${module.cognito.cognito_user_pool_id}\"" : ""
+}
+
+output "cognito_user_pool_id" {
+  value = module.cognito.cognito_user_pool_id
+}
+
+output "cognito_user_pool_client_secret" {
+  value = module.cognito.cognito_user_pool_client_secret
 }

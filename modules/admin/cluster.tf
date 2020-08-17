@@ -103,6 +103,22 @@ resource "aws_ecs_task_definition" "admin_task" {
         },{
           "name": "S3_KEA_CONFIG_OBJECT_KEY",
           "value": "config.json"
+        },
+        {
+          "name": "COGNITO_CLIENT_ID",
+          "value": "${var.cognito_user_pool_client_id}"
+        },
+        {
+          "name": "COGNITO_CLIENT_SECRET",
+          "value": "${var.cognito_user_pool_client_secret}"
+        },
+        {
+          "name": "COGNITO_USER_POOL_SITE",
+          "value": "https://${var.cognito_user_pool_domain}.auth.${var.region}.amazoncognito.com"
+        },
+        {
+          "name": "COGNITO_USER_POOL_ID",
+          "value": "${var.cognito_user_pool_id}"
         }
       ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
