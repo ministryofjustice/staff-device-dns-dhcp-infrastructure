@@ -51,7 +51,7 @@ module "vpc" {
   source     = "./modules/vpc"
   prefix     = module.dhcp_label.id
   region     = data.aws_region.current_region.id
-  cidr_block = "10.0.0.0/16"
+  cidr_block = "10.180.80.0/20"
 
   providers = {
     aws = aws.env
