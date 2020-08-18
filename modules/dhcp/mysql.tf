@@ -25,7 +25,22 @@ resource "aws_db_instance" "dhcp_server_db" {
   deletion_protection         = false
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
+  option_group_name               = aws_db_option_group.mariadb_audit.name
   parameter_group_name            = aws_db_parameter_group.db_parameters.name
+
+  tags = var.tags
+}
+
+resource "aws_db_option_group" "mariadb_audit" {
+  name = "${var.prefix}-db-audit"
+
+  option_group_description = "Mariadb audit configuration for DHCP server database"
+  engine_name              = "mysql"
+  major_engine_version     = "5.7"
+
+  option {
+    option_name = "MARIADB_AUDIT_PLUGIN"
+  }
 
   tags = var.tags
 }
