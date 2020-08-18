@@ -63,6 +63,7 @@ module "admin_vpc" {
   prefix     = "${module.dhcp_label.id}-admin"
   region     = data.aws_region.current_region.id
   cidr_block = "10.0.0.0/16"
+  cidr_block_new_bits = 2
 
   providers = {
     aws = aws.env
