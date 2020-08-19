@@ -52,6 +52,7 @@ module "vpc" {
   prefix     = module.dhcp_label.id
   region     = data.aws_region.current_region.id
   cidr_block = "10.180.80.0/22"
+  cidr_block_new_bits = 2
 
   providers = {
     aws = aws.env
@@ -63,7 +64,6 @@ module "admin_vpc" {
   prefix     = "${module.dhcp_label.id}-admin"
   region     = data.aws_region.current_region.id
   cidr_block = "10.0.0.0/16"
-  cidr_block_new_bits = 2
 
   providers = {
     aws = aws.env
