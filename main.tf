@@ -98,6 +98,7 @@ module "admin" {
   sentry_dsn                       = "tbc"
   secret_key_base                  = "tbc"
   kea_config_bucket_arn            = module.dhcp.kea_config_bucket_arn
+  kea_config_bucket_name           = module.dhcp.kea_config_bucket_name
   region                           = data.aws_region.current_region.id
   vpn_hosted_zone_id               = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain           = var.vpn_hosted_zone_domain

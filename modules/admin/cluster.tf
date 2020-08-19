@@ -103,6 +103,9 @@ resource "aws_ecs_task_definition" "admin_task" {
         },{
           "name": "S3_KEA_CONFIG_OBJECT_KEY",
           "value": "config.json"
+        },{
+          "name": "KEA_CONFIG_BUCKET",
+          "value": "${var.kea_config_bucket_name}"
         },
         {
           "name": "COGNITO_CLIENT_ID",

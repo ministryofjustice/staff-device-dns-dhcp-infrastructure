@@ -13,3 +13,7 @@ output "load_balancer" {
 output "kea_config_bucket_arn" {
     value = aws_s3_bucket.config_bucket.arn
 }
+
+output "kea_config_bucket_name" {
+  value = aws_s3_bucket.config_bucket.name
+}

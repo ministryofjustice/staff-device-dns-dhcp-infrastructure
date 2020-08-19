@@ -45,6 +45,10 @@ variable "kea_config_bucket_arn" {
   type = string
 }
 
+variable "kea_config_bucket_name" {
+  type = string
+}
+
 variable "vpn_hosted_zone_id" {
   type = string
 }
