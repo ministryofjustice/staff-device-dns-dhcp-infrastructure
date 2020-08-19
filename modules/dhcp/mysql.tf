@@ -11,7 +11,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   name                        = replace(var.prefix, "-", "")
   username                    = var.dhcp_db_username
   password                    = var.dhcp_db_password
-  backup_retention_period     = "30"
+  backup_retention_period     = "0"
   multi_az                    = true
   storage_encrypted           = true #TODO encrypt
   db_subnet_group_name        = aws_db_subnet_group.db.name
