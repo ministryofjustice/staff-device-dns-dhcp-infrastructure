@@ -15,5 +15,5 @@ output "kea_config_bucket_arn" {
 }
 
 output "kea_config_bucket_name" {
-  value = aws_s3_bucket.config_bucket.name
+  value = aws_s3_bucket.config_bucket.id
 }
