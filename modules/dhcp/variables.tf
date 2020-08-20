@@ -29,3 +29,11 @@ variable "dhcp_db_password" {
 variable "public_subnet_cidr_blocks" {
   type = list(string)
 }
+
+variable "dhcp_transit_gateway_id" {
+  type = string
+}
+
+variable "enable_dhcp_transit_gateway_attachment" {
+  type = bool
+}

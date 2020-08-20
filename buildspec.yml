@@ -9,6 +9,7 @@ env:
     TF_VAR_enable_critical_notifications: true
     TF_VAR_enable_authentication: true
     TF_VAR_admin_db_backup_retention_period: 30
+    TF_VAR_enable_dhcp_transit_gateway_attachment: false
   parameter-store:
     TF_VAR_assume_role: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
     TF_VAR_dhcp_db_username: "/codebuild/dhcp/$ENV/db/username"
@@ -19,6 +20,7 @@ env:
     TF_VAR_critical_notification_recipients: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/critical_notification_recipients"
     TF_VAR_vpn_hosted_zone_id: "/codebuild/$ENV/vpn_hosted_zone_id"
     TF_VAR_vpn_hosted_zone_domain: "/route53/$ENV/vpn_hosted_zone_domain"
+    TF_VAR_dhcp_transit_gateway_id: "/staff-device/dhcp/$ENV/transit_gateway_id"
 
 phases:
   install:

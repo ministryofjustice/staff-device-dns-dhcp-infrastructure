@@ -63,3 +63,12 @@ variable "admin_db_backup_retention_period" {
   type    = number
   default = 0
 }
+
+variable "dhcp_transit_gateway_id" {
+  type    = string
+}
+
+variable "enable_dhcp_transit_gateway_attachment" {
+  type    = bool
+  default = false
+}
