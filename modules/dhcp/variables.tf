@@ -37,3 +37,7 @@ variable "dhcp_transit_gateway_id" {
 variable "enable_dhcp_transit_gateway_attachment" {
   type = bool
 }
+
+variable "transit_gateway_route_table_id" {
+  type = string
+}

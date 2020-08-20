@@ -72,3 +72,7 @@ variable "enable_dhcp_transit_gateway_attachment" {
   type    = bool
   default = false
 }
+
+variable "transit_gateway_route_table_id" {
+  type    = string
+}

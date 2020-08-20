@@ -82,6 +82,7 @@ module "dhcp" {
   env                                    = var.env
   dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
   enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
+  transit_gateway_route_table_id         = var.transit_gateway_route_table_id
 
   providers = {
     aws = aws.env
