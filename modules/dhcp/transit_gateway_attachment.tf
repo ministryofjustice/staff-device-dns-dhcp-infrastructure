@@ -10,12 +10,12 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "dhcp_transit_gateway_attachme
 
 resource "aws_ec2_transit_gateway_route_table_association" "this" {
   count = var.enable_dhcp_transit_gateway_attachment ? 1 : 0
-  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.dhcp_transit_gateway_attachment.id
+  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.dhcp_transit_gateway_attachment[0].id
   transit_gateway_route_table_id = var.transit_gateway_route_table_id
 }
 
 resource "aws_ec2_transit_gateway_route_table_propagation" "this" {
   count = var.enable_dhcp_transit_gateway_attachment ? 1 : 0
-  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.dhcp_transit_gateway_attachment.id
+  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.dhcp_transit_gateway_attachment[0].id
   transit_gateway_route_table_id = var.transit_gateway_route_table_id
 }
