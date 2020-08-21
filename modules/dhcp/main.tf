@@ -1,11 +1,21 @@
 resource "aws_lb" "load_balancer" {
   name               = var.prefix
-  internal           = false
   load_balancer_type = "network"
+  internal = true
 
   subnet_mapping {
     subnet_id     = var.subnets[0]
-    allocation_id = aws_eip.public_ip.id
+    private_ipv4_address = var.load_balancer_private_ip_eu_west_2a
+  }
+
+  subnet_mapping {
+    subnet_id     = var.subnets[1]
+    private_ipv4_address = var.load_balancer_private_ip_eu_west_2b
+  }
+
+  subnet_mapping {
+    subnet_id     = var.subnets[2]
+    private_ipv4_address = var.load_balancer_private_ip_eu_west_2c
   }
 
   enable_deletion_protection = false
@@ -23,12 +33,6 @@ resource "aws_lb_target_group" "target_group" {
     protocol = "TCP"
     port = 80
   }
-}
-
-resource "aws_lb_target_group_attachment" "target_group_attachment" {
-  target_group_arn = aws_lb_target_group.target_group.arn
-  target_id        = aws_instance.dhcp_server.id
-  port             = 67
 }
 
 resource "aws_lb_listener" "udp" {

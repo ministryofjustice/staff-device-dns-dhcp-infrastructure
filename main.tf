@@ -17,11 +17,15 @@ provider "tls" {
 }
 
 provider "aws" {
-  version = "~> 2.68"
+  version = "~> 3.3"
   alias   = "env"
   assume_role {
     role_arn = var.assume_role
   }
+}
+
+provider "local" {
+  version = "~> 1.4"
 }
 
 module "dhcp_label" {
@@ -83,6 +87,9 @@ module "dhcp" {
   dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
   enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
   transit_gateway_route_table_id         = var.transit_gateway_route_table_id
+  load_balancer_private_ip_eu_west_2a    = var.load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b    = var.load_balancer_private_ip_eu_west_2b
+  load_balancer_private_ip_eu_west_2c    = var.load_balancer_private_ip_eu_west_2c
 
   providers = {
     aws = aws.env
