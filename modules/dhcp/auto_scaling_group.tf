@@ -48,7 +48,7 @@ resource "aws_launch_configuration" "dhcp_launch_configuration" {
   instance_type = "t2.medium"
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
   enable_monitoring = true
-  key_name = aws_key_pair.dhcp_public_key_pair.*.key_name
+  key_name = var.enable_ssh_key_generation ? aws_key_pair.dhcp_public_key_pair.*.key_name : ""
   user_data = <<DATA
 Content-Type: multipart/mixed; boundary="==BOUNDARY=="
 MIME-Version: 1.0
