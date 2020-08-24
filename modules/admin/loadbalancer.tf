@@ -25,4 +25,4 @@ resource "aws_lb" "admin_alb" {
 #     target_group_arn = aws_alb_target_group.admin_tg.arn
 #     type             = "forward"
 #   }
-}
+# }
