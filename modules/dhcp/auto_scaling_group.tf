@@ -30,25 +30,12 @@ resource "aws_placement_group" "dhcp_placement_group" {
   tags = var.tags
 }
 
-resource "tls_private_key" "ec2" {
-  count = var.enable_ssh_key_generation ? 1 : 0
-  algorithm = "RSA"
-}
-
-resource "aws_key_pair" "dhcp_public_key_pair" {
-  count = var.enable_ssh_key_generation ? 1 : 0
-  key_name   = var.prefix
-  public_key = tls_private_key.ec2[0].public_key_openssh
-  tags       = var.tags
-}
-
 resource "aws_launch_configuration" "dhcp_launch_configuration" {
   image_id      = data.aws_ami.dhcp_server.id
   security_groups = [aws_security_group.dhcp_server.id]
   instance_type = "t2.medium"
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
   enable_monitoring = true
-  key_name = var.enable_ssh_key_generation ? aws_key_pair.dhcp_public_key_pair.*.key_name : ""
   user_data = <<DATA
 Content-Type: multipart/mixed; boundary="==BOUNDARY=="
 MIME-Version: 1.0

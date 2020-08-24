@@ -53,7 +53,3 @@ variable "load_balancer_private_ip_eu_west_2b" {
 variable "load_balancer_private_ip_eu_west_2c" {
   type = string
 }
-
-variable "enable_ssh_key_generation" {
-  type = bool
-}

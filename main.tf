@@ -90,7 +90,6 @@ module "dhcp" {
   load_balancer_private_ip_eu_west_2a    = var.load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b    = var.load_balancer_private_ip_eu_west_2b
   load_balancer_private_ip_eu_west_2c    = var.load_balancer_private_ip_eu_west_2c
-  enable_ssh_key_generation              = var.enable_ssh_key_generation
 
   providers = {
     aws = aws.env
