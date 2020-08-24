@@ -25,4 +25,8 @@ resource "aws_alb_listener" "alb_listener" {
     target_group_arn = aws_alb_target_group.admin_tg.arn
     type             = "forward"
   }
+
+  depends_on = [
+    aws_acm_certificate.admin_lb
+  ]
 }
