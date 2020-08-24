@@ -1,15 +1,54 @@
-resource "aws_instance" "dhcp_server" {
-  ami           = data.aws_ami.dhcp_server.id
+resource "aws_autoscaling_group" "dhcp_auto_scaling_group" {
+  name                      = aws_launch_configuration.dhcp_launch_configuration.name
+  max_size                  = 2
+  min_size                  = 2
+  health_check_grace_period = 300
+  health_check_type         = "EC2"
+  desired_capacity          = 2
+  force_delete              = true
+  placement_group           = aws_placement_group.dhcp_placement_group.id
+  launch_configuration      = aws_launch_configuration.dhcp_launch_configuration.name
+  vpc_zone_identifier       = var.subnets
+  wait_for_capacity_timeout = "20m"
+
+  tag {
+    key                 = "AmazonECSManaged"
+    value               = "true"
+    propagate_at_launch = true
+  }
+
+  timeouts {
+    delete = "15m"
+  }
+
+}
+
+resource "aws_placement_group" "dhcp_placement_group" {
+  name     = "${var.prefix}-placement-group"
+  strategy = "spread"
+
+  tags = var.tags
+}
+
+resource "tls_private_key" "ec2" {
+  count = var.enable_ssh_key_generation ? 1 : 0
+  algorithm = "RSA"
+}
+
+resource "aws_key_pair" "dhcp_public_key_pair" {
+  count = var.enable_ssh_key_generation ? 1 : 0
+  key_name   = var.prefix
+  public_key = tls_private_key.ec2[0].public_key_openssh
+  tags       = var.tags
+}
+
+resource "aws_launch_configuration" "dhcp_launch_configuration" {
+  image_id      = data.aws_ami.dhcp_server.id
+  security_groups = [aws_security_group.dhcp_server.id]
   instance_type = "t2.medium"
-  subnet_id     = var.subnets[1]
-
-  vpc_security_group_ids = [
-    aws_security_group.dhcp_server.id
-  ]
-  associate_public_ip_address = true
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
-  monitoring           = true
-
+  enable_monitoring = true
+  key_name = aws_key_pair.dhcp_public_key_pair.*.key_name
   user_data = <<DATA
 Content-Type: multipart/mixed; boundary="==BOUNDARY=="
 MIME-Version: 1.0
@@ -55,7 +94,11 @@ MIME-Version: 1.0
 Content-Type: text/x-shellscript; charset="us-ascii"
 #!/bin/bash
 # Set cluster name
-echo ECS_CLUSTER=${aws_ecs_cluster.server_cluster.name} >> /etc/ecs/ecs.config
+
+# NOTE: this cluster name cannot be inferred by Terraform, it ends up with a cycle error
+# https://github.com/terraform-providers/terraform-provider-aws/issues/12739
+
+echo ECS_CLUSTER=${var.prefix}-cluster >> /etc/ecs/ecs.config
 
 --==BOUNDARY==
 MIME-Version: 1.0
@@ -147,8 +190,6 @@ end script
 --==BOUNDARY==--
 
 DATA
-
-  tags = var.tags
 
   lifecycle {
     create_before_destroy = true

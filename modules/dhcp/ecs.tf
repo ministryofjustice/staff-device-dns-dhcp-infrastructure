@@ -1,5 +1,28 @@
 resource "aws_ecs_cluster" "server_cluster" {
   name = "${var.prefix}-cluster"
+  capacity_providers = [
+    aws_ecs_capacity_provider.dhcp_capacity_provider.name
+  ]
+}
+
+resource "aws_ecs_capacity_provider" "dhcp_capacity_provider" {
+  name = aws_autoscaling_group.dhcp_auto_scaling_group.name
+
+  auto_scaling_group_provider {
+    auto_scaling_group_arn         = aws_autoscaling_group.dhcp_auto_scaling_group.arn
+    managed_termination_protection = "DISABLED"
+
+    managed_scaling {
+      maximum_scaling_step_size = 100
+      minimum_scaling_step_size = 1
+      status                    = "ENABLED"
+      target_capacity           = 3
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_ecs_task_definition" "server_task" {
@@ -88,11 +111,11 @@ resource "aws_ecs_service" "service" {
     field = "instanceId"
   }
 
-  # load_balancer {
-  #   target_group_arn = aws_lb_target_group.target_group.arn
-  #   container_name   = "dhcp-server"
-  #   container_port   = "67"
-  # }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.target_group.arn
+    container_name   = "dhcp-server"
+    container_port   = "67"
+  }
 }
 
 resource "aws_ecr_repository" "docker_dhcp_repository" {
@@ -135,28 +158,4 @@ resource "aws_ecr_repository_policy" "docker_dhcp_repository_policy" {
     ]
 }
 EOF
-}
-
-resource "aws_s3_bucket" "config_bucket" {
-  bucket = "${var.prefix}-config-bucket"
-  acl    = "private"
-  tags   = var.tags
-  versioning {
-    enabled = true
-  }
-}
-
-data "template_file" "config_bucket_policy" {
-  template = file("${path.module}/policies/config_bucket_policy.json")
-
-  vars = {
-    config_bucket_arn = aws_s3_bucket.config_bucket.arn,
-    ecs_task_role_arn = aws_iam_role.ecs_task_role.arn
-  }
-}
-
-resource "aws_s3_bucket_policy" "config_bucket_policy" {
-  bucket = aws_s3_bucket.config_bucket.id
-
-  policy = data.template_file.config_bucket_policy.rendered
 }

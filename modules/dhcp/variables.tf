@@ -41,3 +41,19 @@ variable "enable_dhcp_transit_gateway_attachment" {
 variable "transit_gateway_route_table_id" {
   type = string
 }
+
+variable "load_balancer_private_ip_eu_west_2a" {
+  type = string
+}
+
+variable "load_balancer_private_ip_eu_west_2b" {
+  type = string
+}
+
+variable "load_balancer_private_ip_eu_west_2c" {
+  type = string
+}
+
+variable "enable_ssh_key_generation" {
+  type = bool
+}
