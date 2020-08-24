@@ -31,11 +31,14 @@ resource "aws_placement_group" "dhcp_placement_group" {
 }
 
 resource "tls_private_key" "ec2" {
+  count = var.enable_ssh_key_generation ? 1 : 0
   algorithm = "RSA"
 }
-resource "aws_key_pair" "bastion_public_key_pair" {
+
+resource "aws_key_pair" "dhcp_public_key_pair" {
+  count = var.enable_ssh_key_generation ? 1 : 0
   key_name   = var.prefix
-  public_key = tls_private_key.ec2.public_key_openssh
+  public_key = tls_private_key.ec2[0].public_key_openssh
   tags       = var.tags
 }
 
@@ -45,7 +48,7 @@ resource "aws_launch_configuration" "dhcp_launch_configuration" {
   instance_type = "t2.medium"
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
   enable_monitoring = true
-  key_name = aws_key_pair.bastion_public_key_pair.key_name
+  key_name = aws_key_pair.dhcp_public_key_pair.*.key_name
   user_data = <<DATA
 Content-Type: multipart/mixed; boundary="==BOUNDARY=="
 MIME-Version: 1.0
@@ -91,6 +94,10 @@ MIME-Version: 1.0
 Content-Type: text/x-shellscript; charset="us-ascii"
 #!/bin/bash
 # Set cluster name
+
+# NOTE: this cluster name cannot be inferred by Terraform, it ends up with a cycle error
+# https://github.com/terraform-providers/terraform-provider-aws/issues/12739
+
 echo ECS_CLUSTER=${var.prefix}-cluster >> /etc/ecs/ecs.config
 
 --==BOUNDARY==
@@ -184,7 +191,7 @@ end script
 
 DATA
 
-lifecycle {
+  lifecycle {
     create_before_destroy = true
   }
 }
