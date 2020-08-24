@@ -32,42 +32,19 @@ resource "aws_ecs_task_definition" "acceptance_test_task" {
         "hostPort": 68,
         "containerPort": 68,
         "protocol": "udp"
+      },
+      {
+        "hostPort": 67,
+        "containerPort": 67,
+        "protocol": "udp"
       }
     ],
     "essential": true,
     "name": "dhcp-acceptance-test",
     "environment": [
       {
-        "name": "DB_NAME",
-        "value": "${aws_db_instance.dhcp_server_db.name}"
-      },
-      {
-        "name": "DB_USER",
-        "value": "${var.dhcp_db_username}"
-      },
-      {
-        "name": "DB_PASS",
-        "value": "${var.dhcp_db_password}"
-      },
-      {
-        "name": "DB_HOST",
-        "value": "${aws_db_instance.dhcp_server_db.address}"
-      },
-      {
-        "name": "DB_PORT",
-        "value": "${aws_db_instance.dhcp_server_db.port}"
-      },
-      {
-        "name": "INTERFACE",
-        "value": "eth0"
-      },
-      {
-        "name": "KEA_CONFIG_BUCKET_NAME",
-        "value": "${var.prefix}-config-bucket"
-      },
-      {
-        "name": "ENV",
-        "value": "test"
+        "name": "DHCP_SERVER_IP",
+        "value": "${var.load_balancer_private_ip_eu_west_2a}"
       }
     ],
     "image": "${aws_ecr_repository.docker_dhcp_acceptance_test_repository.repository_url}",
