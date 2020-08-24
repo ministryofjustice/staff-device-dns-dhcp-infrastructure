@@ -15,9 +15,9 @@ output "identifierUris" {
 }
 
 output "cognito_user_pool_id" {
-  value = module.cognito.cognito_user_pool_id
+  value = var.enable_authentication ? module.cognito.cognito_user_pool_id : ""
 }
 
 output "cognito_user_pool_client_secret" {
-  value = module.cognito.cognito_user_pool_client_secret
+  value = var.enable_authentication ? module.cognito.cognito_user_pool_client_secret : ""
 }
