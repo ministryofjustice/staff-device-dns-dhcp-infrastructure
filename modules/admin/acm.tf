@@ -9,7 +9,7 @@ resource "aws_acm_certificate" "admin_lb" {
   tags = var.tags
 }
 
-resource "aws_acm_certificate_validation" "admin_lb" {
-  certificate_arn         = aws_acm_certificate.admin_lb.arn
-  validation_record_fqdns = [for record in aws_route53_record.admin_lb_verification : record.fqdn]
-}
+# resource "aws_acm_certificate_validation" "admin_lb" {
+#   certificate_arn         = aws_acm_certificate.admin_lb.arn
+#   validation_record_fqdns = [for record in aws_route53_record.admin_lb_verification : record.fqdn]
+# }
