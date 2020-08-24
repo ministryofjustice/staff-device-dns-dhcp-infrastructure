@@ -11,5 +11,5 @@ resource "aws_acm_certificate" "admin_lb" {
 
 resource "aws_acm_certificate_validation" "admin_lb" {
   certificate_arn         = aws_acm_certificate.admin_lb.arn
-  validation_record_fqdns = aws_route53_record.admin_lb_verification.*.fqdn
+  validation_record_fqdns = [for record in aws_route53_record.admin_lb_verification : record.fqdn]
 }
