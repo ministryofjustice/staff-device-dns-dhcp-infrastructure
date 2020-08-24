@@ -16,6 +16,7 @@ resource "aws_cloudwatch_log_group" "acceptance_test_log_group" {
 resource "aws_ecs_task_definition" "acceptance_test_task" {
   family        = "${var.prefix}-acceptance-test-task"
   task_role_arn = aws_iam_role.ecs_task_role.arn
+  requires_compatibilities = ["FARGATE"]
 
   # Port 80 is required to be mapped for healthchecks over TCP
   container_definitions = <<EOF
