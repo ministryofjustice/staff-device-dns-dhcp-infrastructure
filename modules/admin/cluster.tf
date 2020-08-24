@@ -140,7 +140,7 @@ EOF
 }
 
 resource "aws_ecs_service" "admin-service" {
-  # depends_on      = [aws_alb_listener.alb_listener]
+  depends_on      = [aws_alb_listener.alb_listener]
   name            = var.prefix
   cluster         = aws_ecs_cluster.admin_cluster.id
   task_definition = aws_ecs_task_definition.admin_task.arn
