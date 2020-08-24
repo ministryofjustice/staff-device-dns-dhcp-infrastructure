@@ -38,7 +38,6 @@ phases:
     commands:
       - export AWS_DEFAULT_REGION=eu-west-2
       - terraform init -no-color --backend-config="key=terraform.$ENV.state"
-      - terraform destroy -no-color
       - terraform workspace new $ENV || true
       - terraform workspace select $ENV
       - terraform apply --auto-approve -no-color
