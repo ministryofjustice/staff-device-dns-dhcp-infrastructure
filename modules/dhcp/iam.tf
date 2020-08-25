@@ -44,6 +44,12 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
         "ec2:DescribeTags"
       ],
       "Resource": "*"
+    },{
+      "Effect": "Allow",
+      "Action": [
+        "sns:Publish"
+      ],
+      "Resource": "*"
     }
   ]
 }
