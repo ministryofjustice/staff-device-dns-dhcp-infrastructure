@@ -78,8 +78,8 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "${var.prefix}-config-bucket"
       },
       {
-        "name": "ENV",
-        "value": "test"
+        "name": "CRITICAL_NOTIFICATIONS_ARN",
+        "value": "${var.critical_notifications_arn}"
       }
     ],
     "image": "${aws_ecr_repository.docker_dhcp_repository.repository_url}",
