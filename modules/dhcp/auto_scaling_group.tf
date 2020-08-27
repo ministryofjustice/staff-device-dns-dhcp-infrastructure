@@ -1,10 +1,10 @@
 resource "aws_autoscaling_group" "dhcp_auto_scaling_group" {
   name                      = aws_launch_configuration.dhcp_launch_configuration.name
-  max_size                  = 5
-  min_size                  = 2
+  max_size                  = 3
+  min_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "EC2"
-  desired_capacity          = 3
+  desired_capacity          = 2
   force_delete              = true
   placement_group           = aws_placement_group.dhcp_placement_group.id
   launch_configuration      = aws_launch_configuration.dhcp_launch_configuration.name
