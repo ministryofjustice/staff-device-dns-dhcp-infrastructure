@@ -1,5 +1,10 @@
 resource "aws_ecs_cluster" "server_cluster" {
   name = "${var.prefix}-cluster"
+
+  default_capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.dhcp_capacity_provider.name
+    base = 3
+  }
 }
 
 resource "aws_ecs_capacity_provider" "dhcp_capacity_provider" {
