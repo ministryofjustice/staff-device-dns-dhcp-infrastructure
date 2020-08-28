@@ -65,3 +65,7 @@ variable "vpn_hosted_zone_id" {
 variable "vpn_hosted_zone_domain" {
   type = string
 }
+
+variable "short_prefix" {
+  type = string
+}

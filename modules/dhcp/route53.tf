@@ -1,4 +1,4 @@
-resource "aws_route53_record" "kea_lease_db" {
+resource "aws_route53_record" "dhcp_server_db" {
   zone_id        = var.vpn_hosted_zone_id
   name           = "staff-device-dhcp-lease-db-${var.short_prefix}.${var.vpn_hosted_zone_domain}"
   type           = "A"
