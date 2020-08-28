@@ -17,7 +17,7 @@ provider "tls" {
 }
 
 provider "aws" {
-  version = "~> 3.3"
+  version = "~> 3.4"
   alias   = "env"
   assume_role {
     role_arn = var.assume_role
