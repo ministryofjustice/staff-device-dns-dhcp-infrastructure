@@ -98,17 +98,22 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
        "ecr:*"
       ],
       "Resource": "*"
-    },
-    {
+    }, {
       "Effect": "Allow",
       "Action": [
        "s3:GetObject"
       ],
       "Resource": "${aws_s3_bucket.config_bucket.arn}/config.json"
-    },{
+    }, {
       "Effect": "Allow",
       "Action": [
         "sns:Publish"
+      ],
+      "Resource": "*"
+    }, {
+      "Effect": "Allow",
+      "Action": [
+        "cloudWatch:PutMetricData"
       ],
       "Resource": "*"
     }
