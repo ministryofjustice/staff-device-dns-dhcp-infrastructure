@@ -39,8 +39,8 @@ resource "aws_route53_record" "admin_db" {
   set_identifier = var.region
 
   alias {
-    name                   = aws_db_instance.admin_db.dns_name
-    zone_id                = aws_db_instance.admin_db.zone_id
+    name                   = aws_db_instance.admin_db.address
+    zone_id                = aws_db_instance.admin_db.hosted_zone_id
     evaluate_target_health = true
   }
 
