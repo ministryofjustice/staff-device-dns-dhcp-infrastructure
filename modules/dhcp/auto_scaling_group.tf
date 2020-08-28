@@ -20,7 +20,6 @@ resource "aws_autoscaling_group" "dhcp_auto_scaling_group" {
   timeouts {
     delete = "15m"
   }
-
 }
 
 resource "aws_placement_group" "dhcp_placement_group" {
