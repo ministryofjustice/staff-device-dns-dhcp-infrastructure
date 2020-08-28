@@ -21,10 +21,6 @@ resource "aws_ecs_capacity_provider" "dhcp_capacity_provider" {
       target_capacity           = 3
     }
   }
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_ecs_task_definition" "server_task" {
