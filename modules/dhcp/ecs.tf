@@ -1,10 +1,5 @@
 resource "aws_ecs_cluster" "server_cluster" {
   name = "${var.prefix}-cluster"
-
-  default_capacity_provider_strategy {
-    capacity_provider = aws_ecs_capacity_provider.dhcp_capacity_provider.name
-    base = 3
-  }
 }
 
 resource "aws_ecs_capacity_provider" "dhcp_capacity_provider" {
@@ -38,12 +33,10 @@ resource "aws_ecs_task_definition" "server_task" {
     "memory": 1500,
     "portMappings": [
       {
-        "hostPort": 80,
         "containerPort": 80,
         "protocol": "tcp"
       },
       {
-        "hostPort": 67,
         "containerPort": 67,
         "protocol": "udp"
       }
@@ -117,6 +110,16 @@ resource "aws_ecs_service" "service" {
     target_group_arn = aws_lb_target_group.target_group.arn
     container_name   = "dhcp-server"
     container_port   = "67"
+  }
+
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.dhcp_capacity_provider.name
+    weight = 1
+    base = 1
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count]
   }
 }
 

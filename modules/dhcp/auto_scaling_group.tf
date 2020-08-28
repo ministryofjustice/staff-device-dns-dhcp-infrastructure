@@ -13,7 +13,7 @@ resource "aws_autoscaling_group" "dhcp_auto_scaling_group" {
 
   tag {
     key                 = "AmazonECSManaged"
-    value               = "true"
+    value               = "AmazonECSManaged"
     propagate_at_launch = true
   }
 
