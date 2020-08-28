@@ -23,7 +23,7 @@ resource "aws_appautoscaling_policy" "ecs_policy_up" {
     }
   }
 
-  depends_on = ["aws_appautoscaling_target.auth_ecs_target"]
+  depends_on = [aws_appautoscaling_target.auth_ecs_target]
 }
 
 resource "aws_appautoscaling_policy" "ecs_policy_down" {
@@ -52,9 +52,9 @@ resource "aws_cloudwatch_metric_alarm" "dhcp_ecs_cpu_alarm_high" {
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
-  period              = "60"
+  period              = "300"
   statistic           = "Average"
-  threshold           = "5"
+  threshold           = "50"
 
   dimensions = {
     ClusterName = "${aws_ecs_cluster.server_cluster.name}"
@@ -76,9 +76,9 @@ resource "aws_cloudwatch_metric_alarm" "dhcp_ecs_cpu_alarm_low" {
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
-  period              = "60"
+  period              = "300"
   statistic           = "Average"
-  threshold           = "2"
+  threshold           = "10"
 
   dimensions = {
     ClusterName = "${aws_ecs_cluster.server_cluster.name}"

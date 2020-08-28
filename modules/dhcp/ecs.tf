@@ -114,8 +114,8 @@ resource "aws_ecs_service" "service" {
   desired_count   = "2"
 
   ordered_placement_strategy {
-    type  = "spread"
-    field = "instanceId"
+    type  = "binpack"
+    field = "cpu"
   }
 
   load_balancer {
