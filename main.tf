@@ -91,6 +91,8 @@ module "dhcp" {
   load_balancer_private_ip_eu_west_2b    = var.load_balancer_private_ip_eu_west_2b
   load_balancer_private_ip_eu_west_2c    = var.load_balancer_private_ip_eu_west_2c
   critical_notifications_arn             = module.alarms.critical_notifications_arn
+  vpn_hosted_zone_id                     = var.vpn_hosted_zone_id
+  vpn_hosted_zone_domain                 = var.vpn_hosted_zone_domain
 
   providers = {
     aws = aws.env
