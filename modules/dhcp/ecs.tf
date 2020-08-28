@@ -33,10 +33,12 @@ resource "aws_ecs_task_definition" "server_task" {
     "memory": 1500,
     "portMappings": [
       {
+        "hostPort": 80,
         "containerPort": 80,
         "protocol": "tcp"
       },
       {
+        "hostPort": 67,
         "containerPort": 67,
         "protocol": "udp"
       }
