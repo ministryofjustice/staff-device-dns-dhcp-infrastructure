@@ -94,6 +94,7 @@ module "dhcp" {
   vpn_hosted_zone_id                     = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain                 = var.vpn_hosted_zone_domain
   short_prefix                           = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  region                                 = data.aws_region.current_region.id
 
   providers = {
     aws = aws.env
