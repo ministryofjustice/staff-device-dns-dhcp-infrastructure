@@ -25,7 +25,7 @@ resource "aws_acm_certificate" "admin_db" {
   tags = var.tags
 }
 
-resource "aws_acm_certificate_validation" "admin_db" {
-  certificate_arn         = aws_acm_certificate.admin_db.arn
-  validation_record_fqdns = [for record in aws_route53_record.admin_db_verification : record.fqdn]
-}
+# resource "aws_acm_certificate_validation" "admin_db" {
+#   certificate_arn         = aws_acm_certificate.admin_db.arn
+#   validation_record_fqdns = [for record in aws_route53_record.admin_db_verification : record.fqdn]
+# }
