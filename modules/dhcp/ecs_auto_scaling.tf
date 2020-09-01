@@ -43,7 +43,7 @@ resource "aws_appautoscaling_policy" "ecs_policy_down" {
     }
   }
 
-  depends_on = ["aws_appautoscaling_target.auth_ecs_target"]
+  depends_on = [aws_appautoscaling_target.auth_ecs_target]
 }
 
 resource "aws_cloudwatch_metric_alarm" "dhcp_ecs_cpu_alarm_high" {
