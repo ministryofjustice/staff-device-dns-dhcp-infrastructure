@@ -76,9 +76,9 @@ resource "aws_cloudwatch_metric_alarm" "dhcp_ecs_cpu_alarm_low" {
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
-  period              = "300"
+  period              = "120"
   statistic           = "Average"
-  threshold           = "10"
+  threshold           = "1"
 
   dimensions = {
     ClusterName = "${aws_ecs_cluster.server_cluster.name}"
