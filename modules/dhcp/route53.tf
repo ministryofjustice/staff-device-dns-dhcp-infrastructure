@@ -1,18 +1,9 @@
 resource "aws_route53_record" "dhcp_server_db" {
-  zone_id        = var.vpn_hosted_zone_id
-  name           = "dhcp-lease-db-${var.short_prefix}.${var.vpn_hosted_zone_domain}"
-  type           = "A"
-  set_identifier = var.region
-
-  alias {
-    name                   = aws_db_instance.dhcp_server_db.address
-    zone_id                = aws_db_instance.dhcp_server_db.hosted_zone_id
-    evaluate_target_health = true
-  }
-
-  latency_routing_policy {
-    region = var.region
-  }
+  zone_id = var.vpn_hosted_zone_id
+  name    = "dhcp-lease-db-${var.short_prefix}.${var.vpn_hosted_zone_domain}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [aws_db_instance.dhcp_server_db.address]
 }
 
 resource "aws_route53_record" "kea_lease_db_verification" {
