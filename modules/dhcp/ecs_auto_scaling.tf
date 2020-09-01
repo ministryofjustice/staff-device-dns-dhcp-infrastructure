@@ -2,7 +2,7 @@ resource "aws_appautoscaling_target" "auth_ecs_target" {
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.server_cluster.name}/${aws_ecs_service.service.name}"
   max_capacity       = 20
-  min_capacity       = 2
+  min_capacity       = 3
   scalable_dimension = "ecs:service:DesiredCount"
 }
 
@@ -52,9 +52,9 @@ resource "aws_cloudwatch_metric_alarm" "dhcp_ecs_cpu_alarm_high" {
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
-  period              = "300"
+  period              = "60"
   statistic           = "Average"
-  threshold           = "50"
+  threshold           = "20"
 
   dimensions = {
     ClusterName = "${aws_ecs_cluster.server_cluster.name}"
