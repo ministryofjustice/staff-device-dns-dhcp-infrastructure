@@ -9,7 +9,7 @@ resource "aws_acm_certificate" "dhcp_server_db" {
   tags = var.tags
 }
 
-# resource "aws_acm_certificate_validation" "dhcp_server_db" {
-#   certificate_arn         = aws_acm_certificate.dhcp_server_db.arn
-#   validation_record_fqdns = [for record in aws_route53_record.kea_lease_db_verification : record.fqdn]
-# }
+resource "aws_acm_certificate_validation" "dhcp_server_db" {
+  certificate_arn         = aws_acm_certificate.dhcp_server_db.arn
+  validation_record_fqdns = [for record in aws_route53_record.kea_lease_db_verification : record.fqdn]
+}
