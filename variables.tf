@@ -65,7 +65,7 @@ variable "admin_db_backup_retention_period" {
 }
 
 variable "dhcp_transit_gateway_id" {
-  type    = string
+  type = string
 }
 
 variable "enable_dhcp_transit_gateway_attachment" {
@@ -74,7 +74,7 @@ variable "enable_dhcp_transit_gateway_attachment" {
 }
 
 variable "transit_gateway_route_table_id" {
-  type    = string
+  type = string
 }
 
 variable "load_balancer_private_ip_eu_west_2a" {

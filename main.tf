@@ -52,10 +52,10 @@ data "aws_region" "current_region" {}
 data "aws_caller_identity" "shared_services_account" {}
 
 module "vpc" {
-  source     = "./modules/vpc"
-  prefix     = module.dhcp_label.id
-  region     = data.aws_region.current_region.id
-  cidr_block = "10.180.80.0/22"
+  source              = "./modules/vpc"
+  prefix              = module.dhcp_label.id
+  region              = data.aws_region.current_region.id
+  cidr_block          = "10.180.80.0/22"
   cidr_block_new_bits = 2
 
   providers = {
@@ -152,5 +152,33 @@ module "alarms" {
   admin_db_identifier              = module.admin.admin_db_identifier
   providers = {
     aws = aws.env
+  }
+}
+
+module "dns" {
+  source = "./modules/dns"
+  prefix = module.dns_label.id
+  providers = {
+    aws = aws.env
+  }
+}
+
+module "dns_label" {
+  source  = "cloudposse/label/null"
+  version = "0.16.0"
+
+  namespace = "staff-device"
+  stage     = terraform.workspace
+  name      = "dns"
+  delimiter = "-"
+
+  tags = {
+    "business-unit" = "MoJO"
+    "application"   = "dns-dhcp",
+    "is-production" = tostring(var.is_production),
+    "owner"         = var.owner_email
+
+    "environment-name" = "global"
+    "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
   }
 }
