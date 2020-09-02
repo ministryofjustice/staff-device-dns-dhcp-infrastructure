@@ -1,6 +1,6 @@
 resource "aws_autoscaling_group" "dns_auto_scaling_group" {
   name                      = aws_launch_configuration.dns_launch_configuration.name
-  max_size                  = 10
+  max_size                  = 3
   min_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "EC2"

@@ -1,7 +1,7 @@
 resource "aws_appautoscaling_target" "auth_ecs_target" {
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.server_cluster.name}/${aws_ecs_service.service.name}"
-  max_capacity       = 20
+  max_capacity       = 10
   min_capacity       = 3
   scalable_dimension = "ecs:service:DesiredCount"
 }
@@ -54,7 +54,7 @@ resource "aws_cloudwatch_metric_alarm" "dns_ecs_cpu_alarm_high" {
   namespace           = "AWS/ECS"
   period              = "60"
   statistic           = "Average"
-  threshold           = "20"
+  threshold           = "70"
 
   dimensions = {
     ClusterName = "${aws_ecs_cluster.server_cluster.name}"
