@@ -87,9 +87,9 @@ module "dhcp" {
   dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
   enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
   transit_gateway_route_table_id         = var.transit_gateway_route_table_id
-  load_balancer_private_ip_eu_west_2a    = var.load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b    = var.load_balancer_private_ip_eu_west_2b
-  load_balancer_private_ip_eu_west_2c    = var.load_balancer_private_ip_eu_west_2c
+  load_balancer_private_ip_eu_west_2a    = var.dhcp_load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b    = var.dhcp_load_balancer_private_ip_eu_west_2b
+  load_balancer_private_ip_eu_west_2c    = var.dhcp_load_balancer_private_ip_eu_west_2c
   critical_notifications_arn             = module.alarms.critical_notifications_arn
   vpn_hosted_zone_id                     = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain                 = var.vpn_hosted_zone_domain
@@ -156,11 +156,15 @@ module "alarms" {
 }
 
 module "dns" {
-  source  = "./modules/dns"
-  prefix  = module.dns_label.id
-  subnets = module.vpc.public_subnets
-  tags    = module.dns_label.tags
-  vpc_id  = module.vpc.vpc_id
+  source                              = "./modules/dns"
+  prefix                              = module.dns_label.id
+  subnets                             = module.vpc.public_subnets
+  tags                                = module.dns_label.tags
+  critical_notifications_arn          = module.alarms.critical_notifications_arn
+  load_balancer_private_ip_eu_west_2a = var.dns_load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
+  load_balancer_private_ip_eu_west_2c = var.dns_load_balancer_private_ip_eu_west_2c
+  vpc_id                              = module.vpc.vpc_id
   providers = {
     aws = aws.env
   }
