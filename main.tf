@@ -156,8 +156,11 @@ module "alarms" {
 }
 
 module "dns" {
-  source = "./modules/dns"
-  prefix = module.dns_label.id
+  source  = "./modules/dns"
+  prefix  = module.dns_label.id
+  subnets = module.vpc.public_subnets
+  tags    = module.dns_label.tags
+  vpc_id  = module.vpc.vpc_id
   providers = {
     aws = aws.env
   }
