@@ -15,19 +15,19 @@ resource "aws_route53_record" "dhcp_server_db" {
   }
 }
 
-resource "aws_route53_record" "kea_lease_db_verification" {
-  zone_id = var.vpn_hosted_zone_id
-  ttl     = 60
+# resource "aws_route53_record" "kea_lease_db_verification" {
+#   zone_id = var.vpn_hosted_zone_id
+#   ttl     = 60
 
-  for_each = {
-    for dvo in aws_acm_certificate.dhcp_server_db.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
+#   for_each = {
+#     for dvo in aws_acm_certificate.dhcp_server_db.domain_validation_options : dvo.domain_name => {
+#       name   = dvo.resource_record_name
+#       record = dvo.resource_record_value
+#       type   = dvo.resource_record_type
+#     }
+#   }
 
-  name    = each.value.name
-  records = [each.value.record]
-  type    = each.value.type
-}
+#   name    = each.value.name
+#   records = [each.value.record]
+#   type    = each.value.type
+# }
