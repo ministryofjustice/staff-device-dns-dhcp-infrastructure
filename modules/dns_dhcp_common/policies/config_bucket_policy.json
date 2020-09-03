@@ -3,7 +3,7 @@
     "Id": "ConfigFetch",
     "Statement": [
         {
-            "Sid": "Get DHCP config",
+            "Sid": "Get configuration file",
             "Effect": "Allow",
             "Principal": {
               "AWS": "${ecs_task_role_arn}"

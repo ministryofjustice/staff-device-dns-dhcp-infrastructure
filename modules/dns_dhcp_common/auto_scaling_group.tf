@@ -1,13 +1,13 @@
-resource "aws_autoscaling_group" "dhcp_auto_scaling_group" {
-  name                      = aws_launch_configuration.dhcp_launch_configuration.name
+resource "aws_autoscaling_group" "auto_scaling_group" {
+  name                      = aws_launch_configuration.launch_configuration.name
   max_size                  = 3
   min_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "EC2"
   desired_capacity          = 2
   force_delete              = true
-  placement_group           = aws_placement_group.dhcp_placement_group.id
-  launch_configuration      = aws_launch_configuration.dhcp_launch_configuration.name
+  placement_group           = aws_placement_group.placement_group.id
+  launch_configuration      = aws_launch_configuration.launch_configuration.name
   vpc_zone_identifier       = var.subnets
   wait_for_capacity_timeout = "20m"
 
@@ -22,16 +22,16 @@ resource "aws_autoscaling_group" "dhcp_auto_scaling_group" {
   }
 }
 
-resource "aws_placement_group" "dhcp_placement_group" {
+resource "aws_placement_group" "placement_group" {
   name     = "${var.prefix}-placement-group"
   strategy = "spread"
 
   tags = var.tags
 }
 
-resource "aws_launch_configuration" "dhcp_launch_configuration" {
-  image_id      = data.aws_ami.dhcp_server.id
-  security_groups = [aws_security_group.dhcp_server.id]
+resource "aws_launch_configuration" "launch_configuration" {
+  image_id      = data.aws_ami.server.id
+  security_groups = [var.security_group_id]
   instance_type = "t2.medium"
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
   enable_monitoring = true
@@ -182,7 +182,7 @@ DATA
   }
 }
 
-data "aws_ami" "dhcp_server" {
+data "aws_ami" "server" {
   most_recent      = true
   name_regex       = "^amzn-ami-.*-amazon-ecs-optimized$"
   owners           = ["amazon"]
