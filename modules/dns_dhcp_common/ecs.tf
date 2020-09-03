@@ -5,11 +5,6 @@ resource "aws_ecs_cluster" "server_cluster" {
     aws_ecs_capacity_provider.capacity_provider.name
   ]
 
-  default_capacity_provider_strategy {
-    capacity_provider = aws_ecs_capacity_provider.capacity_provider.name
-    weight = 1
-  }
-
   setting {
     name = "containerInsights"
     value = "enabled"
@@ -37,6 +32,11 @@ resource "aws_ecs_service" "service" {
   cluster         = aws_ecs_cluster.server_cluster.id
   task_definition = var.task_definition_arn
   desired_count   = "2"
+
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.capacity_provider.name
+    weight = 100
+  }
 
   ordered_placement_strategy {
     type  = "binpack"
