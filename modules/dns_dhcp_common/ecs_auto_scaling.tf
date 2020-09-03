@@ -46,8 +46,8 @@ resource "aws_appautoscaling_policy" "ecs_policy_down" {
   depends_on = [aws_appautoscaling_target.auth_ecs_target]
 }
 
-resource "aws_cloudwatch_metric_alarm" "dns_ecs_cpu_alarm_high" {
-  alarm_name          = "${var.prefix}-dns-ecs-cpu-alarm-high"
+resource "aws_cloudwatch_metric_alarm" "ecs_cpu_alarm_high" {
+  alarm_name          = "${var.prefix}-ecs-cpu-alarm-high"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
@@ -70,8 +70,8 @@ resource "aws_cloudwatch_metric_alarm" "dns_ecs_cpu_alarm_high" {
   treat_missing_data = "breaching"
 }
 
-resource "aws_cloudwatch_metric_alarm" "dns_ecs_cpu_alarm_low" {
-  alarm_name          = "${var.prefix}-dns-ecs-cpu-alarm-low"
+resource "aws_cloudwatch_metric_alarm" "ecs_cpu_alarm_low" {
+  alarm_name          = "${var.prefix}-ecs-cpu-alarm-low"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
