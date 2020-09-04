@@ -11,11 +11,11 @@ resource "aws_autoscaling_group" "auto_scaling_group" {
   vpc_zone_identifier       = var.subnets
   wait_for_capacity_timeout = "20m"
 
-  tag {
+  tags = concat([var.tags], [{
     key                 = "AmazonECSManaged"
     value               = "AmazonECSManaged"
     propagate_at_launch = true
-  }
+  }])
 
   timeouts {
     delete = "15m"
@@ -30,7 +30,7 @@ resource "aws_placement_group" "placement_group" {
 }
 
 resource "aws_launch_configuration" "launch_configuration" {
-  name            = "${var.prefix}-server-launch-confguration"
+  name_prefix   = var.prefix
   image_id      = data.aws_ami.server.id
   security_groups = [var.security_group_id]
   instance_type = "t2.medium"
