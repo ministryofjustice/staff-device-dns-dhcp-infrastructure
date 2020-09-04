@@ -30,6 +30,7 @@ resource "aws_placement_group" "placement_group" {
 }
 
 resource "aws_launch_configuration" "launch_configuration" {
+  name            = "${var.prefix}-server-launch-confguration"
   image_id      = data.aws_ami.server.id
   security_groups = [var.security_group_id]
   instance_type = "t2.medium"
