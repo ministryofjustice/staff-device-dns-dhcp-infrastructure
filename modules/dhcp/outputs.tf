@@ -10,8 +10,12 @@ output "kea_config_bucket_name" {
   value = module.dns_dhcp_common.s3.config_bucket_name
 }
 
-output "dhcp_cluster_name" {
-  value = module.dns_dhcp_common.ecs.cluster_name
+output "ecs" {
+  value = {
+    cluster_name = module.dns_dhcp_common.ecs.cluster_name
+    service_name = module.dns_dhcp_common.ecs.service_name
+    task_definition_name = aws_ecs_task_definition.server_task.family
+  }
 }
 
 output "load_balancer" {
