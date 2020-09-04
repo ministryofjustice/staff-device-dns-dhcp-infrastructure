@@ -142,7 +142,7 @@ module "cognito" {
 
 module "alarms" {
   source                           = "./modules/alarms"
-  dhcp_cluster_name                = module.dhcp.dhcp_cluster_name
+  dhcp_cluster_name                = module.dhcp.ecs.cluster_name
   prefix                           = module.dhcp_label.id
   enable_critical_notifications    = var.enable_critical_notifications
   critical_notification_recipients = var.critical_notification_recipients
