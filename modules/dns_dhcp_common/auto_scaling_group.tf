@@ -15,6 +15,10 @@ resource "aws_autoscaling_group" "auto_scaling_group" {
     key                 = "AmazonECSManaged"
     value               = "AmazonECSManaged"
     propagate_at_launch = true
+  }, {
+    key                 = "Name"
+    value               = var.prefix
+    propagate_at_launch = true
   }])
 
   timeouts {
