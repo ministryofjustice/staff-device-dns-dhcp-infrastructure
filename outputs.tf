@@ -1,9 +1,7 @@
 output "terraform_outputs" {
   value = {
     dhcp = {
-      ecs = {
-        module.dhcp.ecs
-      }
+      ecs = module.dhcp.ecs
     }
   }
 }
