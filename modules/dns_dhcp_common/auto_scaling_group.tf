@@ -40,6 +40,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   instance_type = "t2.medium"
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
   enable_monitoring = true
+  associate_public_ip_address = false
   user_data = <<DATA
 Content-Type: multipart/mixed; boundary="==BOUNDARY=="
 MIME-Version: 1.0
