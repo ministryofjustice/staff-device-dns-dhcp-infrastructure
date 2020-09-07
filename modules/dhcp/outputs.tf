@@ -18,6 +18,10 @@ output "ecs" {
   }
 }
 
+output "ecr" {
+  value = module.dns_dhcp_common.ecr
+}
+
 output "load_balancer" {
   value = module.dns_dhcp_common.nlb.name
 }
