@@ -122,6 +122,14 @@ resource "aws_ecs_task_definition" "admin_task" {
         {
           "name": "COGNITO_USER_POOL_ID",
           "value": "${var.cognito_user_pool_id}"
+        },
+        {
+          "name": "DHCP_CLUSTER_NAME",
+          "value": "${var.dhcp_cluster_name}"
+        },
+        {
+          "name": "DHCP_SERVICE_NAME",
+          "value": "${var.dhcp_service_name}"
         }
       ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",

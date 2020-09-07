@@ -76,3 +76,11 @@ variable "cognito_user_pool_client_id" {
 variable "cognito_user_pool_client_secret" {
   type = string
 }
+
+variable "dhcp_cluster_name" {
+  type = string
+}
+
+variable "dhcp_service_name" {
+  type = string
+}
