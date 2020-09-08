@@ -98,12 +98,11 @@ resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
 
 resource "aws_iam_role_policy_attachment" "ecsAdminPortal_policy" {
   role       = aws_iam_role.ecsTaskExecutionRole.name
-  policy_arn = aws_iam_role_policy.ecs_admin_task_execution_policy.id
+  policy_arn = aws_iam_policy.ecs_admin_task_execution_policy.arn
 }
 
-resource "aws_iam_role_policy" "ecs_admin_task_execution_policy" {
+resource "aws_iam_policy" "ecs_admin_task_execution_policy" {
   name       = "${var.prefix}-ecs-task-execution-policy"
-  role       = aws_iam_role.ecs_admin_instance_role.id
 
   policy = <<EOF
 {
