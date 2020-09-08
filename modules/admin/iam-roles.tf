@@ -113,7 +113,7 @@ resource "aws_iam_policy" "ecs_admin_task_execution_policy" {
       "Action": [
         "ecs:UpdateService"
       ],
-      "Resource": [ "*" ]
+      "Resource": [ "${var.dhcp_service_arn}" ]
     }
   ]
 }
