@@ -96,6 +96,31 @@ resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_iam_role_policy_attachment" "ecsAdminPortal_policy" {
+  role       = aws_iam_role.ecsTaskExecutionRole.name
+  policy_arn = aws_iam_role_policy.ecs_admin_task_execution_policy.id
+}
+
+resource "aws_iam_role_policy" "ecs_admin_task_execution_policy" {
+  name       = "${var.prefix}-ecs-task-execution-policy"
+  role       = aws_iam_role.ecs_admin_instance_role.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ecs:UpdateService"
+      ],
+      "Resource": [ "*" ]
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_iam_role" "rds_monitoring_role" {
   name = "${var.prefix}-rds-monitoring-role"
 
