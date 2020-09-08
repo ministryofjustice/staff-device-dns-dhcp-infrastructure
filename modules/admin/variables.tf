@@ -84,3 +84,7 @@ variable "dhcp_cluster_name" {
 variable "dhcp_service_name" {
   type = string
 }
+
+variable "dhcp_service_arn" {
+  type = string
+}

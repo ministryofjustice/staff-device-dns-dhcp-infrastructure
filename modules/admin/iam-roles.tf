@@ -58,7 +58,14 @@ resource "aws_iam_role_policy" "ecs_admin_instance_policy" {
         "s3:GetObject"
       ],
       "Resource": ["${var.kea_config_bucket_arn}/*"]
+    },{
+      "Effect": "Allow",
+      "Action": [
+        "ecs:UpdateService"
+      ],
+      "Resource": ["${var.dhcp_service_arn}"]
     }
+
   ]
 }
 EOF

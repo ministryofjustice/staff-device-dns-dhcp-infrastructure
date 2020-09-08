@@ -124,6 +124,7 @@ module "admin" {
   cognito_user_pool_client_secret  = module.cognito.cognito_user_pool_client_secret[0]
   dhcp_cluster_name                = module.dhcp.ecs.cluster_name
   dhcp_service_name                = module.dhcp.ecs.service_name
+  dhcp_service_arn                 = module.dhcp.ecs.service_arn
 
   providers = {
     aws = aws.env
