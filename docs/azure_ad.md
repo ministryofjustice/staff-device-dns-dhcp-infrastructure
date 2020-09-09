@@ -11,7 +11,7 @@
 1. Change the application name to `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app`
 1. Click `Add`. Creating the app may take a few moments. You will eventually be redirected to the config page.
 
-![Creating the basic Amazon Web Services app](docs/azure_ad_images/amazon_web_services_azure_ad_app.png?raw=true)
+![Creating the basic Amazon Web Services app](https://raw.githubusercontent.com/ministryofjustice/staff-device-dns-dhcp-infrastructure/main/docs/azure_ad_images/amazon_web_services_azure_ad_app.png?raw=true)
 
 
 ## Configuring roles 
