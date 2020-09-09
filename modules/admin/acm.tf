@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "admin_lb" {
-  domain_name       = aws_route53_record.admin_lb.fqdn
+  domain_name       = aws_route53_record.admin_alb.fqdn
   validation_method = "DNS"
 
   lifecycle {
