@@ -11,12 +11,12 @@ resource "aws_route53_record" "admin_alb" {
   }
 }
 
-resource "aws_route53_record" "admin_lb_verification" {
+resource "aws_route53_record" "admin_alb_verification" {
   zone_id = var.vpn_hosted_zone_id
   ttl     = 60
 
-  name   = tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_name
-  records = [tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_value]
-  type   = tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_type
+  name   = tolist(aws_acm_certificate.admin_alb.domain_validation_options)[0].resource_record_name
+  records = [tolist(aws_acm_certificate.admin_alb.domain_validation_options)[0].resource_record_value]
+  type   = tolist(aws_acm_certificate.admin_alb.domain_validation_options)[0].resource_record_type
 }
 

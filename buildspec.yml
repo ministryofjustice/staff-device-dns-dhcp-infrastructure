@@ -44,5 +44,6 @@ phases:
       - terraform workspace new $ENV || true
       - terraform workspace select $ENV
       - terraform state rm 'module.admin.aws_route53_record.admin_lb'
+      - terraform state rm 'module.admin.aws_route53_record.admin_lb_verification'
       - terraform apply --auto-approve -no-color
       - ./scripts/publish_terraform_outputs
