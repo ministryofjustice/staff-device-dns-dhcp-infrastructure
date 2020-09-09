@@ -51,7 +51,13 @@
 1. Select `Edit` in `Basic SAML Configuration`
 ![Basic SAML configuration](docs/azure_ad_images/basic_saml_configuration.png?raw=true)
 1. Fill in the `Identifier (Entity ID)` with `urn:amazon:cognito:sp:[COGNITO_USER_POOL_ID]`
+	To find the COGNITO_USER_POOL_ID:
+	1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
+	1. Under `General Settings` locate `Pool Id`
 1. Fill in the `Reply URL (Assertion Consumer Service URL)` with `https://[COGNITO_DOMAIN]/saml2/idpresponse`
+	To find the COGNITO_DOMAIN:
+	1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
+	1. Under `App Integrations` then `Domain name`, locate the full domain, ie `https://some-user-pool-name.auth.eu-west-2.amazoncognito.com`
 1. Fill in the `Logout Url` with output from Terraform
 ![Configuring logout and callback urls](docs/azure_ad_images/configure_urls.png?raw=true)
 
