@@ -6,6 +6,11 @@ resource "aws_cognito_user_pool" "pool" {
   count = local.enabled
   name = "${var.prefix}_azure_ad_pool"
   auto_verified_attributes = ["email"]
+
+  schema {
+    name                     = "app_role"
+    attribute_data_type      = "String"
+  }
 }
 
 resource "aws_cognito_user_pool_client" "client" {
@@ -41,5 +46,6 @@ resource "aws_cognito_identity_provider" "cognito_identity_provider" {
 
   attribute_mapping = {
     email = "email"
+    "custom:app_role" = "https://aws.amazon.com/SAML/Attributes/Role"
   }
 }
