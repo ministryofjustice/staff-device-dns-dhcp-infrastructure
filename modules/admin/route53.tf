@@ -9,6 +9,10 @@ resource "aws_route53_record" "admin_alb" {
     zone_id                = aws_lb.admin_alb.zone_id
     evaluate_target_health = true
   }
+
+  weighted_routing_policy {
+    weight = "100"
+  }
 }
 
 resource "aws_route53_record" "admin_alb_verification" {
