@@ -1,4 +1,4 @@
-resource "aws_route53_record" "admin_lb" {
+resource "aws_route53_record" "admin_alb" {
   zone_id        = var.vpn_hosted_zone_id
   name           = "staff-device-${var.short_prefix}-admin.${var.vpn_hosted_zone_domain}"
   type           = "A"
@@ -10,7 +10,6 @@ resource "aws_route53_record" "admin_lb" {
     evaluate_target_health = true
   }
 }
-
 
 resource "aws_route53_record" "admin_lb_verification" {
   zone_id = var.vpn_hosted_zone_id
