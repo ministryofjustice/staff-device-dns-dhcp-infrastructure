@@ -23,6 +23,5 @@ resource "aws_route53_record" "admin_lb_verification" {
   name   = tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_name
   records = [tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_value]
   type   = tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_type
-
 }
 
