@@ -11,15 +11,27 @@ resource "aws_autoscaling_group" "auto_scaling_group" {
   vpc_zone_identifier       = var.subnets
   wait_for_capacity_timeout = "20m"
 
-  tags = concat([var.tags], [{
+  tag {
     key                 = "AmazonECSManaged"
     value               = "AmazonECSManaged"
     propagate_at_launch = true
-  }, {
+  }
+
+  tag {
     key                 = "Name"
     value               = var.prefix
     propagate_at_launch = true
-  }])
+  }
+
+  dynamic "tag" {
+    for_each = var.tags
+
+    content {
+      key                 = tag.key
+      value               = tag.value
+      propagate_at_launch = true
+    }
+  }
 
   timeouts {
     delete = "15m"
@@ -34,14 +46,14 @@ resource "aws_placement_group" "placement_group" {
 }
 
 resource "aws_launch_configuration" "launch_configuration" {
-  name_prefix   = var.prefix
-  image_id      = data.aws_ami.server.id
-  security_groups = [var.security_group_id]
-  instance_type = "t2.medium"
-  iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.id
-  enable_monitoring = true
+  name_prefix                 = var.prefix
+  image_id                    = data.aws_ami.server.id
+  security_groups             = [var.security_group_id]
+  instance_type               = "t2.medium"
+  iam_instance_profile        = aws_iam_instance_profile.ecs_instance_profile.id
+  enable_monitoring           = true
   associate_public_ip_address = false
-  user_data = <<DATA
+  user_data                   = <<DATA
 Content-Type: multipart/mixed; boundary="==BOUNDARY=="
 MIME-Version: 1.0
 
@@ -189,9 +201,9 @@ DATA
 }
 
 data "aws_ami" "server" {
-  most_recent      = true
-  name_regex       = "^amzn-ami-.*-amazon-ecs-optimized$"
-  owners           = ["amazon"]
+  most_recent = true
+  name_regex  = "^amzn-ami-.*-amazon-ecs-optimized$"
+  owners      = ["amazon"]
 
   filter {
     name   = "root-device-type"
