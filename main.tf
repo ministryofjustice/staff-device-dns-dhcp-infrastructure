@@ -125,6 +125,7 @@ module "admin" {
   dhcp_cluster_name                = module.dhcp.ecs.cluster_name
   dhcp_service_name                = module.dhcp.ecs.service_name
   dhcp_service_arn                 = module.dhcp.ecs.service_arn
+  enable_custom_domain_name        = var.enable_custom_domain_name
 
   providers = {
     aws = aws.env

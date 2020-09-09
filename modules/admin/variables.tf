@@ -88,3 +88,7 @@ variable "dhcp_service_name" {
 variable "dhcp_service_arn" {
   type = string
 }
+
+variable "enable_custom_domain_name" {
+  type = bool
+}

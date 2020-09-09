@@ -1,4 +1,9 @@
+locals {
+  enable_custom_domain_name = var.enable_custom_domain_name ? 1 : 0
+}
+
 resource "aws_route53_record" "admin_lb" {
+  count          = local.enable_custom_domain_name
   zone_id        = var.vpn_hosted_zone_id
   name           = "staff-device-admin-${var.short_prefix}.${var.vpn_hosted_zone_domain}"
   type           = "A"
@@ -15,14 +20,14 @@ resource "aws_route53_record" "admin_lb" {
   }
 }
 
-
 resource "aws_route53_record" "admin_lb_verification" {
+  count   = local.enable_custom_domain_name
   zone_id = var.vpn_hosted_zone_id
   ttl     = 60
 
-  name   = tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_name
+  name    = tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_name
   records = [tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_value]
-  type   = tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_type
+  type    = tolist(aws_acm_certificate.admin_lb.domain_validation_options)[0].resource_record_type
 
 }
 
