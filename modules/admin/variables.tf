@@ -88,3 +88,7 @@ variable "dhcp_service_name" {
 variable "dhcp_service_arn" {
   type = string
 }
+
+variable "bind_config_bucket_name" {
+  type = string
+}

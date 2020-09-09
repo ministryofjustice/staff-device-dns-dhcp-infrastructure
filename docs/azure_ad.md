@@ -13,7 +13,6 @@
 
 ![Creating the basic Amazon Web Services app](azure_ad_images/amazon_web_services_azure_ad_app.png)
 
-
 ## Configuring roles 
 1. In the Azure portal, navigate to `App Registrations`
 1. Search for the application name (used to create the app above). ie `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and click to navigate to the configuration page.
@@ -64,7 +63,6 @@
 	1. Under `App Integrations` then `Domain name`, locate the full domain, ie `https://some-user-pool-name.auth.eu-west-2.amazoncognito.com`
 1. Fill in the `Logout Url` with output from Terraform
 ![Configuring logout and callback urls](azure_ad_images/configure_urls.png)
-
 
 ## Assigning roles to users
 1. In the Azure portal, navigate to `Enterprise Applications`

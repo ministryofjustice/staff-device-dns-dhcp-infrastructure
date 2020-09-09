@@ -9,7 +9,7 @@
               "AWS": "${ecs_task_role_arn}"
             },
             "Action": "s3:GetObject",
-            "Resource": "${config_bucket_arn}/config.json"
+            "Resource": "${config_bucket_arn}/*"
         }
     ]
 }
