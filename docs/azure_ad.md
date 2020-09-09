@@ -7,6 +7,8 @@
 1. Change the application name to `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app`
 1. Click `Add`. Creating the app may take a few moments. You will eventually be redirected to the config page.
 
+![Creating the basic Amazon Web Services app](docs/azure_ad_images/amazon_web_services_azure_ad_app.png?raw=true)
+
 
 ## Configuring roles 
 1. In the Azure portal, navigate to `App Registrations`
@@ -45,10 +47,13 @@
 1. In the Azure portal, navigate to `Enterprise Applications`
 1. Search for the application name, ie `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and select it
 1. On the left-hand menu, select `Single sign-on` and select `SAML`
+![Select SAML configuration](docs/azure_ad_images/select_saml.png?raw=true)
 1. Select `Edit` in `Basic SAML Configuration`
+![Basic SAML configuration](docs/azure_ad_images/basic_saml_configuration.png?raw=true)
 1. Fill in the `Identifier (Entity ID)` with `urn:amazon:cognito:sp:[COGNITO_USER_POOL_ID]`
 1. Fill in the `Reply URL (Assertion Consumer Service URL)` with `https://[COGNITO_DOMAIN]/saml2/idpresponse`
 1. Fill in the `Logout Url` with output from Terraform
+![Configuring logout and callback urls](docs/azure_ad_images/configure_urls.png?raw=true)
 
 
 ## Assigning roles to users
@@ -57,7 +62,7 @@
 1. On the left-hand menu, select `Users and groups`
 1. At the top of the user list select `Add user`
 1. On the `Add assignment page` click `Users and groups`. Search for the user you would like to add to the application.
+![Select a user](docs/azure_ad_images/user_assignment.png?raw=true)
 1. Back on the `Add assignment page` click `Select a role`. Click on the role and then click `select`
+![Select a role](docs/azure_ad_images/role_assignment.png?raw=true)
 1. Click on `Assign`. You will now see your user in the list of users with the role assignment.
-
-What happens with multiple roles
