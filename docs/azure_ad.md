@@ -49,3 +49,15 @@
 1. Fill in the `Identifier (Entity ID)` with `urn:amazon:cognito:sp:[COGNITO_USER_POOL_ID]`
 1. Fill in the `Reply URL (Assertion Consumer Service URL)` with `https://[COGNITO_DOMAIN]/saml2/idpresponse`
 1. Fill in the `Logout Url` with output from Terraform
+
+
+## Assigning roles to users
+1. In the Azure portal, navigate to `Enterprise Applications`
+1. Search for the application name, ie `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and select it
+1. On the left-hand menu, select `Users and groups`
+1. At the top of the user list select `Add user`
+1. On the `Add assignment page` click `Users and groups`. Search for the user you would like to add to the application.
+1. Back on the `Add assignment page` click `Select a role`. Click on the role and then click `select`
+1. Click on `Assign`. You will now see your user in the list of users with the role assignment.
+
+What happens with multiple roles
