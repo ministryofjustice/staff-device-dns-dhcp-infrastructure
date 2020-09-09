@@ -31,37 +31,8 @@ Select your workspace
 The ISC Kea DHCP service hosted by this service runs in a Docker container.
 The code for building this container can be found [here](https://github.com/ministryofjustice/staff-device-dhcp-server).
 
-## Azure Manual Steps
-N.B. This is only required for complete recreation of the Azure flow.
+## Authentication with Azure AD
 
-Due to us not having configured the Azure CLI/Terraform provider for Azure there are a number of manual steps that will need to be taken.
+Azure AD provides our authorization backend is not provisioned through CLI/Terraform instead follow this guide for manual steps to build Azure AD infrastructure.
 
-* You will need access to a Devl MoJ account (ask in the Slack channel for this).
-
-* In Azure you will need to evalate your permissions using Privileged Identity Management (PIM)
-
-* Create a three new Apps for dev, pre-prod and production using the following naming conventions:
-
-    * staff-device-${ENV}-dhcp-azure-app
-
-* Update the Manifest in each of the created apps with the following corresponding values per environment:
-
-  ```
-    {
-      ...
-
-    "identifierUris" : (terraform output identifierUris),
-
-    "logoutUrl" :  (terraform output logoutUrl),
-    
-    "replyUrlsWithType" : [
-      {    
-      "url" : (terraform output url)
-      "type" : "Web"
-      }
-    ]
-    ...
-    
-    }
-  ```
-  
+[Azure AD manual provisioning guide](docs/azure_ad.md)
