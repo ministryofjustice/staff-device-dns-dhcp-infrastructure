@@ -130,6 +130,12 @@ resource "aws_ecs_task_definition" "admin_task" {
         {
           "name": "DHCP_SERVICE_NAME",
           "value": "${var.dhcp_service_name}"
+        },{
+          "name": "S3_BIND_CONFIG_OBJECT_KEY",
+          "value": "named.conf"
+        },{
+          "name": "BIND_CONFIG_BUCKET",
+          "value": "${var.bind_config_bucket_name}"
         }
       ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
