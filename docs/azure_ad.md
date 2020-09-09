@@ -1,5 +1,9 @@
 # DNS / DHCP Azure AD SSO Provisioning
 
+## Prerequisites
+* You will need access to a Devl MoJ account (ask in the Slack channel for this)
+* In Azure you will need to elevate your permissions using `Privileged Identity Management (PIM)`
+
 ## Creating the basic app
 1. In the Azure portal, navigate to `Enterprise Applications`
 1. Click `Add` application
