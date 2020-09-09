@@ -1,6 +1,6 @@
 resource "aws_route53_record" "admin_lb" {
   zone_id        = var.vpn_hosted_zone_id
-  name           = "staff-device-admin-${var.short_prefix}.${var.vpn_hosted_zone_domain}"
+  name           = "staff-device-${var.short_prefix}-admin.${var.vpn_hosted_zone_domain}"
   type           = "A"
   set_identifier = var.region
 
@@ -8,10 +8,6 @@ resource "aws_route53_record" "admin_lb" {
     name                   = aws_lb.admin_alb.dns_name
     zone_id                = aws_lb.admin_alb.zone_id
     evaluate_target_health = true
-  }
-
-  latency_routing_policy {
-    region = var.region
   }
 }
 
