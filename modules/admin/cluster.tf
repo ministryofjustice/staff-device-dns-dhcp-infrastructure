@@ -171,7 +171,7 @@ resource "aws_ecs_service" "admin-service" {
     subnets = var.subnet_ids
 
     security_groups = [
-      aws_security_group.admin_ecs_out.id
+      aws_security_group.admin_ecs.id
     ]
 
     assign_public_ip = true

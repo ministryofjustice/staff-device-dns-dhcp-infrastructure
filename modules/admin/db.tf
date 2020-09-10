@@ -15,7 +15,7 @@ resource "aws_db_instance" "admin_db" {
   multi_az                    = true
   storage_encrypted           = true
   db_subnet_group_name        = aws_db_subnet_group.admin_db_group.name
-  vpc_security_group_ids      = [aws_security_group.admin_db_in.id]
+  vpc_security_group_ids      = [aws_security_group.admin_db.id]
   monitoring_role_arn         = aws_iam_role.rds_monitoring_role.arn
   monitoring_interval         = 60
   skip_final_snapshot         = true
