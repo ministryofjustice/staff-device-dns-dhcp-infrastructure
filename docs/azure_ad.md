@@ -72,6 +72,7 @@
 	1. Under `App Integrations` then `Domain name`, locate the full domain, ie `https://some-user-pool-name.auth.eu-west-2.amazoncognito.com`
 1. Fill in the `Logout Url` with output from Terraform
 ![Configuring logout and callback urls](azure_images/configure_urls.png)
+1. Save the changes once you are done
 
 ## Assigning roles to users
 1. In the Azure portal, navigate to `Enterprise Applications`
