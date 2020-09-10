@@ -15,9 +15,9 @@
 1. Select `Amazon Web Services (AWS)` application from the list of predefined services
 1. Change the application name to `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app`
 1. Click `Add`. Creating the app may take a few moments. You will eventually be redirected to the config page
-![Creating the basic Amazon Web Services app](azure_ad_images/amazon_web_services_azure_ad_app.png)
+![Creating the basic Amazon Web Services app](azure_images/amazon_web_services_azure_ad_app.png)
 1. On the left-hand menu, select `Single sign-on` and select `SAML`
-![Select SAML configuration](azure_ad_images/select_saml.png)
+![Select SAML configuration](azure_images/select_saml.png)
 1. In the `SAML Signing Certificate` section grab the `App Federation Metadata URL`. This is required for to be added to the `terraform.tfvars` file under `meta_data_url`
 
 ![Creating the basic Amazon Web Services app](azure_images/amazon_web_services_azure_app.png)
