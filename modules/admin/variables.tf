@@ -92,3 +92,7 @@ variable "dhcp_service_arn" {
 variable "bind_config_bucket_name" {
   type = string
 }
+
+variable "bind_config_bucket_arn" {
+  type = string
+}
