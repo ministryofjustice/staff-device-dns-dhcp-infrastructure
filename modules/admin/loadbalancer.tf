@@ -4,8 +4,7 @@ resource "aws_lb" "admin_alb" {
   subnets  = var.subnet_ids
 
   security_groups = [
-    aws_security_group.admin_alb_in.id,
-    aws_security_group.admin_alb_out.id
+    aws_security_group.admin_alb.id
   ]
 
   load_balancer_type = "application"

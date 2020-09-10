@@ -55,6 +55,10 @@ module "dhcp_label" {
 data "aws_region" "current_region" {}
 data "aws_caller_identity" "shared_services_account" {}
 
+locals {
+  dns_dhcp_vpc_cidr = "10.180.80.0/22"
+}
+
 module "vpc" {
   source              = "./modules/vpc"
   prefix              = module.dhcp_label.id
@@ -100,6 +104,7 @@ module "dhcp" {
   short_prefix                           = module.dhcp_label.stage # avoid 32 char limit on certain resources
   region                                 = data.aws_region.current_region.id
   is_publicly_accessible                 = local.publicly_accessible
+  vpc_cidr                               = local.dns_dhcp_vpc_cidr
 
   providers = {
     aws = aws.env
@@ -185,6 +190,7 @@ module "dns" {
   load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
   load_balancer_private_ip_eu_west_2c = var.dns_load_balancer_private_ip_eu_west_2c
   vpc_id                              = module.vpc.vpc_id
+  vpc_cidr                            = local.dns_dhcp_vpc_cidr
 
   depends_on = [
     module.vpc

@@ -18,6 +18,10 @@ variable "vpc_id" {
   type = string
 }
 
+variable "vpc_cidr" {
+  type = string
+}
+
 variable "dhcp_db_username" {
   type = string
 }

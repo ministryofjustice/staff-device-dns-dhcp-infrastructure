@@ -1,6 +1,6 @@
-resource "aws_security_group" "admin_alb_in" {
-  name        = "${var.prefix}-alb-in"
-  description = "Allow Inbound Traffic to the admin platform ALB"
+resource "aws_security_group" "admin_alb" {
+  name        = "${var.prefix}-alb"
+  description = "Allow Traffic to the Admin Portal"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -13,23 +13,17 @@ resource "aws_security_group" "admin_alb_in" {
   tags = var.tags
 }
 
-resource "aws_security_group" "admin_alb_out" {
-  name        = "${var.prefix}-alb-out"
-  description = "Allow Outbound Traffic from the admin platform ALB"
-  vpc_id      = var.vpc_id
-
-  egress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = var.tags
+resource "aws_security_group_rule" "admin_alb_out" {
+  type              = "egress"
+  from_port         = 3000
+  to_port           = 3000
+  protocol          = "tcp"
+  security_group_id = aws_security_group.admin_alb.id
+  source_security_group_id = aws_security_group.admin_ecs.id
 }
 
-resource "aws_security_group" "admin_db_in" {
-  name        = "${var.prefix}-db-in"
+resource "aws_security_group" "admin_db" {
+  name        = "${var.prefix}-db"
   description = "Allow connections to the DB"
   vpc_id      = var.vpc_id
 
@@ -37,30 +31,32 @@ resource "aws_security_group" "admin_db_in" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
+    security_groups = [aws_security_group.admin_ecs.id]
+  }
+
+  tags = var.tags
+}
+
+resource "aws_security_group" "admin_ecs" {
+  name        = "${var.prefix}-ecs"
+  description = "Allow traffic to and from Admin ECS"
+  vpc_id      = var.vpc_id
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = var.tags
 }
 
-resource "aws_security_group" "admin_ecs_out" {
-  name        = "${var.prefix}-ecs-out"
-  description = "Allow outbound traffic from ECS"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = var.tags
+resource "aws_security_group_rule" "admin_ecs_in" {
+  type              = "ingress"
+  from_port         = 3000
+  to_port           = 3000
+  protocol          = "tcp"
+  security_group_id = aws_security_group.admin_ecs.id
+  source_security_group_id = aws_security_group.admin_alb.id
 }
