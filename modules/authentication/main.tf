@@ -10,6 +10,11 @@ resource "aws_cognito_user_pool" "pool" {
   schema {
     name                     = "app_role"
     attribute_data_type      = "String"
+
+    string_attribute_constraints {
+        min_length = 1
+        max_length = 255
+    }
   }
 }
 
