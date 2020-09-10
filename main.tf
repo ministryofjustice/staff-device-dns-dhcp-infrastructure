@@ -126,6 +126,7 @@ module "admin" {
   dhcp_service_name                = module.dhcp.ecs.service_name
   dhcp_service_arn                 = module.dhcp.ecs.service_arn
   bind_config_bucket_name          = module.dns.bind_config_bucket_name
+  bind_config_bucket_arn           = module.dns.bind_config_bucket_arn
 
   providers = {
     aws = aws.env

@@ -58,7 +58,7 @@ resource "aws_iam_role_policy" "ecs_admin_instance_policy" {
         "s3:PutObject",
         "s3:GetObject"
       ],
-      "Resource": ["${var.kea_config_bucket_arn}/*"]
+      "Resource": ["${var.kea_config_bucket_arn}/*", "${var.bind_config_bucket_arn}/*"]
     }
   ]
 }
