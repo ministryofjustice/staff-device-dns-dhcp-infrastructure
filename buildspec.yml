@@ -33,14 +33,14 @@ env:
 phases:
   install:
     commands:
-      - wget --no-verbose -O terraform.zip https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip
+      - wget --no-verbose -O terraform.zip https://releases.hashicorp.com/terraform/0.13.2/terraform_0.13.2_linux_amd64.zip
       - unzip terraform.zip
       - mv terraform /bin
 
   build:
     commands:
       - export AWS_DEFAULT_REGION=eu-west-2
-      - terraform init -no-color --backend-config="key=terraform.$ENV.state"
+      - terraform init -reconfigure -no-color --backend-config="key=terraform.$ENV.state"
       - terraform workspace new $ENV || true
       - terraform workspace select $ENV
       - terraform apply --auto-approve -no-color
