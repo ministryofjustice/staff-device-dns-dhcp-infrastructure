@@ -142,11 +142,11 @@ module "admin" {
 }
 
 module "cognito" {
-  source                = "./modules/authentication"
-  meta_data_url         = var.meta_data_url
-  prefix                = module.dhcp_label.id
-  enable_authentication = var.enable_authentication
-  admin_url             = module.admin.admin_url
+  source                         = "./modules/authentication"
+  azure_federation_metadata_url  = var.azure_federation_metadata_url
+  prefix                         = module.dhcp_label.id
+  enable_authentication          = var.enable_authentication
+  admin_url                      = module.admin.admin_url
 
   providers = {
     aws = aws.env
