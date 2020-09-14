@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+current_workspace=$(terraform workspace show)
+
+for group in $(aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[? Tags[? (Key=='Workspace') && Value=='${current_workspace}']].AutoScalingGroupName" --output text)
+do
+    echo "Deleting $group"
+    aws autoscaling delete-auto-scaling-group --auto-scaling-group-name ${group} --force-delete
+done
+

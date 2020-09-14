@@ -23,6 +23,12 @@ resource "aws_autoscaling_group" "auto_scaling_group" {
     propagate_at_launch = true
   }
 
+  tag {
+    key                 = "Workspace"
+    value               = terraform.workspace
+    propagate_at_launch = true
+  }
+
   dynamic "tag" {
     for_each = var.tags
 
