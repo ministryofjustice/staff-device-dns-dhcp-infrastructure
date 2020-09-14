@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    TF_IN_AUTOMATION: true
+    #TF_IN_AUTOMATION: true
     TF_INPUT: 0
     TF_VAR_owner_email: staff-device-dns-dhcp@justice.gov.uk
     TF_VAR_env: ${ENV}
