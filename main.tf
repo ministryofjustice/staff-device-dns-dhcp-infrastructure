@@ -142,12 +142,12 @@ module "admin" {
 }
 
 module "authentication" {
-  source                = "./modules/authentication"
-  meta_data_url         = var.meta_data_url
-  prefix                = module.dhcp_label.id
-  enable_authentication = var.enable_authentication
-  admin_url             = module.admin.admin_url
-  region                = data.aws_region.current_region.id
+  source                        = "./modules/authentication"
+  azure_federation_metadata_url = var.azure_federation_metadata_url
+  prefix                        = module.dhcp_label.id
+  enable_authentication         = var.enable_authentication
+  admin_url                     = module.admin.admin_url
+  region                        = data.aws_region.current_region.id
 
   providers = {
     aws = aws.env
