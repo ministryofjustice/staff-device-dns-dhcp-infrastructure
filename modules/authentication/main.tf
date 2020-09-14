@@ -47,9 +47,9 @@ resource "aws_cognito_identity_provider" "cognito_identity_provider" {
   provider_type = "SAML"
 
   provider_details = {
-    MetadataURL           = var.meta_data_url
-    SLORedirectBindingURI = replace(var.meta_data_url, "federationmetadata/2007-06/federationmetadata.xml", "saml2")
-    SSORedirectBindingURI = replace(var.meta_data_url, "federationmetadata/2007-06/federationmetadata.xml", "saml2")
+    MetadataURL           = var.azure_federation_metadata_url
+    SLORedirectBindingURI = replace(var.azure_federation_metadata_url, "federationmetadata/2007-06/federationmetadata.xml", "saml2")
+    SSORedirectBindingURI = replace(var.azure_federation_metadata_url, "federationmetadata/2007-06/federationmetadata.xml", "saml2")
   }
 
   attribute_mapping = {

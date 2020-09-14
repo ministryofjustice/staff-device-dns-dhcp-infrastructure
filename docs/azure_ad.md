@@ -18,8 +18,8 @@
 ![Creating the basic Amazon Web Services app](azure_images/amazon_web_services_azure_app.png)
 1. On the left-hand menu, select `Single sign-on` and select `SAML`
 ![Select SAML configuration](azure_images/select_saml.png)
-1. In the `SAML Signing Certificate` section grab the `App Federation Metadata URL`. This is required to be added to the `terraform.tfvars` file under `meta_data_url`.  
-In production like environments, this needs to be added to SSM Parameter store (See `TF_VAR_meta_data_url` in [`buildspec.yml`](buildspec.yml) for the correct SSM key)
+1. In the `SAML Signing Certificate` section grab the `App Federation Metadata URL`. This is required to be added to the `terraform.tfvars` file under `azure_federation_metadata_url`.  
+In production like environments, this needs to be added to SSM Parameter store (See `TF_VAR_azure_federation_metadata_url` in [`buildspec.yml`](buildspec.yml) for the correct SSM key)
 ![Creating the basic Amazon Web Services app](azure_images/amazon_web_services_azure_app.png)
 
 ## Configuring roles 

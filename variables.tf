@@ -24,7 +24,7 @@ variable "env" {
   type = string
 }
 
-variable "meta_data_url" {
+variable "azure_federation_metadata_url" {
   type = string
 }
 
