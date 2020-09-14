@@ -29,32 +29,32 @@ In production like environments, this needs to be added to SSM Parameter store (
 1. Add 2 new roles to the existing `appRoles` section for editor and viewer. 
     * Do not delete the existing `msiam_access` role
     * A unique GUID must be created for each of the new roles. These can be created [here](https://www.guidgenerator.com/online-guid-generator.aspx)
-```json
-{
-	"allowedMemberTypes": [
-		"User"
-	],
-	"description": "Viewer users have the ability to view DNS/DHCP configurations.",
-	"displayName": "Viewer",
-	"id": MY_CUSTOM_GUID,
-	"isEnabled": true,
-	"lang": null,
-	"origin": "Application",
-	"value": "viewer"
-},
-{
-	"allowedMemberTypes": [
-		"User"
-	],
-	"description": "Editor users have the ability to create, delete and update DNS/DHCP configurations.",
-	"displayName": "Editor",
-	"id": MY_CUSTOM_GUID,
-	"isEnabled": true,
-	"lang": null,
-	"origin": "Application",
-	"value": "editor"
-}
-```
+    ```json
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Viewer users have the ability to view DNS/DHCP configurations.",
+      "displayName": "Viewer",
+      "id": MY_CUSTOM_GUID,
+      "isEnabled": true,
+      "lang": null,
+      "origin": "Application",
+      "value": "viewer"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Editor users have the ability to create, delete and update DNS/DHCP configurations.",
+      "displayName": "Editor",
+      "id": MY_CUSTOM_GUID,
+      "isEnabled": true,
+      "lang": null,
+      "origin": "Application",
+      "value": "editor"
+    }
+    ```
 1. Save the changes to the manifest
 
 ## Configuring URLs
