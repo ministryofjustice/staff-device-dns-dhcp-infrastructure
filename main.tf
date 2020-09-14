@@ -1,5 +1,5 @@
 terraform {
-  required_version = "> 0.12.0"
+  required_version = "> 0.13.0"
 
   backend "s3" {
     bucket         = "pttp-ci-infrastructure-dns-dhcp-client-core-tf-state"
@@ -30,7 +30,7 @@ provider "local" {
 
 module "dhcp_label" {
   source  = "cloudposse/label/null"
-  version = "0.16.0"
+  version = "0.19.2"
 
   namespace = "staff-device"
   stage     = terraform.workspace
@@ -99,6 +99,10 @@ module "dhcp" {
   providers = {
     aws = aws.env
   }
+
+  depends_on = [
+    module.vpc
+  ]
 }
 
 module "admin" {
@@ -127,6 +131,10 @@ module "admin" {
   dhcp_service_arn                 = module.dhcp.ecs.service_arn
   bind_config_bucket_name          = module.dns.bind_config_bucket_name
   bind_config_bucket_arn           = module.dns.bind_config_bucket_arn
+
+  depends_on = [
+    module.admin_vpc
+  ]
 
   providers = {
     aws = aws.env
@@ -170,6 +178,11 @@ module "dns" {
   load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
   load_balancer_private_ip_eu_west_2c = var.dns_load_balancer_private_ip_eu_west_2c
   vpc_id                              = module.vpc.vpc_id
+
+  depends_on = [
+    module.vpc
+  ]
+
   providers = {
     aws = aws.env
   }
@@ -177,7 +190,7 @@ module "dns" {
 
 module "dns_label" {
   source  = "cloudposse/label/null"
-  version = "0.16.0"
+  version = "0.19.2"
 
   namespace = "staff-device"
   stage     = terraform.workspace
