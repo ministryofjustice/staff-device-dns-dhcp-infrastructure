@@ -122,10 +122,10 @@ module "admin" {
   vpn_hosted_zone_id               = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain           = var.vpn_hosted_zone_domain
   admin_db_backup_retention_period = var.admin_db_backup_retention_period
-  cognito_user_pool_id             = module.cognito.cognito_user_pool_id[0]
-  cognito_user_pool_domain         = module.cognito.cognito_user_pool_domain[0]
-  cognito_user_pool_client_id      = module.cognito.cognito_user_pool_client_id[0]
-  cognito_user_pool_client_secret  = module.cognito.cognito_user_pool_client_secret[0]
+  cognito_user_pool_id             = module.authentication.cognito_user_pool_id
+  cognito_user_pool_domain         = module.authentication.cognito_user_pool_domain
+  cognito_user_pool_client_id      = module.authentication.cognito_user_pool_client_id
+  cognito_user_pool_client_secret  = module.authentication.cognito_user_pool_client_secret
   dhcp_cluster_name                = module.dhcp.ecs.cluster_name
   dhcp_service_name                = module.dhcp.ecs.service_name
   dhcp_service_arn                 = module.dhcp.ecs.service_arn
@@ -141,12 +141,13 @@ module "admin" {
   }
 }
 
-module "cognito" {
+module "authentication" {
   source                = "./modules/authentication"
   meta_data_url         = var.meta_data_url
   prefix                = module.dhcp_label.id
   enable_authentication = var.enable_authentication
   admin_url             = module.admin.admin_url
+  region                = data.aws_region.current_region.id
 
   providers = {
     aws = aws.env
