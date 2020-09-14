@@ -33,6 +33,6 @@ The code for building this container can be found [here](https://github.com/mini
 
 ## Authentication with Azure AD
 
-Azure AD provides our authorization backend is not provisioned through CLI/Terraform instead follow this guide for manual steps to build Azure AD infrastructure.
+Azure AD provides our authorization backend and is not provisioned through CLI/Terraform. Follow this guide for manual steps to build Azure AD infrastructure.
 
 [Azure AD manual provisioning guide](docs/azure_ad.md)
