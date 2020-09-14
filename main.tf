@@ -13,7 +13,7 @@ provider "template" {
 }
 
 provider "tls" {
-  version = "> 2.1"
+  version = "> 2.2"
 }
 
 provider "aws" {
