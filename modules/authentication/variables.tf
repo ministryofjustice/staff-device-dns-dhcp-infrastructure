@@ -13,3 +13,7 @@ variable "enable_authentication" {
 variable "admin_url" {
   type = string
 }
+
+variable "region" {
+  type = string
+}
