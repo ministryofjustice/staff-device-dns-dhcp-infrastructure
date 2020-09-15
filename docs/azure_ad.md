@@ -22,6 +22,24 @@
 In production like environments, this needs to be added to SSM Parameter store (See `TF_VAR_azure_federation_metadata_url` in [`buildspec.yml`](buildspec.yml) for the correct SSM key)
 ![Creating the basic Amazon Web Services app](azure_images/amazon_web_services_azure_app.png)
 
+## Configuring URLs
+1. In the Azure portal, navigate to `Enterprise Applications`
+1. Search for the application name, ie `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and select it
+1. On the left-hand menu, select `Single sign-on`
+1. Select `Edit` in `Basic SAML Configuration`
+![Basic SAML configuration](azure_images/basic_saml_configuration.png)
+1. Fill in the `Identifier (Entity ID)` with `urn:amazon:cognito:sp:[COGNITO_USER_POOL_ID]`
+  To find the COGNITO_USER_POOL_ID:
+  1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
+  1. Under `General Settings` locate `Pool Id`
+1. Fill in the `Reply URL (Assertion Consumer Service URL)` with `https://[COGNITO_DOMAIN]/saml2/idpresponse`
+  To find the COGNITO_DOMAIN:
+  1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
+  1. Under `App Integrations` then `Domain name`, locate the full domain, ie `https://some-user-pool-name.auth.eu-west-2.amazoncognito.com`
+1. Fill in the `Logout Url` with output from Terraform
+![Configuring logout and callback urls](azure_images/configure_urls.png)
+1. Save the changes once you are done
+
 ## Configuring roles 
 1. In the Azure portal, navigate to `App Registrations`
 1. Under `All applications`, search for the application name (used to create the app above). ie `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and click to navigate to the configuration page
@@ -56,24 +74,6 @@ In production like environments, this needs to be added to SSM Parameter store (
     }
     ```
 1. Save the changes to the manifest
-
-## Configuring URLs
-1. In the Azure portal, navigate to `Enterprise Applications`
-1. Search for the application name, ie `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and select it
-1. On the left-hand menu, select `Single sign-on`
-1. Select `Edit` in `Basic SAML Configuration`
-![Basic SAML configuration](azure_images/basic_saml_configuration.png)
-1. Fill in the `Identifier (Entity ID)` with `urn:amazon:cognito:sp:[COGNITO_USER_POOL_ID]`
-	To find the COGNITO_USER_POOL_ID:
-	1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
-	1. Under `General Settings` locate `Pool Id`
-1. Fill in the `Reply URL (Assertion Consumer Service URL)` with `https://[COGNITO_DOMAIN]/saml2/idpresponse`
-	To find the COGNITO_DOMAIN:
-	1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
-	1. Under `App Integrations` then `Domain name`, locate the full domain, ie `https://some-user-pool-name.auth.eu-west-2.amazoncognito.com`
-1. Fill in the `Logout Url` with output from Terraform
-![Configuring logout and callback urls](azure_images/configure_urls.png)
-1. Save the changes once you are done
 
 ## Assigning roles to users
 1. In the Azure portal, navigate to `Enterprise Applications`
