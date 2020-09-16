@@ -54,6 +54,10 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
   ]
 }
 EOF
+
+  depends_on = [
+    aws_ecs_service.service
+  ]
 }
 
 resource "aws_iam_role" "ecs_instance_role" {
