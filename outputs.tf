@@ -7,8 +7,8 @@ output "terraform_outputs" {
     authentication = {
       cognito = {
         identifier_urn = module.authentication.cognito_identifier_urn
-        logout_url = module.authentication.cognito_logout_url
-        reply_url = module.authentication.cognito_reply_url
+        logout_url     = module.authentication.cognito_logout_url
+        reply_url      = module.authentication.cognito_reply_url
       }
     }
   }

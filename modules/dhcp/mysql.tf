@@ -21,8 +21,8 @@ resource "aws_db_instance" "dhcp_server_db" {
   # monitoring_interval         = "${var.db-monitoring-interval}"  #TODO set this
   # maintenance_window          = "${var.db-maintenance-window}" #TODO set this
   # backup_window               = "${var.db-backup-window}" #TODO set this
-  skip_final_snapshot         = true
-  deletion_protection         = false
+  skip_final_snapshot = true
+  deletion_protection = false
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
 

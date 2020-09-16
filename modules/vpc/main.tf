@@ -3,8 +3,8 @@ module "vpc" {
   version = "2.50.0"
   name    = var.prefix
 
-  cidr               = var.cidr_block
-  enable_nat_gateway = true
+  cidr                 = var.cidr_block
+  enable_nat_gateway   = true
   enable_dns_hostnames = true
   enable_dns_support   = true
 

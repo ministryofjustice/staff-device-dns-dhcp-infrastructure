@@ -4,12 +4,12 @@ variable "subnet_ids" {
 }
 
 variable "secret_key_base" {
-  type = string
+  type        = string
   description = "Rails secret key base variable used for the admin platform"
 }
 
 variable "vpc_id" {
-  type = string
+  type        = string
   description = "VPC ID used for placing the ALB into"
 }
 

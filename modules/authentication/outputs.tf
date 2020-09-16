@@ -1,7 +1,7 @@
 locals {
   subdomain = var.enable_authentication ? aws_cognito_user_pool_domain.main.*.domain[0] : ""
-  domain = var.enable_authentication ? "https://${local.subdomain}.auth.${var.region}.amazoncognito.com" : ""
-  pool_id = var.enable_authentication ? aws_cognito_user_pool.pool.*.id[0] : ""
+  domain    = var.enable_authentication ? "https://${local.subdomain}.auth.${var.region}.amazoncognito.com" : ""
+  pool_id   = var.enable_authentication ? aws_cognito_user_pool.pool.*.id[0] : ""
   client_id = var.enable_authentication ? aws_cognito_user_pool_client.client.*.id[0] : ""
 }
 

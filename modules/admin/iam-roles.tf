@@ -1,6 +1,6 @@
 resource "aws_iam_role_policy" "ecs_admin_instance_policy" {
-  name       = "${var.prefix}-ecs-instance-policy"
-  role       = aws_iam_role.ecs_admin_instance_role.id
+  name = "${var.prefix}-ecs-instance-policy"
+  role = aws_iam_role.ecs_admin_instance_role.id
 
   policy = <<EOF
 {
@@ -102,7 +102,7 @@ resource "aws_iam_role_policy_attachment" "ecsAdminPortal_policy" {
 }
 
 resource "aws_iam_policy" "ecs_admin_task_execution_policy" {
-  name       = "${var.prefix}-ecs-task-execution-policy"
+  name = "${var.prefix}-ecs-task-execution-policy"
 
   policy = <<EOF
 {

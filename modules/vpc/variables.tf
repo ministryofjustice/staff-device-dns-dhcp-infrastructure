@@ -3,7 +3,7 @@ variable "cidr_block" {
 }
 
 variable "cidr_block_new_bits" {
-  type = number
+  type    = number
   default = 8
 }
 

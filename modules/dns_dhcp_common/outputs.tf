@@ -5,14 +5,14 @@ output "ecs_task_role_arn" {
 output "auto_scaling_group" {
   value = {
     name = aws_autoscaling_group.auto_scaling_group.id
-    arn = aws_autoscaling_group.auto_scaling_group.arn
+    arn  = aws_autoscaling_group.auto_scaling_group.arn
   }
 }
 
 output "ecr" {
   value = {
     repository_url = aws_ecr_repository.docker_repository.repository_url
-    registry_id = aws_ecr_repository.docker_repository.registry_id
+    registry_id    = aws_ecr_repository.docker_repository.registry_id
   }
 }
 
@@ -39,7 +39,7 @@ output "cloudwatch" {
 
 output "s3" {
   value = {
-    config_bucket_arn = aws_s3_bucket.config_bucket.arn
+    config_bucket_arn  = aws_s3_bucket.config_bucket.arn
     config_bucket_name = aws_s3_bucket.config_bucket.id
   }
 }

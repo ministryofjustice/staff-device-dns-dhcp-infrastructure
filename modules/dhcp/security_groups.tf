@@ -28,9 +28,9 @@ resource "aws_security_group" "dhcp_db_in" {
   tags = var.tags
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
+    from_port = 0
+    to_port   = 0
+    protocol  = -1
     #cidr_blocks = var.public_subnet_cidr_blocks
     cidr_blocks = ["0.0.0.0/0"]
   }
