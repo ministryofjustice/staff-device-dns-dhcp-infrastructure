@@ -20,7 +20,7 @@ resource "aws_db_instance" "admin_db" {
   monitoring_interval         = 60
   skip_final_snapshot         = true
   deletion_protection         = false
-  publicly_accessible         = true
+  publicly_accessible         = var.is_publicly_accessible
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
 

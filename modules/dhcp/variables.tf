@@ -73,3 +73,7 @@ variable "short_prefix" {
 variable "region" {
   type = string
 }
+
+variable "is_publicly_accessible" {
+  type = bool
+}
