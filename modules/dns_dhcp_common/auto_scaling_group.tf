@@ -75,8 +75,8 @@ MIME-Version: 1.0
 Content-Type: text/x-shellscript; charset="us-ascii"
 #!/bin/bash
 # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
-sudo yum -y install perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https
-sudo yum -y install perl-Digest-SHA perl-URI perl-libwww-perl perl-MIME-tools perl-Crypt-SSLeay perl-XML-LibXML unzip
+yum -y install perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https
+yum -y install perl-Digest-SHA perl-URI perl-libwww-perl perl-MIME-tools perl-Crypt-SSLeay perl-XML-LibXML unzip
 mkdir -p /home/ec2-user/scripts
 cd /home/ec2-user/scripts
 curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
