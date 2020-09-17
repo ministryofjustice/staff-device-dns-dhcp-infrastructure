@@ -189,6 +189,23 @@ module "dns" {
   }
 }
 
+module "corsham_test_bastion" {
+  source  = "./modules/corsham_test"
+  subnets = module.vpc.public_subnets
+  vpc_id  = module.vpc.vpc_id
+  tags    = module.dhcp_label.tags
+
+  depends_on = [
+    module.vpc
+  ]
+
+  providers = {
+    aws = aws.env
+  }
+
+  count = terraform.workspace == "production" ? 1 : 0
+}
+
 module "dns_label" {
   source  = "cloudposse/label/null"
   version = "0.19.2"
