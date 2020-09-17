@@ -1,6 +1,6 @@
 resource "aws_instance" "corsham_testing_bastion" {
-  ami             = data.aws_ami.ubuntu.id
-  instance_type   = "t2.nano"
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t2.nano"
 
   vpc_security_group_ids = [
     aws_security_group.corsham_test_bastion.id

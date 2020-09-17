@@ -99,7 +99,7 @@ module "dhcp" {
   vpn_hosted_zone_domain                 = var.vpn_hosted_zone_domain
   short_prefix                           = module.dhcp_label.stage # avoid 32 char limit on certain resources
   region                                 = data.aws_region.current_region.id
-  is_publicly_accessible = local.publicly_accessible
+  is_publicly_accessible                 = local.publicly_accessible
 
   providers = {
     aws = aws.env
@@ -136,7 +136,7 @@ module "admin" {
   dhcp_service_arn                 = module.dhcp.ecs.service_arn
   bind_config_bucket_name          = module.dns.bind_config_bucket_name
   bind_config_bucket_arn           = module.dns.bind_config_bucket_arn
-  is_publicly_accessible = local.publicly_accessible
+  is_publicly_accessible           = local.publicly_accessible
 
   depends_on = [
     module.admin_vpc
