@@ -203,7 +203,7 @@ module "corsham_test_bastion" {
     aws = aws.env
   }
 
-  count = terraform.workspace == "em" ? 1 : 0
+  count = terraform.workspace == "production" ? 1 : 0
 }
 
 module "dns_label" {
