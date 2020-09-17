@@ -89,16 +89,17 @@ cd /home/ec2-user/scripts/mon
 
 EOF
 
-sudo cp ./crontab /etc/crontab
+cp ./crontab /etc/crontab
 
 cat <<'EOF' > ./security-updates
 #!/bin/bash
-sudo yum update -y --security
-sudo yum update -y ecs-init
+yum update -y --security
+yum update -y ecs-init
 EOF
 
 chmod +x ./security-updates
-sudo cp ./security-updates /etc/cron.daily
+
+cp ./security-updates /etc/cron.daily
 
 --==BOUNDARY==
 MIME-Version: 1.0
