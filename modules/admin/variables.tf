@@ -96,3 +96,7 @@ variable "bind_config_bucket_name" {
 variable "bind_config_bucket_arn" {
   type = string
 }
+
+variable "is_publicly_accessible" {
+  type = bool
+}
