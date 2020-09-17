@@ -54,3 +54,35 @@ The code for building this container can be found [here](https://github.com/mini
 Azure AD provides our authorization backend and is not provisioned through CLI/Terraform. Follow this guide for manual steps to build Azure AD infrastructure.
 
 [Azure AD manual provisioning guide](docs/azure_ad.md)
+
+## Corsham Test site
+
+We do remote testing of the DHCP service from a virtual machine running in Corsham.
+To access this VM you need to go through the bastion set up in production, which is on the same network (via the Transit Gateway) as the VM.
+
+### Bastion details:
+
+SSH key - `/corsham/testing/bastion/private_key`
+
+Once on the Bastion run:
+
+```bash
+ssh root@<VM_IP_ADDRESS>
+```
+
+### VM details:
+
+IP address - `/corsham/testing/vm/ip_address`
+Password - `/corsham/testing/vm/password`
+
+Once on the VM, we have a Docker container, provisioned with perfDHCP that can be used to run the tests.
+
+Run:
+```bash
+cd ~/smoke_test
+docker build --network host -t test .
+docker run --network host -t test
+```
+
+This will run perfDHCP against the production DHCP Network load balancers.
+The output will display the test results.
