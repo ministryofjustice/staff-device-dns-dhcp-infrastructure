@@ -1,6 +1,6 @@
 resource "aws_route53_record" "dhcp_db" {
   zone_id = var.vpn_hosted_zone_id
-  ttl     = 60
+  ttl     = 3600
   type    = "CNAME"
 
   name    = "staff-device-${var.short_prefix}-dhcp-db.${var.vpn_hosted_zone_domain}"

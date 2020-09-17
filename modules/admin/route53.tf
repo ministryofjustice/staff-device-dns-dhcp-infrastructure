@@ -17,7 +17,7 @@ resource "aws_route53_record" "admin_alb" {
 
 resource "aws_route53_record" "admin_alb_verification" {
   zone_id = var.vpn_hosted_zone_id
-  ttl     = 60
+  ttl     = 3600
 
   name    = tolist(aws_acm_certificate.admin_alb.domain_validation_options)[0].resource_record_name
   records = [tolist(aws_acm_certificate.admin_alb.domain_validation_options)[0].resource_record_value]
@@ -26,7 +26,7 @@ resource "aws_route53_record" "admin_alb_verification" {
 
 resource "aws_route53_record" "admin_db" {
   zone_id = var.vpn_hosted_zone_id
-  ttl     = 60
+  ttl     = 3600
   type    = "CNAME"
 
   name    = "staff-device-${var.short_prefix}-admin-db.${var.vpn_hosted_zone_domain}"
