@@ -1,7 +1,8 @@
 resource "aws_instance" "corsham_testing_bastion" {
   ami             = data.aws_ami.ubuntu.id
   instance_type   = "t2.nano"
-  security_groups = [
+
+  vpc_security_group_ids = [
     aws_security_group.corsham_test_bastion.id
   ]
 
@@ -30,23 +31,4 @@ data "aws_ami" "ubuntu" {
   }
 
   owners = ["099720109477"] # Canonical
-}
-
-resource "tls_private_key" "ec2" {
-  algorithm = "RSA"
-}
-
-resource "aws_key_pair" "testing_bastion_public_key_pair" {
-  key_name   = "corsham-bastion"
-  public_key = tls_private_key.ec2.public_key_openssh
-  tags       = var.tags
-}
-
-resource "aws_ssm_parameter" "instance_private_key" {
-  name        = "/corsham/testing/bastion/private_key"
-  type        = "SecureString"
-  value       = tls_private_key.ec2.private_key_pem
-  overwrite   = true
-  description = "SSH key for Corsham jumpbox"
-  tags        = var.tags
 }
