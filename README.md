@@ -60,6 +60,8 @@ Azure AD provides our authorization backend and is not provisioned through CLI/T
 We do remote testing of the DHCP service from a virtual machine running in Corsham.
 To access this VM you need to go through the bastion set up in production, which is on the same network (via the Transit Gateway) as the VM.
 
+The credentials below for the SSH key, IP address and password are kept in SSM parameter store in production.
+
 ### Bastion details:
 
 SSH key - `/corsham/testing/bastion/private_key`
@@ -73,6 +75,7 @@ ssh root@<VM_IP_ADDRESS>
 ### VM details:
 
 IP address - `/corsham/testing/vm/ip_address`
+
 Password - `/corsham/testing/vm/password`
 
 Once on the VM, we have a Docker container, provisioned with perfDHCP that can be used to run the tests.
