@@ -14,11 +14,11 @@ resource "aws_security_group" "admin_alb" {
 }
 
 resource "aws_security_group_rule" "admin_alb_out" {
-  type              = "egress"
-  from_port         = 3000
-  to_port           = 3000
-  protocol          = "tcp"
-  security_group_id = aws_security_group.admin_alb.id
+  type                     = "egress"
+  from_port                = 3000
+  to_port                  = 3000
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.admin_alb.id
   source_security_group_id = aws_security_group.admin_ecs.id
 }
 
@@ -28,9 +28,9 @@ resource "aws_security_group" "admin_db" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
     security_groups = [aws_security_group.admin_ecs.id]
   }
 
@@ -53,10 +53,10 @@ resource "aws_security_group" "admin_ecs" {
 }
 
 resource "aws_security_group_rule" "admin_ecs_in" {
-  type              = "ingress"
-  from_port         = 3000
-  to_port           = 3000
-  protocol          = "tcp"
-  security_group_id = aws_security_group.admin_ecs.id
+  type                     = "ingress"
+  from_port                = 3000
+  to_port                  = 3000
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.admin_ecs.id
   source_security_group_id = aws_security_group.admin_alb.id
 }
