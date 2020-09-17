@@ -66,7 +66,7 @@ The credentials below for the SSH key, IP address and password are kept in SSM p
 
 SSH key - `/corsham/testing/bastion/private_key`
 
-Once on the Bastion run:
+Once you have SSH'd onto the Bastion, run:
 
 ```bash
 ssh root@<VM_IP_ADDRESS>
@@ -78,7 +78,7 @@ IP address - `/corsham/testing/vm/ip_address`
 
 Password - `/corsham/testing/vm/password`
 
-Once on the VM, we have a Docker container, provisioned with perfDHCP that can be used to run the tests.
+Once you have SSH'd onto the VM, we have a Docker container, provisioned with perfDHCP that can be used to run the tests.
 
 Run:
 ```bash
