@@ -1,5 +1,5 @@
 resource "aws_security_group" "dns_server" {
-  name        = "${var.prefix}-dns-server"
+  name        = "${var.prefix}-dns-container"
   description = "Allow the ECS agent to talk to the ECS endpoints"
   vpc_id      = var.vpc_id
 
@@ -25,4 +25,8 @@ resource "aws_security_group" "dns_server" {
   }
 
   tags = var.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }

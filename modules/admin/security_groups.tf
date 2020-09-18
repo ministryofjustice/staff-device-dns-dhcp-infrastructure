@@ -1,5 +1,5 @@
 resource "aws_security_group" "admin_alb" {
-  name        = "${var.prefix}-alb"
+  name        = "${var.prefix}-load-balancer"
   description = "Allow Traffic to the Admin Portal"
   vpc_id      = var.vpc_id
 
@@ -11,6 +11,10 @@ resource "aws_security_group" "admin_alb" {
   }
 
   tags = var.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "admin_alb_out" {
@@ -23,7 +27,7 @@ resource "aws_security_group_rule" "admin_alb_out" {
 }
 
 resource "aws_security_group" "admin_db" {
-  name        = "${var.prefix}-db"
+  name        = "${var.prefix}-database"
   description = "Allow connections to the DB"
   vpc_id      = var.vpc_id
 
@@ -34,11 +38,15 @@ resource "aws_security_group" "admin_db" {
     security_groups = [aws_security_group.admin_ecs.id]
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   tags = var.tags
 }
 
 resource "aws_security_group" "admin_ecs" {
-  name        = "${var.prefix}-ecs"
+  name        = "${var.prefix}-container"
   description = "Allow traffic to and from Admin ECS"
   vpc_id      = var.vpc_id
 
@@ -47,6 +55,10 @@ resource "aws_security_group" "admin_ecs" {
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
   tags = var.tags
