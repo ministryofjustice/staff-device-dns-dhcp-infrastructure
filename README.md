@@ -84,7 +84,7 @@ ssh -i corsham_test.pem ubuntu@<BASTION_IP>
 
 ### SSH onto the Corsham VM from the bastion server
 
-6. Copy the IP address for the VM found under `/corsham/testing/vm/ip_address` in SSM  (referred to as <VM_IP> below)
+6. Copy the IP address for the VM found under `/corsham/testing/vm/ip` in SSM  (referred to as <VM_IP> below)
 
 7. Copy the SSH password for the VM found under `/corsham/testing/vm/password` in SSM (referred to as <VM_PASSWORD> below)
 
