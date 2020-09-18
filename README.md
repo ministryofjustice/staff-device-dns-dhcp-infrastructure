@@ -96,17 +96,12 @@ ssh root@<VM_IP>
 
 9. When prompted for the password enter <VM_PASSWORD>
 
-### Run the docker container
+### Run the PerfDHCP
 
-There is a Dockerfile on the VM, based on the Dockerfile used for the DHCP KEA server itself.
-It is already configured to point to the production DHCP Network Load Balancer.
-
-10. Build and run the container
+10. Execute the test script
 
 ```bash
-cd ~/
-docker build --network host -t test .
-docker run --network host -t test
+./run_perfdhcp
 ```
 
 The results of the test will display when perfdhcp has completed.
