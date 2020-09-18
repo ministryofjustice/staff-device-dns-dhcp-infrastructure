@@ -21,7 +21,9 @@ resource "aws_iam_role_policy" "ecs_admin_instance_policy" {
         "ecr:BatchCheckLayerAvailability",
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage",
-        "kms:GenerateDataKey"
+        "kms:GenerateDataKey",
+        "kms:Encrypt",
+        "kms:Decrypt"
       ],
       "Resource": [ "*" ]
     },

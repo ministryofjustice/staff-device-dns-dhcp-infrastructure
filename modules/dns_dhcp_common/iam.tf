@@ -100,7 +100,9 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
        "ec2:Describe*",
        "rds:*",
        "ecr:*",
-       "kms:GenerateDataKey"
+       "kms:GenerateDataKey",
+       "kms:Encrypt",
+       "kms:Decrypt"
       ],
       "Resource": "*"
     }, {
