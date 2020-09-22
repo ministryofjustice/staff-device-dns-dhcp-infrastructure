@@ -63,7 +63,6 @@ resource "aws_security_group" "admin_ecs" {
 
   tags = var.tags
 }
-
 resource "aws_security_group_rule" "admin_ecs_in" {
   type                     = "ingress"
   from_port                = 3000
@@ -71,4 +70,14 @@ resource "aws_security_group_rule" "admin_ecs_in" {
   protocol                 = "tcp"
   security_group_id        = aws_security_group.admin_ecs.id
   source_security_group_id = aws_security_group.admin_alb.id
+}
+
+resource "aws_security_group_rule" "admin_ecs_out_to_db" {
+  description              = "Allow access from admin app containers to admin database"
+  type                     = "egress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.admin_ecs.id
+  source_security_group_id = aws_security_group.admin_db.id
 }
