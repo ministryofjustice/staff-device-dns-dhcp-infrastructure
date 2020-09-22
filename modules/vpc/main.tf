@@ -7,10 +7,6 @@ module "vpc" {
   enable_nat_gateway      = true
   enable_dns_hostnames    = true
   enable_dns_support      = true
-  map_public_ip_on_launch = false
-  enable_ecs_endpoint = true
-  enable_ecs_agent_endpoint = true
-  enable_ecs_telemetry_endpoint = true
 
   azs = [
     "${var.region}a",
