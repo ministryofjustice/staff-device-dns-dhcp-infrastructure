@@ -31,6 +31,15 @@ resource "aws_security_group" "dhcp_server" {
   tags = var.tags
 }
 
+resource "aws_security_group_rule" "dhcp_container_db_out" {
+  type                     = "egress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.dhcp_server.id
+  source_security_group_id = aws_security_group.dhcp_db_in.id
+}
+
 resource "aws_security_group" "dhcp_db_in" {
   name        = "${var.prefix}-dhcp-database-in"
   description = "Allow connections to the DB"
