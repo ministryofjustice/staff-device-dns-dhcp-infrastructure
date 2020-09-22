@@ -35,3 +35,10 @@ resource "aws_db_subnet_group" "db" {
 
   tags = var.tags
 }
+
+resource "mysql_grant" "kea" {
+  user       = aws_db_instance.dhcp_server_db.username
+  host       = aws_db_instance.dhcp_server_db.address
+  database   = aws_db_instance.dhcp_server_db.name
+  privileges = ["ALL"]
+}
