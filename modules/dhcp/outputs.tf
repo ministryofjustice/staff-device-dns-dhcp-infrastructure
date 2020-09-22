@@ -19,12 +19,6 @@ output "ecs" {
   }
 }
 
-output "rds" {
-  value = {
-    endpoint = aws_db_instance.dhcp_server_db.endpoint
-  }
-}
-
 output "ecr" {
   value = module.dns_dhcp_common.ecr
 }
