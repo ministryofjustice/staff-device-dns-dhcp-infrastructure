@@ -11,13 +11,13 @@ resource "aws_security_group" "admin_alb" {
 }
 
 resource "aws_security_group_rule" "admin_alb_in_from_web" {
-  description              = "Allow HTTPS traffic to the admin load balancer from the web"
-  type                     = "ingress"
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.admin_alb.id
-  cidr_blocks              = ["0.0.0.0/0"]
+  description       = "Allow HTTPS traffic to the admin load balancer from the web"
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.admin_alb.id
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "admin_alb_out" {
@@ -82,12 +82,12 @@ resource "aws_security_group_rule" "admin_ecs_out_to_db" {
 }
 
 resource "aws_security_group_rule" "admin_ecs_out_to_web" {
-  description              = "Allow HTTPS access from admin app containers to the web"
-  type                     = "egress"
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.admin_ecs.id
-  cidr_blocks              = ["0.0.0.0/0"]
+  description       = "Allow HTTPS access from admin app containers to the web"
+  type              = "egress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.admin_ecs.id
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
