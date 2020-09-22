@@ -8,6 +8,13 @@ terraform {
   }
 }
 
+provider "mysql" {
+  version = "~> 1.9"
+  endpoint = module.dhcp.rds.endpoint
+  username = var.dhcp_db_username
+  password = var.dhcp_db_password
+}
+
 provider "template" {
   version = "~> 2.1"
 }
