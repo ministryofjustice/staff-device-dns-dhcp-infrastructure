@@ -9,6 +9,7 @@ resource "aws_instance" "corsham_testing_bastion" {
   subnet_id  = var.subnets[0]
   key_name   = aws_key_pair.testing_bastion_public_key_pair.key_name
   monitoring = true
+  associate_public_ip_address = true
 
   instance_initiated_shutdown_behavior = "terminate"
 
