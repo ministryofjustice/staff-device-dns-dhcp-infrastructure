@@ -2,7 +2,7 @@ resource "aws_db_instance" "admin_db" {
   allocated_storage           = 20
   storage_type                = "gp2"
   engine                      = "mysql"
-  engine_version              = "5.7"
+  engine_version              = "8.0.20"
   auto_minor_version_upgrade  = true
   allow_major_version_upgrade = false
   apply_immediately           = true
