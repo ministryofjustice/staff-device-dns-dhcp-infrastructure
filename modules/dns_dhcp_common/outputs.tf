@@ -32,8 +32,8 @@ output "cloudwatch" {
 
 output "s3" {
   value = {
-    config_bucket_arn  = aws_s3_bucket.config_bucket.arn
-    config_bucket_name = aws_s3_bucket.config_bucket.id
+    config_bucket_arn     = aws_s3_bucket.config_bucket.arn
+    config_bucket_name    = aws_s3_bucket.config_bucket.id
     config_bucket_key_arn = aws_kms_key.config_bucket_key.arn
   }
 }

@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "mysql" {
-  version = "~> 1.9"
+  version  = "~> 1.9"
   endpoint = module.dhcp.rds.endpoint
   username = var.dhcp_db_username
   password = var.dhcp_db_password
@@ -149,8 +149,8 @@ module "admin" {
   bind_config_bucket_name          = module.dns.bind_config_bucket_name
   bind_config_bucket_arn           = module.dns.bind_config_bucket_arn
   is_publicly_accessible           = local.publicly_accessible
-  bind_config_bucket_key_arn            = module.dns.bind_config_bucket_key_arn
-  dhcp_config_bucket_key_arn           = module.dhcp.dhcp_config_bucket_key_arn
+  bind_config_bucket_key_arn       = module.dns.bind_config_bucket_key_arn
+  dhcp_config_bucket_key_arn       = module.dhcp.dhcp_config_bucket_key_arn
 
   depends_on = [
     module.admin_vpc
