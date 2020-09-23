@@ -107,9 +107,15 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
        "ec2:AuthorizeSecurityGroupIngress",
        "ec2:Describe*",
        "rds:*",
+<<<<<<< HEAD
        "ecr:*"
       ],
       "Resource": [ "*" ]
+=======
+       "ecr:*",
+      ],
+      "Resource": "*"
+>>>>>>> f7d6e70... Separate out kms actions
     }, 
     {
       "Effect": "Allow",
@@ -118,7 +124,11 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
         "kms:Encrypt",
         "kms:Decrypt"
       ],
+<<<<<<< HEAD
       "Resource": [ "*" ]
+=======
+      "Resource": "*"
+>>>>>>> f7d6e70... Separate out kms actions
     },
     {
       "Effect": "Allow",
