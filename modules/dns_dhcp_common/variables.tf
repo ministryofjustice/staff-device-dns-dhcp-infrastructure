@@ -42,10 +42,6 @@ variable "vpc_id" {
   type = string
 }
 
-<<<<<<< HEAD
 variable "critical_notifications_arn" {
-=======
-variable "critical_notifications_arn"{
->>>>>>> fde049d... renamed alarms for clarity
   type = string
 }
