@@ -25,7 +25,8 @@ resource "aws_lb" "load_balancer" {
 
 resource "aws_lb_target_group" "target_group" {
   name     = var.prefix
-  port     = var.container_port
+  interval = 10
+  port     = 80
   protocol = "UDP"
   vpc_id   = var.vpc_id
 
