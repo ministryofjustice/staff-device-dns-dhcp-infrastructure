@@ -15,13 +15,19 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
         "ecs:Poll",
         "ecs:RegisterContainerInstance",
         "ecs:StartTelemetrySession",
-        "ecs:Submit*",
+        "ecs:Submit*"
+      ],
+      "Resource": [ "*" ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
         "ecr:GetAuthorizationToken",
         "ecr:BatchCheckLayerAvailability",
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage"
       ],
-      "Resource": [ "*" ]
+      "Resource": [ "${aws_ecr_repository.docker_repository.arn}" ]
     },
     {
       "Effect": "Allow",
