@@ -42,6 +42,6 @@ variable "vpc_id" {
   type = string
 }
 
-variable "critical_notifications_arn"{
+variable "critical_notifications_arn" {
   type = string
 }
