@@ -3,33 +3,39 @@ resource "aws_security_group" "dhcp_server" {
   description = "Allow the ECS agent to talk to the ECS endpoints"
   vpc_id      = var.vpc_id
 
-  egress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 67
-    to_port     = 67
-    protocol    = "udp"
-    cidr_blocks = [var.vpc_cidr]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
   tags = var.tags
 }
+
+resource "aws_security_group_rule" "dhcp_container_healthcheck_in" {
+  description              = "Allow health checks from the Load Balancer"
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.dhcp_server.id
+  cidr_blocks              = [var.vpc_cidr]
+}
+
+resource "aws_security_group_rule" "dhcp_container_udp_in" {
+  description              = "Allow inbound traffic to the KEA server"
+  type                     = "ingress"
+  from_port                = 67
+  to_port                  = 67
+  protocol                 = "udp"
+  security_group_id        = aws_security_group.dhcp_server.id
+  cidr_blocks              = [var.vpc_cidr]
+}
+
+resource "aws_security_group_rule" "dhcp_container_web_out" {
+  description              = "Allow SSL outbound connections from the container"
+  type                     = "egress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.dhcp_server.id
+  cidr_blocks              = ["0.0.0.0/0"]
+}
+
 
 resource "aws_security_group_rule" "dhcp_container_db_out" {
   type                     = "egress"
@@ -45,16 +51,14 @@ resource "aws_security_group" "dhcp_db_in" {
   description = "Allow connections to the DB"
   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
-    security_groups = [aws_security_group.dhcp_server.id]
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
   tags = var.tags
+}
+
+resource "aws_security_group_rule" "dhcp_db_in" {
+  type                     = "ingress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.dhcp_db_in.id
+  source_security_group_id = aws_security_group.dhcp_server.id
 }
