@@ -26,6 +26,16 @@ resource "aws_security_group_rule" "dhcp_container_udp_in" {
   cidr_blocks       = [var.vpc_cidr]
 }
 
+resource "aws_security_group_rule" "dhcp_container_udp_out" {
+  description       = "Allow outbound traffic to DHCP client from the Kea server"
+  type              = "egress"
+  from_port         = 68
+  to_port           = 68
+  protocol          = "udp"
+  security_group_id = aws_security_group.dhcp_server.id
+  cidr_blocks       = [var.vpc_cidr]
+}
+
 resource "aws_security_group_rule" "dhcp_container_web_out" {
   description       = "Allow SSL outbound connections from the container"
   type              = "egress"
