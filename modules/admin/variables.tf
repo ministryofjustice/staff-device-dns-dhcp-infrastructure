@@ -100,3 +100,11 @@ variable "bind_config_bucket_arn" {
 variable "is_publicly_accessible" {
   type = bool
 }
+
+variable "dhcp_config_bucket_key_arn" {
+  type = string
+}
+
+variable "bind_config_bucket_key_arn" {
+  type = string
+}

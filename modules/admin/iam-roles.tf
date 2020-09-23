@@ -20,12 +20,18 @@ resource "aws_iam_role_policy" "ecs_admin_instance_policy" {
         "ecr:GetAuthorizationToken",
         "ecr:BatchCheckLayerAvailability",
         "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage",
+        "ecr:BatchGetImage"
+      ],
+      "Resource": ["*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
         "kms:GenerateDataKey",
         "kms:Encrypt",
         "kms:Decrypt"
       ],
-      "Resource": [ "*" ]
+      "Resource": ["${var.dhcp_config_bucket_key_arn}", "${var.bind_config_bucket_key_arn}"]
     },
     {
       "Effect": "Allow",
