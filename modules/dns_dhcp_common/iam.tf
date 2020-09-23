@@ -108,17 +108,19 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
        "ec2:Describe*",
        "rds:*",
        "ecr:*",
-       "kms:GenerateDataKey",
-       "kms:Encrypt",
-       "kms:Decrypt",
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:DescribeLogStreams",
-      "s3:*"
       ],
       "Resource": "*"
-    }, {
+    }, 
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:GenerateDataKey",
+        "kms:Encrypt",
+        "kms:Decrypt"
+      ],
+      "Resource": "*"
+    },
+    {
       "Effect": "Allow",
       "Action": [
         "sns:Publish"
