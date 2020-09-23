@@ -107,12 +107,7 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
        "ec2:AuthorizeSecurityGroupIngress",
        "ec2:Describe*",
        "rds:*",
-       "ecr:*",
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:DescribeLogStreams",
-      "s3:*"
+       "ecr:*"
       ],
       "Resource": "*"
     }, 
