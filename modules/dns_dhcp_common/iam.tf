@@ -51,7 +51,7 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
         "sns:Publish",
         "s3:*"
       ],
-      "Resource": "*"
+      "Resource": ["${var.critical_notifications_arn}"]
     }
   ]
 }

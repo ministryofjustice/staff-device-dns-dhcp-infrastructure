@@ -41,3 +41,7 @@ variable "load_balancer_private_ip_eu_west_2c" {
 variable "vpc_id" {
   type = string
 }
+
+variable "critical_notifications_arn"{
+  type = string
+}
