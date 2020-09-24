@@ -26,24 +26,6 @@ Select your workspace
   aws-vault exec moj-pttp-shared-services -- terraform apply
 ```
 
-### Destroying infrastructure
-
-The process of destroying infrastructure is an automated 2 step process that has been encapsulated in a Makefile command.
-
-Run:
-
-```shell
-make destroy # note no aws-vault prefix required as this is in the Makefile 
-```
-
-This will:
-1. Remove the Auto scaling group for the DNS and DHCP servers through the AWS command line
-2. Run `terraform destroy` after that to destroy the remaining services.
-
-*This is a workaround for a dependency bug in Terraform where the order within which services are torn down is incorrect.
-By default Terraform will attempt to destroy the ECS service / cluster before removing the auto scaling group.
-This will result in a timeout as the EC2 instances within the auto scaling group are still running.*
-
 ## Docker images
 
 The ISC Kea DHCP service hosted by this service runs in a Docker container.
