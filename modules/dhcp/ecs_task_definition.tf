@@ -17,6 +17,11 @@ resource "aws_ecs_task_definition" "server_task" {
         "hostPort": 0,
         "containerPort": 67,
         "protocol": "udp"
+      },
+      {
+        "hostPort": 0,
+        "containerPort": 67,
+        "protocol": "tcp"
       }
     ],
     "essential": true,
