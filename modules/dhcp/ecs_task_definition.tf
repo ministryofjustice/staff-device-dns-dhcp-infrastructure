@@ -13,11 +13,6 @@ resource "aws_ecs_task_definition" "server_task" {
   {
     "portMappings": [
       {
-        "hostPort": 80,
-        "containerPort": 80,
-        "protocol": "tcp"
-      },
-      {
         "hostPort": 67,
         "containerPort": 67,
         "protocol": "udp"
@@ -69,6 +64,24 @@ resource "aws_ecs_task_definition" "server_task" {
       }
     },
     "expanded": true
+  }, {
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${module.dns_dhcp_common.cloudwatch.server_log_group_name}",
+        "awslogs-region": "eu-west-2",
+        "awslogs-stream-prefix": "eu-west-2-docker-logs"
+      }
+    },
+    "portMappings": [
+      {
+        "hostPort": 80,
+        "protocol": "tcp",
+        "containerPort": 80
+      }
+    ],
+    "image": "nginx",
+    "name": "NGINX"
   }
 ]
 EOF
