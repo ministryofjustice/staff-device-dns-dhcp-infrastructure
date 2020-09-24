@@ -109,7 +109,7 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
        "rds:*",
        "ecr:*"
       ],
-      "Resource": "*"
+      "Resource": [ "*" ]
     }, 
     {
       "Effect": "Allow",
@@ -118,20 +118,20 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
         "kms:Encrypt",
         "kms:Decrypt"
       ],
-      "Resource": "*"
+      "Resource": [ "*" ]
     },
     {
       "Effect": "Allow",
       "Action": [
         "sns:Publish"
       ],
-      "Resource": "*"
+      "Resource": [ "*" ]
     }, {
       "Effect": "Allow",
       "Action": [
         "cloudWatch:*"
       ],
-      "Resource": "*"
+      "Resource": [ "*" ]
     }
   ]
 }
