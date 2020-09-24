@@ -24,13 +24,16 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_lb_target_group" "target_group" {
-  name     = var.prefix
-  protocol = "UDP"
-  vpc_id   = var.vpc_id
-  port     = var.container_port
+  name                 = var.prefix
+  protocol             = "UDP"
+  vpc_id               = var.vpc_id
+  port                 = var.container_port
+  target_type          = "ip"
+  deregistration_delay = 10
 
   health_check {
     protocol = "TCP"
+    port     = 80
   }
 
   depends_on = [aws_lb.load_balancer]

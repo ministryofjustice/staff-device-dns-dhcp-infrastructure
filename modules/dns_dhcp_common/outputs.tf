@@ -2,13 +2,6 @@ output "ecs_task_role_arn" {
   value = aws_iam_role.ecs_task_role.arn
 }
 
-output "auto_scaling_group" {
-  value = {
-    name = aws_autoscaling_group.auto_scaling_group.id
-    arn  = aws_autoscaling_group.auto_scaling_group.arn
-  }
-}
-
 output "ecr" {
   value = {
     repository_url = aws_ecr_repository.docker_repository.repository_url

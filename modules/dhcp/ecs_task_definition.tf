@@ -1,20 +1,24 @@
 resource "aws_ecs_task_definition" "server_task" {
-  family        = "${var.prefix}-server-task"
-  task_role_arn = module.dns_dhcp_common.ecs_task_role_arn
+  family                   = "${var.prefix}-server-task"
+  task_role_arn            = module.dns_dhcp_common.ecs_task_role_arn
+  execution_role_arn       = module.dns_dhcp_common.ecs_task_role_arn
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "512"
+  memory                   = "1024"
+  network_mode             = "awsvpc"
 
-  # Port 80 is required to be mapped for healthchecks over TCP
+
   container_definitions = <<EOF
 [
   {
-    "memory": 1500,
     "portMappings": [
       {
-        "hostPort": 0,
+        "hostPort": 80,
         "containerPort": 80,
         "protocol": "tcp"
       },
       {
-        "hostPort": 0,
+        "hostPort": 67,
         "containerPort": 67,
         "protocol": "udp"
       }
@@ -64,7 +68,6 @@ resource "aws_ecs_task_definition" "server_task" {
         "awslogs-stream-prefix": "eu-west-2-docker-logs"
       }
     },
-    "cpu": 1000,
     "expanded": true
   }
 ]

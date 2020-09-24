@@ -41,13 +41,15 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
         "cloudwatch:PutMetricData",
         "cloudwatch:GetMetricStatistics",
         "cloudwatch:ListMetrics",
+        "cloudwatch:*",
         "ec2:DescribeTags"
       ],
       "Resource": "*"
     },{
       "Effect": "Allow",
       "Action": [
-        "sns:Publish"
+        "sns:Publish",
+        "s3:*"
       ],
       "Resource": "*"
     }
@@ -102,7 +104,12 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
        "ecr:*",
        "kms:GenerateDataKey",
        "kms:Encrypt",
-       "kms:Decrypt"
+       "kms:Decrypt",
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:DescribeLogStreams",
+      "s3:*"
       ],
       "Resource": "*"
     }, {
@@ -114,7 +121,7 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
     }, {
       "Effect": "Allow",
       "Action": [
-        "cloudWatch:PutMetricData"
+        "cloudWatch:*"
       ],
       "Resource": "*"
     }
