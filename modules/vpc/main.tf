@@ -3,10 +3,14 @@ module "vpc" {
   version = "2.50.0"
   name    = var.prefix
 
-  cidr                    = var.cidr_block
-  enable_nat_gateway      = true
-  enable_dns_hostnames    = true
-  enable_dns_support      = true
+  cidr                 = var.cidr_block
+  enable_nat_gateway   = true
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  create_flow_log_cloudwatch_iam_role  = true
+  create_flow_log_cloudwatch_log_group = true
+  enable_flow_log                      = true
 
   azs = [
     "${var.region}a",
