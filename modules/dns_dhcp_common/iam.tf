@@ -27,7 +27,7 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage"
       ],
-      "Resource": [ "${aws_ecr_repository.docker_repository.arn}" ]
+      "Resource": [ "*" ]
     },
     {
       "Effect": "Allow",
