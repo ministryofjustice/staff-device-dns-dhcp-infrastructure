@@ -34,6 +34,8 @@ resource "aws_lb_target_group" "target_group" {
   health_check {
     protocol = "TCP"
     port     = 80
+    interval = 5
+    healthy_threshold = 1
   }
 
   depends_on = [aws_lb.load_balancer]
