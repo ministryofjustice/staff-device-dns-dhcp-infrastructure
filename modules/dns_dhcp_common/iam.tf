@@ -44,18 +44,13 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "cloudwatch:PutMetricData",
-        "cloudwatch:GetMetricStatistics",
-        "cloudwatch:ListMetrics",
-        "cloudwatch:*",
         "ec2:DescribeTags"
       ],
       "Resource": "*"
     },{
       "Effect": "Allow",
       "Action": [
-        "sns:Publish",
-        "s3:*"
+        "sns:Publish"
       ],
       "Resource": ["${var.critical_notifications_arn}"]
     }
@@ -105,11 +100,27 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
       "Effect": "Allow",
       "Action": [
        "ec2:AuthorizeSecurityGroupIngress",
-       "ec2:Describe*",
-       "rds:*",
-       "ecr:*"
+       "ec2:Describe*"
       ],
       "Resource": [ "*" ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rds:*"
+      ],
+      "Resource": [ "*" ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetAuthorizationToken"
+      ],
+      "Resource": [ "*" ]
+
     }, 
     {
       "Effect": "Allow",
@@ -123,15 +134,18 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "sns:Publish"
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
       ],
-      "Resource": [ "*" ]
-    }, {
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
       "Effect": "Allow",
       "Action": [
-        "cloudWatch:*"
+        "sns:Publish"
       ],
-      "Resource": [ "*" ]
+      "Resource": [ "${var.critical_notifications_arn}" ]
     }
   ]
 }
