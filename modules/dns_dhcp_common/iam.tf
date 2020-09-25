@@ -15,7 +15,13 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
         "ecs:Poll",
         "ecs:RegisterContainerInstance",
         "ecs:StartTelemetrySession",
-        "ecs:Submit*",
+        "ecs:Submit*"
+      ],
+      "Resource": [ "*" ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
         "ecr:GetAuthorizationToken",
         "ecr:BatchCheckLayerAvailability",
         "ecr:GetDownloadUrlForLayer",
@@ -38,20 +44,15 @@ resource "aws_iam_role_policy" "ecs_instance_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "cloudwatch:PutMetricData",
-        "cloudwatch:GetMetricStatistics",
-        "cloudwatch:ListMetrics",
-        "cloudwatch:*",
         "ec2:DescribeTags"
       ],
       "Resource": "*"
     },{
       "Effect": "Allow",
       "Action": [
-        "sns:Publish",
-        "s3:*"
+        "sns:Publish"
       ],
-      "Resource": "*"
+      "Resource": ["${var.critical_notifications_arn}"]
     }
   ]
 }
@@ -98,32 +99,37 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
     {
       "Effect": "Allow",
       "Action": [
-       "ec2:AuthorizeSecurityGroupIngress",
-       "ec2:Describe*",
-       "rds:*",
-       "ecr:*",
-       "kms:GenerateDataKey",
-       "kms:Encrypt",
-       "kms:Decrypt",
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:DescribeLogStreams",
-      "s3:*"
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetAuthorizationToken"
       ],
-      "Resource": "*"
-    }, {
+      "Resource": [ "*" ]
+    }, 
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:GenerateDataKey",
+        "kms:Encrypt",
+        "kms:Decrypt"
+      ],
+      "Resource": [ "${aws_kms_key.config_bucket_key.arn}" ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
       "Effect": "Allow",
       "Action": [
         "sns:Publish"
       ],
-      "Resource": "*"
-    }, {
-      "Effect": "Allow",
-      "Action": [
-        "cloudWatch:*"
-      ],
-      "Resource": "*"
+      "Resource": [ "${var.critical_notifications_arn}" ]
     }
   ]
 }

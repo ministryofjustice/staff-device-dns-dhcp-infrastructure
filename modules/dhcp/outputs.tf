@@ -32,3 +32,7 @@ output "ecr" {
 output "load_balancer" {
   value = module.dns_dhcp_common.nlb.name
 }
+
+output "dhcp_config_bucket_key_arn" {
+  value = module.dns_dhcp_common.s3.config_bucket_key_arn
+}

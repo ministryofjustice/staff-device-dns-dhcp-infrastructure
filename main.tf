@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "mysql" {
-  version = "~> 1.9"
+  version  = "~> 1.9"
   endpoint = module.dhcp.rds.endpoint
   username = var.dhcp_db_username
   password = var.dhcp_db_password
@@ -149,6 +149,8 @@ module "admin" {
   bind_config_bucket_name          = module.dns.bind_config_bucket_name
   bind_config_bucket_arn           = module.dns.bind_config_bucket_arn
   is_publicly_accessible           = local.publicly_accessible
+  bind_config_bucket_key_arn       = module.dns.bind_config_bucket_key_arn
+  dhcp_config_bucket_key_arn       = module.dhcp.dhcp_config_bucket_key_arn
 
   depends_on = [
     module.admin_vpc
@@ -175,7 +177,7 @@ module "authentication" {
 module "alarms" {
   source                           = "./modules/alarms"
   dhcp_cluster_name                = module.dhcp.ecs.cluster_name
-  prefix                           = module.dhcp_label.id
+  prefix                           = module.alarms_label.id
   enable_critical_notifications    = var.enable_critical_notifications
   critical_notification_recipients = var.critical_notification_recipients
   rds_identifier                   = module.dhcp.rds_identifier
@@ -232,6 +234,26 @@ module "dns_label" {
   namespace = "staff-device"
   stage     = terraform.workspace
   name      = "dns"
+  delimiter = "-"
+
+  tags = {
+    "business-unit" = "MoJO"
+    "application"   = "dns-dhcp",
+    "is-production" = tostring(var.is_production),
+    "owner"         = var.owner_email
+
+    "environment-name" = "global"
+    "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
+  }
+}
+
+module "alarms_label" {
+  source  = "cloudposse/label/null"
+  version = "0.19.2"
+
+  namespace = "staff-device"
+  stage     = terraform.workspace
+  name      = "alarms"
   delimiter = "-"
 
   tags = {
