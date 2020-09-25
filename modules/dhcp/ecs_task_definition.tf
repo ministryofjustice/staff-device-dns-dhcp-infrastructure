@@ -13,14 +13,6 @@ resource "aws_ecs_task_definition" "server_task" {
   {
     "portMappings": [
       {
-<<<<<<< HEAD
-=======
-        "hostPort": 80,
-        "containerPort": 80,
-        "protocol": "tcp"
-      },
-      {
->>>>>>> f478f45... Use Fargate backend for DHCP and DNS clusters (#47)
         "hostPort": 67,
         "containerPort": 67,
         "protocol": "udp"
