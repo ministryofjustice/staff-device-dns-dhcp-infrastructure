@@ -54,8 +54,8 @@ EOF
 resource "aws_ecs_task_definition" "admin_task" {
   family                   = "${var.prefix}-task"
   requires_compatibilities = ["FARGATE"]
-  task_role_arn            = aws_iam_role.ecs_admin_instance_role.arn
-  execution_role_arn       = aws_iam_role.ecsTaskExecutionRole.arn
+  task_role_arn            = aws_iam_role.ecs_task_role.arn
+  execution_role_arn       = aws_iam_role.ecs_execution_role.arn
   cpu                      = "512"
   memory                   = "1024"
   network_mode             = "awsvpc"
