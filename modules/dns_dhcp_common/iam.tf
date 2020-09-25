@@ -99,28 +99,12 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
     {
       "Effect": "Allow",
       "Action": [
-       "ec2:AuthorizeSecurityGroupIngress",
-       "ec2:Describe*"
-      ],
-      "Resource": [ "*" ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "rds:*"
-      ],
-      "Resource": [ "*" ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
         "ecr:BatchCheckLayerAvailability",
         "ecr:BatchGetImage",
         "ecr:GetDownloadUrlForLayer",
         "ecr:GetAuthorizationToken"
       ],
       "Resource": [ "*" ]
-
     }, 
     {
       "Effect": "Allow",
@@ -129,7 +113,7 @@ resource "aws_iam_role_policy" "ecs_service_policy" {
         "kms:Encrypt",
         "kms:Decrypt"
       ],
-      "Resource": [ "*" ]
+      "Resource": [ "${aws_kms_key.config_bucket_key.arn}" ]
     },
     {
       "Effect": "Allow",
