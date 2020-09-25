@@ -26,7 +26,7 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
       "Action": [
         "ecs:UpdateService"
       ],
-      "Resource": ["${var.dhcp_service_arn}"]
+      "Resource": ["*"]
     },
     {
       "Effect": "Allow",
