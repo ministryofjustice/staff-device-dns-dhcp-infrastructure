@@ -102,6 +102,6 @@ variable "dns_load_balancer_private_ip_eu_west_2c" {
 }
 
 variable "enable_corsham_test_bastion" {
-  type = bool
+  type    = bool
   default = true
 }
