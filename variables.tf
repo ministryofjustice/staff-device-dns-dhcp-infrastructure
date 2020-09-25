@@ -100,3 +100,8 @@ variable "dns_load_balancer_private_ip_eu_west_2b" {
 variable "dns_load_balancer_private_ip_eu_west_2c" {
   type = string
 }
+
+variable "enable_corsham_test_bastion" {
+  type = bool
+  default = true
+}

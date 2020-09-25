@@ -224,7 +224,7 @@ module "corsham_test_bastion" {
     aws = aws.env
   }
 
-  count = terraform.workspace == "production" ? 1 : 0
+  count = terraform.workspace == "production" && var.enable_corsham_test_bastion == true ? 1 : 0
 }
 
 module "dns_label" {

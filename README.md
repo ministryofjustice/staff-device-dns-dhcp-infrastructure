@@ -40,9 +40,23 @@ Azure AD provides our authorization backend and is not provisioned through CLI/T
 ## Corsham Test site
 
 We do remote testing of the DHCP service from a virtual machine running in Corsham.
+
+These tests run on an infinite loop, sending a total of 50 requests at a rate of 2 requests per second, emulating 2 concurrent connections with `perfdhcp`.
 To access this VM you need to go through the bastion set up in production, which is on the same network (via the Transit Gateway) as the VM.
 
-Follow the steps below to run the tests:
+Follow the steps below to gain access to the VM for debugging:
+
+### Create the Corsham VM bastion (jump box)
+
+This should only be used to get access to the VM and should not be left running in production.
+
+This is integrated with the production MoJ network so will only work on our production AWS account.
+
+1. Modify the `enable_corsham_test_bastion` variable in ./variables.tf and set it to true.
+
+2. Commit this to the `main` git branch and push it up.
+
+3. Ensure CI has created this instance.
 
 ### SSH onto the bastion server
 
