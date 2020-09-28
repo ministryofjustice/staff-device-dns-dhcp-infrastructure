@@ -166,7 +166,7 @@ module "authentication" {
   azure_federation_metadata_url = var.azure_federation_metadata_url
   prefix                        = module.dhcp_label.id
   enable_authentication         = var.enable_authentication
-  admin_url                     = module.admin.admin_url
+  admin_url                     = module.admin.admin_url[0]
   region                        = data.aws_region.current_region.id
 
   providers = {
