@@ -23,11 +23,11 @@ resource "aws_route53_record" "admin_alb" {
     }
   }
 
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 3600
-  type            = each.value.type
-  zone_id         = var.vpn_hosted_zone_id
+  name    = each.value.name
+  records = [each.value.record]
+  ttl     = 3600
+  type    = each.value.type
+  zone_id = var.vpn_hosted_zone_id
 }
 
 resource "aws_route53_record" "admin_db" {
