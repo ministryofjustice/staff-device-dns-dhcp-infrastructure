@@ -3,5 +3,5 @@ output "admin_db_identifier" {
 }
 
 output "admin_url" {
-  value = [for record in aws_route53_record.admin_alb : record.fqdn]
+  value = aws_route53_record.admin_app.fqdn
 }

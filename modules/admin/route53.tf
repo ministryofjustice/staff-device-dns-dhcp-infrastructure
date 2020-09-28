@@ -30,6 +30,16 @@ resource "aws_route53_record" "admin_alb" {
   zone_id = var.vpn_hosted_zone_id
 }
 
+resource "aws_route53_record" "admin_app" {
+  zone_id = var.vpn_hosted_zone_id
+  ttl     = 3600
+  type    = "CNAME"
+
+  name    = "dhcp-dns-admin.${var.domain_affix}.${var.vpn_hosted_zone_domain}"
+  records = ["${aws_lb.admin_alb.dns_name}"]
+}
+
+
 resource "aws_route53_record" "admin_db" {
   zone_id = var.vpn_hosted_zone_id
   ttl     = 3600
