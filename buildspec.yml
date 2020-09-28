@@ -47,3 +47,5 @@ phases:
       - terraform workspace select $ENV
       - terraform apply --auto-approve -no-color
       - ./scripts/publish_terraform_outputs
+      - ./scripts/ensure_cloudwatch_log_retention_policies
+
