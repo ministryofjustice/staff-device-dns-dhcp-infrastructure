@@ -2,9 +2,9 @@ resource "aws_acm_certificate" "admin_alb" {
   domain_name       = "dhcp-dns-admin.${var.domain_affix}.${var.vpn_hosted_zone_domain}"
   validation_method = "DNS"
 
-  lifecycle {
-    create_before_destroy = true
-  }
+  # lifecycle {
+  #   create_before_destroy = true
+  # }
 
   tags = var.tags
 }
