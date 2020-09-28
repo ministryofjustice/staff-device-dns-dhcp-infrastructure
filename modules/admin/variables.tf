@@ -108,3 +108,7 @@ variable "dhcp_config_bucket_key_arn" {
 variable "bind_config_bucket_key_arn" {
   type = string
 }
+
+variable "domain_affix" {
+  type = string
+}
