@@ -3,11 +3,11 @@ output "rds_identifier" {
 }
 
 output "kea_config_bucket_arn" {
-  value = module.dns_dhcp_common.s3.config_bucket_arn
+  value = aws_s3_bucket.config_bucket.arn
 }
 
 output "kea_config_bucket_name" {
-  value = module.dns_dhcp_common.s3.config_bucket_name
+  value = aws_s3_bucket.config_bucket.id
 }
 
 output "ecs" {
@@ -34,5 +34,5 @@ output "load_balancer" {
 }
 
 output "dhcp_config_bucket_key_arn" {
-  value = module.dns_dhcp_common.s3.config_bucket_key_arn
+  value = aws_kms_key.config_bucket_key.arn
 }
