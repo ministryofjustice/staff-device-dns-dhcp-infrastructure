@@ -105,3 +105,8 @@ variable "enable_corsham_test_bastion" {
   type    = bool
   default = true
 }
+
+variable "domain_affix" {
+  type    = bool
+  default = false
+}

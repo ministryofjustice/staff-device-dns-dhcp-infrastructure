@@ -3,6 +3,6 @@ resource "aws_route53_record" "dhcp_db" {
   ttl     = 3600
   type    = "CNAME"
 
-  name    = "staff-device-${var.short_prefix}-dhcp-db.${var.vpn_hosted_zone_domain}"
+  name    = "dhcp-dns-admin-dhcp-db.${var.vpn_hosted_zone_domain}"
   records = [aws_db_instance.dhcp_server_db.address]
 }
