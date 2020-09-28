@@ -1,12 +1,11 @@
 resource "aws_ecs_task_definition" "server_task" {
   family                   = "${var.prefix}-server-task"
-  task_role_arn            = module.dns_dhcp_common.ecs_task_role_arn
-  execution_role_arn       = module.dns_dhcp_common.ecs_task_role_arn
+  task_role_arn            = aws_iam_role.ecs_task_role.arn
+  execution_role_arn       = aws_iam_role.ecs_execution_role.arn
   requires_compatibilities = ["FARGATE"]
   cpu                      = "512"
   memory                   = "1024"
   network_mode             = "awsvpc"
-
 
   container_definitions = <<EOF
 [

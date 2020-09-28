@@ -1,7 +1,3 @@
-output "ecs_task_role_arn" {
-  value = aws_iam_role.ecs_task_role.arn
-}
-
 output "ecr" {
   value = {
     repository_url = aws_ecr_repository.docker_repository.repository_url
@@ -27,13 +23,5 @@ output "nlb" {
 output "cloudwatch" {
   value = {
     server_log_group_name = aws_cloudwatch_log_group.server_log_group.name
-  }
-}
-
-output "s3" {
-  value = {
-    config_bucket_arn     = aws_s3_bucket.config_bucket.arn
-    config_bucket_name    = aws_s3_bucket.config_bucket.id
-    config_bucket_key_arn = aws_kms_key.config_bucket_key.arn
   }
 }
