@@ -20,7 +20,7 @@ env:
     TF_VAR_azure_federation_metadata_url: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/azure_federation_metadata_url"
     TF_VAR_critical_notification_recipients: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/critical_notification_recipients"
     TF_VAR_vpn_hosted_zone_id: "/codebuild/$ENV/vpn_hosted_zone_id"
-    TF_VAR_vpn_hosted_zone_domain: "/route53/vpn_hosted_zone_domain"
+    TF_VAR_vpn_hosted_zone_domain: "/route53/$ENV/vpn_hosted_zone_domain"
     TF_VAR_dhcp_transit_gateway_id: "/staff-device/dhcp/$ENV/transit_gateway_id"
     TF_VAR_transit_gateway_route_table_id: "/staff-device/dhcp/$ENV/transit_gateway_route_table_id"
     TF_VAR_dhcp_load_balancer_private_ip_eu_west_2a: "/staff-device/dhcp/$ENV/load_balancer_private_ip_eu_west_2a"
