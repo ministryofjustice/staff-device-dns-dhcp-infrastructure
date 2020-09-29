@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "admin_alb" {
-  domain_name       = "dhcp-dns-admin.${var.domain_affix}.${var.vpn_hosted_zone_domain}"
+  domain_name       = "dhcp-dns-admin${var.domain_affix}.${var.vpn_hosted_zone_domain}"
   validation_method = "DNS"
 
   tags = var.tags
@@ -31,7 +31,7 @@ resource "aws_route53_record" "admin_app" {
   ttl     = 3600
   type    = "CNAME"
 
-  name    = "dhcp-dns-admin.${var.domain_affix}"
+  name    = "dhcp-dns-admin${var.domain_affix}"
   records = [aws_lb.admin_alb.dns_name]
 }
 
@@ -41,6 +41,6 @@ resource "aws_route53_record" "admin_db" {
   ttl     = 3600
   type    = "CNAME"
 
-  name    = "dhcp-dns-admin-db.${var.domain_affix}"
+  name    = "dhcp-dns-admin-db${var.domain_affix}"
   records = [aws_db_instance.admin_db.address]
 }

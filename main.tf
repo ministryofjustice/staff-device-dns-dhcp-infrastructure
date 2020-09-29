@@ -151,7 +151,7 @@ module "admin" {
   is_publicly_accessible           = local.publicly_accessible
   bind_config_bucket_key_arn       = module.dns.bind_config_bucket_key_arn
   dhcp_config_bucket_key_arn       = module.dhcp.dhcp_config_bucket_key_arn
-  domain_affix                     = length(var.domain_affix) == 0 ? terraform.workspace : var.domain_affix
+  domain_affix                     = var.domain_affix
 
   depends_on = [
     module.admin_vpc
