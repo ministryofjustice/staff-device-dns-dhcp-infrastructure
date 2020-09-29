@@ -109,6 +109,6 @@ variable "bind_config_bucket_key_arn" {
   type = string
 }
 
-variable "domain_affix" {
+variable "admin_local_development_domain_affix" {
   type = string
 }

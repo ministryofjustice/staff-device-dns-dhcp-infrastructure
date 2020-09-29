@@ -123,35 +123,35 @@ module "dhcp" {
 }
 
 module "admin" {
-  source                           = "./modules/admin"
-  prefix                           = "${module.dhcp_label.id}-admin"
-  short_prefix                     = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  tags                             = module.dhcp_label.tags
-  vpc_id                           = module.admin_vpc.vpc_id
-  admin_db_password                = var.admin_db_password
-  admin_db_username                = var.admin_db_username
-  subnet_ids                       = module.admin_vpc.public_subnets
-  sentry_dsn                       = "tbc"
-  secret_key_base                  = "tbc"
-  kea_config_bucket_arn            = module.dhcp.kea_config_bucket_arn
-  kea_config_bucket_name           = module.dhcp.kea_config_bucket_name
-  region                           = data.aws_region.current_region.id
-  vpn_hosted_zone_id               = var.vpn_hosted_zone_id
-  vpn_hosted_zone_domain           = var.vpn_hosted_zone_domain
-  admin_db_backup_retention_period = var.admin_db_backup_retention_period
-  cognito_user_pool_id             = module.authentication.cognito_user_pool_id
-  cognito_user_pool_domain         = module.authentication.cognito_user_pool_domain
-  cognito_user_pool_client_id      = module.authentication.cognito_user_pool_client_id
-  cognito_user_pool_client_secret  = module.authentication.cognito_user_pool_client_secret
-  dhcp_cluster_name                = module.dhcp.ecs.cluster_name
-  dhcp_service_name                = module.dhcp.ecs.service_name
-  dhcp_service_arn                 = module.dhcp.ecs.service_arn
-  bind_config_bucket_name          = module.dns.bind_config_bucket_name
-  bind_config_bucket_arn           = module.dns.bind_config_bucket_arn
-  is_publicly_accessible           = local.publicly_accessible
-  bind_config_bucket_key_arn       = module.dns.bind_config_bucket_key_arn
-  dhcp_config_bucket_key_arn       = module.dhcp.dhcp_config_bucket_key_arn
-  domain_affix                     = var.domain_affix
+  source                               = "./modules/admin"
+  prefix                               = "${module.dhcp_label.id}-admin"
+  short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  tags                                 = module.dhcp_label.tags
+  vpc_id                               = module.admin_vpc.vpc_id
+  admin_db_password                    = var.admin_db_password
+  admin_db_username                    = var.admin_db_username
+  subnet_ids                           = module.admin_vpc.public_subnets
+  sentry_dsn                           = "tbc"
+  secret_key_base                      = "tbc"
+  kea_config_bucket_arn                = module.dhcp.kea_config_bucket_arn
+  kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
+  region                               = data.aws_region.current_region.id
+  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
+  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
+  admin_db_backup_retention_period     = var.admin_db_backup_retention_period
+  cognito_user_pool_id                 = module.authentication.cognito_user_pool_id
+  cognito_user_pool_domain             = module.authentication.cognito_user_pool_domain
+  cognito_user_pool_client_id          = module.authentication.cognito_user_pool_client_id
+  cognito_user_pool_client_secret      = module.authentication.cognito_user_pool_client_secret
+  dhcp_cluster_name                    = module.dhcp.ecs.cluster_name
+  dhcp_service_name                    = module.dhcp.ecs.service_name
+  dhcp_service_arn                     = module.dhcp.ecs.service_arn
+  bind_config_bucket_name              = module.dns.bind_config_bucket_name
+  bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
+  is_publicly_accessible               = local.publicly_accessible
+  bind_config_bucket_key_arn           = module.dns.bind_config_bucket_key_arn
+  dhcp_config_bucket_key_arn           = module.dhcp.dhcp_config_bucket_key_arn
+  admin_local_development_domain_affix = var.admin_local_development_domain_affix
 
   depends_on = [
     module.admin_vpc
