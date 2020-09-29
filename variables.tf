@@ -106,7 +106,7 @@ variable "enable_corsham_test_bastion" {
   default = true
 }
 
-variable "domain_affix" {
+variable "admin_local_development_domain_affix" {
   type    = string
   default = ""
 }
