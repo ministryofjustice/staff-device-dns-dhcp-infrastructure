@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "admin_alb" {
-  domain_name       = "dhcp-dns-admin${var.admin_local_development_domain_affix}.${var.vpn_hosted_zone_domain}"
+  domain_name       = "dhcp-dns-admin.${var.vpn_hosted_zone_domain}"
   validation_method = "DNS"
 
   tags = var.tags
