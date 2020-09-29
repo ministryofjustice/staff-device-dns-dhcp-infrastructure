@@ -12,7 +12,7 @@ This repository defines the **system infrastructure only**. Specific components 
 
 - [Shared Services](https://github.com/ministryofjustice/pttp-shared-services-infrastructure)
 - [DNS DHCP Admin Portal](https://github.com/ministryofjustice/staff-device-dns-dhcp-admin)
-- [DNS Server](https://github.com/ministryofjustice/staff-device-dhcp-server)
+- [DNS Server](https://github.com/ministryofjustice/staff-device-dns-server)
 - [DHCP Server](https://github.com/ministryofjustice/staff-device-dhcp-server)
 
 
