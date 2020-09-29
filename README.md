@@ -1,6 +1,31 @@
 # DNS / DHCP AWS Infrastructure
 
-## Run locally
+## Introduction
+
+This repository contains the Terraform code to build the AWS infrastructure for the Ministry of Justice's DNS and DHCP platform. The infrastructure is implemented in AWS and applied using [AWS CodePipelines](https://aws.amazon.com/codepipeline/) specified in the Shared Services management account.
+
+Where possible, the running applications are defined and run as docker containers using [AWS Fargate](https://aws.amazon.com/fargate/) or [ECS](https://aws.amazon.com/ecs/)
+
+## Related Repositories
+
+This repository defines the **system infrastructure only**. Specific components and applications are defined in their own logical external repositories.
+
+- [Shared Services](https://github.com/ministryofjustice/pttp-shared-services-infrastructure)
+- [DNS DHCP Admin Portal](https://github.com/ministryofjustice/staff-device-dns-dhcp-admin)
+- [DNS Server](https://github.com/ministryofjustice/staff-device-dns-server)
+- [DHCP Server](https://github.com/ministryofjustice/staff-device-dhcp-server)
+
+
+## Architecture
+
+![architecture](diagrams/pttp-dns-dhcp-infra.png)
+[Image Source](diagrams/pttp-dns-dhcp-infra.drawio)
+
+## Authentication with Azure AD
+
+Azure AD provides the authorization backend, via [AWS Cognito](https://aws.amazon.com/cognito/), and is manually provisioned following the [Azure AD manual provisioning guide](docs/azure_ad.md).
+
+## Local Development
 
 Initialise the repo:
 
@@ -25,17 +50,6 @@ Select your workspace
 ```shell
   aws-vault exec moj-pttp-shared-services -- terraform apply
 ```
-
-## Docker images
-
-The ISC Kea DHCP service hosted by this service runs in a Docker container.
-The code for building this container can be found [here](https://github.com/ministryofjustice/staff-device-dhcp-server).
-
-## Authentication with Azure AD
-
-Azure AD provides our authorization backend and is not provisioned through CLI/Terraform. Follow this guide for manual steps to build Azure AD infrastructure.
-
-[Azure AD manual provisioning guide](docs/azure_ad.md)
 
 ## Corsham Test site
 
