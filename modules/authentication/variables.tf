@@ -19,5 +19,5 @@ variable "region" {
 }
 
 variable "vpn_hosted_zone_domain" {
-  type string
+  type = string
 }
