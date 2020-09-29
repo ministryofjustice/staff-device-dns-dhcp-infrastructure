@@ -34,7 +34,7 @@ resource "aws_ecs_task_definition" "server_task" {
       },
       {
         "name": "DB_HOST",
-        "value": "${aws_route53_record.dhcp_db.name}"
+        "value": "${aws_route53_record.dhcp_db.fqdn}"
       },
       {
         "name": "DB_PORT",
