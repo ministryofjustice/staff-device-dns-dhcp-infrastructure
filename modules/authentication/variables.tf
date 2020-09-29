@@ -17,3 +17,7 @@ variable "admin_url" {
 variable "region" {
   type = string
 }
+
+variable "vpn_hosted_zone_domain" {
+  type string
+}
