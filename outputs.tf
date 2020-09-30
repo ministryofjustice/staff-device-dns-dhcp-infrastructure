@@ -4,6 +4,11 @@ output "terraform_outputs" {
       ecs = module.dhcp.ecs
       ecr = module.dhcp.ecr
     }
+
+    admin = {
+      ecs = module.admin.ecs
+    }
+
     authentication = {
       cognito = {
         identifier_urn = module.authentication.cognito_identifier_urn
