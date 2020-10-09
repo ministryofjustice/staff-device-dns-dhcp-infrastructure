@@ -81,3 +81,7 @@ variable "region" {
 variable "is_publicly_accessible" {
   type = bool
 }
+
+variable "admin_local_development_domain_affix" {
+  type = string
+}

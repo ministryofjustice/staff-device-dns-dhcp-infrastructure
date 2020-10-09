@@ -112,6 +112,7 @@ module "dhcp" {
   region                                 = data.aws_region.current_region.id
   is_publicly_accessible                 = local.publicly_accessible
   vpc_cidr                               = local.dns_dhcp_vpc_cidr
+  admin_local_development_domain_affix = var.admin_local_development_domain_affix
 
   providers = {
     aws = aws.env
