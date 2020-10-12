@@ -101,6 +101,9 @@ resource "aws_ecs_task_definition" "admin_task" {
           "name": "SENTRY_DSN",
           "value": "${var.sentry_dsn}"
         },{
+          "name": "SENTRY_CURRENT_ENV",
+          "value": "${var.short_prefix}"
+        },{
           "name": "S3_KEA_CONFIG_OBJECT_KEY",
           "value": "config.json"
         },{
