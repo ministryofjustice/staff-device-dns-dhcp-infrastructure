@@ -110,3 +110,8 @@ variable "admin_local_development_domain_affix" {
   type    = string
   default = ""
 }
+
+variable "sentry_dsn" {
+  type    = string
+  default = ""
+}

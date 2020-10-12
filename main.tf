@@ -132,7 +132,7 @@ module "admin" {
   admin_db_password                    = var.admin_db_password
   admin_db_username                    = var.admin_db_username
   subnet_ids                           = module.admin_vpc.public_subnets
-  sentry_dsn                           = "tbc"
+  sentry_dsn                           = var.sentry_dsn
   secret_key_base                      = "tbc"
   kea_config_bucket_arn                = module.dhcp.kea_config_bucket_arn
   kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
