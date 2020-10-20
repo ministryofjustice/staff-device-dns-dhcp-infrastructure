@@ -151,6 +151,10 @@ resource "aws_ecs_task_definition" "admin_task" {
         {
           "name": "DHCP_DB_NAME",
           "value": "${var.dhcp_db_name}"
+        },
+        {
+          "name": "DHCP_DB_HOST",
+          "value": "${var.dhcp_db_host}"
         }
       ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
