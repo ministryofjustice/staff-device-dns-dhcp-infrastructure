@@ -44,3 +44,7 @@ output "db_name" {
 output "db_host" {
   value = aws_route53_record.dhcp_db.fqdn
 }
+
+output "db_port" {
+  value = aws_db_instance.dhcp_server_db.port
+}

@@ -157,6 +157,7 @@ module "admin" {
   dhcp_db_password                     = var.dhcp_db_password
   dhcp_db_name                         = module.dhcp.db_name
   dhcp_db_host                         = module.dhcp.db_host
+  dhcp_db_port                         = module.dhcp.db_port
 
   depends_on = [
     module.admin_vpc
