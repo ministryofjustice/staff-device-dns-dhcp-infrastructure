@@ -155,6 +155,7 @@ module "admin" {
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   dhcp_db_username                     = var.dhcp_db_username
   dhcp_db_password                     = var.dhcp_db_password
+  dhcp_db_name                         = module.dhcp.db_name
 
   depends_on = [
     module.admin_vpc
