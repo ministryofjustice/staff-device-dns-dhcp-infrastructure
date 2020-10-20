@@ -154,6 +154,7 @@ module "admin" {
   dhcp_config_bucket_key_arn           = module.dhcp.dhcp_config_bucket_key_arn
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   dhcp_db_username                     = var.dhcp_db_username
+  dhcp_db_password                     = var.dhcp_db_password
 
   depends_on = [
     module.admin_vpc
