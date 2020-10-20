@@ -116,3 +116,7 @@ variable "admin_local_development_domain_affix" {
 variable "dhcp_db_username" {
   type = string
 }
+
+variable "dhcp_db_password" {
+  type = string
+}
