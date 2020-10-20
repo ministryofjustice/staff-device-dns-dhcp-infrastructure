@@ -139,6 +139,10 @@ resource "aws_ecs_task_definition" "admin_task" {
         },{
           "name": "BIND_CONFIG_BUCKET",
           "value": "${var.bind_config_bucket_name}"
+        },
+        {
+          "name": "DHCP_DB_USER",
+          "value": "${var.dhcp_db_username}"
         }
       ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
