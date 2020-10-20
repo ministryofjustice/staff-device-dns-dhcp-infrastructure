@@ -40,3 +40,7 @@ output "dhcp_config_bucket_key_arn" {
 output "db_name" {
   value = aws_db_instance.dhcp_server_db.name
 }
+
+output "db_host" {
+  value = aws_route53_record.dhcp_db.fqdn
+}
