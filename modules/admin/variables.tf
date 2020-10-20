@@ -120,3 +120,7 @@ variable "dhcp_db_username" {
 variable "dhcp_db_password" {
   type = string
 }
+
+variable "dhcp_db_name" {
+  type = string
+}
