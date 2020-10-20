@@ -112,3 +112,7 @@ variable "bind_config_bucket_key_arn" {
 variable "admin_local_development_domain_affix" {
   type = string
 }
+
+variable "dhcp_db_username" {
+  type = string
+}
