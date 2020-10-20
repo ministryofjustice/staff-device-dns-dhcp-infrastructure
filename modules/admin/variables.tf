@@ -128,3 +128,7 @@ variable "dhcp_db_name" {
 variable "dhcp_db_host" {
   type = string
 }
+
+variable "dhcp_db_port" {
+  type = string
+}
