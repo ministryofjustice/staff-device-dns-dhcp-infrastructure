@@ -48,3 +48,7 @@ output "db_host" {
 output "db_port" {
   value = aws_db_instance.dhcp_server_db.port
 }
+
+output "dhcp_db_in_security_group_id" {
+  value = aws_security_group.dhcp_db_in.id
+}
