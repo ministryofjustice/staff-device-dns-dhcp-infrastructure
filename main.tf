@@ -120,7 +120,8 @@ module "dhcp" {
   }
 
   depends_on = [
-    module.vpc
+    module.vpc,
+    module.admin_dhcp_vpc_peering
   ]
 }
 
@@ -162,7 +163,8 @@ module "admin" {
   dhcp_db_in_security_group_id         = module.dhcp.dhcp_db_in_security_group_id
 
   depends_on = [
-    module.admin_vpc
+    module.admin_vpc,
+    module.admin_dhcp_vpc_peering
   ]
 
   providers = {
@@ -274,5 +276,16 @@ module "alarms_label" {
 
     "environment-name" = "global"
     "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
+  }
+}
+
+module "admin_dhcp_vpc_peering" {
+  source = "./modules/vpc_peering"
+
+  source_vpc_id = module.admin_vpc.vpc_id
+  target_vpc_id = module.vpc.vpc_id
+
+  providers = {
+    aws = aws.env
   }
 }
