@@ -158,6 +158,7 @@ module "admin" {
   dhcp_db_name                         = module.dhcp.db_name
   dhcp_db_host                         = module.dhcp.db_host
   dhcp_db_port                         = module.dhcp.db_port
+  dhcp_db_in_security_group_id         = module.dhcp.dhcp_db_in_security_group_id
 
   depends_on = [
     module.admin_vpc

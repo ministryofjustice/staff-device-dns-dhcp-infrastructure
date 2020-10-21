@@ -132,3 +132,7 @@ variable "dhcp_db_host" {
 variable "dhcp_db_port" {
   type = string
 }
+
+variable "dhcp_db_in_security_group_id" {
+  type = string
+}
