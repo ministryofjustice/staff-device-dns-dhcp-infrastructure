@@ -115,3 +115,13 @@ variable "sentry_dsn" {
   type    = string
   default = ""
 }
+
+variable "bastion_allowed_ingress_ip" {
+  type    = string
+  default = "noop"
+}
+
+variable "corsham_allowed_egress_ip" {
+  type    = string
+  default = "noop"
+}

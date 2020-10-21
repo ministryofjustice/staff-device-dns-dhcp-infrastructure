@@ -30,6 +30,8 @@ env:
     TF_VAR_dns_load_balancer_private_ip_eu_west_2b: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2b"
     TF_VAR_dns_load_balancer_private_ip_eu_west_2c: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2c"
     TF_VAR_sentry_dsn: "/staff-device/admin/sentry_dsn"
+    TF_VAR_bastion_allowed_ingress_ip: "/staff-device/corsham_testing/bastion_allowed_ingress_ip"
+    TF_VAR_bastion_allowed_egress_ip: "/staff-device/corsham_testing/bastion_allowed_egress_ip"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
 
 phases:
