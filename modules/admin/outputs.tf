@@ -12,3 +12,7 @@ output "ecs" {
     service_name = aws_ecs_service.admin-service.name
   }
 }
+
+output "admin_ecs_security_group_id" {
+  value = aws_security_group.admin_ecs.id
+}
