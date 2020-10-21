@@ -9,3 +9,11 @@ variable "vpc_id" {
 variable "tags" {
   type = map(string)
 }
+
+variable "bastion_allowed_ingress_ip" {
+  type = string
+}
+
+variable "corsham_allowed_egress_ip" {
+  type = string
+}

@@ -219,10 +219,12 @@ module "dns" {
 }
 
 module "corsham_test_bastion" {
-  source  = "./modules/corsham_test"
-  subnets = module.vpc.public_subnets
-  vpc_id  = module.vpc.vpc_id
-  tags    = module.dhcp_label.tags
+  source                     = "./modules/corsham_test"
+  subnets                    = module.vpc.public_subnets
+  vpc_id                     = module.vpc.vpc_id
+  tags                       = module.dhcp_label.tags
+  bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
+  corsham_allowed_egress_ip  = var.corsham_allowed_egress_ip
 
   depends_on = [
     module.vpc
