@@ -72,3 +72,13 @@ resource "aws_security_group_rule" "dhcp_db_in" {
   security_group_id        = aws_security_group.dhcp_db_in.id
   source_security_group_id = aws_security_group.dhcp_server.id
 }
+
+resource "aws_security_group_rule" "dhcp_db_in_from_admin_ecs" {
+  description              = "Allow access in to dhcp database from admin app containers"
+  type                     = "ingress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.dhcp_db_in.id
+  source_security_group_id = var.admin_ecs_security_group_id
+}
