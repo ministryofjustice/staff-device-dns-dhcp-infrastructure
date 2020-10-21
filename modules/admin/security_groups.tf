@@ -91,3 +91,12 @@ resource "aws_security_group_rule" "admin_ecs_out_to_web" {
   cidr_blocks       = ["0.0.0.0/0"]
 }
 
+resource "aws_security_group_rule" "admin_ecs_out_to_dhcp_db" {
+  description              = "Allow access from admin app containers to dhcp database"
+  type                     = "egress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.admin_ecs.id
+  source_security_group_id = var.dhcp_db_in_security_group_id
+}
