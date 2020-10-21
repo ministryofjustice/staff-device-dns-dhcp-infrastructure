@@ -113,6 +113,7 @@ module "dhcp" {
   is_publicly_accessible                 = local.publicly_accessible
   vpc_cidr                               = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix   = var.admin_local_development_domain_affix
+  admin_ecs_security_group_id            = module.admin.admin_ecs_security_group_id
 
   providers = {
     aws = aws.env

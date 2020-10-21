@@ -85,3 +85,7 @@ variable "is_publicly_accessible" {
 variable "admin_local_development_domain_affix" {
   type = string
 }
+
+variable "admin_ecs_security_group_id" {
+  type = string
+}
