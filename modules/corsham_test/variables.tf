@@ -14,6 +14,6 @@ variable "bastion_allowed_ingress_ip" {
   type = string
 }
 
-variable "corsham_allowed_egress_ip" {
+variable "bastion_allowed_egress_ip" {
   type = string
 }
