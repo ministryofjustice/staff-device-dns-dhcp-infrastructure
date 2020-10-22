@@ -121,7 +121,7 @@ variable "bastion_allowed_ingress_ip" {
   default = "noop"
 }
 
-variable "corsham_allowed_egress_ip" {
+variable "bastion_allowed_egress_ip" {
   type    = string
   default = "noop"
 }
