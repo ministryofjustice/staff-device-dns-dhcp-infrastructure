@@ -27,10 +27,12 @@ Azure AD provides the authorization backend, via [AWS Cognito](https://aws.amazo
 
 ## Local Development
 
+[Install aws-vault](https://github.com/99designs/aws-vault#installing) and [add the MoJ shared services account](https://github.com/99designs/aws-vault#quick-start) as 'moj-pttp-shared-services'.
+
 Initialise the repo:
 
 ```shell
-  aws-vault exec moj-pttp-shared-services -- make init
+  make init
 ```
 
 Create your workspace
@@ -48,7 +50,7 @@ Select your workspace
 Select your workspace
 
 ```shell
-  aws-vault exec moj-pttp-shared-services -- terraform apply
+  make apply
 ```
 
 ## Corsham Test site
@@ -80,7 +82,7 @@ This is integrated with the production MoJ network so will only work on our prod
 
 2. Copy the contents of the SSH key kept under `/corsham/testing/bastion/private_key` and save it to a local file corsham_test.pem
 
-3. Change the permission of the pem file by running: 
+3. Change the permission of the pem file by running:
 
 ```bash
 chmod 600 corsham_test.pem
