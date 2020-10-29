@@ -15,7 +15,6 @@ This repository defines the **system infrastructure only**. Specific components 
 - [DNS Server](https://github.com/ministryofjustice/staff-device-dns-server)
 - [DHCP Server](https://github.com/ministryofjustice/staff-device-dhcp-server)
 
-
 ## Architecture
 
 ![architecture](diagrams/pttp-dns-dhcp-infra.png)
@@ -27,7 +26,7 @@ Azure AD provides the authorization backend, via [AWS Cognito](https://aws.amazo
 
 ## Local Development
 
-[Install aws-vault](https://github.com/99designs/aws-vault#installing) and [add the MoJ shared services account](https://github.com/99designs/aws-vault#quick-start) as 'moj-pttp-shared-services'.
+[Install aws-vault](https://github.com/99designs/aws-vault#installing) (minimum version 6.0) and [add the MoJ shared services account](https://github.com/99designs/aws-vault#quick-start) as 'moj-pttp-shared-services'.
 
 Initialise the repo:
 
@@ -98,7 +97,7 @@ ssh -i corsham_test.pem ubuntu@<BASTION_IP>
 
 ### SSH onto the Corsham VM from the bastion server
 
-6. Copy the IP address for the VM found under `/corsham/testing/vm/ip` in SSM  (referred to as <VM_IP> below)
+6. Copy the IP address for the VM found under `/corsham/testing/vm/ip` in SSM (referred to as <VM_IP> below)
 
 7. Copy the SSH password for the VM found under `/corsham/testing/vm/password` in SSM (referred to as <VM_PASSWORD> below)
 
