@@ -279,7 +279,7 @@ module "alarms_label" {
 
 module "dhcp_dns_vpc_flow_logs" {
   source = "./modules/vpc_flow_logs"
-  prefix = "dns-dhcp-${terraform.workspace}"
+  prefix = "staff-device-dns-dhcp-${terraform.workspace}"
   region = data.aws_region.current_region.id
   tags   = module.dhcp_label.tags
   vpc_id = module.vpc.vpc_id
@@ -291,7 +291,7 @@ module "dhcp_dns_vpc_flow_logs" {
 
 module "admin_vpc_flow_logs" {
   source = "./modules/vpc_flow_logs"
-  prefix = "admin-${terraform.workspace}"
+  prefix = "staff-device-admin-${terraform.workspace}"
   region = data.aws_region.current_region.id
   tags   = module.dhcp_label.tags
   vpc_id = module.admin_vpc.vpc_id
