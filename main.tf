@@ -288,3 +288,15 @@ module "dhcp_dns_vpc_flow_logs" {
     aws = aws.env
   }
 }
+
+module "admin_vpc_flow_logs" {
+  source = "./modules/vpc_flow_logs"
+  prefix = "admin-${terraform.workspace}"
+  region = data.aws_region.current_region.id
+  tags   = module.dhcp_label.tags
+  vpc_id = module.admin_vpc.vpc_id
+
+  providers = {
+    aws = aws.env
+  }
+}
