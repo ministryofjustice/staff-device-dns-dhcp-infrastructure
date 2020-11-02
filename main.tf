@@ -276,3 +276,15 @@ module "alarms_label" {
     "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
   }
 }
+
+module "dhcp_dns_vpc_flow_logs" {
+  source = "./modules/vpc_flow_logs"
+  prefix = "dns-dhcp-${terraform.workspace}"
+  region = data.aws_region.current_region.id
+  tags   = module.dhcp_label.tags
+  vpc_id = module.vpc.vpc_id
+
+  providers = {
+    aws = aws.env
+  }
+}
