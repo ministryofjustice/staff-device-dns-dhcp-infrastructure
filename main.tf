@@ -146,6 +146,8 @@ module "admin" {
   cognito_user_pool_client_secret      = module.authentication.cognito_user_pool_client_secret
   dhcp_cluster_name                    = module.dhcp.ecs.cluster_name
   dhcp_service_name                    = module.dhcp.ecs.service_name
+  dns_cluster_name                     = module.dns.ecs.cluster_name
+  dns_service_name                     = module.dns.ecs.service_name
   dhcp_service_arn                     = module.dhcp.ecs.service_arn
   bind_config_bucket_name              = module.dns.bind_config_bucket_name
   bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
