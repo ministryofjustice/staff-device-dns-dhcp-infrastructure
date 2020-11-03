@@ -134,6 +134,13 @@ resource "aws_ecs_task_definition" "admin_task" {
           "name": "DHCP_SERVICE_NAME",
           "value": "${var.dhcp_service_name}"
         },{
+          "name": "DNS_CLUSTER_NAME",
+          "value": "${var.dns_cluster_name}"
+        },
+        {
+          "name": "DNS_SERVICE_NAME",
+          "value": "${var.dns_service_name}"
+        },{
           "name": "S3_BIND_CONFIG_OBJECT_KEY",
           "value": "named.conf"
         },{

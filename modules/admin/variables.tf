@@ -85,6 +85,14 @@ variable "dhcp_service_name" {
   type = string
 }
 
+variable "dns_cluster_name" {
+  type = string
+}
+
+variable "dns_service_name" {
+  type = string
+}
+
 variable "dhcp_service_arn" {
   type = string
 }
