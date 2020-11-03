@@ -5,6 +5,11 @@ output "terraform_outputs" {
       ecr = module.dhcp.ecr
     }
 
+    dns = {
+      ecs = module.dns.ecs
+      ecr = module.dns.ecr
+    }
+
     admin = {
       ecs = module.admin.ecs
     }
