@@ -166,6 +166,10 @@ resource "aws_ecs_task_definition" "admin_task" {
         {
           "name": "DHCP_DB_PORT",
           "value": "${var.dhcp_db_port}"
+        },
+        {
+          "name": "PDNS_IPS",
+          "value": "${var.pdns_ips}"
         }
       ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
