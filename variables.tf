@@ -127,6 +127,6 @@ variable "bastion_allowed_egress_ip" {
 }
 
 variable "pdns_ips" {
-  type = string
+  type    = string
   default = "[]"
 }
