@@ -125,3 +125,8 @@ variable "bastion_allowed_egress_ip" {
   type    = string
   default = "noop"
 }
+
+variable "pdns_ips" {
+  type = string
+  default = "[]"
+}

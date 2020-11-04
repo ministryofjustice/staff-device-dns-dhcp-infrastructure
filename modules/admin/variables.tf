@@ -140,3 +140,7 @@ variable "dhcp_db_host" {
 variable "dhcp_db_port" {
   type = string
 }
+
+variable "pdns_ips" {
+  type = string
+}
