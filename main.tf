@@ -152,6 +152,7 @@ module "admin" {
   dns_cluster_name                     = module.dns.ecs.cluster_name
   dns_service_name                     = module.dns.ecs.service_name
   dhcp_service_arn                     = module.dhcp.ecs.service_arn
+  dhcp_http_api_load_balancer_arn      = module.dhcp.http_api_load_balancer_arn
   bind_config_bucket_name              = module.dns.bind_config_bucket_name
   bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
   is_publicly_accessible               = local.publicly_accessible
