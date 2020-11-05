@@ -104,7 +104,7 @@ ssh -i corsham_test.pem ubuntu@<BASTION_IP>
 8. SSH onto the Corsham VM:
 
 ```bash
-ssh root@<VM_IP>
+ssh mt@<VM_IP>
 ```
 
 9. When prompted for the password enter <VM_PASSWORD>
