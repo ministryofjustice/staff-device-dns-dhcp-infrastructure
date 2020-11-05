@@ -16,6 +16,7 @@ output "ecs" {
 output "nlb" {
   value = {
     name = aws_lb.load_balancer.id
+    arn  = aws_lb.load_balancer.arn
   }
 }
 

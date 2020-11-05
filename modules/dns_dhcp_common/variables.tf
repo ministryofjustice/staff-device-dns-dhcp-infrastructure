@@ -45,3 +45,13 @@ variable "vpc_id" {
 variable "critical_notifications_arn" {
   type = string
 }
+
+variable "has_api_lb" {
+  type    = bool
+  default = false
+}
+
+variable "api_lb_target_group_arn" {
+  type    = string
+  default = ""
+}

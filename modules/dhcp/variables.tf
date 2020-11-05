@@ -58,6 +58,18 @@ variable "load_balancer_private_ip_eu_west_2c" {
   type = string
 }
 
+variable "http_api_load_balancer_private_ip_eu_west_2a" {
+  type = string
+}
+
+variable "http_api_load_balancer_private_ip_eu_west_2b" {
+  type = string
+}
+
+variable "http_api_load_balancer_private_ip_eu_west_2c" {
+  type = string
+}
+
 variable "critical_notifications_arn" {
   type = string
 }
