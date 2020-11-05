@@ -144,3 +144,7 @@ variable "dhcp_db_port" {
 variable "pdns_ips" {
   type = string
 }
+
+variable "dhcp_http_api_load_balancer_arn" {
+  type = string
+}
