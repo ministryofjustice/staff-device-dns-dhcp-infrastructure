@@ -16,6 +16,16 @@ resource "aws_security_group_rule" "dhcp_container_healthcheck_in" {
   cidr_blocks       = [var.vpc_cidr]
 }
 
+resource "aws_security_group_rule" "dhcp_container_kea_api_in" {
+  description       = "Allow HTTP access to the kea api from the vpc endpoint"
+  type              = "ingress"
+  from_port         = 8000
+  to_port           = 8000
+  protocol          = "tcp"
+  security_group_id = aws_security_group.dhcp_server.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
 resource "aws_security_group_rule" "dhcp_container_udp_in" {
   description       = "Allow inbound traffic to the KEA server"
   type              = "ingress"

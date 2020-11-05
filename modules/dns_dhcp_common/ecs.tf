@@ -20,6 +20,16 @@ resource "aws_ecs_service" "service" {
     container_port   = var.container_port
   }
 
+  dynamic "load_balancer" {
+    for_each = var.has_api_lb ? [1] : []
+
+    content {
+      target_group_arn = var.api_lb_target_group_arn
+      container_name   = var.container_name
+      container_port   = "8000"
+    }
+  }
+
   network_configuration {
     subnets = var.subnets
 

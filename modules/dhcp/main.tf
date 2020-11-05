@@ -12,4 +12,6 @@ module "dns_dhcp_common" {
   load_balancer_private_ip_eu_west_2b = var.load_balancer_private_ip_eu_west_2b
   load_balancer_private_ip_eu_west_2c = var.load_balancer_private_ip_eu_west_2c
   critical_notifications_arn          = var.critical_notifications_arn
+  api_lb_target_group_arn             = aws_lb_target_group.http_api_target_group.arn
+  has_api_lb                          = true
 }

@@ -33,6 +33,10 @@ output "load_balancer" {
   value = module.dns_dhcp_common.nlb.name
 }
 
+output "http_api_load_balancer_arn" {
+  value = aws_lb.http_api_load_balancer.arn
+}
+
 output "dhcp_config_bucket_key_arn" {
   value = aws_kms_key.config_bucket_key.arn
 }
