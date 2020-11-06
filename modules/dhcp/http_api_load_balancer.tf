@@ -10,7 +10,7 @@ resource "aws_lb" "http_api_load_balancer" {
 }
 
 resource "aws_lb_target_group" "http_api_target_group" {
-  name                 = "${var.prefix}-api-tg"
+  name                 = "${var.short_prefix}-dhcp-api"
   protocol             = "TCP"
   vpc_id               = var.vpc_id
   port                 = "8000"
