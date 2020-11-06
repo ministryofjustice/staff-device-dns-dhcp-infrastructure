@@ -1,5 +1,5 @@
 resource "aws_lb" "http_api_load_balancer" {
-  name               = "${var.prefix}-api-lb"
+  name               = "${var.short_prefix}-dhcp-api"
   load_balancer_type = "network"
   internal           = true
   subnets            = var.subnets
