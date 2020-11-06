@@ -92,12 +92,12 @@ resource "aws_security_group_rule" "admin_ecs_out_to_web" {
 }
 
 resource "aws_security_group_rule" "admin_ecs_out_to_dhcp_api" {
-  description       = "Allow HTTP access from admin app containers to DHCP API via a VPC endpoint"
-  type              = "egress"
-  from_port         = 8000
-  to_port           = 8000
-  protocol          = "tcp"
-  security_group_id = aws_security_group.admin_ecs.id
+  description              = "Allow HTTP access from admin app containers to DHCP API via a VPC endpoint"
+  type                     = "egress"
+  from_port                = 8000
+  to_port                  = 8000
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.admin_ecs.id
   source_security_group_id = aws_security_group.dhcp_api_vpc_endpoint.id
 }
 
