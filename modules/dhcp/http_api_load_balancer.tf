@@ -17,11 +17,6 @@ resource "aws_lb_target_group" "http_api_target_group" {
   target_type          = "ip"
   deregistration_delay = 10
 
-  stickiness {
-    enabled = false
-    type    = "lb_cookie"
-  }
-
   health_check {
     port = 80
   }
