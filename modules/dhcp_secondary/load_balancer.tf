@@ -18,7 +18,7 @@ resource "aws_lb" "load_balancer" {
     private_ipv4_address = var.load_balancer_private_ip_eu_west_2c
   }
 
-  enable_deletion_protection = false
+  enable_deletion_protection       = false
   enable_cross_zone_load_balancing = true
 
   tags = var.tags

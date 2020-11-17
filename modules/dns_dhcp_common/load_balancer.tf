@@ -19,8 +19,8 @@ resource "aws_lb" "load_balancer" {
   }
 
   enable_cross_zone_load_balancing = true
-  enable_deletion_protection = false
-  tags = var.tags
+  enable_deletion_protection       = false
+  tags                             = var.tags
 }
 
 resource "aws_lb_target_group" "target_group" {
