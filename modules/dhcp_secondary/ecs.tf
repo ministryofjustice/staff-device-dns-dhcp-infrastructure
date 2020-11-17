@@ -10,7 +10,7 @@ resource "aws_ecs_cluster" "server_cluster" {
 resource "aws_ecs_service" "service" {
   name            = "${var.prefix}-service"
   cluster         = aws_ecs_cluster.server_cluster.id
-  task_definition = var.task_definition_arn
+  task_definition = aws_ecs_task_definition.server_task.arn
   desired_count   = "1"
   launch_type     = "FARGATE"
 
@@ -20,21 +20,17 @@ resource "aws_ecs_service" "service" {
     container_port   = var.container_port
   }
 
-  dynamic "load_balancer" {
-    for_each = var.has_api_lb ? [1] : []
-
-    content {
-      target_group_arn = var.api_lb_target_group_arn
-      container_name   = var.container_name
-      container_port   = "8000"
-    }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.tcp_target_group.arn
+    container_name   = var.container_name
+    container_port   = 8000
   }
 
   network_configuration {
     subnets = var.subnets
 
     security_groups = [
-      var.security_group_id
+      aws_security_group.dhcp_server.id
     ]
 
     assign_public_ip = true

@@ -89,6 +89,30 @@ variable "dhcp_load_balancer_private_ip_eu_west_2c" {
   type = string
 }
 
+variable "secondary_dhcp_load_balancer_private_ip_eu_west_2a" {
+  type = string
+}
+
+variable "secondary_dhcp_load_balancer_private_ip_eu_west_2b" {
+  type = string
+}
+
+variable "secondary_dhcp_load_balancer_private_ip_eu_west_2c" {
+  type = string
+}
+
+variable "dhcp_http_api_load_balancer_private_ip_eu_west_2a" {
+  type = string
+}
+
+variable "dhcp_http_api_load_balancer_private_ip_eu_west_2b" {
+  type = string
+}
+
+variable "dhcp_http_api_load_balancer_private_ip_eu_west_2c" {
+  type = string
+}
+
 variable "dns_load_balancer_private_ip_eu_west_2a" {
   type = string
 }

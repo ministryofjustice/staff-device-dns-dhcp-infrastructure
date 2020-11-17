@@ -55,3 +55,8 @@ variable "api_lb_target_group_arn" {
   type    = string
   default = ""
 }
+
+variable "desired_count" {
+  type    = number
+  default = 2
+}

@@ -6,6 +6,21 @@ resource "aws_lb" "http_api_load_balancer" {
 
   enable_deletion_protection = false
 
+  subnet_mapping {
+    subnet_id            = var.subnets[0]
+    private_ipv4_address = var.dhcp_http_api_load_balancer_private_ip_eu_west_2a
+  }
+
+  subnet_mapping {
+    subnet_id            = var.subnets[1]
+    private_ipv4_address = var.dhcp_http_api_load_balancer_private_ip_eu_west_2b
+  }
+
+  subnet_mapping {
+    subnet_id            = var.subnets[2]
+    private_ipv4_address = var.dhcp_http_api_load_balancer_private_ip_eu_west_2c
+  }
+
   tags = var.tags
 }
 

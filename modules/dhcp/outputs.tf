@@ -52,3 +52,7 @@ output "db_host" {
 output "db_port" {
   value = aws_db_instance.dhcp_server_db.port
 }
+
+output "server_log_group_name" {
+  value = module.dns_dhcp_common.cloudwatch.server_log_group_name
+}

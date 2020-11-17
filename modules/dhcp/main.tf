@@ -14,4 +14,5 @@ module "dns_dhcp_common" {
   critical_notifications_arn          = var.critical_notifications_arn
   api_lb_target_group_arn             = aws_lb_target_group.http_api_target_group.arn
   has_api_lb                          = true
+  desired_count                       = 1
 }

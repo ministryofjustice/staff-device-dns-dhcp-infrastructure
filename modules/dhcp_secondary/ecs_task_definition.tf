@@ -27,7 +27,7 @@ resource "aws_ecs_task_definition" "server_task" {
     "environment": [
       {
         "name": "DB_NAME",
-        "value": "${aws_db_instance.dhcp_server_db.name}"
+        "value": "${var.dhcp_db_name}"
       },
       {
         "name": "DB_USER",
@@ -39,23 +39,23 @@ resource "aws_ecs_task_definition" "server_task" {
       },
       {
         "name": "DB_HOST",
-        "value": "${aws_route53_record.dhcp_db.fqdn}"
+        "value": "${var.dhcp_db_host}"
       },
       {
         "name": "DB_PORT",
-        "value": "${aws_db_instance.dhcp_server_db.port}"
+        "value": "${var.dhcp_db_port}"
+      },
+      {
+        "name": "SERVER_NAME",
+        "value": "secondary"
       },
       {
         "name": "INTERFACE",
         "value": "eth0"
       },
       {
-        "name": "SERVER_NAME",
-        "value": "primary"
-      },
-      {
         "name": "KEA_CONFIG_BUCKET_NAME",
-        "value": "${var.prefix}-config-bucket"
+        "value": "${var.kea_config_bucket_name}"
       },
       {
         "name": "CRITICAL_NOTIFICATIONS_ARN",
@@ -66,11 +66,11 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "true"
       }
     ],
-    "image": "${module.dns_dhcp_common.ecr.repository_url}",
+    "image": "${var.dhcp_repository_url}",
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "${module.dns_dhcp_common.cloudwatch.server_log_group_name}",
+        "awslogs-group": "${var.server_log_group_name}",
         "awslogs-region": "eu-west-2",
         "awslogs-stream-prefix": "eu-west-2-docker-logs"
       }
@@ -80,7 +80,7 @@ resource "aws_ecs_task_definition" "server_task" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "${module.dns_dhcp_common.cloudwatch.server_log_group_name}",
+        "awslogs-group": "${var.server_log_group_name}",
         "awslogs-region": "eu-west-2",
         "awslogs-stream-prefix": "eu-west-2-docker-logs"
       }

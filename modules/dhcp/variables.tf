@@ -85,3 +85,15 @@ variable "is_publicly_accessible" {
 variable "admin_local_development_domain_affix" {
   type = string
 }
+
+variable "dhcp_http_api_load_balancer_private_ip_eu_west_2a" {
+  type = string
+}
+
+variable "dhcp_http_api_load_balancer_private_ip_eu_west_2b" {
+  type = string
+}
+
+variable "dhcp_http_api_load_balancer_private_ip_eu_west_2c" {
+  type = string
+}

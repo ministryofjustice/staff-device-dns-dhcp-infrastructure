@@ -113,6 +113,9 @@ module "dhcp" {
   is_publicly_accessible                 = local.publicly_accessible
   vpc_cidr                               = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix   = var.admin_local_development_domain_affix
+  dhcp_http_api_load_balancer_private_ip_eu_west_2a = var.dhcp_http_api_load_balancer_private_ip_eu_west_2a
+  dhcp_http_api_load_balancer_private_ip_eu_west_2b = var.dhcp_http_api_load_balancer_private_ip_eu_west_2b
+  dhcp_http_api_load_balancer_private_ip_eu_west_2c = var.dhcp_http_api_load_balancer_private_ip_eu_west_2c
 
   providers = {
     aws = aws.env
@@ -122,6 +125,41 @@ module "dhcp" {
     module.vpc
   ]
 }
+
+module "dhcp_secondary" {
+  source                                 = "./modules/dhcp_secondary"
+  prefix                                 = "${module.dhcp_label.stage}-dhcp-secondary"
+  subnets                                = module.vpc.public_subnets
+  tags                                   = module.dhcp_label.tags
+  vpc_id                                 = module.vpc.vpc_id
+  dhcp_db_password                       = var.dhcp_db_password
+  dhcp_db_username                       = var.dhcp_db_username
+  public_subnet_cidr_blocks              = module.vpc.public_subnet_cidr_blocks
+  env                                    = var.env
+  load_balancer_private_ip_eu_west_2a    = var.secondary_dhcp_load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b    = var.secondary_dhcp_load_balancer_private_ip_eu_west_2b
+  load_balancer_private_ip_eu_west_2c    = var.secondary_dhcp_load_balancer_private_ip_eu_west_2c
+  critical_notifications_arn             = module.alarms.critical_notifications_arn
+  short_prefix                           = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  region                                 = data.aws_region.current_region.id
+  vpc_cidr                               = local.dns_dhcp_vpc_cidr
+  dhcp_db_name                           = module.dhcp.db_name
+  dhcp_db_host                           = module.dhcp.db_host
+  dhcp_db_port                           = module.dhcp.db_port
+  kea_config_bucket_name                 = module.dhcp.kea_config_bucket_name
+  dhcp_config_bucket_key_arn             = module.dhcp.dhcp_config_bucket_key_arn
+  dhcp_repository_url                    = module.dhcp.ecr.repository_url
+  server_log_group_name                  = module.dhcp.server_log_group_name
+
+  providers = {
+    aws = aws.env
+  }
+
+  depends_on = [
+    module.dhcp
+  ]
+}
+
 
 module "admin" {
   source                               = "./modules/admin"
