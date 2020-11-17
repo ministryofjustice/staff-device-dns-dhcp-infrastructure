@@ -87,11 +87,11 @@ variable "server_log_group_name" {
 }
 
 variable "container_port" {
-  type = string
+  type    = string
   default = 67
 }
 
 variable "container_name" {
-  type = string
+  type    = string
   default = "dhcp-server"
 }

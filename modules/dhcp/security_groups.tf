@@ -69,11 +69,11 @@ resource "aws_security_group_rule" "dhcp_container_web_out" {
 
 
 resource "aws_security_group_rule" "dhcp_container_db_out" {
-  type                     = "egress"
-  from_port                = 3306
-  to_port                  = 3306
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.dhcp_server.id
+  type              = "egress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  security_group_id = aws_security_group.dhcp_server.id
   cidr_blocks       = ["0.0.0.0/0"]
 }
 
@@ -86,10 +86,10 @@ resource "aws_security_group" "dhcp_db_in" {
 }
 
 resource "aws_security_group_rule" "dhcp_db_in" {
-  type                     = "ingress"
-  from_port                = 3306
-  to_port                  = 3306
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.dhcp_db_in.id
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  security_group_id = aws_security_group.dhcp_db_in.id
   cidr_blocks       = ["0.0.0.0/0"]
 }
