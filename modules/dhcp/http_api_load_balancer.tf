@@ -2,7 +2,6 @@ resource "aws_lb" "http_api_load_balancer" {
   name               = "${var.short_prefix}-dhcp-api"
   load_balancer_type = "network"
   internal           = true
-  subnets            = var.subnets
 
   enable_deletion_protection = false
 
@@ -21,6 +20,8 @@ resource "aws_lb" "http_api_load_balancer" {
     private_ipv4_address = var.dhcp_http_api_load_balancer_private_ip_eu_west_2c
   }
 
+  enable_cross_zone_load_balancing = true
+
   tags = var.tags
 }
 
@@ -33,7 +34,11 @@ resource "aws_lb_target_group" "http_api_target_group" {
   deregistration_delay = 10
 
   health_check {
-    port = 80
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    port                = 80
+    protocol            = "HTTP"
+    path                = "/"
   }
 
   depends_on = [aws_lb.http_api_load_balancer]

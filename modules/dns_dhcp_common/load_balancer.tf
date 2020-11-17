@@ -18,18 +18,26 @@ resource "aws_lb" "load_balancer" {
     private_ipv4_address = var.load_balancer_private_ip_eu_west_2c
   }
 
+  enable_cross_zone_load_balancing = true
   enable_deletion_protection = false
-
   tags = var.tags
 }
 
 resource "aws_lb_target_group" "target_group" {
   name                 = var.prefix
-  protocol             = "TCP_UDP"
+  protocol             = "UDP"
   vpc_id               = var.vpc_id
   port                 = var.container_port
   target_type          = "ip"
   deregistration_delay = 10
+
+  health_check {
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    port                = 80
+    protocol            = "HTTP"
+    path                = "/"
+  }
 
   depends_on = [aws_lb.load_balancer]
 }
