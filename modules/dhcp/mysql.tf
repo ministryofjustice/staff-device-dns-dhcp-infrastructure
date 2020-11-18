@@ -6,7 +6,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   auto_minor_version_upgrade  = true
   allow_major_version_upgrade = false
   apply_immediately           = true
-  instance_class              = "db.t2.large"
+  instance_class              = terraform.workspace == "production" ? "db.t2.large" : "db.t2.medium"
   identifier                  = "${var.prefix}-db"
   name                        = replace(var.prefix, "-", "")
   username                    = var.dhcp_db_username
