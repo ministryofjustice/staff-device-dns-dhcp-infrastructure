@@ -6,10 +6,6 @@ variable "subnets" {
   type = list(string)
 }
 
-variable "env" {
-  type = string
-}
-
 variable "tags" {
   type = map(string)
 }
@@ -30,23 +26,11 @@ variable "dhcp_db_password" {
   type = string
 }
 
-variable "public_subnet_cidr_blocks" {
-  type = list(string)
-}
-
 variable "service_ip" {
   type = string
 }
 
-variable "critical_notifications_arn" {
-  type = string
-}
-
 variable "short_prefix" {
-  type = string
-}
-
-variable "region" {
   type = string
 }
 
