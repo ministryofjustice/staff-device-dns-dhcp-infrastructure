@@ -8,7 +8,7 @@ resource "aws_lb" "load_balancer" {
     private_ipv4_address = var.service_ip
   }
 
-  enable_deletion_protection       = false
+  enable_deletion_protection = false
 
   tags = var.tags
 }

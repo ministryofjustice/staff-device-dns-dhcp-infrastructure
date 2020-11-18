@@ -90,28 +90,28 @@ module "admin_vpc" {
 }
 
 module "dhcp" {
-  source                                            = "./modules/dhcp"
-  prefix                                            = module.dhcp_label.id
-  subnets                                           = module.vpc.public_subnets
-  tags                                              = module.dhcp_label.tags
-  vpc_id                                            = module.vpc.vpc_id
-  dhcp_db_password                                  = var.dhcp_db_password
-  dhcp_db_username                                  = var.dhcp_db_username
-  public_subnet_cidr_blocks                         = module.vpc.public_subnet_cidr_blocks
-  env                                               = var.env
-  dhcp_transit_gateway_id                           = var.dhcp_transit_gateway_id
-  enable_dhcp_transit_gateway_attachment            = var.enable_dhcp_transit_gateway_attachment
-  transit_gateway_route_table_id                    = var.transit_gateway_route_table_id
-  service_ip                                        = var.kea_dhcp_service_ip
-  service_api_ip                                    = var.kea_dhcp_api_service_ip
-  critical_notifications_arn                        = module.alarms.critical_notifications_arn
-  vpn_hosted_zone_id                                = var.vpn_hosted_zone_id
-  vpn_hosted_zone_domain                            = var.vpn_hosted_zone_domain
-  short_prefix                                      = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  region                                            = data.aws_region.current_region.id
-  is_publicly_accessible                            = local.publicly_accessible
-  vpc_cidr                                          = local.dns_dhcp_vpc_cidr
-  admin_local_development_domain_affix              = var.admin_local_development_domain_affix
+  source                                 = "./modules/dhcp"
+  prefix                                 = module.dhcp_label.id
+  subnets                                = module.vpc.public_subnets
+  tags                                   = module.dhcp_label.tags
+  vpc_id                                 = module.vpc.vpc_id
+  dhcp_db_password                       = var.dhcp_db_password
+  dhcp_db_username                       = var.dhcp_db_username
+  public_subnet_cidr_blocks              = module.vpc.public_subnet_cidr_blocks
+  env                                    = var.env
+  dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
+  enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
+  transit_gateway_route_table_id         = var.transit_gateway_route_table_id
+  service_ip                             = var.kea_dhcp_service_ip
+  service_api_ip                         = var.kea_dhcp_api_service_ip
+  critical_notifications_arn             = module.alarms.critical_notifications_arn
+  vpn_hosted_zone_id                     = var.vpn_hosted_zone_id
+  vpn_hosted_zone_domain                 = var.vpn_hosted_zone_domain
+  short_prefix                           = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  region                                 = data.aws_region.current_region.id
+  is_publicly_accessible                 = local.publicly_accessible
+  vpc_cidr                               = local.dns_dhcp_vpc_cidr
+  admin_local_development_domain_affix   = var.admin_local_development_domain_affix
 
   providers = {
     aws = aws.env
@@ -123,27 +123,27 @@ module "dhcp" {
 }
 
 module "dhcp_failover" {
-  source                              = "./modules/dhcp_failover"
-  prefix                              = "${module.dhcp_label.stage}-dhcp-failover"
-  subnets                             = module.vpc.public_subnets
-  tags                                = module.dhcp_label.tags
-  vpc_id                              = module.vpc.vpc_id
-  dhcp_db_password                    = var.dhcp_db_password
-  dhcp_db_username                    = var.dhcp_db_username
-  public_subnet_cidr_blocks           = module.vpc.public_subnet_cidr_blocks
-  env                                 = var.env
-  service_ip                          = var.failover_kea_dhcp_service_ip
-  critical_notifications_arn          = module.alarms.critical_notifications_arn
-  short_prefix                        = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  region                              = data.aws_region.current_region.id
-  vpc_cidr                            = local.dns_dhcp_vpc_cidr
-  dhcp_db_name                        = module.dhcp.db_name
-  dhcp_db_host                        = module.dhcp.db_host
-  dhcp_db_port                        = module.dhcp.db_port
-  kea_config_bucket_name              = module.dhcp.kea_config_bucket_name
-  dhcp_config_bucket_key_arn          = module.dhcp.dhcp_config_bucket_key_arn
-  dhcp_repository_url                 = module.dhcp.ecr.repository_url
-  server_log_group_name               = module.dhcp.server_log_group_name
+  source                     = "./modules/dhcp_failover"
+  prefix                     = "${module.dhcp_label.stage}-dhcp-failover"
+  subnets                    = module.vpc.public_subnets
+  tags                       = module.dhcp_label.tags
+  vpc_id                     = module.vpc.vpc_id
+  dhcp_db_password           = var.dhcp_db_password
+  dhcp_db_username           = var.dhcp_db_username
+  public_subnet_cidr_blocks  = module.vpc.public_subnet_cidr_blocks
+  env                        = var.env
+  service_ip                 = var.failover_kea_dhcp_service_ip
+  critical_notifications_arn = module.alarms.critical_notifications_arn
+  short_prefix               = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  region                     = data.aws_region.current_region.id
+  vpc_cidr                   = local.dns_dhcp_vpc_cidr
+  dhcp_db_name               = module.dhcp.db_name
+  dhcp_db_host               = module.dhcp.db_host
+  dhcp_db_port               = module.dhcp.db_port
+  kea_config_bucket_name     = module.dhcp.kea_config_bucket_name
+  dhcp_config_bucket_key_arn = module.dhcp.dhcp_config_bucket_key_arn
+  dhcp_repository_url        = module.dhcp.ecr.repository_url
+  server_log_group_name      = module.dhcp.server_log_group_name
 
   providers = {
     aws = aws.env
@@ -233,14 +233,14 @@ module "alarms" {
 }
 
 module "dns" {
-  source                              = "./modules/dns"
-  prefix                              = module.dns_label.id
-  subnets                             = module.vpc.public_subnets
-  tags                                = module.dns_label.tags
-  critical_notifications_arn          = module.alarms.critical_notifications_arn
-  service_ip                          = var.dns_load_balancer_private_ip_eu_west_2a
-  vpc_id                              = module.vpc.vpc_id
-  vpc_cidr                            = local.dns_dhcp_vpc_cidr
+  source                     = "./modules/dns"
+  prefix                     = module.dns_label.id
+  subnets                    = module.vpc.public_subnets
+  tags                       = module.dns_label.tags
+  critical_notifications_arn = module.alarms.critical_notifications_arn
+  service_ip                 = var.dns_load_balancer_private_ip_eu_west_2a
+  vpc_id                     = module.vpc.vpc_id
+  vpc_cidr                   = local.dns_dhcp_vpc_cidr
 
   depends_on = [
     module.vpc
