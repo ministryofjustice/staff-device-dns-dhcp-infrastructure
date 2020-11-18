@@ -8,8 +8,6 @@ module "dns_dhcp_common" {
   container_port                      = "53"
   security_group_id                   = aws_security_group.dns_server.id
   task_definition_arn                 = aws_ecs_task_definition.server_task.arn
-  load_balancer_private_ip_eu_west_2a = var.load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b = var.load_balancer_private_ip_eu_west_2b
-  load_balancer_private_ip_eu_west_2c = var.load_balancer_private_ip_eu_west_2c
+  service_ip                          = var.service_ip
   critical_notifications_arn          = var.critical_notifications_arn
 }

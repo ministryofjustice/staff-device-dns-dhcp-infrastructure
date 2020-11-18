@@ -47,7 +47,7 @@ resource "aws_ecs_task_definition" "server_task" {
       },
       {
         "name": "SERVER_NAME",
-        "value": "secondary"
+        "value": "failover"
       },
       {
         "name": "INTERFACE",

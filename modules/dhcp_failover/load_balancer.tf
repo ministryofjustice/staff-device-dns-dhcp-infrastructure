@@ -5,21 +5,10 @@ resource "aws_lb" "load_balancer" {
 
   subnet_mapping {
     subnet_id            = var.subnets[0]
-    private_ipv4_address = var.load_balancer_private_ip_eu_west_2a
-  }
-
-  subnet_mapping {
-    subnet_id            = var.subnets[1]
-    private_ipv4_address = var.load_balancer_private_ip_eu_west_2b
-  }
-
-  subnet_mapping {
-    subnet_id            = var.subnets[2]
-    private_ipv4_address = var.load_balancer_private_ip_eu_west_2c
+    private_ipv4_address = var.service_ip
   }
 
   enable_deletion_protection       = false
-  enable_cross_zone_load_balancing = true
 
   tags = var.tags
 }

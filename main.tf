@@ -102,9 +102,8 @@ module "dhcp" {
   dhcp_transit_gateway_id                           = var.dhcp_transit_gateway_id
   enable_dhcp_transit_gateway_attachment            = var.enable_dhcp_transit_gateway_attachment
   transit_gateway_route_table_id                    = var.transit_gateway_route_table_id
-  load_balancer_private_ip_eu_west_2a               = var.dhcp_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b               = var.dhcp_load_balancer_private_ip_eu_west_2b
-  load_balancer_private_ip_eu_west_2c               = var.dhcp_load_balancer_private_ip_eu_west_2c
+  service_ip                                        = var.kea_dhcp_service_ip
+  service_api_ip                                    = var.kea_dhcp_api_service_ip
   critical_notifications_arn                        = module.alarms.critical_notifications_arn
   vpn_hosted_zone_id                                = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain                            = var.vpn_hosted_zone_domain
@@ -113,9 +112,6 @@ module "dhcp" {
   is_publicly_accessible                            = local.publicly_accessible
   vpc_cidr                                          = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix              = var.admin_local_development_domain_affix
-  dhcp_http_api_load_balancer_private_ip_eu_west_2a = var.dhcp_http_api_load_balancer_private_ip_eu_west_2a
-  dhcp_http_api_load_balancer_private_ip_eu_west_2b = var.dhcp_http_api_load_balancer_private_ip_eu_west_2b
-  dhcp_http_api_load_balancer_private_ip_eu_west_2c = var.dhcp_http_api_load_balancer_private_ip_eu_west_2c
 
   providers = {
     aws = aws.env
@@ -126,9 +122,9 @@ module "dhcp" {
   ]
 }
 
-module "dhcp_secondary" {
-  source                              = "./modules/dhcp_secondary"
-  prefix                              = "${module.dhcp_label.stage}-dhcp-secondary"
+module "dhcp_failover" {
+  source                              = "./modules/dhcp_failover"
+  prefix                              = "${module.dhcp_label.stage}-dhcp-failover"
   subnets                             = module.vpc.public_subnets
   tags                                = module.dhcp_label.tags
   vpc_id                              = module.vpc.vpc_id
@@ -136,9 +132,7 @@ module "dhcp_secondary" {
   dhcp_db_username                    = var.dhcp_db_username
   public_subnet_cidr_blocks           = module.vpc.public_subnet_cidr_blocks
   env                                 = var.env
-  load_balancer_private_ip_eu_west_2a = var.secondary_dhcp_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b = var.secondary_dhcp_load_balancer_private_ip_eu_west_2b
-  load_balancer_private_ip_eu_west_2c = var.secondary_dhcp_load_balancer_private_ip_eu_west_2c
+  service_ip                          = var.failover_kea_dhcp_service_ip
   critical_notifications_arn          = module.alarms.critical_notifications_arn
   short_prefix                        = module.dhcp_label.stage # avoid 32 char limit on certain resources
   region                              = data.aws_region.current_region.id
@@ -159,7 +153,6 @@ module "dhcp_secondary" {
     module.dhcp
   ]
 }
-
 
 module "admin" {
   source                               = "./modules/admin"
@@ -245,9 +238,7 @@ module "dns" {
   subnets                             = module.vpc.public_subnets
   tags                                = module.dns_label.tags
   critical_notifications_arn          = module.alarms.critical_notifications_arn
-  load_balancer_private_ip_eu_west_2a = var.dns_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
-  load_balancer_private_ip_eu_west_2c = var.dns_load_balancer_private_ip_eu_west_2c
+  service_ip                          = var.dns_load_balancer_private_ip_eu_west_2a
   vpc_id                              = module.vpc.vpc_id
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
 

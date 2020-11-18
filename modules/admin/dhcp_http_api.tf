@@ -7,7 +7,7 @@ resource "aws_vpc_endpoint" "dhcp_api_vpc_endpoint" {
     aws_security_group.dhcp_api_vpc_endpoint.id,
   ]
 
-  subnet_ids = var.subnet_ids
+  subnet_ids = [var.subnet_ids[0]]
 }
 
 resource "aws_vpc_endpoint_service" "dhcp_http_api" {

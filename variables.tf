@@ -77,39 +77,15 @@ variable "transit_gateway_route_table_id" {
   type = string
 }
 
-variable "dhcp_load_balancer_private_ip_eu_west_2a" {
+variable "kea_dhcp_service_ip" {
   type = string
 }
 
-variable "dhcp_load_balancer_private_ip_eu_west_2b" {
+variable "failover_kea_dhcp_service_ip" {
   type = string
 }
 
-variable "dhcp_load_balancer_private_ip_eu_west_2c" {
-  type = string
-}
-
-variable "secondary_dhcp_load_balancer_private_ip_eu_west_2a" {
-  type = string
-}
-
-variable "secondary_dhcp_load_balancer_private_ip_eu_west_2b" {
-  type = string
-}
-
-variable "secondary_dhcp_load_balancer_private_ip_eu_west_2c" {
-  type = string
-}
-
-variable "dhcp_http_api_load_balancer_private_ip_eu_west_2a" {
-  type = string
-}
-
-variable "dhcp_http_api_load_balancer_private_ip_eu_west_2b" {
-  type = string
-}
-
-variable "dhcp_http_api_load_balancer_private_ip_eu_west_2c" {
+variable "kea_dhcp_api_service_ip" {
   type = string
 }
 

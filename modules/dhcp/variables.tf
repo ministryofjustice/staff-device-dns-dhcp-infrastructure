@@ -46,15 +46,7 @@ variable "transit_gateway_route_table_id" {
   type = string
 }
 
-variable "load_balancer_private_ip_eu_west_2a" {
-  type = string
-}
-
-variable "load_balancer_private_ip_eu_west_2b" {
-  type = string
-}
-
-variable "load_balancer_private_ip_eu_west_2c" {
+variable "service_ip" {
   type = string
 }
 
@@ -86,14 +78,6 @@ variable "admin_local_development_domain_affix" {
   type = string
 }
 
-variable "dhcp_http_api_load_balancer_private_ip_eu_west_2a" {
-  type = string
-}
-
-variable "dhcp_http_api_load_balancer_private_ip_eu_west_2b" {
-  type = string
-}
-
-variable "dhcp_http_api_load_balancer_private_ip_eu_west_2c" {
+variable "service_api_ip" {
   type = string
 }

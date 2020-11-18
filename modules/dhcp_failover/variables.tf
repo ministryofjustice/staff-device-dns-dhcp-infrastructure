@@ -34,15 +34,7 @@ variable "public_subnet_cidr_blocks" {
   type = list(string)
 }
 
-variable "load_balancer_private_ip_eu_west_2a" {
-  type = string
-}
-
-variable "load_balancer_private_ip_eu_west_2b" {
-  type = string
-}
-
-variable "load_balancer_private_ip_eu_west_2c" {
+variable "service_ip" {
   type = string
 }
 
