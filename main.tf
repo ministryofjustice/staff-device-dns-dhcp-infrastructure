@@ -123,23 +123,23 @@ module "dhcp" {
 }
 
 module "dhcp_failover" {
-  source                              = "./modules/dhcp_failover"
-  prefix                              = "${module.dhcp_label.stage}-dhcp-failover"
-  subnets                             = module.vpc.public_subnets
-  tags                                = module.dhcp_label.tags
-  vpc_id                              = module.vpc.vpc_id
-  dhcp_db_password                    = var.dhcp_db_password
-  dhcp_db_username                    = var.dhcp_db_username
-  dhcp_db_name                        = module.dhcp.db_name
-  dhcp_db_host                        = module.dhcp.db_host
-  dhcp_db_port                        = module.dhcp.db_port
-  service_ip                          = var.failover_kea_dhcp_service_ip
-  short_prefix                        = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  vpc_cidr                            = local.dns_dhcp_vpc_cidr
-  kea_config_bucket_name              = module.dhcp.kea_config_bucket_name
-  dhcp_config_bucket_key_arn          = module.dhcp.dhcp_config_bucket_key_arn
-  dhcp_repository_url                 = module.dhcp.ecr.repository_url
-  server_log_group_name               = module.dhcp.server_log_group_name
+  source                     = "./modules/dhcp_failover"
+  prefix                     = "${module.dhcp_label.stage}-dhcp-failover"
+  subnets                    = module.vpc.public_subnets
+  tags                       = module.dhcp_label.tags
+  vpc_id                     = module.vpc.vpc_id
+  dhcp_db_password           = var.dhcp_db_password
+  dhcp_db_username           = var.dhcp_db_username
+  dhcp_db_name               = module.dhcp.db_name
+  dhcp_db_host               = module.dhcp.db_host
+  dhcp_db_port               = module.dhcp.db_port
+  service_ip                 = var.failover_kea_dhcp_service_ip
+  short_prefix               = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  vpc_cidr                   = local.dns_dhcp_vpc_cidr
+  kea_config_bucket_name     = module.dhcp.kea_config_bucket_name
+  dhcp_config_bucket_key_arn = module.dhcp.dhcp_config_bucket_key_arn
+  dhcp_repository_url        = module.dhcp.ecr.repository_url
+  server_log_group_name      = module.dhcp.server_log_group_name
 
   providers = {
     aws = aws.env
