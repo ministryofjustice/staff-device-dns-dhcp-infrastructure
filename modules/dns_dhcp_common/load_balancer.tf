@@ -30,7 +30,6 @@ resource "aws_lb_target_group" "target_group" {
   port                 = var.container_port
   target_type          = "ip"
   deregistration_delay = 10
-  proxy_protocol_v2    = true
 
   depends_on = [aws_lb.load_balancer]
 }
