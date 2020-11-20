@@ -57,8 +57,8 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_alarm_high" {
   threshold           = "70"
 
   dimensions = {
-    ClusterName = "${aws_ecs_cluster.server_cluster.name}"
-    ServiceName = "${aws_ecs_service.service.name}"
+    ClusterName = aws_ecs_cluster.server_cluster.name
+    ServiceName = aws_ecs_service.service.name
   }
 
   alarm_description = "This alarm tells ECS to scale up based on high CPU"
@@ -81,8 +81,8 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_alarm_low" {
   threshold           = "1"
 
   dimensions = {
-    ClusterName = "${aws_ecs_cluster.server_cluster.name}"
-    ServiceName = "${aws_ecs_service.service.name}"
+    ClusterName = aws_ecs_cluster.server_cluster.name
+    ServiceName = aws_ecs_service.service.name
   }
 
   alarm_description = "This alarm tells ECS to scale in based on low CPU usage"
