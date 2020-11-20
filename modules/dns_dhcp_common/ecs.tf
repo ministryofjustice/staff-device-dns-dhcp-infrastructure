@@ -11,7 +11,7 @@ resource "aws_ecs_service" "service" {
   name            = "${var.prefix}-service"
   cluster         = aws_ecs_cluster.server_cluster.id
   task_definition = var.task_definition_arn
-  desired_count   = "2"
+  desired_count   = "3"
   launch_type     = "FARGATE"
 
   load_balancer {
