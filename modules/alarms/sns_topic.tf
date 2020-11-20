@@ -7,15 +7,15 @@ resource "aws_sns_topic" "this" {
 }
 
 data "template_file" "email_subscription" {
-  count = "${length(var.critical_notification_recipients)}"
+  count = length(var.critical_notification_recipients)
   vars = {
-    email     = "${element(var.critical_notification_recipients, count.index)}"
-    index     = "${count.index}"
-    topic_arn = "${aws_sns_topic.this.arn}"
+    email     = element(var.critical_notification_recipients, count.index)
+    index     = count.index
+    topic_arn = aws_sns_topic.this.arn
 
     # Name must be alphanumeric, unique, but also consistent based on the email address.
     # It also needs to stay under 255 characters.
-    name = "${sha256("${var.topic_name}-${element(var.critical_notification_recipients, count.index)}")}"
+    name = sha256("${var.topic_name}-${element(var.critical_notification_recipients, count.index)}")
   }
 
   template = <<-STACK
