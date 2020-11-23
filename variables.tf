@@ -130,3 +130,7 @@ variable "pdns_ips" {
   type    = string
   default = "1.2.3.4,5.6.7.8"
 }
+
+variable "dhcp_egress_transit_gateway_routes" {
+  type = set(string)
+}

@@ -85,3 +85,11 @@ variable "is_publicly_accessible" {
 variable "admin_local_development_domain_affix" {
   type = string
 }
+
+variable "dhcp_egress_transit_gateway_routes" {
+  type = list(string)
+}
+
+variable "public_route_table_ids" {
+  type = set(string)
+}
