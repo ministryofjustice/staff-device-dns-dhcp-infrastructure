@@ -32,7 +32,7 @@ Clone this repo and create a file in the same directory and name it `terraform.t
 
 `/staff-device/dns-dhcp/terraform.tfvars`
 
-Please make sure to replace <your_namespace> with your own workspace name in the example tfvars file.
+Please make sure to replace `<your_namespace>` with your own workspace name in the example tfvars file.
 
 Initialise the repo:
 
