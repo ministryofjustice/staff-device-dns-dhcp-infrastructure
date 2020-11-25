@@ -1,5 +1,5 @@
 resource "aws_route" "egress_routes" {
-  for_each = var.public_route_table_ids
+  for_each = var.enable_dhcp_transit_gateway_attachment ? var.public_route_table_ids : []
 
   route_table_id         = each.value
   destination_cidr_block = var.dhcp_egress_transit_gateway_routes[0]
