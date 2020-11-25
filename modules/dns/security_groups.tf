@@ -6,6 +6,16 @@ resource "aws_security_group" "dns_server" {
   tags = var.tags
 }
 
+resource "aws_security_group_rule" "dns_container_web_out" {
+  description       = "Allow SSL outbound connections from the container"
+  type              = "egress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.dns_server.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
 resource "aws_security_group_rule" "dns_container_udp_in" {
   description       = "Allow inbound traffic to the BIND server"
   type              = "ingress"
