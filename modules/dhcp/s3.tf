@@ -43,5 +43,6 @@ resource "aws_s3_bucket_public_access_block" "config_bucket_public_block" {
 resource "aws_kms_key" "config_bucket_key" {
   description             = "This key is used to encrypt bucket objects"
   deletion_window_in_days = 10
+  enable_key_rotation     = true
 }
 
