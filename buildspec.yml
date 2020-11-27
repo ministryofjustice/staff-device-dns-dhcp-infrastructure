@@ -51,7 +51,6 @@ phases:
       - terraform providers
       - terraform workspace new $ENV || true
       - terraform workspace select $ENV
-      - terraform destroy --auto-approve -no-color
       - terraform apply --auto-approve -no-color
       - ./scripts/publish_terraform_outputs
       - TEMP_ROLE=`aws sts assume-role --role-arn $ROLE_ARN --role-session-name ci-build-$CODEBUILD_BUILD_NUMBER`
