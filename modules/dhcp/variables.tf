@@ -30,10 +30,6 @@ variable "dhcp_db_password" {
   type = string
 }
 
-variable "public_subnet_cidr_blocks" {
-  type = list(string)
-}
-
 variable "dhcp_transit_gateway_id" {
   type = string
 }
@@ -51,10 +47,6 @@ variable "load_balancer_private_ip_eu_west_2a" {
 }
 
 variable "load_balancer_private_ip_eu_west_2b" {
-  type = string
-}
-
-variable "load_balancer_private_ip_eu_west_2c" {
   type = string
 }
 
@@ -90,6 +82,6 @@ variable "dhcp_egress_transit_gateway_routes" {
   type = list(string)
 }
 
-variable "public_route_table_ids" {
+variable "private_route_table_ids" {
   type = set(string)
 }

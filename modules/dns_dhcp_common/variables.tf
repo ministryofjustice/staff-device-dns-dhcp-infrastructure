@@ -34,10 +34,6 @@ variable "load_balancer_private_ip_eu_west_2b" {
   type = string
 }
 
-variable "load_balancer_private_ip_eu_west_2c" {
-  type = string
-}
-
 variable "vpc_id" {
   type = string
 }
@@ -54,4 +50,16 @@ variable "has_api_lb" {
 variable "api_lb_target_group_arn" {
   type    = string
   default = ""
+}
+
+variable "desired_count" {
+  type    = number
+}
+
+variable "max_capacity" {
+  type    = number
+}
+
+variable "min_capacity" {
+  type    = number
 }
