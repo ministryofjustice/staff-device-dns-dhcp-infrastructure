@@ -19,8 +19,8 @@ module "vpc" {
   enable_s3_endpoint               = var.enable_s3_endpoint
 
   azs = [
-    "${var.region}a",
-    "${var.region}b"
+    "${var.region}b",
+    "${var.region}c"
   ]
 
   private_subnets = [
