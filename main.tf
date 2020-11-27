@@ -242,6 +242,38 @@ module "corsham_test_bastion" {
   count = terraform.workspace == "production" && var.enable_corsham_test_bastion == true ? 1 : 0
 }
 
+module "bsi_test_vm_admin_vpc" {
+  source                     = "./modules/bsi_pentest_vm"
+  subnets                    = module.admin_vpc.public_subnets
+  vpc_id                     = module.admin_vpc.vpc_id
+
+  depends_on = [
+    module.admin_vpc
+  ]
+
+  providers = {
+    aws = aws.env
+  }
+
+  count = terraform.workspace == "pre-production" ? 1 : 0
+}
+
+module "bsi_test_vm_servers_vpc" {
+  source                     = "./modules/bsi_pentest_vm"
+  subnets                    = module.servers_vpc.public_subnets
+  vpc_id                     = module.servers_vpc.vpc_id
+
+  depends_on = [
+    module.servers_vpc
+  ]
+
+  providers = {
+    aws = aws.env
+  }
+
+  count = terraform.workspace == "pre-production" ? 1 : 0
+}
+
 module "dns_label" {
   source  = "cloudposse/label/null"
   version = "0.19.2"
