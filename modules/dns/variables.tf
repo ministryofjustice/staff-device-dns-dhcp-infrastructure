@@ -29,7 +29,3 @@ variable "load_balancer_private_ip_eu_west_2a" {
 variable "load_balancer_private_ip_eu_west_2b" {
   type = string
 }
-
-variable "load_balancer_private_ip_eu_west_2c" {
-  type = string
-}

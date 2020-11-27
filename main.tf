@@ -66,12 +66,14 @@ locals {
   dns_dhcp_vpc_cidr = "10.180.80.0/22"
 }
 
-module "vpc" {
-  source              = "./modules/vpc"
-  prefix              = module.dhcp_label.id
-  region              = data.aws_region.current_region.id
-  cidr_block          = "10.180.80.0/22"
-  cidr_block_new_bits = 2
+module "servers_vpc" {
+  source                           = "./modules/servers_vpc"
+  prefix                           = module.dhcp_label.id
+  region                           = data.aws_region.current_region.id
+  cidr_block                       = "10.180.80.0/22"
+  cidr_block_new_bits              = 2
+  enable_nat_gateway               = true
+  rds_endpoint_private_dns_enabled = true
 
   providers = {
     aws = aws.env
@@ -92,19 +94,17 @@ module "admin_vpc" {
 module "dhcp" {
   source                                 = "./modules/dhcp"
   prefix                                 = module.dhcp_label.id
-  subnets                                = module.vpc.public_subnets
+  subnets                                = module.servers_vpc.private_subnets
   tags                                   = module.dhcp_label.tags
-  vpc_id                                 = module.vpc.vpc_id
+  vpc_id                                 = module.servers_vpc.vpc_id
   dhcp_db_password                       = var.dhcp_db_password
   dhcp_db_username                       = var.dhcp_db_username
-  public_subnet_cidr_blocks              = module.vpc.public_subnet_cidr_blocks
   env                                    = var.env
   dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
   enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
   transit_gateway_route_table_id         = var.transit_gateway_route_table_id
   load_balancer_private_ip_eu_west_2a    = var.dhcp_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b    = var.dhcp_load_balancer_private_ip_eu_west_2b
-  load_balancer_private_ip_eu_west_2c    = var.dhcp_load_balancer_private_ip_eu_west_2c
   critical_notifications_arn             = module.alarms.critical_notifications_arn
   vpn_hosted_zone_id                     = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain                 = var.vpn_hosted_zone_domain
@@ -114,14 +114,14 @@ module "dhcp" {
   vpc_cidr                               = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix   = var.admin_local_development_domain_affix
   dhcp_egress_transit_gateway_routes     = var.dhcp_egress_transit_gateway_routes
-  public_route_table_ids                 = module.vpc.public_route_table_ids
+  private_route_table_ids                = module.servers_vpc.private_route_table_ids
 
   providers = {
     aws = aws.env
   }
 
   depends_on = [
-    module.vpc
+    module.servers_vpc
   ]
 }
 
@@ -206,17 +206,16 @@ module "alarms" {
 module "dns" {
   source                              = "./modules/dns"
   prefix                              = module.dns_label.id
-  subnets                             = module.vpc.public_subnets
+  subnets                             = module.servers_vpc.private_subnets
   tags                                = module.dns_label.tags
   critical_notifications_arn          = module.alarms.critical_notifications_arn
   load_balancer_private_ip_eu_west_2a = var.dns_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
-  load_balancer_private_ip_eu_west_2c = var.dns_load_balancer_private_ip_eu_west_2c
-  vpc_id                              = module.vpc.vpc_id
+  vpc_id                              = module.servers_vpc.vpc_id
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
 
   depends_on = [
-    module.vpc
+    module.servers_vpc
   ]
 
   providers = {
@@ -226,14 +225,14 @@ module "dns" {
 
 module "corsham_test_bastion" {
   source                     = "./modules/corsham_test"
-  subnets                    = module.vpc.public_subnets
-  vpc_id                     = module.vpc.vpc_id
+  subnets                    = module.servers_vpc.public_subnets
+  vpc_id                     = module.servers_vpc.vpc_id
   tags                       = module.dhcp_label.tags
   bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
   bastion_allowed_egress_ip  = var.bastion_allowed_egress_ip
 
   depends_on = [
-    module.vpc
+    module.servers_vpc
   ]
 
   providers = {
@@ -288,7 +287,7 @@ module "dhcp_dns_vpc_flow_logs" {
   prefix = "staff-device-dns-dhcp-${terraform.workspace}"
   region = data.aws_region.current_region.id
   tags   = module.dhcp_label.tags
-  vpc_id = module.vpc.vpc_id
+  vpc_id = module.servers_vpc.vpc_id
 
   providers = {
     aws = aws.env

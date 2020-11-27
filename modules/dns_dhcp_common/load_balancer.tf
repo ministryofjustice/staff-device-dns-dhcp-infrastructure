@@ -13,11 +13,6 @@ resource "aws_lb" "load_balancer" {
     private_ipv4_address = var.load_balancer_private_ip_eu_west_2b
   }
 
-  subnet_mapping {
-    subnet_id            = var.subnets[2]
-    private_ipv4_address = var.load_balancer_private_ip_eu_west_2c
-  }
-
   enable_deletion_protection = false
 
   tags = var.tags
@@ -29,7 +24,7 @@ resource "aws_lb_target_group" "target_group" {
   vpc_id               = var.vpc_id
   port                 = var.container_port
   target_type          = "ip"
-  deregistration_delay = 10
+  deregistration_delay = 300
 
   depends_on = [aws_lb.load_balancer]
 }
