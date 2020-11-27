@@ -5,7 +5,8 @@ module "vpc" {
 
   cidr                   = var.cidr_block
   enable_nat_gateway     = var.enable_nat_gateway
-  one_nat_gateway_per_az = true
+  single_nat_gateway     = true
+  one_nat_gateway_per_az = false
 
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -19,8 +20,8 @@ module "vpc" {
   enable_s3_endpoint               = var.enable_s3_endpoint
 
   azs = [
-    "${var.region}b",
-    "${var.region}c"
+    "${var.region}a",
+    "${var.region}b"
   ]
 
   private_subnets = [
