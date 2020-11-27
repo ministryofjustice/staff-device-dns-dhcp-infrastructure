@@ -16,16 +16,16 @@ variable "prefix" {
 }
 
 variable "enable_nat_gateway" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "rds_endpoint_private_dns_enabled" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "enable_s3_endpoint" {
-  type = bool
+  type    = bool
   default = false
 }

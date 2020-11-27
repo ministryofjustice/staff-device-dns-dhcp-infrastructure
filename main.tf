@@ -67,12 +67,12 @@ locals {
 }
 
 module "servers_vpc" {
-  source              = "./modules/servers_vpc"
-  prefix              = module.dhcp_label.id
-  region              = data.aws_region.current_region.id
-  cidr_block          = "10.180.80.0/22"
-  cidr_block_new_bits = 2
-  enable_nat_gateway  = true
+  source                           = "./modules/servers_vpc"
+  prefix                           = module.dhcp_label.id
+  region                           = data.aws_region.current_region.id
+  cidr_block                       = "10.180.80.0/22"
+  cidr_block_new_bits              = 2
+  enable_nat_gateway               = true
   rds_endpoint_private_dns_enabled = true
 
   providers = {
@@ -114,7 +114,7 @@ module "dhcp" {
   vpc_cidr                               = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix   = var.admin_local_development_domain_affix
   dhcp_egress_transit_gateway_routes     = var.dhcp_egress_transit_gateway_routes
-  private_route_table_ids                 = module.servers_vpc.private_route_table_ids
+  private_route_table_ids                = module.servers_vpc.private_route_table_ids
 
   providers = {
     aws = aws.env

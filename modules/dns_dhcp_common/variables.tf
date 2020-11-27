@@ -53,13 +53,13 @@ variable "api_lb_target_group_arn" {
 }
 
 variable "desired_count" {
-  type    = number
+  type = number
 }
 
 variable "max_capacity" {
-  type    = number
+  type = number
 }
 
 variable "min_capacity" {
-  type    = number
+  type = number
 }

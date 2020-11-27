@@ -12,9 +12,9 @@ module "vpc" {
   create_flow_log_cloudwatch_log_group = true
   enable_flow_log                      = true
 
-  rds_endpoint_private_dns_enabled     = var.rds_endpoint_private_dns_enabled
-  rds_endpoint_security_group_ids      = []
-  enable_s3_endpoint                   = var.enable_s3_endpoint
+  rds_endpoint_private_dns_enabled = var.rds_endpoint_private_dns_enabled
+  rds_endpoint_security_group_ids  = []
+  enable_s3_endpoint               = var.enable_s3_endpoint
 
   azs = [
     "${var.region}a",
