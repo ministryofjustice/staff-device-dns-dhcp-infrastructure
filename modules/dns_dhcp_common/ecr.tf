@@ -7,6 +7,15 @@ resource "aws_ecr_repository" "docker_repository" {
   }
 }
 
+resource "aws_ecr_repository" "docker_repository_nginx" {
+  name                 = "${var.prefix}-docker-nginx"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
+
 resource "aws_ecr_repository_policy" "docker_repository_policy" {
   repository = aws_ecr_repository.docker_repository.name
 

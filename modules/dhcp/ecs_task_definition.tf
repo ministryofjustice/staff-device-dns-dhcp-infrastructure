@@ -88,7 +88,7 @@ resource "aws_ecs_task_definition" "server_task" {
         "containerPort": 80
       }
     ],
-    "image": "nginx",
+    "image": "${module.dns_dhcp_common.ecr.nginx_repository_url}",
     "name": "NGINX"
   }
 ]
