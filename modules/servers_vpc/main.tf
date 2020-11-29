@@ -19,10 +19,6 @@ module "vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 
-  create_flow_log_cloudwatch_iam_role  = true
-  create_flow_log_cloudwatch_log_group = true
-  enable_flow_log                      = true
-
   enable_ecr_dkr_endpoint = true
   ecr_dkr_endpoint_private_dns_enabled = true
   ecr_api_endpoint_private_dns_enabled = true
