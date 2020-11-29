@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "server_task" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "${module.dns_dhcp_common.cloudwatch.server_log_group_name}",
+        "awslogs-group": "${module.dns_dhcp_common.cloudwatch.server_nginx_log_group_name}",
         "awslogs-region": "eu-west-2",
         "awslogs-stream-prefix": "eu-west-2-docker-logs"
       }
@@ -55,7 +55,7 @@ resource "aws_ecs_task_definition" "server_task" {
         "containerPort": 80
       }
     ],
-    "image": "nginx",
+    "image": "${module.dns_dhcp_common.ecr.nginx_repository_url}",
     "name": "NGINX"
   }
 ]

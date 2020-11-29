@@ -28,7 +28,6 @@ resource "aws_lb_target_group" "target_group" {
 
   health_check {
     port = 80
-    path = "/"
     protocol = "tcp"
   }
 

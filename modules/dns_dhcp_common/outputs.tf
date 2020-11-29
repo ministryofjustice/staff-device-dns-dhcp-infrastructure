@@ -21,9 +21,9 @@ output "nlb" {
   }
 }
 
-
 output "cloudwatch" {
   value = {
     server_log_group_name = aws_cloudwatch_log_group.server_log_group.name
+    server_nginx_log_group_name = aws_cloudwatch_log_group.server_nginx_log_group.name
   }
 }
