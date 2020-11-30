@@ -119,11 +119,11 @@ variable "bastion_allowed_egress_ip" {
 }
 
 variable "pdns_ips" {
-  type    = string
+  type = string
 }
 
 variable "pdns_ips_list" {
-  type    = list(string)
+  type = list(string)
 }
 
 variable "dhcp_egress_transit_gateway_routes" {
