@@ -126,3 +126,11 @@ variable "pdns_ips" {
 variable "dhcp_egress_transit_gateway_routes" {
   type = set(string)
 }
+
+variable "pentesting_vm_ami_id" {
+  type = string
+}
+
+variable "pentesting_vm_ami_ingress_cidrs" {
+  type = list(string)
+}
