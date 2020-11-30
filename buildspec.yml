@@ -36,6 +36,7 @@ env:
     TF_VAR_bastion_allowed_egress_ip: "/staff-device/corsham_testing/bastion_allowed_egress_ip"
     TF_VAR_corsham_vm_ip: "/staff-device/corsham_testing/corsham_vm_ip"
     TF_VAR_dhcp_egress_transit_gateway_routes: "/staff-device/$ENV/dhcp_egress_transit_gateway_routes"
+    TF_VAR_byoip_pool_id: "/staff-device/dns/$ENV/public_ip_pool_id"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
 
 phases:
