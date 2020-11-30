@@ -136,6 +136,8 @@ variable "pentesting_vm_ami_id" {
 
 variable "pentesting_vm_ami_ingress_cidrs" {
   type = list(string)
+}
+
 variable "corsham_vm_ip" {
   type = string
 }
