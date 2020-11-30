@@ -1,5 +1,10 @@
 # DNS / DHCP Azure AD SSO Provisioning
 
+## Caveats
+* Due to the session time in Cognito, changes to users and / or roles for users 
+whom have already signied into the admin portal can take up to around 15 minutes 
+to propogate to the admin system. This is because updated sessions are only pulled from Azure once a Cognito session has timed out.
+
 ## Prerequisites
 * You will need access to a Devl MoJ account (ask in the Slack channel for this)
 * In Azure you will need to elevate your permissions using `Privileged Identity Management (PIM)`
