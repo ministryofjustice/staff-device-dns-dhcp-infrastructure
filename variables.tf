@@ -120,9 +120,16 @@ variable "bastion_allowed_egress_ip" {
 
 variable "pdns_ips" {
   type    = string
-  default = "1.2.3.4,5.6.7.8"
+}
+
+variable "pdns_ips_list" {
+  type    = list(string)
 }
 
 variable "dhcp_egress_transit_gateway_routes" {
   type = set(string)
+}
+
+variable "corsham_vm_ip" {
+  type = string
 }

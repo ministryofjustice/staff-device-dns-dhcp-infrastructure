@@ -85,3 +85,7 @@ variable "dhcp_egress_transit_gateway_routes" {
 variable "private_route_table_ids" {
   type = set(string)
 }
+
+variable "pdns_ips" {
+  type = list(string)
+}
