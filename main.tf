@@ -115,6 +115,8 @@ module "dhcp" {
   admin_local_development_domain_affix   = var.admin_local_development_domain_affix
   dhcp_egress_transit_gateway_routes     = var.dhcp_egress_transit_gateway_routes
   private_route_table_ids                = module.servers_vpc.private_route_table_ids
+  pdns_ips                               = var.pdns_ips_list
+  byoip_pool_id                          = var.byoip_pool_id
 
   providers = {
     aws = aws.env
@@ -230,6 +232,9 @@ module "corsham_test_bastion" {
   tags                       = module.dhcp_label.tags
   bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
   bastion_allowed_egress_ip  = var.bastion_allowed_egress_ip
+  transit_gateway_id         = var.dhcp_transit_gateway_id
+  route_table_id             = module.servers_vpc.public_route_table_ids[0]
+  corsham_vm_ip              = var.corsham_vm_ip
 
   depends_on = [
     module.servers_vpc

@@ -26,6 +26,11 @@ resource "aws_lb_target_group" "target_group" {
   target_type          = "ip"
   deregistration_delay = 300
 
+  health_check {
+    port = 80
+    protocol = "tcp"
+  }
+
   depends_on = [aws_lb.load_balancer]
 }
 

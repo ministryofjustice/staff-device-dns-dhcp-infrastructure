@@ -119,8 +119,11 @@ variable "bastion_allowed_egress_ip" {
 }
 
 variable "pdns_ips" {
-  type    = string
-  default = "1.2.3.4,5.6.7.8"
+  type = string
+}
+
+variable "pdns_ips_list" {
+  type = list(string)
 }
 
 variable "dhcp_egress_transit_gateway_routes" {
@@ -133,4 +136,10 @@ variable "pentesting_vm_ami_id" {
 
 variable "pentesting_vm_ami_ingress_cidrs" {
   type = list(string)
+variable "corsham_vm_ip" {
+  type = string
+}
+
+variable "byoip_pool_id" {
+  type = string
 }

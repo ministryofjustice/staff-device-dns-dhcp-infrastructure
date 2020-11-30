@@ -17,3 +17,15 @@ variable "bastion_allowed_ingress_ip" {
 variable "bastion_allowed_egress_ip" {
   type = string
 }
+
+variable "transit_gateway_id" {
+  type = string
+}
+
+variable "route_table_id" {
+  type = string
+}
+
+variable "corsham_vm_ip" {
+  type = string
+}

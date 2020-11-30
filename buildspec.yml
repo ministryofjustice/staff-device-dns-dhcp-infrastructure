@@ -14,6 +14,7 @@ env:
   parameter-store:
     TF_VAR_assume_role: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
     TF_VAR_pdns_ips: "/staff-device/dns/pdns/ips"
+    TF_VAR_pdns_ips_list: "/staff-device/dns/pdns/ips_list"
     TF_VAR_dhcp_db_username: "/codebuild/dhcp/$ENV/db/username"
     TF_VAR_dhcp_db_password: "/codebuild/dhcp/$ENV/db/password"
     TF_VAR_admin_db_username: "/codebuild/dhcp/$ENV/admin/db/username"
@@ -35,7 +36,9 @@ env:
     TF_VAR_bastion_allowed_egress_ip: "/staff-device/corsham_testing/bastion_allowed_egress_ip"
     TF_VAR_pentesting_vm_ami_id: "/staff-device/bsi_testing/pentesting_vm_ami_id"
     TF_VAR_pentesting_vm_ami_ingress_cidrs: "/staff-device/bsi_testing/pentesting_vm_ami_ingress_cidrs"
+    TF_VAR_corsham_vm_ip: "/staff-device/corsham_testing/corsham_vm_ip"
     TF_VAR_dhcp_egress_transit_gateway_routes: "/staff-device/$ENV/dhcp_egress_transit_gateway_routes"
+    TF_VAR_byoip_pool_id: "/staff-device/dns/$ENV/public_ip_pool_id"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
 
 phases:
@@ -53,12 +56,10 @@ phases:
       - terraform providers
       - terraform workspace new $ENV || true
       - terraform workspace select $ENV
-      - terraform destroy --auto-approve -no-color
       - terraform apply --auto-approve -no-color
       - ./scripts/publish_terraform_outputs
       - TEMP_ROLE=`aws sts assume-role --role-arn $ROLE_ARN --role-session-name ci-build-$CODEBUILD_BUILD_NUMBER`
       - export AWS_ACCESS_KEY_ID=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.AccessKeyId')
       - export AWS_SECRET_ACCESS_KEY=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SecretAccessKey')
       - export AWS_SESSION_TOKEN=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SessionToken')
-      - ./scripts/ensure_cloudwatch_log_retention_policies
 
