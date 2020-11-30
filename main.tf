@@ -116,6 +116,7 @@ module "dhcp" {
   dhcp_egress_transit_gateway_routes     = var.dhcp_egress_transit_gateway_routes
   private_route_table_ids                = module.servers_vpc.private_route_table_ids
   pdns_ips                               = var.pdns_ips_list
+  byoip_pool_id                          = var.byoip_pool_id
 
   providers = {
     aws = aws.env

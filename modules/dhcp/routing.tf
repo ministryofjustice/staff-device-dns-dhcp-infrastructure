@@ -14,12 +14,12 @@ resource "aws_nat_gateway" "eu_west_2b" {
 
 resource "aws_eip" "dns_eu_west_2a" {
   vpc              = true
-  public_ipv4_pool = "amazon"
+  public_ipv4_pool = var.byoip_pool_id
 }
 
 resource "aws_eip" "dns_eu_west_2b" {
   vpc              = true
-  public_ipv4_pool = "amazon"
+  public_ipv4_pool = var.byoip_pool_id
 }
 
 resource "aws_route" "transit-gateway" {

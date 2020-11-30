@@ -89,3 +89,7 @@ variable "private_route_table_ids" {
 variable "pdns_ips" {
   type = list(string)
 }
+
+variable "byoip_pool_id" {
+  type = string
+}

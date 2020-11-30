@@ -133,3 +133,7 @@ variable "dhcp_egress_transit_gateway_routes" {
 variable "corsham_vm_ip" {
   type = string
 }
+
+variable "byoip_pool_id" {
+  type = string
+}
