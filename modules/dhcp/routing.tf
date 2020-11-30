@@ -36,6 +36,10 @@ resource "aws_route" "pdns-route-2a-pdns-1" {
   route_table_id            = each.value
   destination_cidr_block    = "${var.pdns_ips[0]}/32"
   nat_gateway_id            = aws_nat_gateway.eu_west_2a.id
+
+  timeouts {
+    create = "5m"
+  }
 }
 
 resource "aws_route" "pdns-route-2a-pdns-2" {
@@ -44,4 +48,8 @@ resource "aws_route" "pdns-route-2a-pdns-2" {
   route_table_id            = each.value
   destination_cidr_block    = "${var.pdns_ips[1]}/32"
   nat_gateway_id            = aws_nat_gateway.eu_west_2a.id
+
+  timeouts {
+    create = "5m"
+  }
 }
