@@ -26,6 +26,16 @@ resource "aws_security_group_rule" "dns_container_udp_in" {
   cidr_blocks       = [var.vpc_cidr]
 }
 
+resource "aws_security_group_rule" "dns_container_udp_out" {
+  description       = "Allow outbound traffic from the BIND server"
+  type              = "egress"
+  from_port         = 53
+  to_port           = 53
+  protocol          = "udp"
+  security_group_id = aws_security_group.dns_server.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
 resource "aws_security_group_rule" "dns_container_healthcheck_in" {
   description       = "Allow health checks from the Load Balancer"
   type              = "ingress"
