@@ -94,7 +94,8 @@ module "admin_vpc" {
 module "dhcp" {
   source                                 = "./modules/dhcp"
   prefix                                 = module.dhcp_label.id
-  subnets                                = module.servers_vpc.private_subnets
+  private_subnets                        = module.servers_vpc.private_subnets
+  public_subnets                         = module.servers_vpc.public_subnets
   tags                                   = module.dhcp_label.tags
   vpc_id                                 = module.servers_vpc.vpc_id
   dhcp_db_password                       = var.dhcp_db_password

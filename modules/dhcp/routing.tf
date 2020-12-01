@@ -1,13 +1,13 @@
 resource "aws_nat_gateway" "eu_west_2a" {
   allocation_id = aws_eip.dns_eu_west_2a.id
-  subnet_id     = var.subnets[0]
+  subnet_id     = var.public_subnets[0]
 
   tags = var.tags
 }
 
 resource "aws_nat_gateway" "eu_west_2b" {
   allocation_id = aws_eip.dns_eu_west_2b.id
-  subnet_id     = var.subnets[1]
+  subnet_id     = var.public_subnets[1]
 
   tags = var.tags
 }
