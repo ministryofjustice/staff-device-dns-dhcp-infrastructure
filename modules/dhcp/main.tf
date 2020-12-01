@@ -2,7 +2,7 @@ module "dns_dhcp_common" {
   source                              = "../dns_dhcp_common"
   prefix                              = var.prefix
   tags                                = var.tags
-  subnets                             = var.subnets
+  subnets                             = var.private_subnets
   vpc_id                              = var.vpc_id
   security_group_id                   = aws_security_group.dhcp_server.id
   container_port                      = "67"

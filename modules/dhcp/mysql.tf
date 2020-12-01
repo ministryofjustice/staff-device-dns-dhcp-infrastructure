@@ -31,7 +31,7 @@ resource "aws_db_instance" "dhcp_server_db" {
 
 resource "aws_db_subnet_group" "db" {
   name       = "${var.prefix}-main"
-  subnet_ids = var.subnets
+  subnet_ids = var.private_subnets
 
   tags = var.tags
 }

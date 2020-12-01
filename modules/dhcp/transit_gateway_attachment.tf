@@ -1,7 +1,7 @@
 resource "aws_ec2_transit_gateway_vpc_attachment" "dhcp_transit_gateway_attachment" {
   count = var.enable_dhcp_transit_gateway_attachment ? 1 : 0
 
-  subnet_ids                                      = var.subnets
+  subnet_ids                                      = var.private_subnets
   transit_gateway_id                              = var.dhcp_transit_gateway_id
   vpc_id                                          = var.vpc_id
   transit_gateway_default_route_table_association = false
