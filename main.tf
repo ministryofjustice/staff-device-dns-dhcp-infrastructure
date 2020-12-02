@@ -106,7 +106,6 @@ module "dhcp" {
   env                                  = var.env
   load_balancer_private_ip_eu_west_2a  = var.dhcp_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b  = var.dhcp_load_balancer_private_ip_eu_west_2b
-  critical_notifications_arn           = module.alarms.critical_notifications_arn
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
@@ -187,27 +186,11 @@ module "authentication" {
   }
 }
 
-module "alarms" {
-  source                           = "./modules/alarms"
-  dhcp_cluster_name                = module.dhcp.ecs.cluster_name
-  prefix                           = module.alarms_label.id
-  enable_critical_notifications    = var.enable_critical_notifications
-  critical_notification_recipients = var.critical_notification_recipients
-  rds_identifier                   = module.dhcp.rds_identifier
-  load_balancer                    = module.dhcp.load_balancer
-  topic_name                       = "critical-notifications"
-  admin_db_identifier              = module.admin.admin_db_identifier
-  providers = {
-    aws = aws.env
-  }
-}
-
 module "dns" {
   source                              = "./modules/dns"
   prefix                              = module.dns_label.id
   subnets                             = module.servers_vpc.private_subnets
   tags                                = module.dns_label.tags
-  critical_notifications_arn          = module.alarms.critical_notifications_arn
   load_balancer_private_ip_eu_west_2a = var.dns_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
   vpc_id                              = module.servers_vpc.vpc_id
@@ -287,26 +270,6 @@ module "dns_label" {
   namespace = "staff-device"
   stage     = terraform.workspace
   name      = "dns"
-  delimiter = "-"
-
-  tags = {
-    "business-unit" = "MoJO"
-    "application"   = "dns-dhcp",
-    "is-production" = tostring(var.is_production),
-    "owner"         = var.owner_email
-
-    "environment-name" = "global"
-    "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
-  }
-}
-
-module "alarms_label" {
-  source  = "cloudposse/label/null"
-  version = "0.19.2"
-
-  namespace = "staff-device"
-  stage     = terraform.workspace
-  name      = "alarms"
   delimiter = "-"
 
   tags = {

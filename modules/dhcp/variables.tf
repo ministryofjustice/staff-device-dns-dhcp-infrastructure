@@ -38,10 +38,6 @@ variable "load_balancer_private_ip_eu_west_2b" {
   type = string
 }
 
-variable "critical_notifications_arn" {
-  type = string
-}
-
 variable "vpn_hosted_zone_id" {
   type = string
 }

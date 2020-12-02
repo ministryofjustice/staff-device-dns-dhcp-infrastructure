@@ -10,7 +10,6 @@ module "dns_dhcp_common" {
   task_definition_arn                 = aws_ecs_task_definition.server_task.arn
   load_balancer_private_ip_eu_west_2a = var.load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b = var.load_balancer_private_ip_eu_west_2b
-  critical_notifications_arn          = var.critical_notifications_arn
   desired_count                       = 2
   max_capacity                        = 6
   min_capacity                        = 2

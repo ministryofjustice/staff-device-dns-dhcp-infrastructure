@@ -38,10 +38,6 @@ variable "vpc_id" {
   type = string
 }
 
-variable "critical_notifications_arn" {
-  type = string
-}
-
 variable "has_api_lb" {
   type    = bool
   default = false

@@ -54,10 +54,6 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "${var.prefix}-config-bucket"
       },
       {
-        "name": "CRITICAL_NOTIFICATIONS_ARN",
-        "value": "${var.critical_notifications_arn}"
-      },
-      {
         "name": "ECS_ENABLE_CONTAINER_METADATA",
         "value": "true"
       }

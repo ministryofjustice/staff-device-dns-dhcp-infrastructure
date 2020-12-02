@@ -23,10 +23,6 @@ resource "aws_ecs_task_definition" "server_task" {
       {
         "name": "BIND_CONFIG_BUCKET_NAME",
         "value": "${var.prefix}-config-bucket"
-      },
-      {
-        "name": "CRITICAL_NOTIFICATIONS_ARN",
-        "value": "${var.critical_notifications_arn}"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
