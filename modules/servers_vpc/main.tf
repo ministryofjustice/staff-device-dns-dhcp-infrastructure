@@ -15,28 +15,28 @@ module "vpc" {
   version = "2.50.0"
   name    = var.prefix
 
-  cidr                   = var.cidr_block
+  cidr                 = var.cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
 
-  enable_ecr_dkr_endpoint = true
+  enable_ecr_dkr_endpoint              = true
   ecr_dkr_endpoint_private_dns_enabled = true
   ecr_api_endpoint_private_dns_enabled = true
-  ecr_dkr_endpoint_security_group_ids = [aws_security_group.endpoints.id]
+  ecr_dkr_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
-  enable_monitoring_endpoint = true
+  enable_monitoring_endpoint              = true
   monitoring_endpoint_private_dns_enabled = true
-  monitoring_endpoint_security_group_ids = [aws_security_group.endpoints.id]
+  monitoring_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
-  enable_rds_endpoint = true
+  enable_rds_endpoint              = true
   rds_endpoint_private_dns_enabled = true
-  rds_endpoint_security_group_ids = [aws_security_group.endpoints.id]
+  rds_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
   enable_s3_endpoint = true
 
-  enable_logs_endpoint = true
+  enable_logs_endpoint              = true
   logs_endpoint_private_dns_enabled = true
-  logs_endpoint_security_group_ids = [aws_security_group.endpoints.id]
+  logs_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
   azs = [
     "${var.region}a",
