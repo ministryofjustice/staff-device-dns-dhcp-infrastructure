@@ -15,17 +15,26 @@ variable "prefix" {
   type = string
 }
 
-variable "enable_nat_gateway" {
-  type    = bool
-  default = false
+variable "enable_dhcp_transit_gateway_attachment" {
+  type = bool
 }
 
-variable "rds_endpoint_private_dns_enabled" {
-  type    = bool
-  default = false
+variable "byoip_pool_id" {
+  type = string
 }
 
-variable "enable_s3_endpoint" {
-  type    = bool
-  default = false
+variable "pdns_ips" {
+  type = list(string)
+}
+
+variable "tags" {
+  type = map(string)
+}
+
+variable "dhcp_transit_gateway_id" {
+  type = string
+}
+
+variable "transit_gateway_route_table_id" {
+  type = string
 }
