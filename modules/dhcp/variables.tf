@@ -6,10 +6,6 @@ variable "private_subnets" {
   type = list(string)
 }
 
-variable "public_subnets" {
-  type = list(string)
-}
-
 variable "env" {
   type = string
 }
@@ -31,18 +27,6 @@ variable "dhcp_db_username" {
 }
 
 variable "dhcp_db_password" {
-  type = string
-}
-
-variable "dhcp_transit_gateway_id" {
-  type = string
-}
-
-variable "enable_dhcp_transit_gateway_attachment" {
-  type = bool
-}
-
-variable "transit_gateway_route_table_id" {
   type = string
 }
 
@@ -79,21 +63,5 @@ variable "is_publicly_accessible" {
 }
 
 variable "admin_local_development_domain_affix" {
-  type = string
-}
-
-variable "dhcp_egress_transit_gateway_routes" {
-  type = list(string)
-}
-
-variable "private_route_table_ids" {
-  type = set(string)
-}
-
-variable "pdns_ips" {
-  type = list(string)
-}
-
-variable "byoip_pool_id" {
   type = string
 }

@@ -67,13 +67,17 @@ locals {
 }
 
 module "servers_vpc" {
-  source                           = "./modules/servers_vpc"
-  prefix                           = module.dhcp_label.id
-  region                           = data.aws_region.current_region.id
-  cidr_block                       = "10.180.80.0/22"
-  cidr_block_new_bits              = 2
-  enable_nat_gateway               = true
-  rds_endpoint_private_dns_enabled = true
+  source                                 = "./modules/servers_vpc"
+  prefix                                 = module.dhcp_label.id
+  region                                 = data.aws_region.current_region.id
+  cidr_block                             = "10.180.80.0/22"
+  cidr_block_new_bits                    = 2
+  byoip_pool_id                          = var.byoip_pool_id
+  pdns_ips                               = var.pdns_ips_list
+  enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
+  tags                                   = module.dhcp_label.tags
+  dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
+  transit_gateway_route_table_id         = var.transit_gateway_route_table_id
 
   providers = {
     aws = aws.env
@@ -92,32 +96,24 @@ module "admin_vpc" {
 }
 
 module "dhcp" {
-  source                                 = "./modules/dhcp"
-  prefix                                 = module.dhcp_label.id
-  private_subnets                        = module.servers_vpc.private_subnets
-  public_subnets                         = module.servers_vpc.public_subnets
-  tags                                   = module.dhcp_label.tags
-  vpc_id                                 = module.servers_vpc.vpc_id
-  dhcp_db_password                       = var.dhcp_db_password
-  dhcp_db_username                       = var.dhcp_db_username
-  env                                    = var.env
-  dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
-  enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
-  transit_gateway_route_table_id         = var.transit_gateway_route_table_id
-  load_balancer_private_ip_eu_west_2a    = var.dhcp_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b    = var.dhcp_load_balancer_private_ip_eu_west_2b
-  critical_notifications_arn             = module.alarms.critical_notifications_arn
-  vpn_hosted_zone_id                     = var.vpn_hosted_zone_id
-  vpn_hosted_zone_domain                 = var.vpn_hosted_zone_domain
-  short_prefix                           = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  region                                 = data.aws_region.current_region.id
-  is_publicly_accessible                 = local.publicly_accessible
-  vpc_cidr                               = local.dns_dhcp_vpc_cidr
-  admin_local_development_domain_affix   = var.admin_local_development_domain_affix
-  dhcp_egress_transit_gateway_routes     = var.dhcp_egress_transit_gateway_routes
-  private_route_table_ids                = module.servers_vpc.private_route_table_ids
-  pdns_ips                               = var.pdns_ips_list
-  byoip_pool_id                          = var.byoip_pool_id
+  source                               = "./modules/dhcp"
+  prefix                               = module.dhcp_label.id
+  private_subnets                      = module.servers_vpc.private_subnets
+  tags                                 = module.dhcp_label.tags
+  vpc_id                               = module.servers_vpc.vpc_id
+  dhcp_db_password                     = var.dhcp_db_password
+  dhcp_db_username                     = var.dhcp_db_username
+  env                                  = var.env
+  load_balancer_private_ip_eu_west_2a  = var.dhcp_load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b  = var.dhcp_load_balancer_private_ip_eu_west_2b
+  critical_notifications_arn           = module.alarms.critical_notifications_arn
+  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
+  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
+  short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  region                               = data.aws_region.current_region.id
+  is_publicly_accessible               = local.publicly_accessible
+  vpc_cidr                             = local.dns_dhcp_vpc_cidr
+  admin_local_development_domain_affix = var.admin_local_development_domain_affix
 
   providers = {
     aws = aws.env
