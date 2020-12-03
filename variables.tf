@@ -134,6 +134,10 @@ variable "pentesting_vm_ami_id" {
   type = string
 }
 
+variable "pentesting_vm_ssh_public_key" {
+  type = string
+}
+
 variable "pentesting_vm_ami_ingress_cidrs" {
   type = list(string)
 }
