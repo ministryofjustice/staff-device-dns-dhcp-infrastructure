@@ -6,6 +6,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "dhcp_transit_gateway_attachme
   vpc_id                                          = module.vpc.vpc_id
   transit_gateway_default_route_table_association = false
   transit_gateway_default_route_table_propagation = false
+  tags                                            = var.tags
 }
 
 resource "aws_ec2_transit_gateway_route_table_association" "this" {
