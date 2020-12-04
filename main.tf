@@ -40,23 +40,8 @@ locals {
 }
 
 module "dhcp_label" {
-  source  = "cloudposse/label/null"
-  version = "0.19.2"
-
-  namespace = "staff-device"
-  stage     = terraform.workspace
-  name      = "dhcp"
-  delimiter = "-"
-
-  tags = {
-    "business-unit" = "MoJO"
-    "application"   = "dns-dhcp",
-    "is-production" = tostring(var.is_production),
-    "owner"         = var.owner_email
-
-    "environment-name" = "global"
-    "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
-  }
+  source  = "./modules/label"
+  service_name = "dhcp"
 }
 
 data "aws_region" "current_region" {}
@@ -266,23 +251,8 @@ module "bsi_test_vm_servers_vpc" {
 }
 
 module "dns_label" {
-  source  = "cloudposse/label/null"
-  version = "0.19.2"
-
-  namespace = "staff-device"
-  stage     = terraform.workspace
-  name      = "dns"
-  delimiter = "-"
-
-  tags = {
-    "business-unit" = "MoJO"
-    "application"   = "dns-dhcp",
-    "is-production" = tostring(var.is_production),
-    "owner"         = var.owner_email
-
-    "environment-name" = "global"
-    "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
-  }
+  source  = "./modules/label"
+  service_name = "dns"
 }
 
 module "dhcp_dns_vpc_flow_logs" {
