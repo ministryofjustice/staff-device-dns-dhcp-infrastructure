@@ -232,6 +232,7 @@ module "bsi_test_vm_admin_vpc" {
   subnets                         = module.admin_vpc.public_subnets
   vpc_id                          = module.admin_vpc.vpc_id
   pentesting_vm_ami_id            = var.pentesting_vm_ami_id
+  pentesting_vm_ssh_public_key    = var.pentesting_vm_ssh_public_key
   pentesting_vm_ami_ingress_cidrs = var.pentesting_vm_ami_ingress_cidrs
 
   depends_on = [
@@ -250,6 +251,7 @@ module "bsi_test_vm_servers_vpc" {
   subnets                         = module.servers_vpc.public_subnets
   vpc_id                          = module.servers_vpc.vpc_id
   pentesting_vm_ami_id            = var.pentesting_vm_ami_id
+  pentesting_vm_ssh_public_key    = var.pentesting_vm_ssh_public_key
   pentesting_vm_ami_ingress_cidrs = var.pentesting_vm_ami_ingress_cidrs
 
   depends_on = [
