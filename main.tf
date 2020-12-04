@@ -40,7 +40,7 @@ locals {
 }
 
 module "dhcp_label" {
-  source  = "./modules/label"
+  source       = "./modules/label"
   service_name = "dhcp"
 }
 
@@ -251,7 +251,7 @@ module "bsi_test_vm_servers_vpc" {
 }
 
 module "dns_label" {
-  source  = "./modules/label"
+  source       = "./modules/label"
   service_name = "dns"
 }
 
