@@ -1,6 +1,6 @@
 locals {
   memory = terraform.workspace == "production" ? "2048" : "1024"
-  cpu = terraform.workspace == "production" ? "1024" : "512"
+  cpu    = terraform.workspace == "production" ? "1024" : "512"
 }
 
 resource "aws_ecs_task_definition" "server_task" {
