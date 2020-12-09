@@ -35,6 +35,12 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
         "s3:GetObject"
       ],
       "Resource": ["${aws_s3_bucket.config_bucket.arn}/*"]
+    },{
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:PutMetricData"
+      ],
+      "Resource": ["*"]
     }
   ]
 }
