@@ -1,3 +1,7 @@
+locals {
+  is_production = terraform.workspace == "production" ? true : false
+}
+
 resource "aws_db_instance" "admin_db" {
   allocated_storage           = 20
   storage_type                = "gp2"
@@ -19,7 +23,7 @@ resource "aws_db_instance" "admin_db" {
   monitoring_role_arn         = aws_iam_role.rds_monitoring_role.arn
   monitoring_interval         = 60
   skip_final_snapshot         = true
-  deletion_protection         = false
+  deletion_protection         = local.is_production ? true : false
   publicly_accessible         = var.is_publicly_accessible
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
