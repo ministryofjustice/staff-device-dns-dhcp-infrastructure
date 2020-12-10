@@ -44,6 +44,11 @@ module "dhcp_label" {
   service_name = "dhcp"
 }
 
+module "dhcp_standby_label" {
+  source       = "./modules/label"
+  service_name = "dhcp-standby"
+}
+
 data "aws_region" "current_region" {}
 data "aws_caller_identity" "shared_services_account" {}
 
@@ -80,6 +85,38 @@ module "admin_vpc" {
   }
 }
 
+module "dhcp_standby" {
+  source                              = "./modules/dhcp_standby"
+  prefix                              = module.dhcp_standby_label.id
+  private_subnets                     = module.servers_vpc.private_subnets
+  tags                                = module.dhcp_standby_label.tags
+  vpc_id                              = module.servers_vpc.vpc_id
+  dhcp_db_password                    = var.dhcp_db_password
+  dhcp_db_username                    = var.dhcp_db_username
+  load_balancer_private_ip_eu_west_2a = var.dhcp_load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b = var.dhcp_load_balancer_private_ip_eu_west_2b
+  vpc_cidr                            = local.dns_dhcp_vpc_cidr
+  nginx_repository_url                = module.dhcp.ecr.nginx_repository_url
+  nginx_log_group_name                = module.dhcp.cloudwatch.server_nginx_log_group_name
+  server_log_group_name               = module.dhcp.cloudwatch.server_log_group_name
+  dhcp_repository_url                 = module.dhcp.ecr.repository_url
+  dhcp_db_host                        = module.dhcp.db_host
+  dhcp_server_db_name                 = module.dhcp.rds.name
+  ecs_task_execution_role_arn         = module.dhcp.iam.task_execution_role_arn
+  ecs_task_role_arn                   = module.dhcp.iam.task_role_arn
+  dhcp_server_cluster_id              = module.dhcp.ecs.cluster_id
+  kea_config_bucket_name              = module.dhcp.kea_config_bucket_name
+  dhcp_server_security_group_id       = module.dhcp.ec2.dhcp_server_security_group_id
+
+  providers = {
+    aws = aws.env
+  }
+
+  depends_on = [
+    module.dhcp
+  ]
+}
+
 module "dhcp" {
   source                               = "./modules/dhcp"
   prefix                               = module.dhcp_label.id
@@ -88,13 +125,11 @@ module "dhcp" {
   vpc_id                               = module.servers_vpc.vpc_id
   dhcp_db_password                     = var.dhcp_db_password
   dhcp_db_username                     = var.dhcp_db_username
-  env                                  = var.env
   load_balancer_private_ip_eu_west_2a  = var.dhcp_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b  = var.dhcp_load_balancer_private_ip_eu_west_2b
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  region                               = data.aws_region.current_region.id
   is_publicly_accessible               = local.publicly_accessible
   vpc_cidr                             = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix = var.admin_local_development_domain_affix

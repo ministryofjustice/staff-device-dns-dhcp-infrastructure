@@ -6,10 +6,6 @@ variable "private_subnets" {
   type = list(string)
 }
 
-variable "env" {
-  type = string
-}
-
 variable "tags" {
   type = map(string)
 }
@@ -47,10 +43,6 @@ variable "vpn_hosted_zone_domain" {
 }
 
 variable "short_prefix" {
-  type = string
-}
-
-variable "region" {
   type = string
 }
 

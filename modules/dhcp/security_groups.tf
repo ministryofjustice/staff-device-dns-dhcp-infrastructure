@@ -75,10 +75,10 @@ resource "aws_security_group" "dhcp_db_in" {
 }
 
 resource "aws_security_group_rule" "dhcp_db_in" {
-  type                     = "ingress"
-  from_port                = 3306
-  to_port                  = 3306
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.dhcp_db_in.id
-  source_security_group_id = aws_security_group.dhcp_server.id
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  security_group_id = aws_security_group.dhcp_db_in.id
+  cidr_blocks       = [var.vpc_cidr]
 }
