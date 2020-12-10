@@ -13,6 +13,7 @@ output "kea_config_bucket_name" {
 output "ecs" {
   value = {
     cluster_name         = module.dns_dhcp_common.ecs.cluster_name
+    cluster_id           = module.dns_dhcp_common.ecs.cluster_id
     service_name         = module.dns_dhcp_common.ecs.service_name
     service_arn          = module.dns_dhcp_common.ecs.service_arn
     task_definition_name = aws_ecs_task_definition.server_task.family
@@ -22,7 +23,19 @@ output "ecs" {
 output "rds" {
   value = {
     endpoint = aws_db_instance.dhcp_server_db.endpoint
+    name     = aws_db_instance.dhcp_server_db.name
   }
+}
+
+output "iam" {
+  value = {
+    task_execution_role_arn = aws_iam_role.ecs_execution_role.arn
+    task_role_arn           = aws_iam_role.ecs_task_role.arn
+  }
+}
+
+output "cloudwatch" {
+  value = module.dns_dhcp_common.cloudwatch
 }
 
 output "ecr" {
@@ -51,4 +64,10 @@ output "db_host" {
 
 output "db_port" {
   value = aws_db_instance.dhcp_server_db.port
+}
+
+output "ec2" {
+  value = {
+    dhcp_server_security_group_id = aws_security_group.dhcp_server.id
+  }
 }

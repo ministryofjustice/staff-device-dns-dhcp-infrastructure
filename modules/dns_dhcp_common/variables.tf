@@ -26,14 +26,6 @@ variable "task_definition_arn" {
   type = string
 }
 
-variable "load_balancer_private_ip_eu_west_2a" {
-  type = string
-}
-
-variable "load_balancer_private_ip_eu_west_2b" {
-  type = string
-}
-
 variable "vpc_id" {
   type = string
 }
@@ -58,4 +50,8 @@ variable "max_capacity" {
 
 variable "min_capacity" {
   type = number
+}
+
+variable "load_balancer_config" {
+  type = map
 }
