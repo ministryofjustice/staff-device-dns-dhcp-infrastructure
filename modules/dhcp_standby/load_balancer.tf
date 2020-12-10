@@ -1,5 +1,5 @@
 resource "aws_lb" "load_balancer" {
-  name               = var.prefix
+  name               = "dhcp-${var.short_prefix}-standby"
   load_balancer_type = "network"
   internal           = true
 

@@ -88,6 +88,7 @@ module "admin_vpc" {
 module "dhcp_standby" {
   source                              = "./modules/dhcp_standby"
   prefix                              = module.dhcp_standby_label.id
+  short_prefix                        = module.dhcp_label.stage # avoid 32 char limit on certain resources
   private_subnets                     = module.servers_vpc.private_subnets
   tags                                = module.dhcp_standby_label.tags
   vpc_id                              = module.servers_vpc.vpc_id
