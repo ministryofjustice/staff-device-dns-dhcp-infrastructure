@@ -14,7 +14,7 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_lb_target_group" "target_group" {
-  name                 = var.prefix
+  name                 = "dhcp-${var.short_prefix}-standby"
   protocol             = "TCP_UDP"
   vpc_id               = var.vpc_id
   port                 = "67"
