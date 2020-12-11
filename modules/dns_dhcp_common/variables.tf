@@ -55,3 +55,7 @@ variable "min_capacity" {
 variable "load_balancer_config" {
   type = map
 }
+
+variable "has_api_service" {
+  type = bool
+}

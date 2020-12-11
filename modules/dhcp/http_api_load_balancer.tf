@@ -18,7 +18,8 @@ resource "aws_lb_target_group" "http_api_target_group" {
   deregistration_delay = 10
 
   health_check {
-    port = 80
+    port     = 80
+    protocol = "TCP"
   }
 
   depends_on = [aws_lb.http_api_load_balancer]

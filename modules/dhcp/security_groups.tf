@@ -13,10 +13,7 @@ resource "aws_security_group_rule" "dhcp_container_healthcheck" {
   to_port           = 80
   protocol          = "tcp"
   security_group_id = aws_security_group.dhcp_server.id
-  cidr_blocks = [
-    "${var.load_balancer_private_ip_eu_west_2a}/32",
-    "${var.load_balancer_private_ip_eu_west_2b}/32"
-  ]
+  cidr_blocks       = [var.vpc_cidr]
 }
 
 resource "aws_security_group_rule" "dhcp_container_kea_api_in" {
