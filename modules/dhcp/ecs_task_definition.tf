@@ -61,6 +61,18 @@ resource "aws_ecs_task_definition" "server_task" {
       {
         "name": "ECS_ENABLE_CONTAINER_METADATA",
         "value": "true"
+      },
+      {
+        "name": "SERVER_NAME",
+        "value": "primary"
+      },
+      {
+        "name": "PRIMARY_IP",
+        "value": "${var.load_balancer_private_ip_eu_west_2a}"
+      },
+      {
+        "name": "STANDBY_IP",
+        "value": "${var.load_balancer_private_ip_eu_west_2b}"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
