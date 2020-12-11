@@ -13,6 +13,7 @@ module "dns_dhcp_common" {
   desired_count           = 1
   max_capacity            = 1
   min_capacity            = 1
+  has_api_service = true
 
   load_balancer_config = {
     eu_west_2a = {

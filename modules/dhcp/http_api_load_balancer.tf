@@ -19,6 +19,7 @@ resource "aws_lb_target_group" "http_api_target_group" {
 
   health_check {
     port = 80
+    protocol = "TCP"
   }
 
   depends_on = [aws_lb.http_api_load_balancer]
