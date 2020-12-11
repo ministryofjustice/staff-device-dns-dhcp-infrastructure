@@ -6,8 +6,8 @@ resource "aws_security_group" "dhcp_server" {
   tags = var.tags
 }
 
-resource "aws_security_group_rule" "dhcp_container_healthcheck_in_2a" {
-  description       = "Allow health checks from the Load Balancer eu-west-2a"
+resource "aws_security_group_rule" "dhcp_container_healthcheck" {
+  description       = "Allow health checks from the Load Balancer"
   type              = "ingress"
   from_port         = 80
   to_port           = 80
