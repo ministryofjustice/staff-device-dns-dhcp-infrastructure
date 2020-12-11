@@ -6,14 +6,14 @@ resource "aws_security_group" "dhcp_server" {
   tags = var.tags
 }
 
-resource "aws_security_group_rule" "dhcp_container_healthcheck_in_2a" {
-  description       = "Allow health checks from the Load Balancer eu-west-2a"
+resource "aws_security_group_rule" "dhcp_container_healthcheck" {
+  description       = "Allow health checks from the Load Balancer"
   type              = "ingress"
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
   security_group_id = aws_security_group.dhcp_server.id
-  cidr_blocks       = [
+  cidr_blocks = [
     "${var.load_balancer_private_ip_eu_west_2a}/32",
     "${var.load_balancer_private_ip_eu_west_2b}/32"
   ]
