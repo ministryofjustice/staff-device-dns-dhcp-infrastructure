@@ -45,7 +45,7 @@ resource "aws_ecs_service" "api_service" {
   launch_type     = "FARGATE"
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.target_group.arn
+    target_group_arn = aws_lb_target_group.http_api_target_group.arn
     container_name   = "dhcp-server"
     container_port   = "8000"
   }
