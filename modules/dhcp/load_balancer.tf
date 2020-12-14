@@ -3,16 +3,9 @@ resource "aws_lb" "load_balancer" {
   load_balancer_type = "network"
   internal           = true
 
-  dynamic "subnet_mapping" {
-    for_each = [for c in var.load_balancer_config : {
-      subnet_id            = c.subnet_id
-      private_ipv4_address = c.private_ipv4_address
-    }]
-
-    content {
-      subnet_id            = subnet_mapping.value.subnet_id
-      private_ipv4_address = subnet_mapping.value.private_ipv4_address
-    }
+  subnet_mapping {
+    subnet_id            = var.private_subnets[0]
+    private_ipv4_address = var.load_balancer_private_ip_eu_west_2a
   }
 
   enable_deletion_protection = false
@@ -24,7 +17,7 @@ resource "aws_lb_target_group" "target_group" {
   name                 = "${var.prefix}-ha-primary"
   protocol             = "TCP_UDP"
   vpc_id               = var.vpc_id
-  port                 = var.container_port
+  port                 = "67"
   target_type          = "ip"
   deregistration_delay = 300
 
@@ -54,7 +47,7 @@ resource "aws_lb_target_group" "target_group_ha" {
 
 resource "aws_lb_listener" "udp" {
   load_balancer_arn = aws_lb.load_balancer.arn
-  port              = var.container_port
+  port              = "67"
   protocol          = "UDP"
 
   default_action {

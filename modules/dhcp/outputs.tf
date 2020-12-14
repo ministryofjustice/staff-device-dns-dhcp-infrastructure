@@ -12,10 +12,10 @@ output "kea_config_bucket_name" {
 
 output "ecs" {
   value = {
-    cluster_name         = module.dns_dhcp_common.ecs.cluster_name
-    cluster_id           = module.dns_dhcp_common.ecs.cluster_id
-    service_name         = module.dns_dhcp_common.ecs.service_name
-    service_arn          = module.dns_dhcp_common.ecs.service_arn
+    cluster_name         = aws_ecs_cluster.server_cluster.name
+    cluster_id           = aws_ecs_cluster.server_cluster.id
+    service_name         = aws_ecs_service.service.name
+    service_arn          = aws_ecs_service.service.id
     task_definition_name = aws_ecs_task_definition.server_task.family
   }
 }
@@ -34,6 +34,13 @@ output "iam" {
   }
 }
 
+output "nlb" {
+  value = {
+    name = aws_lb.load_balancer.id
+    arn  = aws_lb.load_balancer.arn
+  }
+}
+
 output "cloudwatch" {
   value = module.dns_dhcp_common.cloudwatch
 }
@@ -43,7 +50,7 @@ output "ecr" {
 }
 
 output "load_balancer" {
-  value = module.dns_dhcp_common.nlb.name
+  value = aws_lb.load_balancer.name
 }
 
 output "http_api_load_balancer_arn" {

@@ -10,27 +10,27 @@ resource "aws_ecs_cluster" "server_cluster" {
 resource "aws_ecs_service" "service" {
   name            = "${var.prefix}-service"
   cluster         = aws_ecs_cluster.server_cluster.id
-  task_definition = var.task_definition_arn
-  desired_count   = var.desired_count
+  task_definition = aws_ecs_task_definition.server_task.arn
+  desired_count   = "1"
   launch_type     = "FARGATE"
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
-    container_name   = var.container_name
-    container_port   = var.container_port
+    container_name   = "dhcp-server"
+    container_port   = 67
   }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group_ha.arn
-    container_name   = var.container_name
+    container_name   = "dhcp-server"
     container_port   = 8000
   }
 
   network_configuration {
-    subnets = var.subnets
+    subnets = var.private_subnets
 
     security_groups = [
-      var.security_group_id
+      aws_security_group.dhcp_server.id
     ]
 
     assign_public_ip = true
@@ -38,25 +38,23 @@ resource "aws_ecs_service" "service" {
 }
 
 resource "aws_ecs_service" "api_service" {
-  count = var.has_api_service ? 1 : 0
-
   name            = "${var.prefix}-api-service"
   cluster         = aws_ecs_cluster.server_cluster.id
-  task_definition = var.task_definition_arn
-  desired_count   = var.desired_count
+  task_definition = aws_ecs_task_definition.server_task.arn
+  desired_count   = "1"
   launch_type     = "FARGATE"
 
   load_balancer {
-    target_group_arn = var.api_lb_target_group_arn
-    container_name   = var.container_name
+    target_group_arn = aws_lb_target_group.target_group.arn
+    container_name   = "dhcp-server"
     container_port   = "8000"
   }
 
   network_configuration {
-    subnets = [var.subnets[0]]
+    subnets = [var.private_subnets[0]]
 
     security_groups = [
-      var.security_group_id
+      aws_security_group.dhcp_server.id
     ]
 
     assign_public_ip = true
