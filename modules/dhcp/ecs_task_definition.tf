@@ -5,8 +5,8 @@ locals {
 
 resource "aws_ecs_task_definition" "server_task" {
   family                   = "${var.prefix}-server-task"
-  task_role_arn            = aws_iam_role.ecs_task_role.arn
-  execution_role_arn       = aws_iam_role.ecs_execution_role.arn
+  task_role_arn            = module.dns_dhcp_common.iam.ecs_task_role_arn
+  execution_role_arn       = module.dns_dhcp_common.iam.ecs_execution_role_arn
   requires_compatibilities = ["FARGATE"]
   cpu                      = local.cpu
   memory                   = local.memory
@@ -61,6 +61,18 @@ resource "aws_ecs_task_definition" "server_task" {
       {
         "name": "ECS_ENABLE_CONTAINER_METADATA",
         "value": "true"
+      },
+      {
+        "name": "SERVER_NAME",
+        "value": "primary"
+      },
+      {
+        "name": "PRIMARY_IP",
+        "value": "${var.load_balancer_private_ip_eu_west_2a}"
+      },
+      {
+        "name": "STANDBY_IP",
+        "value": "${var.load_balancer_private_ip_eu_west_2b}"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",

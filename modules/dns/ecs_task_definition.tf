@@ -1,7 +1,7 @@
 resource "aws_ecs_task_definition" "server_task" {
   family                   = "${var.prefix}-server-task"
-  task_role_arn            = aws_iam_role.ecs_task_role.arn
-  execution_role_arn       = aws_iam_role.ecs_execution_role.arn
+  task_role_arn            = module.dns_dhcp_common.iam.ecs_task_role_arn
+  execution_role_arn       = module.dns_dhcp_common.iam.ecs_execution_role_arn
   requires_compatibilities = ["FARGATE"]
   cpu                      = "512"
   memory                   = "1024"

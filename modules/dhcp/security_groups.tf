@@ -17,13 +17,29 @@ resource "aws_security_group_rule" "dhcp_container_healthcheck" {
 }
 
 resource "aws_security_group_rule" "dhcp_container_kea_api_in" {
-  description       = "Allow HTTP access to the kea api from the vpc endpoint"
+  description       = "Allow TCP heartbeat in between peers"
   type              = "ingress"
   from_port         = 8000
   to_port           = 8000
   protocol          = "tcp"
   security_group_id = aws_security_group.dhcp_server.id
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks = [
+    "${var.load_balancer_private_ip_eu_west_2a}/32",
+    "${var.load_balancer_private_ip_eu_west_2b}/32"
+  ]
+}
+
+resource "aws_security_group_rule" "dhcp_container_kea_api_out" {
+  description       = "Allow TCP heartbeat out between peers"
+  type              = "egress"
+  from_port         = 8000
+  to_port           = 8000
+  protocol          = "tcp"
+  security_group_id = aws_security_group.dhcp_server.id
+  cidr_blocks = [
+    "${var.load_balancer_private_ip_eu_west_2a}/32",
+    "${var.load_balancer_private_ip_eu_west_2b}/32"
+  ]
 }
 
 resource "aws_security_group_rule" "dhcp_container_udp_in" {
@@ -55,7 +71,6 @@ resource "aws_security_group_rule" "dhcp_container_web_out" {
   security_group_id = aws_security_group.dhcp_server.id
   cidr_blocks       = ["0.0.0.0/0"]
 }
-
 
 resource "aws_security_group_rule" "dhcp_container_db_out" {
   type                     = "egress"

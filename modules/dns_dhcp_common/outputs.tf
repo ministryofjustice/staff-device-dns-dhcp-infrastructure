@@ -6,25 +6,24 @@ output "ecr" {
   }
 }
 
-output "ecs" {
-  value = {
-    cluster_name = aws_ecs_cluster.server_cluster.name
-    cluster_id   = aws_ecs_cluster.server_cluster.id
-    service_name = aws_ecs_service.service.name
-    service_arn  = aws_ecs_service.service.id
-  }
-}
-
-output "nlb" {
-  value = {
-    name = aws_lb.load_balancer.id
-    arn  = aws_lb.load_balancer.arn
-  }
-}
-
 output "cloudwatch" {
   value = {
     server_log_group_name       = aws_cloudwatch_log_group.server_log_group.name
     server_nginx_log_group_name = aws_cloudwatch_log_group.server_nginx_log_group.name
+  }
+}
+
+output "iam" {
+  value = {
+    ecs_task_role_arn      = aws_iam_role.ecs_task_role.arn
+    ecs_execution_role_arn = aws_iam_role.ecs_execution_role.arn
+  }
+}
+
+output "s3" {
+  value = {
+    bucket_id      = aws_s3_bucket.config_bucket.id
+    bucket_arn     = aws_s3_bucket.config_bucket.arn
+    bucket_key_arn = aws_kms_key.config_bucket_key.arn
   }
 }
