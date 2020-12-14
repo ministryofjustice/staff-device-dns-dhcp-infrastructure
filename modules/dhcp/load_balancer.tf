@@ -14,7 +14,7 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_lb_target_group" "target_group" {
-  name                 = "${var.prefix}-ha-primary"
+  name                 = "${var.short_prefix}-ha-primary"
   protocol             = "TCP_UDP"
   vpc_id               = var.vpc_id
   port                 = "67"
@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "target_group" {
 }
 
 resource "aws_lb_target_group" "target_group_ha" {
-  name                 = "${var.prefix}-ha-api"
+  name                 = "${var.short_prefix}-ha-api"
   protocol             = "TCP"
   vpc_id               = var.vpc_id
   port                 = 8000
