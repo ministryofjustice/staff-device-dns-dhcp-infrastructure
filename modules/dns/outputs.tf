@@ -1,13 +1,13 @@
 output "bind_config_bucket_name" {
-  value = aws_s3_bucket.config_bucket.id
+  value = module.dns_dhcp_common.s3.bucket_id
 }
 
 output "bind_config_bucket_arn" {
-  value = aws_s3_bucket.config_bucket.arn
+  value = module.dns_dhcp_common.s3.bucket_arn
 }
 
 output "bind_config_bucket_key_arn" {
-  value = aws_kms_key.config_bucket_key.arn
+  value = module.dns_dhcp_common.s3.bucket_key_arn
 }
 
 output "ecs" {

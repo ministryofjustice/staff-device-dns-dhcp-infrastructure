@@ -3,11 +3,11 @@ output "rds_identifier" {
 }
 
 output "kea_config_bucket_arn" {
-  value = aws_s3_bucket.config_bucket.arn
+  value = module.dns_dhcp_common.s3.bucket_arn
 }
 
 output "kea_config_bucket_name" {
-  value = aws_s3_bucket.config_bucket.id
+  value = module.dns_dhcp_common.s3.bucket_id
 }
 
 output "ecs" {
@@ -29,8 +29,8 @@ output "rds" {
 
 output "iam" {
   value = {
-    task_execution_role_arn = aws_iam_role.ecs_execution_role.arn
-    task_role_arn           = aws_iam_role.ecs_task_role.arn
+    task_execution_role_arn = module.dns_dhcp_common.iam.ecs_execution_role_arn
+    task_role_arn           = module.dns_dhcp_common.iam.ecs_task_role_arn
   }
 }
 
@@ -58,7 +58,7 @@ output "http_api_load_balancer_arn" {
 }
 
 output "dhcp_config_bucket_key_arn" {
-  value = aws_kms_key.config_bucket_key.arn
+  value = module.dns_dhcp_common.s3.bucket_key_arn
 }
 
 output "db_name" {
