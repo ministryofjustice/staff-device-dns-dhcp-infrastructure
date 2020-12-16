@@ -23,7 +23,7 @@ resource "aws_security_group_rule" "dhcp_container_kea_api_in" {
   to_port           = 8000
   protocol          = "tcp"
   security_group_id = aws_security_group.dhcp_server.id
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "dhcp_container_kea_api_out" {
