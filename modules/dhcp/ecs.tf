@@ -27,7 +27,7 @@ resource "aws_ecs_service" "service" {
   }
 
   network_configuration {
-    subnets = var.private_subnets
+    subnets = [var.private_subnets[0]]
 
     security_groups = [
       aws_security_group.dhcp_server.id
