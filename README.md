@@ -16,10 +16,10 @@ This repository defines the **system infrastructure only**. Specific components 
 - [DHCP Server](https://github.com/ministryofjustice/staff-device-dhcp-server)
 - [Docker Base Images](https://github.com/ministryofjustice/staff-device-docker-base-images)
 
-The following documentation contains information on how to manage and run the infrastructure:
+The following documentation contains information on how to manage the infrastructure:
 
 - [Authentication with Azure AD](documentation/azure_ad.md)
-- [Developing and Testing](documentation/local_development.md)
+- [Development Environment](documentation/local_development.md)
 - [Corsham Site Tests](documentation/corsham_test.md)
 
 ## Architecture
