@@ -5,6 +5,14 @@ output "terraform_outputs" {
       ecr = module.dhcp.ecr
     }
 
+    dhcp_standby = {
+      ecs = module.dhcp_standby.ecs
+    }
+
+    dhcp_api = {
+      ecs = module.dhcp.ecs_dhcp_api
+    }
+
     dns = {
       ecs = module.dns.ecs
       ecr = module.dns.ecr
