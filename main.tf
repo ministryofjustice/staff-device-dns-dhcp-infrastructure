@@ -98,8 +98,6 @@ module "dhcp_standby" {
   load_balancer_private_ip_eu_west_2b = var.dhcp_load_balancer_private_ip_eu_west_2b
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   nginx_repository_url                = module.dhcp.ecr.nginx_repository_url
-  nginx_log_group_name                = module.dhcp.cloudwatch.server_nginx_log_group_name
-  server_log_group_name               = module.dhcp.cloudwatch.server_log_group_name
   dhcp_repository_url                 = module.dhcp.ecr.repository_url
   dhcp_db_host                        = module.dhcp.db_host
   dhcp_server_db_name                 = module.dhcp.rds.name

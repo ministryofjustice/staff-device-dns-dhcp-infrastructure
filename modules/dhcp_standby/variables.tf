@@ -42,14 +42,6 @@ variable "nginx_repository_url" {
   type = string
 }
 
-variable "nginx_log_group_name" {
-  type = string
-}
-
-variable "server_log_group_name" {
-  type = string
-}
-
 variable "dhcp_repository_url" {
   type = string
 }
