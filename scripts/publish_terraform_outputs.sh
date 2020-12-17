@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 terraform_outputs=`terraform output -json terraform_outputs`
 
