@@ -69,7 +69,7 @@ resource "aws_ecs_task_definition" "api_server_task" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "${module.dns_dhcp_common.cloudwatch.server_log_group_name}",
+        "awslogs-group": "${aws_cloudwatch_log_group.server_log_group.name}",
         "awslogs-region": "eu-west-2",
         "awslogs-stream-prefix": "eu-west-2-docker-logs"
       }
@@ -79,7 +79,7 @@ resource "aws_ecs_task_definition" "api_server_task" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "${module.dns_dhcp_common.cloudwatch.server_nginx_log_group_name}",
+        "awslogs-group": "${aws_cloudwatch_log_group.server_nginx_log_group.name}",
         "awslogs-region": "eu-west-2",
         "awslogs-stream-prefix": "eu-west-2-docker-logs"
       }
