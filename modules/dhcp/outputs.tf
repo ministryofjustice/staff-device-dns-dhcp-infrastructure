@@ -20,6 +20,12 @@ output "ecs" {
   }
 }
 
+output "ecs_dhcp_api" {
+  value = {
+    service_name = aws_ecs_service.api_service.name
+  }
+}
+
 output "rds" {
   value = {
     endpoint = aws_db_instance.dhcp_server_db.endpoint
