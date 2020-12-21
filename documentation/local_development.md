@@ -37,3 +37,9 @@ Please make sure to replace `<your_namespace>` with your own workspace name in t
 ```shell
   make apply
 ```
+
+### Destroy your development infrastructure:
+
+```shell
+  make destroy
+```
