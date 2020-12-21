@@ -1,5 +1,5 @@
 # Corsham Test Site
-We do remote testing of the DHCP service from a virtual machine (VM) running in Corsham.
+Remote testing of the DHCP / DNS services are performed from a virtual machine (VM) running in the Corsham data center.
 
 These tests run on an infinite loop, sending a total of 50 requests at a rate of two requests per second, emulating two concurrent connections with `perfdhcp`.
 To access this VM you need to go through the bastion set up in production, which is on the same network (via the [Transit Gateway](https://aws.amazon.com/transit-gateway)) as the VM.
