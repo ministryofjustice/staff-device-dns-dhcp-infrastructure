@@ -22,21 +22,21 @@ to propagate to the admin system. This is because updated sessions are only pull
 1. Select `Amazon Web Services (AWS)` application from the list of predefined services
 1. Change the application name to `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app`
 1. Click `Add`. Creating the app may take a few moments. You will eventually be redirected to the config page
-![Creating the basic Amazon Web Services app](azure_images/amazon_web_services_azure_app.png)
+![Creating the basic Amazon Web Services app](azure-images/amazon-web-services-azure-app.png)
 
 1. On the left-hand menu, select `Single sign-on` and select `SAML`
-![Select SAML configuration](azure_images/select_saml.png)
+![Select SAML configuration](azure-images/select-saml.png)
 
 1. In the `SAML Signing Certificate` section grab the `App Federation Metadata URL`. This is required to be added to the `terraform.tfvars` file under `azure_federation_metadata_url`.  
 In production like environments, this needs to be added to SSM Parameter store (See `TF_VAR_azure_federation_metadata_url` in [`buildspec.yml`](buildspec.yml) for the correct SSM key)
-![Creating the basic Amazon Web Services app](azure_images/amazon_web_services_azure_app.png)
+![Creating the basic Amazon Web Services app](azure-images/amazon-web-services-azure-app.png)
 
 ## Configuring URLs
 1. In the Azure portal, navigate to `Enterprise Applications`
 1. Search for the application name, i.e. `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and select it
 1. On the left-hand menu, select `Single sign-on`
 1. Select `Edit` in `Basic SAML Configuration`
-![Basic SAML configuration](azure_images/basic_saml_configuration.png)
+![Basic SAML configuration](azure-images/basic-saml-configuration.png)
 
 1. Fill in the `Identifier (Entity ID)` with `urn:amazon:cognito:sp:[COGNITO_USER_POOL_ID]`
   To find the COGNITO_USER_POOL_ID:
@@ -47,7 +47,7 @@ In production like environments, this needs to be added to SSM Parameter store (
   1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
   1. Under `App Integrations` then `Domain name`, locate the full domain, i.e. `https://some-user-pool-name.auth.eu-west-2.amazoncognito.com`
 1. Fill in the `Logout Url` with output from Terraform
-![Configuring logout and callback URLs](azure_images/configure_urls.png)
+![Configuring logout and callback URLs](azure-images/configure-urls.png)
 
 1. Save the changes once you are done
 
@@ -93,8 +93,8 @@ In production like environments, this needs to be added to SSM Parameter store (
 1. On the left-hand menu, select `Users and groups`
 1. At the top of the user list select `Add user`
 1. On the `Add assignment page` click `Users and groups`. Search for the user you would like to add to the application
-![Select a user](azure_images/user_assignment.png)
+![Select a user](azure-images/user-assignment.png)
 
 1. Back on the `Add assignment page` click `Select a role`. Click on the role and then click `select`
-![Select a role](azure_images/role_assignment.png)
+![Select a role](azure-images/role-assignment.png)
 1. Click on `Assign`. You will now see your user in the list of users with the role assignment
