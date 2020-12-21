@@ -246,44 +246,6 @@ module "corsham_test_bastion" {
   count = terraform.workspace == "production" && var.enable_corsham_test_bastion == true ? 1 : 0
 }
 
-module "bsi_test_vm_admin_vpc" {
-  source                          = "./modules/bsi_pentest_vm"
-  subnets                         = module.admin_vpc.public_subnets
-  vpc_id                          = module.admin_vpc.vpc_id
-  pentesting_vm_ami_id            = var.pentesting_vm_ami_id
-  pentesting_vm_ssh_public_key    = var.pentesting_vm_ssh_public_key
-  pentesting_vm_ami_ingress_cidrs = var.pentesting_vm_ami_ingress_cidrs
-
-  depends_on = [
-    module.admin_vpc
-  ]
-
-  providers = {
-    aws = aws.env
-  }
-
-  count = terraform.workspace == "pre-production" ? 1 : 0
-}
-
-module "bsi_test_vm_servers_vpc" {
-  source                          = "./modules/bsi_pentest_vm"
-  subnets                         = module.servers_vpc.public_subnets
-  vpc_id                          = module.servers_vpc.vpc_id
-  pentesting_vm_ami_id            = var.pentesting_vm_ami_id
-  pentesting_vm_ssh_public_key    = var.pentesting_vm_ssh_public_key
-  pentesting_vm_ami_ingress_cidrs = var.pentesting_vm_ami_ingress_cidrs
-
-  depends_on = [
-    module.servers_vpc
-  ]
-
-  providers = {
-    aws = aws.env
-  }
-
-  count = terraform.workspace == "pre-production" ? 1 : 0
-}
-
 module "dns_label" {
   source       = "./modules/label"
   service_name = "dns"
