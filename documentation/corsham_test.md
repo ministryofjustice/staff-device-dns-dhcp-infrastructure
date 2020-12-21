@@ -54,7 +54,7 @@ ssh mt@<VM_IP>
 
 9. When prompted for the password enter `<VM_PASSWORD>`
 
-### Run the PerfDHCP
+### Run PerfDHCP
 
 10. Execute the test script
 
