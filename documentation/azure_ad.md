@@ -8,7 +8,7 @@ whom have already signed into the admin portal can take up to around 15 minutes
 to propagate to the admin system. This is because updated sessions are only pulled from Azure once a Cognito session has timed out.
 
 ## Prerequisites
-- You will need access to a Devl MoJ account (ask in the Slack channel for this)
+- You will need access to the Devl MoJ Azure account.
 - In Azure you will need to elevate your permissions using `Privileged Identity Management (PIM)`
     1. In `Privileged Identity Management`, go to `My roles`
     1. Under `Eligible assignments`, find the `Application Administrator` role and select `Activate on the right
