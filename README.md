@@ -21,6 +21,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [Getting Started](documentation/getting-started.md)
 - [Authentication with Azure AD](documentation/azure-ad.md)
 - [Corsham Site Tests](documentation/corsham-test.md)
+- [Deployment](documentation/deployment.md)
 
 ## Architecture
 
