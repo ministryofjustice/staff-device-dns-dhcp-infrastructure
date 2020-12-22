@@ -22,7 +22,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [Authentication with Azure AD](documentation/azure-ad.md)
 - [Corsham Site Tests](documentation/corsham-test.md)
 - [Deployment](documentation/deployment.md)
-- [Secrets Management](documentation/secrets_management.md)
+- [Secrets Management](documentation/secrets-management.md)
 - [Security Logging](documentation/security-logging.md)
 
 ## Architecture
