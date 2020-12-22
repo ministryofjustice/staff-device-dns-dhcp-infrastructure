@@ -23,6 +23,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [Corsham Site Tests](documentation/corsham-test.md)
 - [Deployment](documentation/deployment.md)
 - [Secrets Management](documentation/secrets_management.md)
+- [Networking](documentation/networking.md)
 
 ## Architecture
 
