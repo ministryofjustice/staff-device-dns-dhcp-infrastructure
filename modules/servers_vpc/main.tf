@@ -13,7 +13,7 @@ resource "aws_security_group" "endpoints" {
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.50.0"
-  name    = var.prefix
+  name    = "${var.prefix}-dns"
 
   cidr                 = var.cidr_block
   enable_dns_hostnames = true
