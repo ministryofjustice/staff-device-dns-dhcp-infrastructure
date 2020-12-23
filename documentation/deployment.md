@@ -10,9 +10,9 @@ There are 3 AWS environments that run this service. Each one in a separate AWS a
 2. Pre-production
 3. Production
 
-The environments are deployed from a [Shared Services](https://github.com/ministryofjustice/pttp-shared-services-infrastructure) AWS account by assuming a [pre-defined IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) into the target account.
+The environments are deployed from a [Shared Services](https://github.com/ministryofjustice/staff-device-shared-services-infrastructure) AWS account by assuming a [pre-defined IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) into the target account.
 
-The [source code](https://github.com/ministryofjustice/pttp-shared-services-infrastructure) for the pipeline is available on Github.
+The [source code](https://github.com/ministryofjustice/staff-device-shared-services-infrastructure) for the pipeline is available on Github.
 
 Each deploy is immutable and installs the dependencies from scratch in a new build container.
 
