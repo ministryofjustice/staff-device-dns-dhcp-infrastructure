@@ -17,13 +17,13 @@ resource "aws_security_group_rule" "dhcp_container_healthcheck" {
 }
 
 resource "aws_security_group_rule" "dhcp_container_kea_api_in" {
-  description       = "Allow TCP heartbeat in between peers"
+  description       = "Allow TCP heartbeat between peers"
   type              = "ingress"
   from_port         = 8000
   to_port           = 8000
   protocol          = "tcp"
   security_group_id = aws_security_group.dhcp_server.id
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = [var.vpc_cidr]
 }
 
 resource "aws_security_group_rule" "dhcp_container_kea_api_out" {
@@ -46,7 +46,7 @@ resource "aws_security_group_rule" "dhcp_container_udp_in" {
   to_port           = 67
   protocol          = "udp"
   security_group_id = aws_security_group.dhcp_server.id
-  cidr_blocks       = [var.vpc_cidr]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "dhcp_container_udp_out" {

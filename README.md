@@ -10,7 +10,7 @@ The running applications are defined and run as docker containers using [AWS Far
 
 This repository defines the **system infrastructure only**. Specific components and applications are defined in their own logical external repositories.
 
-- [Shared Services](https://github.com/ministryofjustice/pttp-shared-services-infrastructure)
+- [Shared Services](https://github.com/ministryofjustice/staff-device-shared-services-infrastructure)
 - [DNS DHCP Admin Portal](https://github.com/ministryofjustice/staff-device-dns-dhcp-admin)
 - [DNS Server](https://github.com/ministryofjustice/staff-device-dns-server)
 - [DHCP Server](https://github.com/ministryofjustice/staff-device-dhcp-server)
@@ -24,6 +24,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [Deployment](documentation/deployment.md)
 - [Secrets Management](documentation/secrets-management.md)
 - [Security Logging](documentation/security-logging.md)
+- [Networking](documentation/networking.md)
 
 ## Architecture
 
