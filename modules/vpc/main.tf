@@ -17,4 +17,8 @@ module "vpc" {
     cidrsubnet(var.cidr_block, var.cidr_block_new_bits, 1),
     cidrsubnet(var.cidr_block, var.cidr_block_new_bits, 2)
   ]
+
+  manage_default_security_group  = true
+  default_security_group_ingress = [{}]
+  default_security_group_egress  = [{}]
 }
