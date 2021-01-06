@@ -54,6 +54,6 @@ module "vpc" {
   ]
 
   manage_default_security_group  = true
-  default_security_group_ingress = [{}]
-  default_security_group_egress  = [{}]
+  default_security_group_ingress = []
+  default_security_group_egress  = []
 }
