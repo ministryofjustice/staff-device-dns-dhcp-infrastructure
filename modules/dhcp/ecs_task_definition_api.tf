@@ -63,6 +63,10 @@ resource "aws_ecs_task_definition" "api_server_task" {
       {
         "name": "STANDBY_IP",
         "value": "${var.load_balancer_private_ip_eu_west_2b}"
+      },
+      {
+        "name": "PUBLISH_METRICS",
+        "value": "false"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
