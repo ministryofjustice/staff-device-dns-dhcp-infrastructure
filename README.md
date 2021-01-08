@@ -25,6 +25,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [Secrets Management](documentation/secrets-management.md)
 - [Security Logging](documentation/security-logging.md)
 - [Networking](documentation/networking.md)
+- [Performance Metrics](documentation/performance_metrics.md)
 
 ## Architecture
 
