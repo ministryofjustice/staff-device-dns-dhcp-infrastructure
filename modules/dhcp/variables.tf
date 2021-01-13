@@ -54,6 +54,10 @@ variable "admin_local_development_domain_affix" {
   type = string
 }
 
-variable "enable_dhcp_cloudwatch_log_metrics" {
-  type = bool
+variable "metrics_namespace" {
+  type = string
+}
+
+variable "dhcp_log_search_metric_filters" {
+  type = set(string)
 }

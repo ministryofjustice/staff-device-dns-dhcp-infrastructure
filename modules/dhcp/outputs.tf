@@ -84,3 +84,7 @@ output "ec2" {
     dhcp_server_security_group_id = aws_security_group.dhcp_server.id
   }
 }
+
+output "kea_metrics_namespace" {
+  value = var.metrics_namespace
+}
