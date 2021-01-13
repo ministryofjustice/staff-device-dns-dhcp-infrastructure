@@ -129,6 +129,6 @@ variable "byoip_pool_id" {
 }
 
 variable "enable_dhcp_cloudwatch_log_metrics" {
-  type = bool
+  type    = bool
   default = false
 }
