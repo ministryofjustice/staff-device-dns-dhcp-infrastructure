@@ -2,6 +2,7 @@ locals {
   metrics_namespace = "Kea-DHCP-Service"
 
   log_search_terms = var.enable_dhcp_cloudwatch_log_metrics == true ? toset([
+    "FATAL",
     "ERROR",
     "WARN",
     "HTTP_PREMATURE_CONNECTION_TIMEOUT_OCCURRED",
