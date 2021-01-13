@@ -22,6 +22,8 @@ output "terraform_outputs" {
       ecs = module.admin.ecs
     }
 
+    metrics_namespace = local.metrics_namespace
+
     authentication = {
       cognito = {
         identifier_urn = module.authentication.cognito_identifier_urn

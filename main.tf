@@ -116,6 +116,10 @@ module "dhcp_standby" {
   ]
 }
 
+locals {
+  metrics_namespace = "Kea-DHCP-Service"
+}
+
 module "dhcp" {
   source                               = "./modules/dhcp"
   prefix                               = module.dhcp_label.id
@@ -132,6 +136,20 @@ module "dhcp" {
   is_publicly_accessible               = local.publicly_accessible
   vpc_cidr                             = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
+  metrics_namespace                    = local.metrics_namespace
+  dhcp_log_search_metric_filters = var.enable_dhcp_cloudwatch_log_metrics == true ? [
+    "FATAL",
+    "ERROR",
+    "WARN",
+    "HTTP_PREMATURE_CONNECTION_TIMEOUT_OCCURRED",
+    "ALLOC_ENGINE_V4_ALLOC_ERROR",
+    "ALLOC_ENGINE_V4_ALLOC_FAIL",
+    "ALLOC_ENGINE_V4_ALLOC_FAIL_CLASSES",
+    "DHCP4_PACKET_NAK_0001",
+    "HA_SYNC_FAILED",
+    "HA_HEARTBEAT_COMMUNICATIONS_FAILED",
+    "HA_DHCP_DISABLE_COMMUNICATIONS_FAILED"
+  ] : []
 
   providers = {
     aws = aws.env

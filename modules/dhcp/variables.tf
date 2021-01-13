@@ -53,3 +53,11 @@ variable "is_publicly_accessible" {
 variable "admin_local_development_domain_affix" {
   type = string
 }
+
+variable "metrics_namespace" {
+  type = string
+}
+
+variable "dhcp_log_search_metric_filters" {
+  type = set(string)
+}

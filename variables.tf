@@ -127,3 +127,8 @@ variable "corsham_vm_ip" {
 variable "byoip_pool_id" {
   type = string
 }
+
+variable "enable_dhcp_cloudwatch_log_metrics" {
+  type    = bool
+  default = false
+}
