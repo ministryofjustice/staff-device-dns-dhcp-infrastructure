@@ -53,3 +53,7 @@ variable "is_publicly_accessible" {
 variable "admin_local_development_domain_affix" {
   type = string
 }
+
+variable "enable_dhcp_cloudwatch_log_metrics" {
+  type = bool
+}

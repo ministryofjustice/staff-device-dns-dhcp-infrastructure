@@ -11,6 +11,7 @@ env:
     TF_VAR_admin_db_backup_retention_period: 30
     TF_VAR_enable_dhcp_transit_gateway_attachment: true
     TF_VAR_enable_ssh_key_generation: false
+    TF_VAR_enable_dhcp_cloudwatch_log_metrics: true
   parameter-store:
     TF_VAR_assume_role: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
     TF_VAR_pdns_ips: "/staff-device/dns/pdns/ips"

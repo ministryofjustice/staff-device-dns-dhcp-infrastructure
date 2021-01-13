@@ -132,6 +132,7 @@ module "dhcp" {
   is_publicly_accessible               = local.publicly_accessible
   vpc_cidr                             = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
+  enable_dhcp_cloudwatch_log_metrics   = var.enable_dhcp_cloudwatch_log_metrics
 
   providers = {
     aws = aws.env
