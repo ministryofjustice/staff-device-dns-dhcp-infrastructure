@@ -137,7 +137,7 @@ module "dhcp" {
   vpc_cidr                             = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   metrics_namespace                    = local.metrics_namespace
-  dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? [
+  dhcp_log_search_metric_filters = var.enable_dhcp_cloudwatch_log_metrics == true ? [
     "FATAL",
     "ERROR",
     "WARN",

@@ -6,9 +6,9 @@ resource "aws_cloudwatch_log_metric_filter" "kea_dhcp_filter" {
   log_group_name = module.dns_dhcp_common.cloudwatch.server_log_group_name
 
   metric_transformation {
-    name      = each.value
-    namespace = var.metrics_namespace
-    value     = "1"
+    name          = each.value
+    namespace     = var.metrics_namespace
+    value         = "1"
     default_value = "0"
   }
 }
