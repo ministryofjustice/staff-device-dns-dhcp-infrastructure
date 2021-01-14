@@ -28,6 +28,8 @@ resource "aws_db_instance" "dhcp_server_db" {
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
 
+  parameter_group_name = aws_db_parameter_group.dhcp_db_parameter_group.name
+
   tags = var.tags
 }
 
@@ -36,4 +38,15 @@ resource "aws_db_subnet_group" "db" {
   subnet_ids = var.private_subnets
 
   tags = var.tags
+}
+
+resource "aws_db_parameter_group" "dhcp_db_parameter_group" {
+  name        = "${var.prefix}-db-parameter-group"
+  family      = "mysql5.7"
+  description = "DHCP DB parameter group"
+
+  parameter {
+    name  = "sql_mode"
+    value = "STRICT_ALL_TABLES"
+  }
 }

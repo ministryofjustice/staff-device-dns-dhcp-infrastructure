@@ -28,6 +28,8 @@ resource "aws_db_instance" "admin_db" {
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
 
+  parameter_group_name = aws_db_parameter_group.admin_db_parameter_group.name
+
   tags = var.tags
 }
 
@@ -36,4 +38,15 @@ resource "aws_db_subnet_group" "admin_db_group" {
   subnet_ids = var.subnet_ids
 
   tags = var.tags
+}
+
+resource "aws_db_parameter_group" "admin_db_parameter_group" {
+  name        = "${var.prefix}-db-parameter-group"
+  family      = "mysql5.7"
+  description = "Admin DB parameter group"
+
+  parameter {
+    name  = "sql_mode"
+    value = "STRICT_ALL_TABLES"
+  }
 }
