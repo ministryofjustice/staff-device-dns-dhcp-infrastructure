@@ -54,19 +54,7 @@ resource "aws_ecs_task_definition" "api_server_task" {
       },
       {
         "name": "SERVER_NAME",
-        "value": "standby"
-      },
-      {
-        "name": "PRIMARY_IP",
-        "value": "${var.load_balancer_private_ip_eu_west_2a}"
-      },
-      {
-        "name": "STANDBY_IP",
-        "value": "${var.load_balancer_private_ip_eu_west_2b}"
-      },
-      {
-        "name": "PUBLISH_METRICS",
-        "value": "false"
+        "value": "api"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
