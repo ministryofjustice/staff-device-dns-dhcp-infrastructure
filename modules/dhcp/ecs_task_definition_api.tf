@@ -45,10 +45,6 @@ resource "aws_ecs_task_definition" "api_server_task" {
         "value": "eth0"
       },
       {
-        "name": "KEA_CONFIG_BUCKET_NAME",
-        "value": "${var.prefix}-config-bucket"
-      },
-      {
         "name": "ECS_ENABLE_CONTAINER_METADATA",
         "value": "true"
       },
