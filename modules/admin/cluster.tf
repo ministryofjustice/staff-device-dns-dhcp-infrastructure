@@ -148,26 +148,6 @@ resource "aws_ecs_task_definition" "admin_task" {
           "value": "${var.bind_config_bucket_name}"
         },
         {
-          "name": "DHCP_DB_USER",
-          "value": "${var.dhcp_db_username}"
-        },
-        {
-          "name": "DHCP_DB_PASS",
-          "value": "${var.dhcp_db_password}"
-        },
-        {
-          "name": "DHCP_DB_NAME",
-          "value": "${var.dhcp_db_name}"
-        },
-        {
-          "name": "DHCP_DB_HOST",
-          "value": "${var.dhcp_db_host}"
-        },
-        {
-          "name": "DHCP_DB_PORT",
-          "value": "${var.dhcp_db_port}"
-        },
-        {
           "name": "PDNS_IPS",
           "value": "${var.pdns_ips}"
         },

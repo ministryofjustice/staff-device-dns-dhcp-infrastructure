@@ -193,11 +193,6 @@ module "admin" {
   bind_config_bucket_key_arn           = module.dns.bind_config_bucket_key_arn
   dhcp_config_bucket_key_arn           = module.dhcp.dhcp_config_bucket_key_arn
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
-  dhcp_db_username                     = var.dhcp_db_username
-  dhcp_db_password                     = var.dhcp_db_password
-  dhcp_db_name                         = module.dhcp.db_name
-  dhcp_db_host                         = module.dhcp.db_host
-  dhcp_db_port                         = module.dhcp.db_port
   pdns_ips                             = var.pdns_ips
 
   depends_on = [

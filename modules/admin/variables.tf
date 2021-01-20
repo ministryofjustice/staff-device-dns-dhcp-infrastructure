@@ -121,26 +121,6 @@ variable "admin_local_development_domain_affix" {
   type = string
 }
 
-variable "dhcp_db_username" {
-  type = string
-}
-
-variable "dhcp_db_password" {
-  type = string
-}
-
-variable "dhcp_db_name" {
-  type = string
-}
-
-variable "dhcp_db_host" {
-  type = string
-}
-
-variable "dhcp_db_port" {
-  type = string
-}
-
 variable "pdns_ips" {
   type = string
 }
