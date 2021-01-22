@@ -61,3 +61,11 @@ variable "metrics_namespace" {
 variable "dhcp_log_search_metric_filters" {
   type = set(string)
 }
+
+variable "dhcp_api_load_balancer_private_ip_eu_west_2a" {
+  type = string
+}
+
+variable "dhcp_api_load_balancer_private_ip_eu_west_2b" {
+  type = string
+}
