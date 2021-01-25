@@ -8,6 +8,13 @@ resource "aws_security_group" "endpoints" {
     to_port     = 443
     cidr_blocks = module.vpc.private_subnets_cidr_blocks
   }
+
+  egress {
+    protocol    = "tcp"
+    from_port   = 443
+    to_port     = 443
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 module "vpc" {
@@ -20,6 +27,8 @@ module "vpc" {
   enable_dns_support   = true
 
   enable_ecr_dkr_endpoint              = true
+  enable_ecr_api_endpoint              = true
+  ecr_api_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
   ecr_dkr_endpoint_private_dns_enabled = true
   ecr_api_endpoint_private_dns_enabled = true
   ecr_dkr_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
