@@ -20,30 +20,30 @@ resource "aws_security_group" "endpoints" {
 locals {
   inbound_vpc_rules = [
     {
-      "cidr_block": "0.0.0.0/0",
-      "from_port": 8000,
-      "protocol": "tcp",
-      "rule_action": "deny",
-      "rule_number": 100,
-      "to_port": 8000
-    }, {
-      "cidr_block": "0.0.0.0/0",
-      "from_port": 0,
-      "protocol": "-1",
-      "rule_action": "allow",
-      "rule_number": 200,
-      "to_port": 0
+      "cidr_block" : "0.0.0.0/0",
+      "from_port" : 8000,
+      "protocol" : "tcp",
+      "rule_action" : "deny",
+      "rule_number" : 100,
+      "to_port" : 8000
+      }, {
+      "cidr_block" : "0.0.0.0/0",
+      "from_port" : 0,
+      "protocol" : "-1",
+      "rule_action" : "allow",
+      "rule_number" : 200,
+      "to_port" : 0
     }
   ]
 
   outbound_vpc_rules = [
     {
-      "cidr_block": "0.0.0.0/0",
-      "from_port": 0,
-      "protocol": "-1",
-      "rule_action": "allow",
-      "rule_number": 100,
-      "to_port": 0
+      "cidr_block" : "0.0.0.0/0",
+      "from_port" : 0,
+      "protocol" : "-1",
+      "rule_action" : "allow",
+      "rule_number" : 100,
+      "to_port" : 0
     }
   ]
 }
@@ -72,13 +72,13 @@ module "vpc" {
   rds_endpoint_private_dns_enabled = true
   rds_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
-  manage_default_network_acl = true
-  public_dedicated_network_acl = true
+  manage_default_network_acl    = true
+  public_dedicated_network_acl  = true
   private_dedicated_network_acl = true
-  private_inbound_acl_rules = local.inbound_vpc_rules
-  private_outbound_acl_rules = local.outbound_vpc_rules
-  public_inbound_acl_rules = local.inbound_vpc_rules
-  public_outbound_acl_rules = local.outbound_vpc_rules
+  private_inbound_acl_rules     = local.inbound_vpc_rules
+  private_outbound_acl_rules    = local.outbound_vpc_rules
+  public_inbound_acl_rules      = local.inbound_vpc_rules
+  public_outbound_acl_rules     = local.outbound_vpc_rules
 
   enable_s3_endpoint = true
 
