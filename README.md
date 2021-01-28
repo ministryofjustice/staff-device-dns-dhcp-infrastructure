@@ -15,6 +15,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [DNS Server](https://github.com/ministryofjustice/staff-device-dns-server)
 - [DHCP Server](https://github.com/ministryofjustice/staff-device-dhcp-server)
 - [Docker Base Images](https://github.com/ministryofjustice/staff-device-docker-base-images)
+- [Disaster Recovery](https://github.com/ministryofjustice/staff-device-dns-dhcp-disaster-recovery)
 
 ## Other Documentation
 
@@ -25,6 +26,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [Secrets Management](documentation/secrets-management.md)
 - [Security Logging](documentation/security-logging.md)
 - [Networking](documentation/networking.md)
+- [Disaster Recovery](documentation/disaster-recovery.md)
 
 ## Architecture
 
