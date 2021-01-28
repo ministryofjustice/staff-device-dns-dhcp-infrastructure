@@ -34,7 +34,8 @@ It assumes an IAM role defined in the Shared Services, and targets the AWS accou
 
 Authentication is made with the Shared Services AWS account, which then assumes the role into the target environment.
 
-Assuming you have been given access to the Shared Services account, you can add it to [AWS Vault](https://github.com/99designs/aws-vault#quick-start):
+Assuming you have been given access to the Shared Services account,
+ you can add it to [AWS Vault](https://github.com/99designs/aws-vault#quick-start):
 
 ```shell
  aws-vault add moj-pttp-shared-services
