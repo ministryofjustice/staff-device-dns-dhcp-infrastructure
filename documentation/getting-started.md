@@ -1,15 +1,22 @@
 # Getting Started
 The Terraform that makes up this service is designed to be comprehensive and fully automated.
 
-The development flow is to run the Terraform from your own machine locally. Once the changes have been tested, you can merge changes to the `main` branch, where they will be automatically deployed through each of the various environments. 
+The development flow is to run the Terraform from your own machine locally.
+ Once the changes have been tested, you can merge changes to the `main` branch,
+ where they will be automatically deployed through each of the various environments.
 
-Each environment is implemented using a seperate AWS account, these are:
+Each environment is implemented using a separate AWS account, these are:
 
 - Development
 - Pre-production
 - Production
 
-When running Terraform locally, infrastructure will be created in the AWS Development environment. Terraform is able to namespace your infrastructure by using [workspaces](https://www.terraform.io/docs/state/workspaces.html). Naming is managed through the label module in Terraform. The combination of these two tools will prevent name clashes with other developers, infrastructure and environments, allowing development in isolation.
+When running Terraform locally, infrastructure will be created in the AWS Development environment.
+ Terraform is able to namespace your infrastructure by using
+ [workspaces](https://www.terraform.io/docs/state/workspaces.html).
+ Naming is managed through the label module in Terraform.
+ The combination of these two tools will prevent name clashes with other developers,
+ infrastructure and environments, allowing development in isolation.
 
 To start developing on this service, follow the guidance below:
 
@@ -39,7 +46,7 @@ Multi-Factor Authentication (MFA) is required on AWS accounts in this project.
 
 The steps to set this up are as follows:
 
-- Configure MFA in the AWS console. 
+- Configure MFA in the AWS console.
 - Edit your local `~/.aws/config` file with the key value pair of `mfa_serial=<iam_role_from_mfa_device>` for each of your accounts.
 - The value for `<iam_role_from_mfa_device>` can be found in the AWS console on the IAM user details page, under "Assigned MFA device". Ensure that the text "(Virtual)" is removed from the end of the key value pair's entry when editing this file.
 
