@@ -1,4 +1,5 @@
 # Getting Started
+
 The Terraform that makes up this service is designed to be comprehensive and fully automated.
 
 The development flow is to run the Terraform from your own machine locally.
@@ -30,7 +31,8 @@ To start developing on this service, follow the guidance below:
 
 Terraform is run locally in a similar way to how it is run on the build pipelines.
 
-It assumes an IAM role defined in the Shared Services, and targets the AWS account to gain access to the Development environment. This is done in the Terraform AWS provider with the `assume_role` configuration.
+It assumes an IAM role defined in the Shared Services, and targets the AWS account to gain access to the Development environment.
+ This is done in the Terraform AWS provider with the `assume_role` configuration.
 
 Authentication is made with the Shared Services AWS account, which then assumes the role into the target environment.
 
