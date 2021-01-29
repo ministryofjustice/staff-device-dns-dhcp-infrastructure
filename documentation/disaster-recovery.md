@@ -1,6 +1,6 @@
 # Disaster Recovery
 
-Any unplanned downtime needs to be addresses as quickly as possible to minimise disruption of the end user devices.
+Unplanned downtime needs to be addressed as soon as possible to minimise disruption of end user devices.
 
 Below is a list of potential causes, how these errors will be raised as alarms and how to remediate them:
 
