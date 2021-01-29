@@ -6,7 +6,7 @@ A number of potential scenarios, how these errors will be notified as alarms and
 
 1. [Corrupt configuration file was published](#corrupt-configuration-file)
 2. [Corrupt container was published](#corrupt-container-was-published)
-3. [Missconfigured infrastructure](bad-infrastructure-apply-with-terraform)
+3. [Misconfigured infrastructure](bad-infrastructure-apply-with-terraform)
 4. [DHCP Subnet gets full](#dhcp-subnet-gets-full)
 5. [Service is receiving more traffic than it can handle](#server-is-receiving-more-traffic-than-it-can-handle)
 6. [AWS Availability Zone goes down](#aws-availability-zone-goes-down)
