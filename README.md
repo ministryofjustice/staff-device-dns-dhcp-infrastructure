@@ -16,6 +16,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [DHCP Server](https://github.com/ministryofjustice/staff-device-dhcp-server)
 - [Docker Base Images](https://github.com/ministryofjustice/staff-device-docker-base-images)
 - [Disaster Recovery](https://github.com/ministryofjustice/staff-device-dns-dhcp-disaster-recovery)
+- [Integration Test Scripts](https://github.com/ministryofjustice/staff-device-logging-dns-dhcp-integration-tests)
 
 ## Other Documentation
 
