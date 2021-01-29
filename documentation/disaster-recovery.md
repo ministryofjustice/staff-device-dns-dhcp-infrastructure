@@ -60,7 +60,7 @@ The specific metrics that are being monitored to make this visible are:
 
   Remediation will take place by using Git to check out a previously known good version.
   A good version can be identified by correlating metrics and ...
-  This will need to be commited to the main branch and pushed through the pipeline.
+  This will need to be committed to the main branch and pushed through the pipeline.
 
 - [Add ECR rollback to DR scripts]
 
