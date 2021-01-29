@@ -23,11 +23,9 @@ The [self service portal](https://github.com/ministryofjustice/staff-device-dns-
 Measures have been taken to validate the changes, using service specific tools.
 This should prevent any corrupt configurations from being published.
 
-![architecture](./images/config-validation.jpg)
+![architecture](./images/config-validation.png)
 
 [Image Source](./diagrams/config-validation.drawio)
-
-[diagram]
 
 ### DHCP
 
