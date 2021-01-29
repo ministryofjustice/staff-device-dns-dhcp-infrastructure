@@ -49,30 +49,30 @@ The specific metrics that are being monitored to make this visible are:
 
 Either of these alarms going off could indicate a bad configuration file was published.
 
-To recover from this situation, a utility script exists that can be run to roll back to a perviously known good version. Please see [Staff Device DNS DHCP Disaster Recovery](https://github.com/ministryofjustice/staff-device-dns-dhcp-disaster-recovery)
+To recover from this situation, a utility script exists that can be run to roll back to a previously known good version. Please see [Staff Device DNS DHCP Disaster Recovery](https://github.com/ministryofjustice/staff-device-dns-dhcp-disaster-recovery)
 
 ## Corrupt container was published
 
-If a bug was introduced into either the DNS or DHCP containerised servers, it could cause downtime.
+If a bug is introduced into either of the DNS or DHCP server containers, it may cause downtime.
 
-We run automated tests in the build pipeline which will prevent a container from being pushed to AWS ECR if the tests failed. 
+Automated tests are run in the build pipeline which prevent a container from being pushed to AWS ECR on failure.
 
 Grafana alarms are configured to go off in this situation.
 The specific metrics that are being monitored to make this visible are:
 
-Unhealthy host count
+- Unhealthy host count
 
-Remediation will take place by using Git to check out a previously known good version.
-A good version can be identified by correlating metrics and ...
-This will need to be commited to the main branch and pushed through the pipeline.
+  Remediation will take place by using Git to check out a previously known good version.
+  A good version can be identified by correlating metrics and ...
+  This will need to be commited to the main branch and pushed through the pipeline.
 
-[Add ECR rollback to DR scripts]
+- [Add ECR rollback to DR scripts]
 
-## Missconfigured infrastructure 
+## Misconfigured infrastructure
 
-All infrastructure is managed by Terraform. Any updates are pushed through the build pipelines and applied to all environments. One of the first courses of action should be to re-run the pipeline to ensure the infrastructure in AWS matches what's in the code. Any manual changes made in AWS will be restored to what's defined in Terraform.
+All infrastructure is managed by Terraform. Any updates are pushed through the build pipelines and applied to all environments. One of the first courses of action should be to re-run the pipeline to ensure the infrastructure in AWS matches the code. Any manual changes made in AWS will be restored to the code defined in Terraform.
 
-It is not possible to prevent applying syntactically correct, but missconfigured infrastructure.
+It is not possible to prevent applying syntactically correct, but misconfigured infrastructure.
 
 Rolling back should be done with Git and pushed through the pipeline.
 
@@ -80,7 +80,7 @@ Rolling back should be done with Git and pushed through the pipeline.
 
 ## Subnet gets full
 
-This is only related to DHCP, but in the event of a subnet filling up, the subnet will need to be increased.
+This is only related to DHCP. In the event of a subnet filling up, the subnet will need to be increased.
 
 [increase subnet]
 
@@ -98,4 +98,4 @@ Both DNS and DHCP are designed to run in multiple availability zones. One going 
 ## Other AWS failures
 
 Identify the failure on the [AWS status](https://status.aws.amazon.com/) page.
-Get in contact with AWS as soon as possible
+Get in contact with AWS as soon as possible.
