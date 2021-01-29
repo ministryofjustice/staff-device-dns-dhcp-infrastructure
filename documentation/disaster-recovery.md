@@ -49,7 +49,7 @@ The specific metrics that are being monitored to make this visible are:
 
 Either of these alarms going off could indicate a bad configuration file was published.
 
-To recover from this situation, a utitlity scripts exists that can be run to roll back to a perviously known good version. Please see [Staff Device DNS DHCP Disaster Recovery](https://github.com/ministryofjustice/staff-device-dns-dhcp-disaster-recovery)
+To recover from this situation, a utility script exists that can be run to roll back to a perviously known good version. Please see [Staff Device DNS DHCP Disaster Recovery](https://github.com/ministryofjustice/staff-device-dns-dhcp-disaster-recovery)
 
 ## Corrupt container was published
 
