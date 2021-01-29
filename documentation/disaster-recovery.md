@@ -23,15 +23,13 @@ The [self service portal](https://github.com/ministryofjustice/staff-device-dns-
 Measures have been taken to validate the changes, using service specific tools.
 This should prevent any corrupt configurations from being published.
 
-
 ![architecture](./images/config-validation.png)
 
 [Image Source](./diagrams/config-validation.drawio)
 
-
 [diagram]
 
-#### DHCP 
+### DHCP
 
 The Kea API [config-test](https://kea.readthedocs.io/en/kea-1.6.2/api.html#ref-config-test) command is used to validate the configuration file.
 
@@ -84,7 +82,7 @@ This is only related to DHCP. In the event of a subnet filling up, the subnet wi
 
 [increase subnet]
 
-## Service is receiving more traffic than it can handle
+## Service overloaded
 
 [Perf testing results]
 
