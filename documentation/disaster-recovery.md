@@ -2,7 +2,7 @@
 
 Unplanned downtime needs to be addressed as soon as possible to minimise disruption of end user devices.
 
-Below is a list of potential causes, how these errors will be raised as alarms and how to remediate them:
+A number of potential scenarios, how these errors will be notified as alarms and remediation steps are detailed below:
 
 1. [Corrupt configuration file was published](#corrupt-configuration-file)
 2. [Corrupt container was published](#corrupt-container-was-published)
