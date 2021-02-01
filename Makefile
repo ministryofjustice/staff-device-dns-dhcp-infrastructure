@@ -1,5 +1,6 @@
 init:
-	aws-vault exec moj-pttp-shared-services -- terraform init -reconfigure --backend-config="key=terraform.development.state"
+	aws-vault exec moj-pttp-shared-services -- terraform init -reconfigure \
+	--backend-config="key=terraform.development.state"
 
 apply:
 	aws-vault clear && aws-vault exec moj-pttp-shared-services --duration=2h -- terraform apply

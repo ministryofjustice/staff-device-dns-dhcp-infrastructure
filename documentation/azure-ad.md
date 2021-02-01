@@ -1,13 +1,17 @@
 # DNS / DHCP Azure AD SSO Provisioning
+
 ## Authentication with Azure AD
+
 Azure AD provides the authorization backend, via [AWS Cognito](https://aws.amazon.com/cognito/), and is manually provisioned following the guide below.
 
 ## Caveats
-- Due to the session time in Cognito, changes to users and / or roles for users 
-whom have already signed into the admin portal can take up to around 15 minutes 
-to propagate to the admin system. This is because updated sessions are only pulled from Azure once a Cognito session has timed out.
+
+- Due to the session time in Cognito, changes to users and / or roles for users
+ whom have already signed into the admin portal can take up to around 15 minutes
+ to propagate to the admin system. This is because updated sessions are only pulled from Azure once a Cognito session has timed out.
 
 ## Prerequisites
+
 - You will need access to the Devl MoJ Azure account.
 - In Azure you will need to elevate your permissions using `Privileged Identity Management (PIM)`
     1. In `Privileged Identity Management`, go to `My roles`
@@ -17,6 +21,7 @@ to propagate to the admin system. This is because updated sessions are only pull
 - You should now have the role of `Application Administrator` under `Active assignments`
 
 ## Creating the basic app
+
 1. In the Azure portal, navigate to `Enterprise Applications`
 1. Click `Add` application
 1. Select `Amazon Web Services (AWS)` application from the list of predefined services
@@ -32,6 +37,7 @@ In production like environments, this needs to be added to SSM Parameter store (
 ![Creating the basic Amazon Web Services app](azure-images/amazon-web-services-azure-app.png)
 
 ## Configuring URLs
+
 1. In the Azure portal, navigate to `Enterprise Applications`
 1. Search for the application name, i.e. `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and select it
 1. On the left-hand menu, select `Single sign-on`
@@ -40,22 +46,23 @@ In production like environments, this needs to be added to SSM Parameter store (
 
 1. Fill in the `Identifier (Entity ID)` with `urn:amazon:cognito:sp:[COGNITO_USER_POOL_ID]`
   To find the COGNITO_USER_POOL_ID:
-  1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
-  1. Under `General Settings` locate `Pool Id`
+    1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
+    1. Under `General Settings` locate `Pool Id`
 1. Fill in the `Reply URL (Assertion Consumer Service URL)` with `https://[COGNITO_DOMAIN]/saml2/idpresponse`
   To find the COGNITO_DOMAIN:
-  1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
-  1. Under `App Integrations` then `Domain name`, locate the full domain, i.e. `https://some-user-pool-name.auth.eu-west-2.amazoncognito.com`
+    1. In the AWS Console, navigate to `Cognito` then `Manage User Pools` and select your app
+    1. Under `App Integrations` then `Domain name`, locate the full domain, i.e. `https://some-user-pool-name.auth.eu-west-2.amazoncognito.com`
 1. Fill in the `Logout Url` with output from Terraform
 ![Configuring logout and callback URLs](azure-images/configure-urls.png)
 
 1. Save the changes once you are done
 
-## Configuring roles 
+## Configuring roles
+
 1. In the Azure portal, navigate to `App Registrations`
 1. Under `All applications`, search for the application name (used to create the app above). i.e. `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and click to navigate to the configuration page
 1. Select `Manifest` in the left hand menu bar
-1. Add 2 new roles to the existing `appRoles` section for editor and viewer. 
+1. Add 2 new roles to the existing `appRoles` section for editor and viewer.
     - Do not delete the existing `msiam_access` role
     - A unique GUID must be created for each of the new roles. These can be created [here](https://www.guidgenerator.com/online-guid-generator.aspx)
 
@@ -85,9 +92,11 @@ In production like environments, this needs to be added to SSM Parameter store (
       "value": "editor"
     }
     ```
+
 1. Save the changes to the manifest
 
 ## Assigning roles to users
+
 1. In the Azure portal, navigate to `Enterprise Applications`
 1. Search for the application name, ie `staff-device-[ENVIRONMENT_NAME]-dns-dhcp-admin-azure-app` and select it
 1. On the left-hand menu, select `Users and groups`
