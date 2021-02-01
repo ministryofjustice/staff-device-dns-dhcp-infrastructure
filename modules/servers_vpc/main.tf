@@ -6,7 +6,7 @@ resource "aws_security_group" "endpoints" {
     protocol    = "tcp"
     from_port   = 443
     to_port     = 443
-    cidr_blocks = module.vpc.private_subnets_cidr_blocks
+    cidr_blocks = [var.cidr_block]
   }
 
   egress {
