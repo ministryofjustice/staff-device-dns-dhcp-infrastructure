@@ -23,10 +23,6 @@ Feature branches should be short lived and merged into the master branch frequen
 
 ![architecture](images/ci_flow.png)
 
-## Manual confirmation of production deploy
-
-Development and Pre-production are automatically deployed without any manual intervention, but production requires that the deploy be approved.
-
 ## Deployment manifest file
 
 The entire release process is defined in the [buildspec.yml](../buildspec.yml) file, which is a [concept in CodePipeline](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html) for [CodeBuild](https://aws.amazon.com/codebuild/). It allows you to define your deployments as code and gives you full control of the steps taken.
