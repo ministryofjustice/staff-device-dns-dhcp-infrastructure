@@ -91,13 +91,15 @@ This type of failure can be detected early before the system reaches maximum cap
 
 ### DNS Scalability
 
-DNS is configured to autoscale, on demand, according to load. It is highly unlikely that the DNS service will become overloaded. In the event this does occur, it would be likely due to an AWS capacity issue. E.g: Further instances can not be provisioned in the AZ.
+DNS is configured to elastically scale on demand. By design, it is unlikely that the DNS service will become overloaded.
+
+In the event this does occur, it would be likely due to an AWS capacity issue. **E.g:** Further instances can not be provisioned in the AZ. In this case you should refer to AWS.
 
 ### DHCP Scalability
 
-The [High Availability](https://github.com/ministryofjustice/staff-device-dhcp-server#isc-kea-high-availability) design of Kea requires a fixed 2 server configuration. This means that Kea is not configured to autoscale on demand.
+The [High Availability](https://github.com/ministryofjustice/staff-device-dhcp-server#isc-kea-high-availability) design of Kea requires a fixed 2 server configuration. This means that Kea is not configured to elastically scale.
 
-Scaling up is achieved by editing the `cpu` and `memory` values in the terraform [aws_ecs_task_definition](/modules/dhcp/ecs_task_definition.tf), committing the changes and running the deployment pipeline.
+Scaling up is achieved by editing the `cpu` and `memory` values in the terraform [aws_ecs_task_definition](/modules/dhcp/ecs_task_definition.tf), committing the changes and running the deployment pipeline to make the changes.
 
 ## AZ goes down and other AWS Failures
 
