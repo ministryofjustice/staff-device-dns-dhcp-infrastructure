@@ -8,7 +8,7 @@ A number of potential scenarios, how these errors will be notified as alarms and
 2. [Corrupt container was published](#corrupt-container-was-published)
 3. [Misconfigured infrastructure](bad-infrastructure-apply-with-terraform)
 4. [DHCP Subnet gets full](#dhcp-subnet-gets-full)
-5. [Service is receiving more traffic than it can handle](#server-is-receiving-more-traffic-than-it-can-handle)
+5. [Services Overloaded](#services-overloaded)
 6. [AWS Availability Zone goes down](#aws-availability-zone-goes-down)
 7. [Other AWS failures](#other-aws-failures)
 
@@ -80,12 +80,24 @@ This is only related to DHCP. In the event of a subnet filling up, the subnet wi
 
 [increase subnet]
 
-## Service overloaded
+## Services Overloaded
 
-[Perf testing results]
+It is important to consider each of the services separately as the fundamental deployments differ. Both services are monitored in IMA dashboards.
 
 Alarms are configured to go off when resources required go above 70% for CPU and Memory.
 This type of failure can be detected early before the system reaches maximum capacity.
+
+[Perf testing results] - TODO / remove?
+
+### DNS Scalability
+
+DNS is configured to autoscale, on demand, according to load. It is highly unlikely that the DNS service will become overloaded. In the event this does occur, it would be likely due to an AWS capacity issue. E.g: Further instances can not be provisioned in the AZ.
+
+### DHCP Scalability
+
+The [High Availability](https://github.com/ministryofjustice/staff-device-dhcp-server#isc-kea-high-availability) design of Kea requires a fixed 2 server configuration. This means that Kea is not configured to autoscale on demand.
+
+Scaling up is achieved by editing the `cpu` and `memory` values in the terraform [aws_ecs_task_definition](/modules/dhcp/ecs_task_definition.tf), committing the changes and running the deployment pipeline.
 
 ## AZ goes down and other AWS Failures
 
