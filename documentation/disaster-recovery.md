@@ -64,24 +64,29 @@ Remediation will take place by using the [Staff Device DNS DHCP Disaster Recover
 
 ## Misconfigured infrastructure
 
-All infrastructure is managed by Terraform. Any updates are pushed through the build pipelines and applied to all environments. One of the first courses of action should be to re-run the pipeline to ensure the infrastructure in AWS matches the code. Any manual changes made in AWS will be restored to the code defined in Terraform.
+Regressions could be introduced either in our own infrastructure or the wider MoJ network. Identify where the failures occur by doing the following:
 
-It is not possible to prevent applying syntactically correct, but misconfigured infrastructure.
+* Check VPC flow logs fto ensure traffic is arriving in the VPC
+* Check network load balancer (NLB) metrics to ensure requests are being routed to the services
+* Check elastic container service (ECS) metrics to ensure that requests are being handled
+
+All infrastructure that make up the DNS / DHCP services is managed by Terraform. Any changes are pushed through the build pipelines and applied to all environments. The first course of action should be to re-run the pipeline to ensure the infrastructure matches the code. Any manual changes made in the AWS console will be reset to match Terraform.
+
+It is possible to apply misconfigured infrastructure, even if it is syntactically correct.
 
 Rolling back should be done with Git and pushed through the pipeline.
 
 ## Subnet gets full
 
-A Grafana alarm is configured to fire when any subnet reaches a predefined threshold of utilisation.  When this happens, the IP range will need to be increased via the admin portal.
+A Grafana alarm is configured to trigger when any subnet reaches a predefined threshold of utilisation.  When this happens, the IP range will need to be increased via the admin portal.
 
 ![Subnet usage alerts in Slack](./images/subnet-usage-alert.png)
 
 ## Services Overloaded
 
-It is important to consider each of the services separately as the fundamental deployments differ. Both services are monitored in IMA dashboards.
+It is important to consider the DNS and DHCP services separately as the fundamental deployments differ. Both services are monitored in IMA dashboards.
 
-Alarms are configured to go off when resources required go above 70% for CPU and Memory.
-This type of failure can be detected early before the system reaches maximum capacity.
+Alarms are configured to trigger when resources required go above 70% for CPU and Memory. This type of failure can be detected early before the system reaches maximum capacity.
 
 [DHCP performance test results](https://github.com/ministryofjustice/staff-device-dhcp-server/blob/main/documentation/performance-metrics.md)
 
@@ -89,15 +94,15 @@ This type of failure can be detected early before the system reaches maximum cap
 
 ### DNS Scalability
 
-DNS is configured to elastically scale on demand. By design, it is unlikely that the DNS service will become overloaded.
+DNS is configured to scale horizontally. By design, it is unlikely that the DNS service will become overloaded.
 
 In the event this does occur, it would be likely due to an AWS capacity issue. **E.g:** Further instances can not be provisioned in the availability zones. In this case you should refer to AWS.
 
 ### DHCP Scalability
 
-The [High Availability](https://github.com/ministryofjustice/staff-device-dhcp-server#isc-kea-high-availability) design of Kea requires a fixed 2 server configuration. This means that Kea is not configured to elastically scale.
+The [High Availability](https://github.com/ministryofjustice/staff-device-dhcp-server#isc-kea-high-availability) design of Kea requires a fixed 2 server configuration. This means that Kea is not configured to scale horizontally.
 
-Scaling up is achieved by editing the `cpu` and `memory` values in the terraform [aws_ecs_task_definition](/modules/dhcp/ecs_task_definition.tf), committing the changes and running the deployment pipeline to make the changes.
+Scaling up is achieved by editing the `cpu` and `memory` values in the Terraform [aws_ecs_task_definition](/modules/dhcp/ecs_task_definition.tf) and reapplying.
 
 ## Availability zone goes down
 
