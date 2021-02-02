@@ -7,9 +7,9 @@ A number of potential scenarios, their configured alarms and associated remediat
 1. [Corrupt configuration file](#corrupt-configuration-file)
 1. [Corrupt container was published](#corrupt-container-was-published)
 1. [Misconfigured infrastructure](#misconfigured-infrastructure)
-1. [DHCP Subnet gets full](#subnet-gets-full)
+1. [DHCP Subnet gets full](#dhcp-subnet-gets-full)
 1. [Services Overloaded](#services-overloaded)
-1. [AWS Availability Zone goes down](#availability-zone-goes-down)
+1. [AWS Availability Zone goes down](#aws-availability-zone-goes-down)
 
 ## Corrupt configuration file
 
@@ -76,7 +76,7 @@ It is possible to apply misconfigured infrastructure, even if it is syntacticall
 
 Rolling back should be done with Git and pushed through the pipeline.
 
-## Subnet gets full
+## DHCP Subnet gets full
 
 A Grafana alarm is configured to trigger when any subnet reaches a predefined threshold of utilisation.  When this happens, the IP range will need to be increased via the admin portal.
 
@@ -104,6 +104,6 @@ The [High Availability](https://github.com/ministryofjustice/staff-device-dhcp-s
 
 Scaling up is achieved by editing the `cpu` and `memory` values in the Terraform [aws_ecs_task_definition](/modules/dhcp/ecs_task_definition.tf) and reapplying.
 
-## Availability zone goes down
+## AWS Availability zone goes down
 
 Both DNS and DHCP are designed to run in multiple availability zones. One going down will result in the other taking over.
