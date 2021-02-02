@@ -76,9 +76,16 @@ Rolling back should be done with Git and pushed through the pipeline.
 
 ## Subnet gets full
 
-This is only related to DHCP. In the event of a subnet filling up, the subnet will need to be increased.
+This is only related to DHCP. In the event of a subnet utilizing more than 70% of it IP addresses, an alert will be triggered on the Grafana dashboard. When this alarm is triggered the number of available IPs in the subnet will need to be increased in the admin portal. 
 
-[increase subnet]
+![Subnet usage alerts in Slack](./images/subnet-usage-alert.png)
+
+
+To increase the amount of available IPs the CIDR block will need to be increased to something greater than `/24`.
+
+![Editing a subnet CIDR block](./images/editing-a-subnet.png)
+
+Currently all subnets are configured with a `/24` CIDR block, meaning there are 256 available IPs per subnet. This number may be reduced further if the start / end address is utilizes less IPs within this range.
 
 ## Services Overloaded
 
