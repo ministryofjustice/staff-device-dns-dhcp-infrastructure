@@ -1,4 +1,5 @@
 # Corsham Test Site
+
 Remote testing of the DHCP / DNS services are performed from a virtual machine (VM) running in the Corsham data center.
 
 These tests run on an infinite loop, sending a total of 50 requests at a rate of two requests per second, emulating two concurrent connections with `perfdhcp`.
@@ -28,38 +29,38 @@ This is integrated with the production MoJ network so will only work on our prod
 
 3. Change the permission of the pem file by running:
 
-```bash
-chmod 600 corsham_test.pem
-```
+    ```bash
+    chmod 600 corsham_test.pem
+    ```
 
 4. Copy the IP address of the bastion server found under `/corsham/testing/bastion/ip` (referred to as <BASTION_IP> below)
 
 5. SSH onto the bastion server:
 
-```bash
-ssh -i corsham_test.pem ubuntu@<BASTION_IP>
-```
+    ```bash
+    ssh -i corsham_test.pem ubuntu@<BASTION_IP>
+    ```
 
 ### SSH onto the Corsham VM from the bastion server
 
-6. Copy the IP address for the VM found under `/corsham/testing/vm/ip` in SSM (referred to as <VM_IP> below)
+1. Copy the IP address for the VM found under `/corsham/testing/vm/ip` in SSM (referred to as <VM_IP> below)
 
-7. Copy the SSH password for the VM found under `/corsham/testing/vm/password` in SSM (referred to as <VM_PASSWORD> below)
+2. Copy the SSH password for the VM found under `/corsham/testing/vm/password` in SSM (referred to as <VM_PASSWORD> below)
 
-8. SSH onto the Corsham VM:
+3. SSH onto the Corsham VM:
 
-```bash
-ssh mt@<VM_IP>
-```
+    ```bash
+    ssh mt@<VM_IP>
+    ```
 
-9. When prompted for the password enter `<VM_PASSWORD>`
+4. When prompted for the password enter `<VM_PASSWORD>`
 
 ### Run PerfDHCP
 
-10. Execute the test script
-
-```bash
-./run_perfdhcp
-```
+1. Execute the test script
+    
+    ```bash
+    ./run_perfdhcp
+    ```
 
 The results of the test will display when `perfdhcp` has completed.
