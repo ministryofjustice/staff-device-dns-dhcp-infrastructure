@@ -92,7 +92,7 @@ This type of failure can be detected early before the system reaches maximum cap
 
 DNS is configured to elastically scale on demand. By design, it is unlikely that the DNS service will become overloaded.
 
-In the event this does occur, it would be likely due to an AWS capacity issue. **E.g:** Further instances can not be provisioned in the AZ. In this case you should refer to AWS.
+In the event this does occur, it would be likely due to an AWS capacity issue. **E.g:** Further instances can not be provisioned in the availability zones. In this case you should refer to AWS.
 
 ### DHCP Scalability
 
@@ -100,11 +100,6 @@ The [High Availability](https://github.com/ministryofjustice/staff-device-dhcp-s
 
 Scaling up is achieved by editing the `cpu` and `memory` values in the terraform [aws_ecs_task_definition](/modules/dhcp/ecs_task_definition.tf), committing the changes and running the deployment pipeline to make the changes.
 
-## AZ goes down and other AWS Failures
+## Availability zone goes down
 
 Both DNS and DHCP are designed to run in multiple availability zones. One going down will result in the other taking over.
-
-## Other AWS failures
-
-Identify the failure on the [AWS status](https://status.aws.amazon.com/) page.
-Get in contact with AWS as soon as possible.
