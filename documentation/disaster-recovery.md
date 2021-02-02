@@ -5,12 +5,11 @@ Unplanned downtime needs to be addressed as soon as possible to minimise disrupt
 A number of potential scenarios, their configured alarms and associated remediation steps are detailed below.
 
 1. [Corrupt configuration file](#corrupt-configuration-file)
-2. [Corrupt container was published](#corrupt-container-was-published)
-3. [Misconfigured infrastructure](bad-infrastructure-apply-with-terraform)
-4. [DHCP Subnet gets full](#dhcp-subnet-gets-full)
-5. [Services Overloaded](#services-overloaded)
-6. [AWS Availability Zone goes down](#aws-availability-zone-goes-down)
-7. [Other AWS failures](#other-aws-failures)
+1. [Corrupt container was published](#corrupt-container-was-published)
+1. [Misconfigured infrastructure](#misconfigured-infrastructure)
+1. [DHCP Subnet gets full](#subnet-gets-full)
+1. [Services Overloaded](#services-overloaded)
+1. [AWS Availability Zone goes down](#availability-zone-goes-down)
 
 ## Corrupt configuration file
 
