@@ -1,7 +1,7 @@
 resource "aws_lb" "load_balancer" {
-  name               = var.prefix
-  load_balancer_type = "network"
-  internal           = true
+  name                             = var.prefix
+  load_balancer_type               = "network"
+  internal                         = true
   enable_cross_zone_load_balancing = true
 
   subnet_mapping {
