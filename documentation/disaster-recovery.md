@@ -4,7 +4,7 @@ Unplanned downtime needs to be addressed as soon as possible to minimise disrupt
 
 A number of potential scenarios, their configured alarms and associated remediation steps are detailed below.
 
-1. [Corrupt configuration file was published](#corrupt-configuration-file)
+1. [Corrupt configuration file](#corrupt-configuration-file)
 2. [Corrupt container was published](#corrupt-container-was-published)
 3. [Misconfigured infrastructure](bad-infrastructure-apply-with-terraform)
 4. [DHCP Subnet gets full](#dhcp-subnet-gets-full)
@@ -16,12 +16,8 @@ A number of potential scenarios, their configured alarms and associated remediat
 
 The [self service portal](https://github.com/ministryofjustice/staff-device-dns-dhcp-admin) allows administrators to make changes to the DNS and DHCP services in production. DHCP will have more configuration update requirements than DNS due to the need to manage subnets.
 
-[DHCP server won't reload corrupt config file]
-[DNS server launch new instances to take over]
-[Investigate audit trail in the admin]
-
 Measures have been taken to validate the changes, using service specific tools.
-This should prevent any corrupt configurations from being published.
+This should prevent corrupt configurations from being published.
 
 ![architecture](./images/config-validation.png)
 
@@ -29,19 +25,26 @@ This should prevent any corrupt configurations from being published.
 
 ### DHCP
 
-The Kea API [config-test](https://kea.readthedocs.io/en/kea-1.6.2/api.html#ref-config-test) command is used to validate the configuration file.
+The Kea API [config-test](https://kea.readthedocs.io/en/kea-1.8.2/api.html?#config-test) command is used to validate the configuration file before publishing to S3.
 
-#### DNS
+Grafana alarms, in the [IMA platform](https://github.com/ministryofjustice/staff-infrastructure-monitoring-config), are configured to go off in this situation.
+The specific metrics that are being monitored to make this visible are:
+
+- Unhealthy host count
+- Running task count
+- Kea error count
+
+### DNS
 
 Bind verifies the configuration using the [named-checkconf](https://bind9.readthedocs.io/en/v9_16_8/configuration.html) command.
 
 While these tools have proven to be reliable, if any configuration error was to get through, it could lead to the new instance of the server failing to boot.
 
-Grafana alarms are configured to go off in this situation.
+Grafana alarms, in the [IMA platform](https://github.com/ministryofjustice/staff-infrastructure-monitoring-config), are configured to go off in this situation.
 The specific metrics that are being monitored to make this visible are:
 
-1. Unhealthy host count
-2. Running task count
+- Unhealthy host count
+- Running task count
 
 Either of these alarms going off could indicate a bad configuration file was published.
 
@@ -58,11 +61,7 @@ The specific metrics that are being monitored to make this visible are:
 
 - Unhealthy host count
 
-  Remediation will take place by using Git to check out a previously known good version.
-  A good version can be identified by correlating metrics and ...
-  This will need to be committed to the main branch and pushed through the pipeline.
-
-- [Add ECR rollback to DR scripts]
+Remediation will take place by using the [Staff Device DNS DHCP Disaster Recovery](https://github.com/ministryofjustice/staff-device-dns-dhcp-disaster-recovery) tools.
 
 ## Misconfigured infrastructure
 
