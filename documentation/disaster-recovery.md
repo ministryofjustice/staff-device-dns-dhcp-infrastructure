@@ -84,7 +84,9 @@ It is important to consider each of the services separately as the fundamental d
 Alarms are configured to go off when resources required go above 70% for CPU and Memory.
 This type of failure can be detected early before the system reaches maximum capacity.
 
-[Perf testing results] - TODO / remove?
+[DHCP performace test results](https://github.com/ministryofjustice/staff-device-dhcp-server#performance-testing)
+
+[DNS performace test results](https://github.com/ministryofjustice/staff-device-dns-server#performance-testing)
 
 ### DNS Scalability
 
