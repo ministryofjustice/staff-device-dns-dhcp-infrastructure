@@ -77,6 +77,10 @@ resource "aws_ecs_task_definition" "server_task" {
       {
         "name": "PUBLISH_METRICS",
         "value": "true"
+      },
+      {
+        "name": "METRICS_NAMESPACE",
+        "value": "${var.metrics_namespace}"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
