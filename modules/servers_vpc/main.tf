@@ -20,7 +20,7 @@ resource "aws_security_group" "endpoints" {
 locals {
   inbound_vpc_rules = [
     {
-      "cidr_block" : "${var.cidr_block}",
+      "cidr_block" : var.cidr_block,
       "from_port" : 8000,
       "protocol" : "tcp",
       "rule_action" : "allow",
