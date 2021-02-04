@@ -117,7 +117,7 @@ module "dhcp_standby" {
 }
 
 locals {
-  metrics_namespace = "Kea-DHCP-Service"
+  metrics_namespace = "Kea-DHCP"
 }
 
 module "dhcp" {
