@@ -130,8 +130,6 @@ module "dhcp" {
   dhcp_db_username                             = var.dhcp_db_username
   load_balancer_private_ip_eu_west_2a          = var.dhcp_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b          = var.dhcp_load_balancer_private_ip_eu_west_2b
-  dhcp_api_load_balancer_private_ip_eu_west_2a = var.dhcp_api_load_balancer_private_ip_eu_west_2a
-  dhcp_api_load_balancer_private_ip_eu_west_2b = var.dhcp_api_load_balancer_private_ip_eu_west_2b
   vpn_hosted_zone_id                           = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain                       = var.vpn_hosted_zone_domain
   short_prefix                                 = module.dhcp_label.stage # avoid 32 char limit on certain resources
