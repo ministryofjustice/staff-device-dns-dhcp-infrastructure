@@ -150,7 +150,9 @@ module "dhcp" {
     "DHCP4_PACKET_NAK_0001",
     "HA_SYNC_FAILED",
     "HA_HEARTBEAT_COMMUNICATIONS_FAILED",
-    "HA_DHCP_DISABLE_COMMUNICATIONS_FAILED"
+    "HA_DHCP_DISABLE_COMMUNICATIONS_FAILED",
+    "Config reload failed",
+    "Configuration successful"
   ] : []
 
   providers = {
