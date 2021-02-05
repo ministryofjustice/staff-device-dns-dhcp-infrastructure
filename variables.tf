@@ -83,14 +83,6 @@ variable "dns_load_balancer_private_ip_eu_west_2b" {
   type = string
 }
 
-variable "dhcp_api_load_balancer_private_ip_eu_west_2a" {
-  type = string
-}
-
-variable "dhcp_api_load_balancer_private_ip_eu_west_2b" {
-  type = string
-}
-
 variable "enable_corsham_test_bastion" {
   type    = bool
   default = true

@@ -28,8 +28,6 @@ env:
     TF_VAR_transit_gateway_route_table_id: "/staff-device/dhcp/$ENV/transit_gateway_route_table_id"
     TF_VAR_dhcp_load_balancer_private_ip_eu_west_2a: "/staff-device/dhcp/$ENV/load_balancer_private_ip_eu_west_2a"
     TF_VAR_dhcp_load_balancer_private_ip_eu_west_2b: "/staff-device/dhcp/$ENV/load_balancer_private_ip_eu_west_2b"
-    TF_VAR_dhcp_api_load_balancer_private_ip_eu_west_2a: "/staff-device/dhcp/$ENV/load_balancer_api_private_ip_eu_west_2a"
-    TF_VAR_dhcp_api_load_balancer_private_ip_eu_west_2b: "/staff-device/dhcp/$ENV/load_balancer_api_private_ip_eu_west_2b"
     TF_VAR_dns_load_balancer_private_ip_eu_west_2a: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2a"
     TF_VAR_dns_load_balancer_private_ip_eu_west_2b: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2b"
     TF_VAR_sentry_dsn: "/staff-device/admin/sentry_dsn"
