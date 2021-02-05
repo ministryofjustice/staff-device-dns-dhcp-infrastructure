@@ -121,22 +121,22 @@ locals {
 }
 
 module "dhcp" {
-  source                                       = "./modules/dhcp"
-  prefix                                       = module.dhcp_label.id
-  private_subnets                              = module.servers_vpc.private_subnets
-  tags                                         = module.dhcp_label.tags
-  vpc_id                                       = module.servers_vpc.vpc_id
-  dhcp_db_password                             = var.dhcp_db_password
-  dhcp_db_username                             = var.dhcp_db_username
-  load_balancer_private_ip_eu_west_2a          = var.dhcp_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b          = var.dhcp_load_balancer_private_ip_eu_west_2b
-  vpn_hosted_zone_id                           = var.vpn_hosted_zone_id
-  vpn_hosted_zone_domain                       = var.vpn_hosted_zone_domain
-  short_prefix                                 = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  is_publicly_accessible                       = local.publicly_accessible
-  vpc_cidr                                     = local.dns_dhcp_vpc_cidr
-  admin_local_development_domain_affix         = var.admin_local_development_domain_affix
-  metrics_namespace                            = local.metrics_namespace
+  source                               = "./modules/dhcp"
+  prefix                               = module.dhcp_label.id
+  private_subnets                      = module.servers_vpc.private_subnets
+  tags                                 = module.dhcp_label.tags
+  vpc_id                               = module.servers_vpc.vpc_id
+  dhcp_db_password                     = var.dhcp_db_password
+  dhcp_db_username                     = var.dhcp_db_username
+  load_balancer_private_ip_eu_west_2a  = var.dhcp_load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b  = var.dhcp_load_balancer_private_ip_eu_west_2b
+  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
+  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
+  short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  is_publicly_accessible               = local.publicly_accessible
+  vpc_cidr                             = local.dns_dhcp_vpc_cidr
+  admin_local_development_domain_affix = var.admin_local_development_domain_affix
+  metrics_namespace                    = local.metrics_namespace
   dhcp_log_search_metric_filters = var.enable_dhcp_cloudwatch_log_metrics == true ? [
     "FATAL",
     "ERROR",
