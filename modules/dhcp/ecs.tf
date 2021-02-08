@@ -38,11 +38,11 @@ resource "aws_ecs_service" "service" {
 }
 
 resource "aws_ecs_service" "api_service" {
-  name                             = "${var.prefix}-api-service"
-  cluster                          = aws_ecs_cluster.server_cluster.id
-  task_definition                  = aws_ecs_task_definition.api_server_task.arn
-  desired_count                    = "2"
-  launch_type                      = "FARGATE"
+  name            = "${var.prefix}-api-service"
+  cluster         = aws_ecs_cluster.server_cluster.id
+  task_definition = aws_ecs_task_definition.api_server_task.arn
+  desired_count   = "2"
+  launch_type     = "FARGATE"
 
   load_balancer {
     target_group_arn = aws_lb_target_group.http_api_target_group.arn
