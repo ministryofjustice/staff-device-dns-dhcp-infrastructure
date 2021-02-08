@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "docker_repository" {
-  name                 = "${var.prefix}-docker"
+  name                 = "${var.prefix}"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
