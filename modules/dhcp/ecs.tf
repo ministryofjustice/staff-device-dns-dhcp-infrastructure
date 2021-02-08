@@ -41,7 +41,7 @@ resource "aws_ecs_service" "api_service" {
   name            = "${var.prefix}-api-service"
   cluster         = aws_ecs_cluster.server_cluster.id
   task_definition = aws_ecs_task_definition.api_server_task.arn
-  desired_count   = "1"
+  desired_count   = "2"
   launch_type     = "FARGATE"
 
   load_balancer {
@@ -51,7 +51,10 @@ resource "aws_ecs_service" "api_service" {
   }
 
   network_configuration {
-    subnets = [var.private_subnets[0]]
+    subnets = [
+      var.private_subnets[0],
+      var.private_subnets[1]
+    ]
 
     security_groups = [
       aws_security_group.dhcp_server.id
