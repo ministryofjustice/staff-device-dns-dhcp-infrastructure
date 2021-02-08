@@ -116,10 +116,6 @@ module "dhcp_standby" {
   ]
 }
 
-locals {
-  metrics_namespace = "Kea-DHCP"
-}
-
 module "dhcp" {
   source                               = "./modules/dhcp"
   prefix                               = module.dhcp_label.id
@@ -133,10 +129,10 @@ module "dhcp" {
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  metrics_namespace                    = var.metrics_namespace
   is_publicly_accessible               = local.publicly_accessible
   vpc_cidr                             = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
-  metrics_namespace                    = local.metrics_namespace
   dhcp_log_search_metric_filters = var.enable_dhcp_cloudwatch_log_metrics == true ? [
     "FATAL",
     "ERROR",
