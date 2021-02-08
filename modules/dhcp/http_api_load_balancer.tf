@@ -1,8 +1,9 @@
 resource "aws_lb" "http_api_load_balancer" {
-  name               = "${var.short_prefix}-dhcp-api"
-  load_balancer_type = "network"
-  internal           = true
-  subnets            = var.private_subnets
+  name                             = "${var.short_prefix}-dhcp-api"
+  load_balancer_type               = "network"
+  internal                         = true
+  subnets                          = var.private_subnets
+  enable_cross_zone_load_balancing = true
 
 
   enable_deletion_protection = false
