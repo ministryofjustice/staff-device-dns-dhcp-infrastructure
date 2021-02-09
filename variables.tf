@@ -124,6 +124,10 @@ variable "corsham_vm_ip" {
   type = string
 }
 
+variable "model_office_vm_ip" {
+  type = string
+}
+
 variable "byoip_pool_id" {
   type = string
 }

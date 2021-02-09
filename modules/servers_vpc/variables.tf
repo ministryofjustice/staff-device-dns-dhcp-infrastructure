@@ -38,3 +38,11 @@ variable "dhcp_transit_gateway_id" {
 variable "transit_gateway_route_table_id" {
   type = string
 }
+
+variable "corsham_vm_ip" {
+  type = string
+}
+
+variable "model_office_vm_ip" {
+  type = string
+}

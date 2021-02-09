@@ -68,6 +68,8 @@ module "servers_vpc" {
   tags                                   = module.dhcp_label.tags
   dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
   transit_gateway_route_table_id         = var.transit_gateway_route_table_id
+  corsham_vm_ip                          = var.corsham_vm_ip
+  model_office_vm_ip                     = var.model_office_vm_ip
 
   providers = {
     aws = aws.env
