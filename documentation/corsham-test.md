@@ -13,7 +13,7 @@ This should only be used to get access to the VM and should not be left running 
 
 This is integrated with the production MoJ network so will only work on our production AWS account.
 
-1. Add your public IP address to AWS SSM parameter store `/staff-device/corsham_testing/bastion_allowed_ingress_ip`.
+1. Add your public IP address to AWS SSM parameter store (Shared Services Account) `/staff-device/corsham_testing/bastion_allowed_ingress_ip`.
 
 2. Modify the `enable_corsham_test_bastion` variable in `./variables.tf` and set it to `true`.
 
