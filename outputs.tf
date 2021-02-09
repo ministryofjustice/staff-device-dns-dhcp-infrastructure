@@ -22,7 +22,7 @@ output "terraform_outputs" {
       ecs = module.admin.ecs
     }
 
-    metrics_namespace = local.metrics_namespace
+    metrics_namespace = var.metrics_namespace
 
     authentication = {
       cognito = {

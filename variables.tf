@@ -132,3 +132,8 @@ variable "enable_dhcp_cloudwatch_log_metrics" {
   type    = bool
   default = false
 }
+
+variable "metrics_namespace" {
+  type    = string
+  default = "Kea-DHCP"
+}
