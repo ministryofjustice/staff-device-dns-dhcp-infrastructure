@@ -1,5 +1,5 @@
 locals {
-  is_production = terraform.workspace == "production" ? true : false
+  is_production = terraform.workspace == "production" || terraform.workspace == "pre-production" ? true : false
 }
 
 resource "aws_db_instance" "dhcp_server_db" {
