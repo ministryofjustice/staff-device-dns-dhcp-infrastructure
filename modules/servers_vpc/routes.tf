@@ -81,3 +81,35 @@ resource "aws_route" "pdns-route-2a-pdns-2" {
     module.vpc
   ]
 }
+
+resource "aws_route" "model-office-testing-route" {
+  for_each = var.enable_dhcp_transit_gateway_attachment ? toset(module.vpc.public_route_table_ids) : []
+
+  route_table_id         = each.value
+  destination_cidr_block = "${var.model_office_vm_ip}/32"
+  transit_gateway_id     = var.dhcp_transit_gateway_id
+
+  timeouts {
+    create = "5m"
+  }
+
+  depends_on = [
+    module.vpc
+  ]
+}
+
+resource "aws_route" "corsham-testing-route" {
+  for_each = var.enable_dhcp_transit_gateway_attachment ? toset(module.vpc.public_route_table_ids) : []
+
+  route_table_id         = each.value
+  destination_cidr_block = "${var.corsham_vm_ip}/32"
+  transit_gateway_id     = var.dhcp_transit_gateway_id
+
+  timeouts {
+    create = "5m"
+  }
+
+  depends_on = [
+    module.vpc
+  ]
+}
