@@ -20,6 +20,7 @@ output "terraform_outputs" {
 
     admin = {
       ecs = module.admin.ecs
+      ecr = module.admin.ecr
     }
 
     metrics_namespace = var.metrics_namespace
