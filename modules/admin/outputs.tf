@@ -12,3 +12,7 @@ output "ecs" {
     service_name = aws_ecs_service.admin-service.name
   }
 }
+
+output "ecr" {
+  value = aws_ecr_repository.admin_ecr.repository_url
+}
