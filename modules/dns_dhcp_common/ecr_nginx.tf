@@ -32,7 +32,7 @@ EOF
 }
 
 resource "aws_ecr_repository" "docker_repository_nginx" {
-  name                 = "${var.prefix}-docker-nginx"
+  name                 = "${var.prefix}-nginx"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
