@@ -63,7 +63,7 @@ You can find an example of the variables file in SSM Parameter store in the Shar
 
 The name of the parameter is: `/staff-device/dns-dhcp/terraform.tfvars`
 
-Please ensure to replace `<your_namespace>` with your own workspace name in the example `tfvars` file.
+Please ensure to replace '[your-tf-workspace]' with your own workspace name in the example `tfvars` file.
 
 ### Initialize local Terraform state
 
