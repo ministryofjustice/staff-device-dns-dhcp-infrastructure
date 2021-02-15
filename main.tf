@@ -37,6 +37,21 @@ provider "local" {
 
 locals {
   publicly_accessible = terraform.workspace == "production" ? false : true
+  dhcp_log_metrics = [
+    "FATAL",
+    "ERROR",
+    "WARN",
+    "HTTP_PREMATURE_CONNECTION_TIMEOUT_OCCURRED",
+    "ALLOC_ENGINE_V4_ALLOC_ERROR",
+    "ALLOC_ENGINE_V4_ALLOC_FAIL",
+    "ALLOC_ENGINE_V4_ALLOC_FAIL_CLASSES",
+    "DHCP4_PACKET_NAK_0001",
+    "HA_SYNC_FAILED",
+    "HA_HEARTBEAT_COMMUNICATIONS_FAILED",
+    "HA_DHCP_DISABLE_COMMUNICATIONS_FAILED",
+    "Config reload failed",
+    "Configuration successful"
+  ]
 }
 
 module "dhcp_label" {
@@ -108,6 +123,8 @@ module "dhcp_standby" {
   dhcp_server_cluster_id              = module.dhcp.ecs.cluster_id
   kea_config_bucket_name              = module.dhcp.kea_config_bucket_name
   dhcp_server_security_group_id       = module.dhcp.ec2.dhcp_server_security_group_id
+  dhcp_log_search_metric_filters      = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
+  metrics_namespace                   = var.metrics_namespace
 
   providers = {
     aws = aws.env
@@ -135,21 +152,7 @@ module "dhcp" {
   is_publicly_accessible               = local.publicly_accessible
   vpc_cidr                             = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
-  dhcp_log_search_metric_filters = var.enable_dhcp_cloudwatch_log_metrics == true ? [
-    "FATAL",
-    "ERROR",
-    "WARN",
-    "HTTP_PREMATURE_CONNECTION_TIMEOUT_OCCURRED",
-    "ALLOC_ENGINE_V4_ALLOC_ERROR",
-    "ALLOC_ENGINE_V4_ALLOC_FAIL",
-    "ALLOC_ENGINE_V4_ALLOC_FAIL_CLASSES",
-    "DHCP4_PACKET_NAK_0001",
-    "HA_SYNC_FAILED",
-    "HA_HEARTBEAT_COMMUNICATIONS_FAILED",
-    "HA_DHCP_DISABLE_COMMUNICATIONS_FAILED",
-    "Config reload failed",
-    "Configuration successful"
-  ] : []
+  dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
 
   providers = {
     aws = aws.env
