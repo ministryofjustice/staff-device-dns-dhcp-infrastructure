@@ -83,3 +83,11 @@ variable "kea_config_bucket_name" {
 variable "dhcp_server_security_group_id" {
   type = string
 }
+
+variable "metrics_namespace" {
+  type = string
+}
+
+variable "dhcp_log_search_metric_filters" {
+  type = set(string)
+}
