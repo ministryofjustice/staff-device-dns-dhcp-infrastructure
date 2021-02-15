@@ -76,7 +76,7 @@ resource "aws_ecs_task_definition" "server_task" {
       },
       {
         "name": "PUBLISH_METRICS",
-        "value": "false"
+        "value": "true"
       }
     ],
     "image": "${var.dhcp_repository_url}",
