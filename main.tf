@@ -64,6 +64,11 @@ module "dhcp_standby_label" {
   service_name = "dhcp-standby"
 }
 
+module "heartbeat_label" {
+  source       = "./modules/label"
+  service_name = "dns-dhcp-heartbeat"
+}
+
 data "aws_region" "current_region" {}
 data "aws_caller_identity" "shared_services_account" {}
 
@@ -260,6 +265,24 @@ module "corsham_test_bastion" {
   }
 
   count = var.enable_corsham_test_bastion == true ? 1 : 0
+}
+
+module "heartbeat" {
+  source                              = "./modules/heartbeat"
+  prefix                              = module.heartbeat_label.id
+  subnets                             = module.servers_vpc.public_subnets
+  vpc_id                              = module.servers_vpc.vpc_id
+  tags                                = module.dhcp_label.tags
+  dhcp_ip                             = var.dhcp_load_balancer_private_ip_eu_west_2a
+  hearbeat_instance_private_static_ip = var.hearbeat_instance_private_static_ip
+
+  depends_on = [
+    module.servers_vpc
+  ]
+
+  providers = {
+    aws = aws.env
+  }
 }
 
 module "dns_label" {
