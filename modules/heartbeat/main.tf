@@ -13,8 +13,19 @@ data "template_file" "bootstrap" {
   }
 }
 
+data "aws_ami" "ubuntu_latest" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-*"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
 resource "aws_instance" "dns_dhcp_heartbeat" {
-  ami                                  = "ami-0be58974fa441cb39" #ubuntu 16.04
+  ami                                  = data.aws_ami.ubuntu_latest.id
   instance_type                        = "t2.small"
   subnet_id                            = var.subnets[0]
   monitoring                           = true
