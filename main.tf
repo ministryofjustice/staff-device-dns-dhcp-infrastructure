@@ -158,6 +158,7 @@ module "dhcp" {
   vpc_cidr                             = local.dns_dhcp_vpc_cidr
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
+  sentry_dsn                           = var.dhcp_sentry_dsn
 
   providers = {
     aws = aws.env
@@ -177,7 +178,7 @@ module "admin" {
   admin_db_password                    = var.admin_db_password
   admin_db_username                    = var.admin_db_username
   subnet_ids                           = module.admin_vpc.public_subnets
-  sentry_dsn                           = var.sentry_dsn
+  sentry_dsn                           = var.admin_sentry_dsn
   secret_key_base                      = "tbc"
   kea_config_bucket_arn                = module.dhcp.kea_config_bucket_arn
   kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
@@ -229,12 +230,14 @@ module "authentication" {
 module "dns" {
   source                              = "./modules/dns"
   prefix                              = module.dns_label.id
+  short_prefix                        = module.dns_label.stage
   subnets                             = module.servers_vpc.private_subnets
   tags                                = module.dns_label.tags
   load_balancer_private_ip_eu_west_2a = var.dns_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
   vpc_id                              = module.servers_vpc.vpc_id
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
+  sentry_dsn                          = var.dns_sentry_dsn
 
   depends_on = [
     module.servers_vpc
