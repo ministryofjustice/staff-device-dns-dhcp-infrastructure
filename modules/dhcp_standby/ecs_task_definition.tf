@@ -81,6 +81,10 @@ resource "aws_ecs_task_definition" "server_task" {
       {
         "name": "METRICS_NAMESPACE",
         "value": "${var.metrics_namespace}"
+      },
+      {
+        "name": "HEARTBEAT_SUBNET_ID",
+        "value": "2"
       }
     ],
     "image": "${var.dhcp_repository_url}",
