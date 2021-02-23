@@ -18,6 +18,10 @@ variable "dhcp_ip" {
   type = string
 }
 
+variable "metrics_namespace" {
+  type = string
+}
+
 variable "hearbeat_instance_private_static_ip" {
   type = string
 }

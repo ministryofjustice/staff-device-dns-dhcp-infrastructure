@@ -4,6 +4,19 @@ resource "aws_cloudwatch_log_group" "dhcp_heartbeat" {
   tags = var.tags
 }
 
+resource "aws_cloudwatch_log_metric_filter" "heartbeat_metrics_filter" {
+  name           = "heartbeat-failed"
+  pattern        = "\"received packets: 0\""
+  log_group_name = aws_cloudwatch_log_group.dhcp_heartbeat.name
+
+  metric_transformation {
+    name          = "heartbeat-failed"
+    namespace     = var.metrics_namespace
+    value         = "1"
+    default_value = "0"
+  }
+}
+
 data "template_file" "bootstrap" {
   template = file("${path.module}/boot_dhcp_client.sh")
   vars = {
