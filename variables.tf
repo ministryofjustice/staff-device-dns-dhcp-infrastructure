@@ -93,10 +93,21 @@ variable "admin_local_development_domain_affix" {
   default = ""
 }
 
-variable "sentry_dsn" {
+variable "admin_sentry_dsn" {
   type    = string
   default = ""
 }
+
+variable "dhcp_sentry_dsn" {
+  type    = string
+  default = ""
+}
+
+variable "dns_sentry_dsn" {
+  type    = string
+  default = ""
+}
+
 
 variable "bastion_allowed_ingress_ip" {
   type    = string

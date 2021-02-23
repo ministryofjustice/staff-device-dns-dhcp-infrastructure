@@ -85,6 +85,14 @@ resource "aws_ecs_task_definition" "server_task" {
       {
         "name": "HEARTBEAT_SUBNET_ID",
         "value": "2"
+      },
+      {
+        "name": "SENTRY_DSN",
+        "value": "${var.sentry_dsn}"
+      },
+      {
+        "name": "SENTRY_CURRENT_ENV",
+        "value": "${var.short_prefix}"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
