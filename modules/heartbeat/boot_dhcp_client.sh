@@ -36,6 +36,6 @@ EOF
 systemctl enable amazon-cloudwatch-agent.service && service amazon-cloudwatch-agent start
 
 while true; do
-  perfdhcp -4 ${dhcp_ip} -n5 -r1 -d3 | grep "received packets" >> ${log_file_path}
+  perfdhcp -4 ${dhcp_ip} -n5 -r1 -d3 -R5 | grep "received packets" >> ${log_file_path}
   sleep 10;
 done
