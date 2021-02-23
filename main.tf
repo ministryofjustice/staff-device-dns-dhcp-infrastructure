@@ -275,6 +275,7 @@ module "heartbeat" {
   tags                                = module.dhcp_label.tags
   dhcp_ip                             = var.dhcp_load_balancer_private_ip_eu_west_2a
   hearbeat_instance_private_static_ip = var.hearbeat_instance_private_static_ip
+  metrics_namespace                   = var.metrics_namespace
 
   depends_on = [
     module.servers_vpc
