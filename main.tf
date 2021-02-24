@@ -275,7 +275,7 @@ module "heartbeat" {
   prefix                              = module.heartbeat_label.id
   subnets                             = module.servers_vpc.public_subnets
   vpc_id                              = module.servers_vpc.vpc_id
-  tags                                = module.dhcp_label.tags
+  tags                                = module.heartbeat_label.tags
   dhcp_ip                             = var.dhcp_load_balancer_private_ip_eu_west_2a
   hearbeat_instance_private_static_ip = var.hearbeat_instance_private_static_ip
   metrics_namespace                   = var.metrics_namespace
