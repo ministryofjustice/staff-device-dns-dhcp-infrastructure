@@ -23,10 +23,6 @@ output "terraform_outputs" {
       ecr = module.admin.ecr
     }
 
-    heartbeat = {
-      dhcp = module.heartbeat.cloudwatch
-    }
-
     metrics_namespace = var.metrics_namespace
 
     authentication = {
