@@ -135,10 +135,6 @@ variable "corsham_vm_ip" {
   type = string
 }
 
-variable "hearbeat_instance_private_static_ip" {
-  type = string
-}
-
 variable "model_office_vm_ip" {
   type = string
 }

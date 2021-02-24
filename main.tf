@@ -270,25 +270,6 @@ module "corsham_test_bastion" {
   count = var.enable_corsham_test_bastion == true ? 1 : 0
 }
 
-module "heartbeat" {
-  source                              = "./modules/heartbeat"
-  prefix                              = module.heartbeat_label.id
-  subnets                             = module.servers_vpc.public_subnets
-  vpc_id                              = module.servers_vpc.vpc_id
-  tags                                = module.heartbeat_label.tags
-  dhcp_ip                             = var.dhcp_load_balancer_private_ip_eu_west_2a
-  hearbeat_instance_private_static_ip = var.hearbeat_instance_private_static_ip
-  metrics_namespace                   = var.metrics_namespace
-
-  depends_on = [
-    module.servers_vpc
-  ]
-
-  providers = {
-    aws = aws.env
-  }
-}
-
 module "dns_label" {
   source       = "./modules/label"
   service_name = "dns"
