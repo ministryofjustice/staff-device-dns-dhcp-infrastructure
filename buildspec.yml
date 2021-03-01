@@ -30,6 +30,8 @@ env:
     TF_VAR_dhcp_load_balancer_private_ip_eu_west_2b: "/staff-device/dhcp/$ENV/load_balancer_private_ip_eu_west_2b"
     TF_VAR_dns_load_balancer_private_ip_eu_west_2a: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2a"
     TF_VAR_dns_load_balancer_private_ip_eu_west_2b: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2b"
+    TF_VAR_dns_route53_resolver_ip_eu_west_2a: "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2a"
+    TF_VAR_dns_route53_resolver_ip_eu_west_2b: "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2b"
     TF_VAR_admin_sentry_dsn: "/staff-device/admin/sentry_dsn"
     TF_VAR_dhcp_sentry_dsn: "/staff-device/dhcp/sentry_dsn"
     TF_VAR_dns_sentry_dsn: "/staff-device/dns/sentry_dsn"
