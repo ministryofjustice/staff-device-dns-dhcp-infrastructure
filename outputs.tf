@@ -34,3 +34,7 @@ output "terraform_outputs" {
     }
   }
 }
+
+output "dns_dhcp_vpc_id" {
+  value = module.servers_vpc.vpc_id
+}

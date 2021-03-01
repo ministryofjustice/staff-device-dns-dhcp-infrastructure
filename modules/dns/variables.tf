@@ -33,3 +33,11 @@ variable "load_balancer_private_ip_eu_west_2b" {
 variable "sentry_dsn" {
   type = string
 }
+
+variable "dns_route53_resolver_ip_eu_west_2a" {
+  type = string
+}
+
+variable "dns_route53_resolver_ip_eu_west_2b" {
+  type = string
+}

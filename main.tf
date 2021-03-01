@@ -235,6 +235,8 @@ module "dns" {
   tags                                = module.dns_label.tags
   load_balancer_private_ip_eu_west_2a = var.dns_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
+  dns_route53_resolver_ip_eu_west_2a = var.dns_route53_resolver_ip_eu_west_2a
+  dns_route53_resolver_ip_eu_west_2b = var.dns_route53_resolver_ip_eu_west_2b
   vpc_id                              = module.servers_vpc.vpc_id
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   sentry_dsn                          = var.dns_sentry_dsn
