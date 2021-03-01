@@ -65,7 +65,7 @@ resource "aws_security_group_rule" "resolver_endpoint_dns_udp_in" {
 }
 
 resource "aws_security_group_rule" "resolver_endpoint_dns_udp_out" {
-  description       = "Allow outging dns udp traffic from resolver endpoint"
+  description       = "Allow outgoing dns udp traffic from resolver endpoint"
   type              = "egress"
   from_port         = 53
   to_port           = 53
