@@ -8,7 +8,7 @@ resource "aws_route53_resolver_endpoint" "internal_hosted_zone" {
 
   ip_address {
     subnet_id = var.subnets[0]
-    ip = var.dns_route53_resolver_ip_eu_west_2a
+    ip        = var.dns_route53_resolver_ip_eu_west_2a
   }
 
   ip_address {
