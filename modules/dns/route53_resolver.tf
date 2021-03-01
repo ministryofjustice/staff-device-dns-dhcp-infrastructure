@@ -1,5 +1,5 @@
 resource "aws_route53_resolver_endpoint" "internal_hosted_zone" {
-  name      = "${var.prefix}-internal-hosted-zone-resolver-endpoint"
+  name      = "${var.prefix}-resolver-endpoint"
   direction = "INBOUND"
 
   security_group_ids = [
