@@ -9,3 +9,11 @@ aws ssm put-parameter --name "/terraform_dns_dhcp/$ENV/outputs" \
   --value "$terraform_outputs" \
   --type String \
   --overwrite
+
+  dns_dhcp_vpc_id=$(terraform output -json dns_dhcp_vpc_id)
+
+aws ssm put-parameter --name "/staff-device/dns-dhcp/$ENV/vpc-id" \
+  --description "VPC ID for Staff Device DNS DHCP" \
+  --value "$dns_dhcp_vpc_id" \
+  --type String \
+  --overwrite

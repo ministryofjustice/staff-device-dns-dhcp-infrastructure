@@ -152,3 +152,11 @@ variable "metrics_namespace" {
   type    = string
   default = "Kea-DHCP"
 }
+
+variable "dns_route53_resolver_ip_eu_west_2a" {
+  type = string
+}
+
+variable "dns_route53_resolver_ip_eu_west_2b" {
+  type = string
+}

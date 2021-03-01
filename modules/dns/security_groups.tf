@@ -45,3 +45,31 @@ resource "aws_security_group_rule" "dns_container_healthcheck_in" {
   security_group_id = aws_security_group.dns_server.id
   cidr_blocks       = [var.vpc_cidr]
 }
+
+resource "aws_security_group" "resolver_endpoint" {
+  name        = "${var.prefix}-resolver-endpoint"
+  description = "Allow the bind9 to talk to resolver endpoints"
+  vpc_id      = var.vpc_id
+
+  tags = var.tags
+}
+
+resource "aws_security_group_rule" "resolver_endpoint_dns_udp_in" {
+  description       = "Allow incoming dns udp traffic to resolver endpoint"
+  type              = "ingress"
+  from_port         = 53
+  to_port           = 53
+  protocol          = "udp"
+  security_group_id = aws_security_group.resolver_endpoint.id
+  cidr_blocks       = [var.vpc_cidr]
+}
+
+resource "aws_security_group_rule" "resolver_endpoint_dns_udp_out" {
+  description       = "Allow outgoing dns udp traffic from resolver endpoint"
+  type              = "egress"
+  from_port         = 53
+  to_port           = 53
+  protocol          = "udp"
+  security_group_id = aws_security_group.resolver_endpoint.id
+  cidr_blocks       = [var.vpc_cidr]
+}
