@@ -28,7 +28,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [Security Logging](documentation/security-logging.md)
 - [Networking](documentation/networking.md)
 - [Disaster Recovery](documentation/disaster-recovery.md)
-- [Incedent Reports](documentation/incedent-reports.md)
+- [Incident Reports](documentation/incident-reports.md)
 
 ## Architecture
 
