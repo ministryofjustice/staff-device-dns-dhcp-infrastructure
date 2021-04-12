@@ -1,5 +1,5 @@
 # Incorrect DNS Forwarder IPs
-Date: 07-04-2021
+Date: 07-04-2021 8:30AM - 11:30AM approx
 
 ## What was the issue?
 
@@ -21,10 +21,10 @@ Updated PPUD / HMPPS IP addresses in the Staff Device DNS / DHCP Admin Portal
 
 ## How can the issue be prevented from happening again
 
-Had to use Slack search to find the IPs had changed (better discussion around changes that affect us / source of truth)
-Monitoring external DNS forwarders
-Dependency mapping - if IPs change people need to know how this affects us
-Sanity checks for imported data - some of this data is outdated / incorrect
+- Had to use Slack search to find the IPs had changed (better discussion around changes that affect us / source of truth)
+- Monitoring external DNS forwarders
+- Dependency mapping - if IPs change people need to know how this affects us
+- Sanity checks for imported data - some of this data is outdated / incorrect
 
 ## Outstanding questions 
 
