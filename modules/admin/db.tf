@@ -49,4 +49,8 @@ resource "aws_db_parameter_group" "admin_db_parameter_group" {
     name  = "sql_mode"
     value = "STRICT_ALL_TABLES"
   }
+  parameter {
+    name  = "max_connect_errors"
+    value = "10000"
+  }
 }
