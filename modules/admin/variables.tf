@@ -128,3 +128,7 @@ variable "pdns_ips" {
 variable "dhcp_http_api_load_balancer_arn" {
   type = string
 }
+
+variable "private_zone" {
+  type = string
+}

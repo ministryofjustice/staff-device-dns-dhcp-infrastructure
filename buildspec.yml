@@ -33,6 +33,7 @@ env:
     TF_VAR_dns_route53_resolver_ip_eu_west_2a: "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2a"
     TF_VAR_dns_route53_resolver_ip_eu_west_2b: "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2b"
     TF_VAR_admin_sentry_dsn: "/staff-device/admin/sentry_dsn"
+    TF_VAR_dns_private_zone: "/staff-device/admin/$ENV/dns_private_zone"
     TF_VAR_dhcp_sentry_dsn: "/staff-device/dhcp/sentry_dsn"
     TF_VAR_dns_sentry_dsn: "/staff-device/dns/sentry_dsn"
     TF_VAR_bastion_allowed_ingress_ip: "/staff-device/corsham_testing/bastion_allowed_ingress_ip"
@@ -43,7 +44,6 @@ env:
     TF_VAR_byoip_pool_id: "/staff-device/dns/$ENV/public_ip_pool_id"
     TF_VAR_enable_corsham_test_bastion: "/staff-device/dns-dhcp/$ENV/enable_bastion"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
-
 phases:
   install:
     commands:

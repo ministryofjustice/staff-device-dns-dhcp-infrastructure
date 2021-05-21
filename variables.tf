@@ -29,7 +29,7 @@ variable "enable_critical_notifications" {
 }
 
 variable "critical_notification_recipients" {
-  type    = list
+  type    = list(any)
   default = []
 }
 
@@ -158,5 +158,9 @@ variable "dns_route53_resolver_ip_eu_west_2a" {
 }
 
 variable "dns_route53_resolver_ip_eu_west_2b" {
+  type = string
+}
+
+variable "dns_private_zone" {
   type = string
 }

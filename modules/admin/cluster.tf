@@ -152,6 +152,10 @@ resource "aws_ecs_task_definition" "admin_task" {
           "value": "${var.pdns_ips}"
         },
         {
+          "name": "PRIVATE_ZONE",
+          "value": "${var.private_zone}"
+        },
+        {
           "name": "KEA_CONTROL_AGENT_URI",
           "value": "http://${aws_vpc_endpoint.dhcp_api_vpc_endpoint.dns_entry[0].dns_name}:8000/"
         }
