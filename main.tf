@@ -203,6 +203,7 @@ module "admin" {
   dhcp_config_bucket_key_arn           = module.dhcp.dhcp_config_bucket_key_arn
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   pdns_ips                             = var.pdns_ips
+  private_zone                         = var.dns_private_zone
 
   depends_on = [
     module.admin_vpc
