@@ -26,6 +26,8 @@ resource "aws_lb_target_group" "target_group" {
     protocol = "TCP"
   }
 
+  tags = var.tags
+
   depends_on = [aws_lb.load_balancer]
 }
 
@@ -41,6 +43,8 @@ resource "aws_lb_target_group" "target_group_ha" {
     port     = 80
     protocol = "TCP"
   }
+
+  tags = var.tags
 
   depends_on = [aws_lb.load_balancer]
 }
