@@ -8,4 +8,10 @@ apply:
 destroy:
 	aws-vault clear && aws-vault exec moj-pttp-shared-services --duration=2h -- terraform destroy
 
-.PHONY: init apply destroy
+fmt:
+	terraform fmt --recursive
+
+validate:
+	aws-vault clear && aws-vault exec moj-pttp-shared-services -- terraform validate
+
+.PHONY: init apply destroy fmt validate
