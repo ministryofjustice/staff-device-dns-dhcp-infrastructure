@@ -24,6 +24,8 @@ resource "aws_lb_target_group" "http_api_target_group" {
     protocol = "TCP"
   }
 
+  tags = var.tags
+
   depends_on = [aws_lb.http_api_load_balancer]
 }
 

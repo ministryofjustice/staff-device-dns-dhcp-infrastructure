@@ -5,6 +5,8 @@ resource "aws_ecs_cluster" "server_cluster" {
     name  = "containerInsights"
     value = "enabled"
   }
+
+  tags = var.tags
 }
 
 resource "aws_ecs_service" "service" {
