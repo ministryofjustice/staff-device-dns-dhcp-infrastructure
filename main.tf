@@ -77,19 +77,20 @@ locals {
 }
 
 module "servers_vpc" {
-  source                                 = "./modules/servers_vpc"
-  prefix                                 = module.dhcp_label.id
-  region                                 = data.aws_region.current_region.id
+  source = "./modules/servers_vpc"
+
+  byoip_pool_id                          = var.byoip_pool_id
   cidr_block                             = "10.180.80.0/22"
   cidr_block_new_bits                    = 2
-  byoip_pool_id                          = var.byoip_pool_id
-  pdns_ips                               = var.pdns_ips_list
-  enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
-  tags                                   = module.dhcp_label.tags
-  dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
-  transit_gateway_route_table_id         = var.transit_gateway_route_table_id
   corsham_vm_ip                          = var.corsham_vm_ip
+  dhcp_transit_gateway_id                = var.dhcp_transit_gateway_id
+  enable_dhcp_transit_gateway_attachment = var.enable_dhcp_transit_gateway_attachment
   model_office_vm_ip                     = var.model_office_vm_ip
+  pdns_ips                               = var.pdns_ips_list
+  prefix                                 = module.dhcp_label.id
+  region                                 = data.aws_region.current_region.id
+  tags                                   = module.dhcp_label.tags
+  transit_gateway_route_table_id         = var.transit_gateway_route_table_id
 
   providers = {
     aws = aws.env
@@ -108,28 +109,29 @@ module "admin_vpc" {
 }
 
 module "dhcp_standby" {
-  source                              = "./modules/dhcp_standby"
-  prefix                              = module.dhcp_standby_label.id
-  short_prefix                        = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  private_subnets                     = module.servers_vpc.private_subnets
-  tags                                = module.dhcp_standby_label.tags
-  vpc_id                              = module.servers_vpc.vpc_id
+  source = "./modules/dhcp_standby"
+
+  dhcp_db_host                        = module.dhcp.db_host
   dhcp_db_password                    = var.dhcp_db_password
   dhcp_db_username                    = var.dhcp_db_username
-  load_balancer_private_ip_eu_west_2a = var.dhcp_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b = var.dhcp_load_balancer_private_ip_eu_west_2b
-  vpc_cidr                            = local.dns_dhcp_vpc_cidr
-  nginx_repository_url                = module.dhcp.ecr.nginx_repository_url
+  dhcp_log_search_metric_filters      = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
   dhcp_repository_url                 = module.dhcp.ecr.repository_url
-  dhcp_db_host                        = module.dhcp.db_host
+  dhcp_server_cluster_id              = module.dhcp.ecs.cluster_id
   dhcp_server_db_name                 = module.dhcp.rds.name
+  dhcp_server_security_group_id       = module.dhcp.ec2.dhcp_server_security_group_id
   ecs_task_execution_role_arn         = module.dhcp.iam.task_execution_role_arn
   ecs_task_role_arn                   = module.dhcp.iam.task_role_arn
-  dhcp_server_cluster_id              = module.dhcp.ecs.cluster_id
   kea_config_bucket_name              = module.dhcp.kea_config_bucket_name
-  dhcp_server_security_group_id       = module.dhcp.ec2.dhcp_server_security_group_id
-  dhcp_log_search_metric_filters      = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
+  load_balancer_private_ip_eu_west_2a = var.dhcp_load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b = var.dhcp_load_balancer_private_ip_eu_west_2b
   metrics_namespace                   = var.metrics_namespace
+  nginx_repository_url                = module.dhcp.ecr.nginx_repository_url
+  prefix                              = module.dhcp_standby_label.id
+  private_subnets                     = module.servers_vpc.private_subnets
+  short_prefix                        = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  tags                                = module.dhcp_standby_label.tags
+  vpc_cidr                            = local.dns_dhcp_vpc_cidr
+  vpc_id                              = module.servers_vpc.vpc_id
 
   providers = {
     aws = aws.env
@@ -141,24 +143,25 @@ module "dhcp_standby" {
 }
 
 module "dhcp" {
-  source                               = "./modules/dhcp"
-  prefix                               = module.dhcp_label.id
-  private_subnets                      = module.servers_vpc.private_subnets
-  tags                                 = module.dhcp_label.tags
-  vpc_id                               = module.servers_vpc.vpc_id
+  source = "./modules/dhcp"
+
+  admin_local_development_domain_affix = var.admin_local_development_domain_affix
   dhcp_db_password                     = var.dhcp_db_password
   dhcp_db_username                     = var.dhcp_db_username
+  dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
+  is_publicly_accessible               = local.publicly_accessible
   load_balancer_private_ip_eu_west_2a  = var.dhcp_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b  = var.dhcp_load_balancer_private_ip_eu_west_2b
-  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
-  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
-  short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
   metrics_namespace                    = var.metrics_namespace
-  is_publicly_accessible               = local.publicly_accessible
-  vpc_cidr                             = local.dns_dhcp_vpc_cidr
-  admin_local_development_domain_affix = var.admin_local_development_domain_affix
-  dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
+  prefix                               = module.dhcp_label.id
+  private_subnets                      = module.servers_vpc.private_subnets
   sentry_dsn                           = var.dhcp_sentry_dsn
+  short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  tags                                 = module.dhcp_label.tags
+  vpc_cidr                             = local.dns_dhcp_vpc_cidr
+  vpc_id                               = module.servers_vpc.vpc_id
+  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
+  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
 
   providers = {
     aws = aws.env
@@ -170,40 +173,41 @@ module "dhcp" {
 }
 
 module "admin" {
-  source                               = "./modules/admin"
-  prefix                               = "${module.dhcp_label.id}-admin"
-  short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
-  tags                                 = module.dhcp_label.tags
-  vpc_id                               = module.admin_vpc.vpc_id
+  source = "./modules/admin"
+
+  admin_db_backup_retention_period     = var.admin_db_backup_retention_period
   admin_db_password                    = var.admin_db_password
   admin_db_username                    = var.admin_db_username
-  subnet_ids                           = module.admin_vpc.public_subnets
-  sentry_dsn                           = var.admin_sentry_dsn
-  secret_key_base                      = "tbc"
-  kea_config_bucket_arn                = module.dhcp.kea_config_bucket_arn
-  kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
-  region                               = data.aws_region.current_region.id
-  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
-  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
-  admin_db_backup_retention_period     = var.admin_db_backup_retention_period
-  cognito_user_pool_id                 = module.authentication.cognito_user_pool_id
-  cognito_user_pool_domain             = module.authentication.cognito_user_pool_domain
+  admin_local_development_domain_affix = var.admin_local_development_domain_affix
+  bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
+  bind_config_bucket_key_arn           = module.dns.bind_config_bucket_key_arn
+  bind_config_bucket_name              = module.dns.bind_config_bucket_name
   cognito_user_pool_client_id          = module.authentication.cognito_user_pool_client_id
   cognito_user_pool_client_secret      = module.authentication.cognito_user_pool_client_secret
+  cognito_user_pool_domain             = module.authentication.cognito_user_pool_domain
+  cognito_user_pool_id                 = module.authentication.cognito_user_pool_id
   dhcp_cluster_name                    = module.dhcp.ecs.cluster_name
+  dhcp_config_bucket_key_arn           = module.dhcp.dhcp_config_bucket_key_arn
+  dhcp_http_api_load_balancer_arn      = module.dhcp.http_api_load_balancer_arn
+  dhcp_service_arn                     = module.dhcp.ecs.service_arn
   dhcp_service_name                    = module.dhcp.ecs.service_name
   dns_cluster_name                     = module.dns.ecs.cluster_name
   dns_service_name                     = module.dns.ecs.service_name
-  dhcp_service_arn                     = module.dhcp.ecs.service_arn
-  dhcp_http_api_load_balancer_arn      = module.dhcp.http_api_load_balancer_arn
-  bind_config_bucket_name              = module.dns.bind_config_bucket_name
-  bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
   is_publicly_accessible               = local.publicly_accessible
-  bind_config_bucket_key_arn           = module.dns.bind_config_bucket_key_arn
-  dhcp_config_bucket_key_arn           = module.dhcp.dhcp_config_bucket_key_arn
-  admin_local_development_domain_affix = var.admin_local_development_domain_affix
+  kea_config_bucket_arn                = module.dhcp.kea_config_bucket_arn
+  kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
   pdns_ips                             = var.pdns_ips
+  prefix                               = "${module.dhcp_label.id}-admin"
   private_zone                         = var.dns_private_zone
+  region                               = data.aws_region.current_region.id
+  secret_key_base                      = "tbc"
+  sentry_dsn                           = var.admin_sentry_dsn
+  short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
+  subnet_ids                           = module.admin_vpc.public_subnets
+  tags                                 = module.dhcp_label.tags
+  vpc_id                               = module.admin_vpc.vpc_id
+  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
+  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
 
   depends_on = [
     module.admin_vpc
@@ -215,11 +219,12 @@ module "admin" {
 }
 
 module "authentication" {
-  source                        = "./modules/authentication"
-  azure_federation_metadata_url = var.azure_federation_metadata_url
-  prefix                        = module.dhcp_label.id
-  enable_authentication         = var.enable_authentication
+  source = "./modules/authentication"
+
   admin_url                     = module.admin.admin_url
+  azure_federation_metadata_url = var.azure_federation_metadata_url
+  enable_authentication         = var.enable_authentication
+  prefix                        = module.dhcp_label.id
   region                        = data.aws_region.current_region.id
   vpn_hosted_zone_domain        = var.vpn_hosted_zone_domain
 
@@ -229,18 +234,19 @@ module "authentication" {
 }
 
 module "dns" {
-  source                              = "./modules/dns"
+  source = "./modules/dns"
+
+  dns_route53_resolver_ip_eu_west_2a  = var.dns_route53_resolver_ip_eu_west_2a
+  dns_route53_resolver_ip_eu_west_2b  = var.dns_route53_resolver_ip_eu_west_2b
+  load_balancer_private_ip_eu_west_2a = var.dns_load_balancer_private_ip_eu_west_2a
+  load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
   prefix                              = module.dns_label.id
+  sentry_dsn                          = var.dns_sentry_dsn
   short_prefix                        = module.dns_label.stage
   subnets                             = module.servers_vpc.private_subnets
   tags                                = module.dns_label.tags
-  load_balancer_private_ip_eu_west_2a = var.dns_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b = var.dns_load_balancer_private_ip_eu_west_2b
-  dns_route53_resolver_ip_eu_west_2a  = var.dns_route53_resolver_ip_eu_west_2a
-  dns_route53_resolver_ip_eu_west_2b  = var.dns_route53_resolver_ip_eu_west_2b
-  vpc_id                              = module.servers_vpc.vpc_id
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
-  sentry_dsn                          = var.dns_sentry_dsn
+  vpc_id                              = module.servers_vpc.vpc_id
 
   depends_on = [
     module.servers_vpc
@@ -252,15 +258,16 @@ module "dns" {
 }
 
 module "corsham_test_bastion" {
-  source                     = "./modules/corsham_test"
-  subnets                    = module.servers_vpc.public_subnets
-  vpc_id                     = module.servers_vpc.vpc_id
-  tags                       = module.dhcp_label.tags
-  bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
+  source = "./modules/corsham_test"
+
   bastion_allowed_egress_ip  = var.bastion_allowed_egress_ip
-  transit_gateway_id         = var.dhcp_transit_gateway_id
-  route_table_id             = module.servers_vpc.public_route_table_ids[0]
+  bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
   corsham_vm_ip              = var.corsham_vm_ip
+  route_table_id             = module.servers_vpc.public_route_table_ids[0]
+  subnets                    = module.servers_vpc.public_subnets
+  tags                       = module.dhcp_label.tags
+  transit_gateway_id         = var.dhcp_transit_gateway_id
+  vpc_id                     = module.servers_vpc.vpc_id
 
   depends_on = [
     module.servers_vpc
