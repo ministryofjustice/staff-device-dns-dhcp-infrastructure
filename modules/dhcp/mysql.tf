@@ -4,27 +4,27 @@ locals {
 
 resource "aws_db_instance" "dhcp_server_db" {
   allocated_storage           = 20
-  storage_type                = "gp2"
-  engine                      = "mysql"
-  engine_version              = "5.7"
-  auto_minor_version_upgrade  = true
   allow_major_version_upgrade = false
   apply_immediately           = true
-  instance_class              = local.is_production ? "db.t2.large" : "db.t2.medium"
-  identifier                  = "${var.prefix}-db"
-  name                        = replace(var.prefix, "-", "")
-  username                    = var.dhcp_db_username
-  password                    = var.dhcp_db_password
+  auto_minor_version_upgrade  = true
   backup_retention_period     = local.is_production ? "30" : "0"
-  multi_az                    = true
-  storage_encrypted           = true
   db_subnet_group_name        = aws_db_subnet_group.db.name
-  vpc_security_group_ids      = [aws_security_group.dhcp_db_in.id]
-  publicly_accessible         = var.is_publicly_accessible
-  monitoring_role_arn         = aws_iam_role.rds_monitoring_role.arn
-  monitoring_interval         = 30
-  skip_final_snapshot         = true
   deletion_protection         = local.is_production ? true : false
+  engine                      = "mysql"
+  engine_version              = "5.7"
+  identifier                  = "${var.prefix}-db"
+  instance_class              = local.is_production ? "db.t2.large" : "db.t2.medium"
+  monitoring_interval         = 30
+  monitoring_role_arn         = aws_iam_role.rds_monitoring_role.arn
+  multi_az                    = true
+  name                        = replace(var.prefix, "-", "")
+  password                    = var.dhcp_db_password
+  publicly_accessible         = var.is_publicly_accessible
+  skip_final_snapshot         = true
+  storage_encrypted           = true
+  storage_type                = "gp2"
+  username                    = var.dhcp_db_username
+  vpc_security_group_ids      = [aws_security_group.dhcp_db_in.id]
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
 
