@@ -8,10 +8,10 @@ module "label" {
   delimiter = "-"
 
   tags = {
-    "business-unit" = "MoJO"
-    "application"   = "dns-dhcp",
+    "business-unit" = "HQ"
+    "application"   = "dhcp-dns",
     "is-production" = "true"
-    "owner"         = "staff-device-dns-dhcp@digital.justice.gov.uk"
+    "owner"         = "CloudOps Team https://ministryofjustice.github.io/cloud-operations/#cloud-operations"
 
     "environment-name" = "global"
     "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
