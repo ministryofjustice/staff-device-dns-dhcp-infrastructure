@@ -98,10 +98,12 @@ module "servers_vpc" {
 }
 
 module "admin_vpc" {
-  source     = "./modules/vpc"
+  source = "./modules/vpc"
+
+  cidr_block = "10.0.0.0/16"
   prefix     = "${module.dhcp_label.id}-admin"
   region     = data.aws_region.current_region.id
-  cidr_block = "10.0.0.0/16"
+  tags       = module.dhcp_label.tags
 
   providers = {
     aws = aws.env

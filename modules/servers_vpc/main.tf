@@ -1,6 +1,6 @@
 resource "aws_security_group" "endpoints" {
   name   = "${var.prefix}-endpoints"
-  tags = var.tags
+  tags   = var.tags
   vpc_id = module.vpc.vpc_id
 
   ingress {
