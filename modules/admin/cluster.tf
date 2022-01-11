@@ -182,6 +182,7 @@ resource "aws_ecs_service" "admin-service" {
   task_definition = aws_ecs_task_definition.admin_task.arn
   desired_count   = 3
   launch_type     = "FARGATE"
+  tags            = var.tags
 
   load_balancer {
     target_group_arn = aws_alb_target_group.admin_tg.arn
