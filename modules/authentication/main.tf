@@ -6,6 +6,7 @@ resource "aws_cognito_user_pool" "pool" {
   count                    = local.enabled
   name                     = "${var.prefix}_azure_ad_pool"
   auto_verified_attributes = ["email"]
+  tags                     = var.tags
 
   schema {
     name                = "app_role"

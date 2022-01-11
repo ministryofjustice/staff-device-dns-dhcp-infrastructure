@@ -1,5 +1,6 @@
 resource "aws_security_group" "endpoints" {
   name   = "${var.prefix}-endpoints"
+  tags   = var.tags
   vpc_id = module.vpc.vpc_id
 
   ingress {
@@ -66,12 +67,12 @@ module "vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 
-  enable_ecr_dkr_endpoint              = true
-  enable_ecr_api_endpoint              = true
+  ecr_api_endpoint_private_dns_enabled = true
   ecr_api_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
   ecr_dkr_endpoint_private_dns_enabled = true
-  ecr_api_endpoint_private_dns_enabled = true
   ecr_dkr_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
+  enable_ecr_api_endpoint              = true
+  enable_ecr_dkr_endpoint              = true
 
   enable_monitoring_endpoint              = true
   monitoring_endpoint_private_dns_enabled = true
@@ -82,10 +83,10 @@ module "vpc" {
   rds_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
   manage_default_network_acl    = true
-  public_dedicated_network_acl  = true
   private_dedicated_network_acl = true
   private_inbound_acl_rules     = local.inbound_vpc_rules
   private_outbound_acl_rules    = local.outbound_vpc_rules
+  public_dedicated_network_acl  = true
   public_inbound_acl_rules      = local.inbound_vpc_rules
   public_outbound_acl_rules     = local.outbound_vpc_rules
 
@@ -94,6 +95,8 @@ module "vpc" {
   enable_logs_endpoint              = true
   logs_endpoint_private_dns_enabled = true
   logs_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
+
+  tags = var.tags
 
   azs = [
     "${var.region}a",
