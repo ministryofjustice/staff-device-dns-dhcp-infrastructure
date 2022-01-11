@@ -228,6 +228,7 @@ module "authentication" {
   enable_authentication         = var.enable_authentication
   prefix                        = module.dhcp_label.id
   region                        = data.aws_region.current_region.id
+  tags                          = module.dhcp_label.tags
   vpn_hosted_zone_domain        = var.vpn_hosted_zone_domain
 
   providers = {
