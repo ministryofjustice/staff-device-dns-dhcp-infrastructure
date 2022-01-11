@@ -96,8 +96,6 @@ module "vpc" {
   logs_endpoint_private_dns_enabled = true
   logs_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
-  tags = var.tags
-
   azs = [
     "${var.region}a",
     "${var.region}b"
