@@ -69,6 +69,16 @@ module "heartbeat_label" {
   service_name = "dns-dhcp-heartbeat"
 }
 
+module "admin_label" {
+  source       = "./modules/label"
+  service_name = "admin"
+}
+
+module "auth_label" {
+  source       = "./modules/label"
+  service_name = "auth"
+}
+
 data "aws_region" "current_region" {}
 data "aws_caller_identity" "shared_services_account" {}
 
@@ -103,7 +113,7 @@ module "admin_vpc" {
   cidr_block = "10.0.0.0/16"
   prefix     = "${module.dhcp_label.id}-admin"
   region     = data.aws_region.current_region.id
-  tags       = module.dhcp_label.tags
+  tags       = module.admin_label.tags
 
   providers = {
     aws = aws.env
@@ -206,7 +216,7 @@ module "admin" {
   sentry_dsn                           = var.admin_sentry_dsn
   short_prefix                         = module.dhcp_label.stage # avoid 32 char limit on certain resources
   subnet_ids                           = module.admin_vpc.public_subnets
-  tags                                 = module.dhcp_label.tags
+  tags                                 = module.admin_label.tags
   vpc_id                               = module.admin_vpc.vpc_id
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
@@ -228,7 +238,7 @@ module "authentication" {
   enable_authentication         = var.enable_authentication
   prefix                        = module.dhcp_label.id
   region                        = data.aws_region.current_region.id
-  tags                          = module.dhcp_label.tags
+  tags                          = module.auth_label.tags
   vpn_hosted_zone_domain        = var.vpn_hosted_zone_domain
 
   providers = {
@@ -304,7 +314,7 @@ module "admin_vpc_flow_logs" {
   source = "./modules/vpc_flow_logs"
   prefix = "staff-device-admin-${terraform.workspace}"
   region = data.aws_region.current_region.id
-  tags   = module.dhcp_label.tags
+  tags   = module.admin_label.tags
   vpc_id = module.admin_vpc.vpc_id
 
   providers = {
