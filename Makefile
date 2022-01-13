@@ -1,17 +1,27 @@
-init:
-	aws-vault exec moj-pttp-shared-services -- terraform init -reconfigure \
-	--backend-config="key=terraform.development.state"
+#!make
+include .env
+export
 
-apply:
-	aws-vault clear && aws-vault exec moj-pttp-shared-services --duration=2h -- terraform apply
-
-destroy:
-	aws-vault clear && aws-vault exec moj-pttp-shared-services --duration=2h -- terraform destroy
+aws-vault-command := aws-vault exec $$AWS_VAULT_PROFILE --backend=$$BACKEND --prompt=$$PROMPT
 
 fmt:
 	terraform fmt --recursive
 
-validate:
-	aws-vault clear && aws-vault exec moj-pttp-shared-services -- terraform validate
+init:
+	$(aws-vault-command) -- terraform init -reconfigure \
+	--backend-config="key=terraform.development.state"
 
-.PHONY: init apply destroy fmt validate
+validate:
+	$(aws-vault-command) -- terraform validate
+
+plan:
+	$(aws-vault-command) -- terraform plan -out terraform.tfplan
+
+apply:
+	$(aws-vault-command) --duration=2h -- terraform apply
+	$(aws-vault-command) -- ./scripts/publish_terraform_outputs.sh
+
+destroy:
+	$(aws-vault-command) --duration=2h -- terraform destroy
+
+.PHONY: fmt init validate plan apply destroy
