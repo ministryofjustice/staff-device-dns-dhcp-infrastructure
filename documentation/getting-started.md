@@ -34,9 +34,13 @@ Terraform is run locally in a similar way to how it is run on the build pipeline
 It assumes an IAM role defined in the Shared Services, and targets the AWS account to gain access to the Development environment.
  This is done in the Terraform AWS provider with the `assume_role` configuration.
 
-Authentication is made with the Shared Services AWS account, which then assumes the role into the target environment.
+Authentication is made with the Shared Services AWS account, which then assumes the role into the target environment.  
 
-Please follow the CloudOps best practices provided [step-by-step guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) to configure your AWS Vault.
+Assuming you have been granted necessary access permissions to the Shared Service Account, please configure your AWS Vault with a profile for that account.  
+
+| :bangbang: IMPORTANT |  
+|:-----|  
+| If you are a MoJ AWS SSO user, it is highly recommended that you follow the CloudOps best practices provided [step-by-step guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) to configure your AWS Vault with AWS SSO. |  
 
 ## Prepare the variables  
 
@@ -48,7 +52,14 @@ Please follow the CloudOps best practices provided [step-by-step guide](https://
 | `<shared-services-aws-vault-profile>` | with your **AWS-VAULT** profile name for the **Shared Services** AWS account. |
 | `<your_terraform_workspace>` | with your terraform workspace name. :bell: |  
 
-Also provide values for `backend` and `prompt` variables. Instructions for these two variables are provided in the `.env.example` file.
+| :bangbang: IMPORTANT |  
+|:-----|  
+| If you have followed CloudOps best practices guide to configure your AWS Vault, then provide values for `BACKEND=` and `PROMPT=` as below, otherwise leave them blank. |  
+
+|  |  |
+| ---  |  ---  |  
+|  `BACKEND=`  |  `keychain` for macOS or `pass` for Ubuntu with Pass password store  |  
+|  `BACKEND=`  |  `osascript` for macOS or `pass` for Ubuntu with Pass password store |  
 
 | :bell: HELP |  
 |:-----|  
