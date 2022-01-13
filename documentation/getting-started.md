@@ -36,22 +36,23 @@ It assumes an IAM role defined in the Shared Services, and targets the AWS accou
 
 Authentication is made with the Shared Services AWS account, which then assumes the role into the target environment.
 
-Assuming you have been given access to the Shared Services account,
- you can add it to [AWS Vault](https://github.com/99designs/aws-vault#quick-start):
+Please follow the CloudOps best practices provided [step-by-step guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) to configure your AWS Vault.
 
-```shell
- aws-vault add moj-pttp-shared-services
-```
+## Prepare the variables  
 
-## Set up MFA on AWS accounts
+1. Copy `.env.example` to `.env`
+1. Modify the `.env` file and replace the following placeholders:  
 
-Multi-Factor Authentication (MFA) is required on AWS accounts in this project.
+| Placeholders | How? |
+| --- | --- |
+| `<shared-services-aws-vault-profile>` | with your **AWS-VAULT** profile name for the **Shared Services** AWS account. |
+| `<your_terraform_workspace>` | with your terraform workspace name. :bell: |  
 
-The steps to set this up are as follows:
+Also provide values for `backend` and `prompt` variables. Instructions for these two variables are provided in the `.env.example` file.
 
-- Configure MFA in the AWS console.
-- Edit your local `~/.aws/config` file with the key value pair of `mfa_serial=<iam_role_from_mfa_device>` for each of your accounts.
-- The value for `<iam_role_from_mfa_device>` can be found in the AWS console on the IAM user details page, under "Assigned MFA device". Ensure that the text "(Virtual)" is removed from the end of the key value pair's entry when editing this file.
+| :bell: HELP |  
+|:-----|  
+| See [Create Terraform workspace](#create-terraform-workspace) section to find out how to create a terraform workspace! |  
 
 ## terraform.tfvars
 
@@ -65,32 +66,52 @@ The name of the parameter is: `/staff-device/dns-dhcp/terraform.tfvars`
 
 Please ensure to replace '[your-tf-workspace]' with your own workspace name in the example `tfvars` file.
 
-### Initialize local Terraform state
+## Initialize your Terraform
 
 ```shell
-  make init
+make init
 ```
 
-### Create Terraform workspace
+## Switch to an isolated workspace
+
+If you do not have a Terraform workspace created already, use the command below to create a new workspace.
+
+### Create Terraform workspace  
 
 ```shell
-  aws-vault exec moj-pttp-shared-services -- terraform workspace new "YOUR_UNIQUE_WORKSPACE_NAME"
-```
+aws-vault exec <shared-services-aws-vault-profile> -- terraform workspace new "YOUR_UNIQUE_WORKSPACE_NAME"
+```  
 
-### Switch to isolated workspace
+This should create a new workspace and select that new workspace at the same time.
+
+>If you already have a workspace created use the command below to select the right workspace before continue.
+>
+>### View Terraform workspace list
+>
+>```shell
+>aws-vault exec <shared-services-aws-vault-profile> -- terraform workspace list
+>```
+>
+>### Select a Terraform workspace
+>
+>```shell
+>aws-vault exec <shared-services-aws-vault-profile> -- terraform workspace select "YOUR_WORKSPACE_NAME"
+>```
+
+## Finally spin up your own Infra
 
 ```shell
-  aws-vault exec moj-pttp-shared-services -- terraform workspace select "YOUR_UNIQUE_WORKSPACE_NAME"
-```
+make apply
+```  
 
-### Apply infrastructure
+This should create your own Network Services infra in a separate VPC in Development AWS Account.
+
+| :boom: REMEMBER |
+|:-----|
+| To destroy your dev AWS infrastructure, when no longer needed! |  
+
+Use the following command to destroy the infrastructure:  
 
 ```shell
-  make apply
-```
-
-### Destroy infrastructure
-
-```shell
-  make destroy
-```
+make destroy
+```  

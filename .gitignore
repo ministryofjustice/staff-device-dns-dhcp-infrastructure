@@ -26,9 +26,12 @@ override.tf.json
 # example: *tfplan*
 
 *.tfvars
+*.tfplan
 /.vs
 *.pem
 .idea
 *.DS_Store
 *.code-workspace
 /test/unit-tests.xml
+
+/.env
