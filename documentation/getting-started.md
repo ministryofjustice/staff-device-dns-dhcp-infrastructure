@@ -59,7 +59,7 @@ Assuming you have been granted necessary access permissions to the Shared Servic
 |  |  |
 | ---  |  ---  |  
 |  `BACKEND=`  |  `keychain` for macOS or `pass` for Ubuntu with Pass password store  |  
-|  `BACKEND=`  |  `osascript` for macOS or `pass` for Ubuntu with Pass password store |  
+|  `PROMPT=`  |  `osascript` for macOS or `pass` for Ubuntu with Pass password store |  
 
 | :bell: HELP |  
 |:-----|  
