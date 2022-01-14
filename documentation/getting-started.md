@@ -36,30 +36,18 @@ It assumes an IAM role defined in the Shared Services, and targets the AWS accou
 
 Authentication is made with the Shared Services AWS account, which then assumes the role into the target environment.  
 
-Assuming you have been granted necessary access permissions to the Shared Service Account, please configure your AWS Vault with a profile for that account.  
-
-| :bangbang: IMPORTANT |  
-|:-----|  
-| If you are a MoJ AWS SSO user, it is highly recommended that you follow the CloudOps best practices provided [step-by-step guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) to configure your AWS Vault with AWS SSO. |  
+Assuming you have been granted necessary access permissions to the Shared Service Account, please follow the CloudOps best practices provided [step-by-step guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) to configure your AWS Vault and AWS Cli with AWS SSO.  
 
 ## Prepare the variables  
 
 1. Copy `.env.example` to `.env`
-1. Modify the `.env` file and replace the following placeholders:  
+1. Modify the `.env` file and provide values for variables as below:  
 
-| Placeholders | How? |
+| Variables | How? |
 | --- | --- |
-| `<shared-services-aws-vault-profile>` | with your **AWS-VAULT** profile name for the **Shared Services** AWS account. |
-| `<your_terraform_workspace>` | with your terraform workspace name. :bell: |  
-
-| :bangbang: IMPORTANT |  
-|:-----|  
-| If you have followed CloudOps best practices guide to configure your AWS Vault, then provide values for `BACKEND=` and `PROMPT=` as below, otherwise leave them blank. |  
-
-|  |  |
-| ---  |  ---  |  
-|  `BACKEND=`  |  `keychain` for macOS or `pass` for Ubuntu with Pass password store  |  
-|  `PROMPT=`  |  `osascript` for macOS or `pass` for Ubuntu with Pass password store |  
+| `AWS_PROFILE=` | your **AWS-CLI** profile name for the **Shared Services** AWS account. Check [this guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) if you need help. |
+| `AWS_DEFAULT_REGION=` | `eu-west-2` |
+| `ENV=` | your unique terraform workspace name. :bell: |  
 
 | :bell: HELP |  
 |:-----|  
@@ -90,7 +78,7 @@ If you do not have a Terraform workspace created already, use the command below 
 ### Create Terraform workspace  
 
 ```shell
-aws-vault exec <shared-services-aws-vault-profile> -- terraform workspace new "YOUR_UNIQUE_WORKSPACE_NAME"
+AWS_PROFILE=mojo-shared-services-cli terraform workspace new "YOUR_UNIQUE_WORKSPACE_NAME"
 ```  
 
 This should create a new workspace and select that new workspace at the same time.
@@ -100,13 +88,13 @@ This should create a new workspace and select that new workspace at the same tim
 >### View Terraform workspace list
 >
 >```shell
->aws-vault exec <shared-services-aws-vault-profile> -- terraform workspace list
+>AWS_PROFILE=mojo-shared-services-cli terraform workspace list
 >```
 >
 >### Select a Terraform workspace
 >
 >```shell
->aws-vault exec <shared-services-aws-vault-profile> -- terraform workspace select "YOUR_WORKSPACE_NAME"
+>AWS_PROFILE=mojo-shared-services-cli terraform workspace select "YOUR_WORKSPACE_NAME"
 >```
 
 ## Finally spin up your own Infra
