@@ -220,6 +220,7 @@ module "admin" {
   vpc_id                               = module.admin_vpc.vpc_id
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
+  allowed_ip_ranges                    = var.allowed_ip_ranges
 
   depends_on = [
     module.admin_vpc

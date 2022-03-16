@@ -164,3 +164,7 @@ variable "dns_route53_resolver_ip_eu_west_2b" {
 variable "dns_private_zone" {
   type = string
 }
+
+variable "allowed_ip_ranges" {
+  type = list(string)
+}

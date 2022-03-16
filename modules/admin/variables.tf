@@ -132,3 +132,7 @@ variable "dhcp_http_api_load_balancer_arn" {
 variable "private_zone" {
   type = string
 }
+
+variable "allowed_ip_ranges" {
+  type = list(string)
+}
