@@ -16,15 +16,15 @@ provider "mysql" {
 }
 
 provider "template" {
-  version = "~> 2.1"
+  version = "~> 2.2"
 }
 
 provider "tls" {
-  version = "> 2.1"
+  version = "~> 3.3"
 }
 
 provider "aws" {
-  version = "~> 3.10"
+  version = "~> 3.75"
   alias   = "env"
   assume_role {
     role_arn = var.assume_role
@@ -32,7 +32,7 @@ provider "aws" {
 }
 
 provider "local" {
-  version = "~> 1.4"
+  version = "2.2.2"
 }
 
 locals {
