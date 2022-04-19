@@ -16,19 +16,35 @@ resource "aws_s3_bucket" "config_bucket" {
   }
 }
 
-data "template_file" "config_bucket_policy" {
-  template = file("${path.module}/policies/config_bucket_policy.json")
+# data "template_file" "config_bucket_policy" {
+#   template = file("${path.module}/policies/config_bucket_policy.json")
 
-  vars = {
-    config_bucket_arn = aws_s3_bucket.config_bucket.arn,
-    ecs_task_role_arn = aws_iam_role.ecs_task_role.arn
-  }
-}
+#   vars = {
+#     config_bucket_arn = aws_s3_bucket.config_bucket.arn,
+#     ecs_task_role_arn = aws_iam_role.ecs_task_role.arn
+#   }
+# }
 
 resource "aws_s3_bucket_policy" "config_bucket_policy" {
   bucket = aws_s3_bucket.config_bucket.id
 
-  policy = data.template_file.config_bucket_policy.rendered
+  policy = <<EOF
+    {
+        "Version": "2012-10-17",
+        "Id": "ConfigFetch",
+        "Statement": [
+            {
+                "Sid": "Get configuration file",
+                "Effect": "Allow",
+                "Principal": {
+                  "AWS": "${aws_iam_role.ecs_task_role.arn}"
+                },
+                "Action": "s3:GetObject",
+                "Resource": "${aws_s3_bucket.config_bucket.arn}/*"
+            }
+        ]
+    }
+  EOF
 }
 
 resource "aws_s3_bucket_public_access_block" "config_bucket_public_block" {
