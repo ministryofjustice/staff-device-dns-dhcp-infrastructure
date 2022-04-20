@@ -1,14 +1,38 @@
 resource "aws_iam_role" "ecs_task_role" {
   name = "${var.prefix}-ecs-task-role"
 
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+      },
+    ]
+  })
 
   tags = var.tags
 }
 
 resource "aws_iam_role" "ecs_execution_role" {
   name               = "${var.prefix}-ecs-execution-role"
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+      },
+    ]
+  })
 
   tags = var.tags
 }
@@ -57,17 +81,6 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
   ]
 }
 EOF
-}
-
-data "aws_iam_policy_document" "assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ecs-tasks.amazonaws.com"]
-    }
-  }
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment" {
