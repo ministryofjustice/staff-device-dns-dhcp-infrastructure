@@ -1,6 +1,4 @@
 terraform {
-  required_version = "> 0.13.0"
-
   backend "s3" {
     bucket         = "pttp-ci-infrastructure-dns-dhcp-client-core-tf-state"
     dynamodb_table = "pttp-ci-infrastructure-dns-dhcp-client-core-tf-lock-table"
@@ -9,30 +7,17 @@ terraform {
 }
 
 provider "mysql" {
-  version  = "~> 1.9"
   endpoint = module.dhcp.rds.endpoint
   username = var.dhcp_db_username
   password = var.dhcp_db_password
 }
 
-provider "template" {
-  version = "~> 2.2"
-}
-
-provider "tls" {
-  version = "~> 3.3"
-}
-
 provider "aws" {
-  version = "~> 3.75"
+
   alias   = "env"
   assume_role {
     role_arn = var.assume_role
   }
-}
-
-provider "local" {
-  version = "2.2.2"
 }
 
 locals {
