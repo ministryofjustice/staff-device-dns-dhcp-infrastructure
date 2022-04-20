@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.75.0"
+    }
+  }
+}
+
 resource "aws_ecs_cluster" "admin_cluster" {
   name = "${var.prefix}-cluster"
 
