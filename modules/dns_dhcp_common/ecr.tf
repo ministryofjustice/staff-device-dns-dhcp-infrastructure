@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.75.0"
+    }
+  }
+}
+
 resource "aws_ecr_repository" "docker_repository" {
   name                 = var.prefix
   image_tag_mutability = "MUTABLE"
