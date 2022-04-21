@@ -69,27 +69,12 @@ locals {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "2.70.0"
+  version = "3.14.0"
   name    = "${var.prefix}-dns"
 
   cidr                 = var.cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
-
-  ecr_api_endpoint_private_dns_enabled = true
-  ecr_api_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
-  ecr_dkr_endpoint_private_dns_enabled = true
-  ecr_dkr_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
-  enable_ecr_api_endpoint              = true
-  enable_ecr_dkr_endpoint              = true
-
-  enable_monitoring_endpoint              = true
-  monitoring_endpoint_private_dns_enabled = true
-  monitoring_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
-
-  enable_rds_endpoint              = true
-  rds_endpoint_private_dns_enabled = true
-  rds_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
   manage_default_network_acl    = true
   private_dedicated_network_acl = true
@@ -98,12 +83,6 @@ module "vpc" {
   public_dedicated_network_acl  = true
   public_inbound_acl_rules      = local.inbound_vpc_rules
   public_outbound_acl_rules     = local.outbound_vpc_rules
-
-  enable_s3_endpoint = true
-
-  enable_logs_endpoint              = true
-  logs_endpoint_private_dns_enabled = true
-  logs_endpoint_security_group_ids  = [aws_security_group.endpoints.id]
 
   azs = [
     "${var.region}a",
