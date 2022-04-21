@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.75.0"
+    }
+  }
+}
+
 data "aws_caller_identity" "current" {}
 
 resource "aws_flow_log" "vpc" {

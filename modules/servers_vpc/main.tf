@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.75.0"
+    }
+  }
+}
+
 resource "aws_security_group" "endpoints" {
   name   = "${var.prefix}-endpoints"
   tags   = var.tags
