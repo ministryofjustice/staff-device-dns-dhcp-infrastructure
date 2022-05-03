@@ -55,7 +55,7 @@ body:
       label: Definition of Done
       value:
 
-        *Example*
+        Example
 
         - [ ] Documentation has been written / updated
 
