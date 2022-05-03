@@ -1,0 +1,7 @@
+dhcp-dns:
+  - '**'
+
+documentation:
+  - "diagrams/**"
+  - "documentation/**"
+  - "README.md"
