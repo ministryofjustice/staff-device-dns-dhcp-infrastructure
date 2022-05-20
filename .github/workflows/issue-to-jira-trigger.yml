@@ -1,0 +1,14 @@
+name: Add Issue to Jira Board On Close
+
+on:
+  issues:
+    types:
+      - closed
+
+jobs:
+  call-workflow-issue-to-jira:
+    uses: ministryofjustice/cloud-operations-github-actions/.github/workflows/issue-to-jira.yml@main
+    secrets:
+      TECH_SERVICES_JIRA_URL: ${{ secrets.TECH_SERVICES_JIRA_URL }}
+      TECH_SERVICES_JIRA_EMAIL: ${{ secrets.TECH_SERVICES_JIRA_EMAIL }}
+      TECH_SERVICES_JIRA_TOKEN: ${{ secrets.TECH_SERVICES_JIRA_TOKEN }}
