@@ -19,7 +19,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   multi_az                    = true
   name                        = replace(var.prefix, "-", "")
   password                    = var.dhcp_db_password
-  publicly_accessible         = var.is_publicly_accessible
+  publicly_accessible         = false
   skip_final_snapshot         = true
   storage_encrypted           = true
   storage_type                = "gp2"

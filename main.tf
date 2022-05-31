@@ -14,14 +14,13 @@ provider "mysql" {
 
 provider "aws" {
 
-  alias   = "env"
+  alias = "env"
   assume_role {
     role_arn = var.assume_role
   }
 }
 
 locals {
-  publicly_accessible = terraform.workspace == "production" ? false : true
   dhcp_log_metrics = [
     "FATAL",
     "ERROR",
@@ -146,7 +145,6 @@ module "dhcp" {
   dhcp_db_password                     = var.dhcp_db_password
   dhcp_db_username                     = var.dhcp_db_username
   dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
-  is_publicly_accessible               = local.publicly_accessible
   load_balancer_private_ip_eu_west_2a  = var.dhcp_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b  = var.dhcp_load_balancer_private_ip_eu_west_2b
   metrics_namespace                    = var.metrics_namespace
@@ -190,7 +188,6 @@ module "admin" {
   dhcp_service_name                    = module.dhcp.ecs.service_name
   dns_cluster_name                     = module.dns.ecs.cluster_name
   dns_service_name                     = module.dns.ecs.service_name
-  is_publicly_accessible               = local.publicly_accessible
   kea_config_bucket_arn                = module.dhcp.kea_config_bucket_arn
   kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
   pdns_ips                             = var.pdns_ips
