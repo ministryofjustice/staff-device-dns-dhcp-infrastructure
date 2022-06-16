@@ -49,4 +49,9 @@ resource "aws_db_parameter_group" "dhcp_db_parameter_group" {
     name  = "sql_mode"
     value = "STRICT_ALL_TABLES"
   }
+
+  parameter {
+    name  = "log_bin_trust_function_creators"
+    value = "1"
+  }
 }
