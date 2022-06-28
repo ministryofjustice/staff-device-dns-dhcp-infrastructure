@@ -203,6 +203,8 @@ module "admin" {
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   allowed_ip_ranges                    = var.allowed_ip_ranges
+  api_basic_auth_username              = var.api_basic_auth_username
+  api_basic_auth_password              = var.api_basic_auth_password
 
   depends_on = [
     module.admin_vpc

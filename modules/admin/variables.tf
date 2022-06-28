@@ -132,3 +132,13 @@ variable "private_zone" {
 variable "allowed_ip_ranges" {
   type = list(string)
 }
+
+variable "api_basic_auth_username" {
+  type        = string
+  description = "http basic auth username for the dhcp-stats api endpoint"
+}
+
+variable "api_basic_auth_password" {
+  type        = string
+  description = "http basic auth password for the dhcp-stats api endpoint"
+}
