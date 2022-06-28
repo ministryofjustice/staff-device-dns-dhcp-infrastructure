@@ -167,6 +167,14 @@ resource "aws_ecs_task_definition" "admin_task" {
         {
           "name": "KEA_CONTROL_AGENT_URI",
           "value": "http://${aws_vpc_endpoint.dhcp_api_vpc_endpoint.dns_entry[0].dns_name}:8000/"
+        },
+        {
+          "name": "API_BASIC_AUTH_USERNAME",
+          "value": "${var.api_basic_auth_username}"
+        },
+        {
+          "name": "API_BASIC_AUTH_PASSWORD",
+          "value": "${var.api_basic_auth_password}"
         }
       ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
