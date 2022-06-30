@@ -10,6 +10,11 @@ terraform {
 resource "aws_ecs_cluster" "admin_cluster" {
   name = "${var.prefix}-cluster"
 
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+
   tags = var.tags
 }
 
