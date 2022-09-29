@@ -22,7 +22,7 @@ resource "aws_lb" "load_balancer" {
 resource "aws_lb_listener" "udp" {
   load_balancer_arn = aws_lb.load_balancer.arn
   port              = "53"
-  protocol          = "TCP_UDP"
+  protocol          = "UDP"
 
   default_action {
     type             = "forward"
@@ -30,11 +30,40 @@ resource "aws_lb_listener" "udp" {
   }
 }
 
+resource "aws_lb_listener" "tcp" {
+  load_balancer_arn = aws_lb.load_balancer.arn
+  port              = "53"
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.target_group_tcp.arn
+  }
+}
+
 resource "aws_lb_target_group" "target_group" {
   name                 = var.prefix
-  protocol             = "TCP_UDP"
+  protocol             = "UDP"
   vpc_id               = var.vpc_id
   port                 = "53"
+  target_type          = "ip"
+  deregistration_delay = 300
+
+  health_check {
+    port     = 80
+    protocol = "TCP"
+  }
+
+  tags = var.tags
+
+  depends_on = [aws_lb.load_balancer]
+}
+
+resource "aws_lb_target_group" "target_group_tcp" {
+  name                 = var.prefix
+  protocol             = "TCP"
+  vpc_id               = var.vpc_id
+  port                 = "5353"
   target_type          = "ip"
   deregistration_delay = 300
 

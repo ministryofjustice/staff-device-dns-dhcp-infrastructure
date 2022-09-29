@@ -17,7 +17,7 @@ resource "aws_ecs_task_definition" "server_task" {
         "protocol": "udp"
       },
       {
-        "hostPort": 53,
+        "hostPort": 5353,
         "containerPort": 5353,
         "protocol": "tcp"
       }
