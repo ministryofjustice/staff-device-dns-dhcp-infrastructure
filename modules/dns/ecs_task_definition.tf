@@ -18,7 +18,7 @@ resource "aws_ecs_task_definition" "server_task" {
       },
       {
         "hostPort": 53,
-        "containerPort": 53,
+        "containerPort": 5353,
         "protocol": "tcp"
       }
     ],
