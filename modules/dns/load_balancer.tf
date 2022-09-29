@@ -41,8 +41,8 @@ resource "aws_lb_listener" "tcp" {
   }
 }
 
-resource "aws_lb_target_group" "target_group" {
-  name                 = var.prefix
+resource "aws_lb_target_group" "target_group_udp" {
+  name                 = "${var.prefix}-udp"
   protocol             = "UDP"
   vpc_id               = var.vpc_id
   port                 = "53"
@@ -60,7 +60,7 @@ resource "aws_lb_target_group" "target_group" {
 }
 
 resource "aws_lb_target_group" "target_group_tcp" {
-  name                 = var.prefix
+  name                 = "${var.prefix}-tcp"
   protocol             = "TCP"
   vpc_id               = var.vpc_id
   port                 = "5353"
