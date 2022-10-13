@@ -18,15 +18,9 @@ resource "aws_ecs_service" "service" {
   tags            = var.tags
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.target_group_udp.arn
+    target_group_arn = aws_lb_target_group.target_group.arn
     container_name   = "dns-server"
     container_port   = "53"
-  }
-
-  load_balancer {
-    target_group_arn = aws_lb_target_group.target_group_tcp.arn
-    container_name   = "dns-server"
-    container_port   = "5353"
   }
 
   network_configuration {
