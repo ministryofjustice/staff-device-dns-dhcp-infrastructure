@@ -22,7 +22,7 @@ resource "aws_lb" "load_balancer" {
 resource "aws_lb_listener" "udp" {
   load_balancer_arn = aws_lb.load_balancer.arn
   port              = "53"
-  protocol          = "TCP_UDP"
+  protocol          = "UDP"
 
   default_action {
     type             = "forward"
