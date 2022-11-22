@@ -36,7 +36,7 @@ It assumes an IAM role defined in the Shared Services, and targets the AWS accou
 
 Authentication is made with the Shared Services AWS account, which then assumes the role into the target environment.  
 
-Assuming you have been granted necessary access permissions to the Shared Service Account, please follow the CloudOps best practices provided [step-by-step guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) to configure your AWS Vault and AWS Cli with AWS SSO.  
+Assuming you have been granted necessary access permissions to the Shared Service Account, please follow the NVVS DevOps best practices provided [step-by-step guide](https://ministryofjustice.github.io/nvvs-devops/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) to configure your AWS Vault and AWS Cli with AWS SSO.  
 
 ## Prepare the variables  
 
@@ -45,7 +45,7 @@ Assuming you have been granted necessary access permissions to the Shared Servic
 
 | Variables | How? |
 | --- | --- |
-| `AWS_PROFILE=` | your **AWS-CLI** profile name for the **Shared Services** AWS account. Check [this guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) if you need help. |
+| `AWS_PROFILE=` | your **AWS-CLI** profile name for the **Shared Services** AWS account. Check [this guide](https://ministryofjustice.github.io/nvvs-devops/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) if you need help. |
 | `AWS_DEFAULT_REGION=` | `eu-west-2` |
 | `ENV=` | your unique terraform workspace name. :bell: |  
 
