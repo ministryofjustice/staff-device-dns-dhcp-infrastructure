@@ -11,7 +11,7 @@ module "label" {
     "business-unit" = "HQ"
     "application"   = "dhcp-dns",
     "is-production" = "true"
-    "owner"         = "CloudOps Team https://ministryofjustice.github.io/cloud-operations"
+    "owner"         = "NVVS DevOps Team https://ministryofjustice.github.io/nvvs-devops"
 
     "environment-name" = "global"
     "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
