@@ -16,8 +16,6 @@ resource "aws_ecr_repository" "docker_repository" {
   }
 }
 
-data "aws_caller_identity" "current" {}
-
 resource "aws_ecr_repository_policy" "docker_repository_policy" {
   repository = aws_ecr_repository.docker_repository.name
 
