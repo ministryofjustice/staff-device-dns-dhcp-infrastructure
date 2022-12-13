@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 resource "aws_ecr_repository_policy" "docker_nginx_repository_policy" {
   repository = aws_ecr_repository.docker_repository_nginx.name
 
@@ -8,7 +10,9 @@ resource "aws_ecr_repository_policy" "docker_nginx_repository_policy" {
         {
             "Sid": "1",
             "Effect": "Allow",
-            "Principal": "*",
+            "Principal":{ 
+              "AWS": ${data.aws_caller_identity.current.account_id}
+            },
             "Action": [
                 "ecr:GetDownloadUrlForLayer",
                 "ecr:BatchGetImage",

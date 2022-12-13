@@ -35,3 +35,7 @@ override.tf.json
 /test/unit-tests.xml
 
 /.env
+
+
+# Vscode
+.vscode/
