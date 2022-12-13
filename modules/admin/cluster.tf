@@ -42,7 +42,14 @@ resource "aws_ecr_repository_policy" "admin_docker_dhcp_repository_policy" {
         {
             "Sid": "1",
             "Effect": "Allow",
-            "Principal": "*",
+            "Principal":{ 
+              "AWS": [ 
+                "683290208331",
+                "068084030754",
+                "473630360727",
+                "037161842252"
+                ]
+              },
             "Action": [
                 "ecr:GetDownloadUrlForLayer",
                 "ecr:BatchGetImage",
