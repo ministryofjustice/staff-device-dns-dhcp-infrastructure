@@ -45,7 +45,7 @@ resource "aws_ecr_repository_policy" "admin_docker_dhcp_repository_policy" {
             "Sid": "1",
             "Effect": "Allow",
             "Principal":{ 
-              "AWS": ${data.aws_caller_identity.current.account_id}
+              "AWS": "${data.aws_caller_identity.current.account_id}"
             },
             "Action": [
                 "ecr:GetDownloadUrlForLayer",
