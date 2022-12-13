@@ -16,6 +16,8 @@ resource "aws_ecr_repository" "docker_repository" {
   }
 }
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_ecr_repository_policy" "docker_repository_policy" {
   repository = aws_ecr_repository.docker_repository.name
 
@@ -27,13 +29,8 @@ resource "aws_ecr_repository_policy" "docker_repository_policy" {
             "Sid": "1",
             "Effect": "Allow",
             "Principal":{ 
-              "AWS": [ 
-                "683290208331",
-                "068084030754",
-                "473630360727",
-                "037161842252"
-                ]
-              },
+              "AWS": ${data.aws_caller_identity.current.account_id}
+            },
             "Action": [
                 "ecr:GetDownloadUrlForLayer",
                 "ecr:BatchGetImage",
