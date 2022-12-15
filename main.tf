@@ -139,8 +139,8 @@ module "dhcp_standby" {
 }
 
 module "dhcp" {
-  source = "./modules/dhcp"
-
+  source                               = "./modules/dhcp"
+  shared_services_account_id           = var.shared_services_account_id
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   dhcp_db_password                     = var.dhcp_db_password
   dhcp_db_username                     = var.dhcp_db_username
@@ -245,6 +245,7 @@ module "dns" {
   tags                                = module.dns_label.tags
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   vpc_id                              = module.servers_vpc.vpc_id
+  shared_services_account_id          = var.shared_services_account_id
 
   depends_on = [
     module.servers_vpc
