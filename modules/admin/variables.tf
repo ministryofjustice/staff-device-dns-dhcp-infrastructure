@@ -142,3 +142,7 @@ variable "api_basic_auth_password" {
   type        = string
   description = "http basic auth password for the dhcp-stats api endpoint"
 }
+
+variable "shared_services_account_id" {
+  type = string
+}

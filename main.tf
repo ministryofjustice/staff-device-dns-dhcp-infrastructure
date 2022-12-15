@@ -205,6 +205,7 @@ module "admin" {
   allowed_ip_ranges                    = var.allowed_ip_ranges
   api_basic_auth_username              = var.api_basic_auth_username
   api_basic_auth_password              = var.api_basic_auth_password
+  shared_services_account_id           = var.shared_services_account_id
 
   depends_on = [
     module.admin_vpc
