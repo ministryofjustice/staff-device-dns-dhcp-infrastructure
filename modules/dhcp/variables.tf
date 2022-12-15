@@ -61,3 +61,7 @@ variable "dhcp_log_search_metric_filters" {
 variable "sentry_dsn" {
   type = string
 }
+
+variable "shared_services_account_id" {
+  type = string
+}
