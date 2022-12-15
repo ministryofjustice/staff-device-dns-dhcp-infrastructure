@@ -47,6 +47,8 @@ env:
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
     TF_VAR_api_basic_auth_username: "/codebuild/dhcp/admin/api/basic_auth_username"
     TF_VAR_api_basic_auth_password: "/codebuild/dhcp/admin/api/basic_auth_password"
+    TF_VAR_shared_services_account_id: "/codebuild/staff_device_shared_services_account_id"
+    
 phases:
   install:
     commands:
