@@ -41,3 +41,7 @@ variable "dns_route53_resolver_ip_eu_west_2a" {
 variable "dns_route53_resolver_ip_eu_west_2b" {
   type = string
 }
+
+variable "shared_services_account_id" {
+  type = string
+}
