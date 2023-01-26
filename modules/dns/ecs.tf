@@ -30,6 +30,6 @@ resource "aws_ecs_service" "service" {
       aws_security_group.dns_server.id
     ]
 
-    assign_public_ip = true
+    assign_public_ip = false
   }
 }
