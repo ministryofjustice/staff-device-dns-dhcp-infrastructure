@@ -34,7 +34,7 @@ resource "aws_ecs_service" "service" {
       var.dhcp_server_security_group_id
     ]
 
-    assign_public_ip = true
+    assign_public_ip = false
   }
 }
 
