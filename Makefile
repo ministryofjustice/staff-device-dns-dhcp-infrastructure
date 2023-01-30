@@ -9,6 +9,9 @@ init:
 	terraform init -reconfigure \
 	--backend-config="key=terraform.development.state"
 
+generate-tfvars:
+	./scripts/generate_tfvars.sh
+
 validate:
 	terraform validate
 
