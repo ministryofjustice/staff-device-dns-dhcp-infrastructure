@@ -25,4 +25,4 @@ apply:
 destroy:
 	terraform destroy
 
-.PHONY: fmt init validate plan apply destroy
+.PHONY: fmt init validate plan apply destroy generate-tfvars
