@@ -44,7 +44,7 @@ resource "aws_ecr_repository_policy" "admin_docker_dhcp_repository_policy" {
         {
             "Sid": "1",
             "Effect": "Allow",
-            "Principal":{ 
+            "Principal":{
               "AWS": ["${data.aws_caller_identity.current.account_id}", "${var.shared_services_account_id}"]
             },
             "Action": [
@@ -223,7 +223,7 @@ resource "aws_ecs_service" "admin-service" {
       aws_security_group.admin_ecs.id
     ]
 
-    assign_public_ip = true
+    assign_public_ip = false
   }
 }
 
