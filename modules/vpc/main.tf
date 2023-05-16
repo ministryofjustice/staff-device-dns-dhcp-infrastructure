@@ -9,7 +9,7 @@ terraform {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.14.0"
+  version = "4.0.2"
   name    = var.prefix
 
   cidr                 = var.cidr_block
