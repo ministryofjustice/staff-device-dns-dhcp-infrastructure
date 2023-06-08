@@ -36,3 +36,10 @@ This repository defines the **system infrastructure only**. Specific components 
 
 ![architecture](diagrams/pttp-dns-dhcp-infra.png)
 [Image Source](diagrams/pttp-dns-dhcp-infra.drawio)
+
+## CI/CD
+
+- [CI Terraform code - staff-device-shared-services-infrastructure](https://github.com/ministryofjustice/staff-device-shared-services-infrastructure)
+- Terraform module - module "pttp-infrastructure-ci-pipeline-dns-dhcp"
+- AWS Account - MOJ Official (Shared Services)
+- [Pipeline "Staff-Device-DNS-DHCP-Infrastructure"](https://eu-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/Staff-Device-DNS-DHCP-Infrastructure/view?region=eu-west-2)
