@@ -10,6 +10,7 @@ output "ecs" {
   value = {
     cluster_name = aws_ecs_cluster.admin_cluster.name
     service_name = aws_ecs_service.admin-service.name
+    task_definition_name = aws_ecs_task_definition.admin_task.family
   }
 }
 
