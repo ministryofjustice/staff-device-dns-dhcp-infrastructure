@@ -85,7 +85,7 @@ variable "dns_load_balancer_private_ip_eu_west_2b" {
 
 variable "enable_corsham_test_bastion" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "admin_local_development_domain_affix" {
