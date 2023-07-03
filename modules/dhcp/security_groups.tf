@@ -56,7 +56,7 @@ resource "aws_security_group_rule" "dhcp_container_udp_out" {
   to_port           = 68
   protocol          = "udp"
   security_group_id = aws_security_group.dhcp_server.id
-  cidr_blocks       = [var.vpc_cidr]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "dhcp_container_web_out" {
