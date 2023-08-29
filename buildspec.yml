@@ -62,5 +62,5 @@ phases:
       - terraform init -no-color --backend-config="key=terraform.$ENV.state"
       - terraform workspace new $ENV || true
       - terraform workspace select $ENV
-      - terraform apply --auto-approve -no-color
+      - terraform plan
       - ./scripts/publish_terraform_outputs.sh
