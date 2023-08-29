@@ -33,6 +33,7 @@ override.tf.json
 *.DS_Store
 *.code-workspace
 /test/unit-tests.xml
+*.terraform-version
 
 /.env
 
