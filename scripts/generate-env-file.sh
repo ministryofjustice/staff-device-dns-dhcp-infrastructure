@@ -75,17 +75,33 @@ export ENV=${ENV}
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
 ## We don't want to use the default variable's value here.
-export TF_VAR_owner_email=nac@justice.gov.uk
+export TF_VAR_owner_email=staff-device-dns-dhcp@justice.gov.uk
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
-## There is no default value set in the variables.tf.
+## We don't want to use the default variable's value here.
+export TF_VAR_enable_critical_notifications=true
+
+## This value has been applied to the envs via AWS CodePipeline CI.
+## We don't want to use the default variable's value here.
 export TF_VAR_enable_authentication=true
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
-export TF_VAR_enable_hosted_zone=true
+## We don't want to use the default variable's value here.
+## (what about dev?)
+export TF_VAR_admin_db_backup_retention_period=30
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
-export TF_VAR_enable_nac_transit_gateway_attachment=true
+## We don't want to use the default variable's value here.
+## (what about dev?)
+export TF_VAR_enable_dhcp_transit_gateway_attachment=true
+
+## This value has been applied to the envs via AWS CodePipeline CI.
+## it is not present in variables.tf (check)
+export TF_VAR_enable_ssh_key_generation=false
+
+## This value has been applied to the envs via AWS CodePipeline CI.
+## We don't want to use the default variable's value here.
+export TF_VAR_enable_dhcp_cloudwatch_log_metrics=true
 
 EOF
 
