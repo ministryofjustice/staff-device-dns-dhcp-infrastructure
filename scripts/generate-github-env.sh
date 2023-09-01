@@ -10,17 +10,33 @@ SCRIPT_PATH="${SCRIPT_DIR}/aws_ssm_get_parameters.sh"
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
 ## We don't want to use the default variable's value here.
-echo "TF_VAR_owner_email=nac@justice.gov.uk" >> $GITHUB_ENV
+echo "TF_VAR_owner_email=staff-device-dns-dhcp@justice.gov.uk" >> $GITHUB_ENV
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
-## There is no default value set in the variables.tf.
+## We don't want to use the default variable's value here.
+echo "TF_VAR_enable_critical_notifications=true" >> $GITHUB_ENV
+
+## This value has been applied to the envs via AWS CodePipeline CI.
+## We don't want to use the default variable's value here.
 echo "TF_VAR_enable_authentication=true" >> $GITHUB_ENV
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
-echo "TF_VAR_enable_hosted_zone=true" >> $GITHUB_ENV
+## We don't want to use the default variable's value here.
+## (what about dev?)
+echo "TF_VAR_admin_db_backup_retention_period=30" >> $GITHUB_ENV
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
-echo "TF_VAR_enable_nac_transit_gateway_attachment=true" >> $GITHUB_ENV
+## We don't want to use the default variable's value here.
+## (what about dev?)
+echo "TF_VAR_enable_dhcp_transit_gateway_attachment=true" >> $GITHUB_ENV
+
+## This value has been applied to the envs via AWS CodePipeline CI.
+## it is not present in variables.tf (check)
+echo "TF_VAR_enable_ssh_key_generation=false" >> $GITHUB_ENV
+
+## This value has been applied to the envs via AWS CodePipeline CI.
+## We don't want to use the default variable's value here.
+echo "TF_VAR_enable_dhcp_cloudwatch_log_metrics=true" >> $GITHUB_ENV
 
 for key in "${!parameters[@]}"
 do
