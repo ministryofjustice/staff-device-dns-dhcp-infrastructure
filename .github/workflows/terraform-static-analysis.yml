@@ -1,0 +1,30 @@
+name: Terraform static code analysis
+
+on:
+  pull_request:
+    branches:
+      - "main"
+  push:
+    branches:
+      - "*-GHTEST"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+    terraform-static-analysis:
+      name: Terraform Static Analysis
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Run Analysis
+        uses: ministryofjustice/github-actions/terraform-static-analysis@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          scan_type: full
+          checkov_external_modules: true
