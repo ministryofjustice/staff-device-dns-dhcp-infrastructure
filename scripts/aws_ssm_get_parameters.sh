@@ -1,39 +1,47 @@
 export PARAM=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
     "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role" \
-    "/moj-network-access-control/$ENV/azure_federation_metadata_url" \
-    "/moj-network-access-control/$ENV/hosted_zone_domain" \
-    "/moj-network-access-control/$ENV/hosted_zone_id" \
-    "/moj-network-access-control/$ENV/admin_db_username" \
-    "/moj-network-access-control/$ENV/admin_db_password" \
-    "/moj-network-access-control/$ENV/admin_sentry_dsn" \
-    "/moj-network-access-control/$ENV/transit_gateway_id" \
-    "/moj-network-access-control/$ENV/transit_gateway_route_table_id" \
-    "/moj-network-access-control/$ENV/mojo_dns_ip_1" \
+    "/staff-device/dns/pdns/ips" \
+    "/staff-device/dns/pdns/ips_list" \
+    "/codebuild/dhcp/$ENV/db/username" \
+    "/codebuild/dhcp/$ENV/db/password" \
     --query Parameters)
 
 export PARAM2=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
-    "/moj-network-access-control/$ENV/mojo_dns_ip_2" \
-    "/moj-network-access-control/$ENV/ocsp/endpoint_ip" \
-    "/moj-network-access-control/$ENV/ocsp/endpoint_port" \
-    "/moj-network-access-control/$ENV/ocsp/atos/domain" \
-    "/moj-network-access-control/$ENV/ocsp/atos/cidr_range_1" \
-    "/moj-network-access-control/$ENV/ocsp/atos/cidr_range_2" \
-    "/moj-network-access-control/$ENV/enable_ocsp" \
-    "/moj-network-access-control/$ENV/ocsp_override_cert_url" \
-    "/moj-network-access-control/$ENV/public_ip_pool_id" \
-    "/moj-network-access-control/$ENV/eap_private_key_password" \
+    "/codebuild/dhcp/$ENV/admin/db/username" \
+    "/codebuild/dhcp/$ENV/admin/db/password" \
+    "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/azure_federation_metadata_url" \
+    "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/critical_notification_recipients" \
+    "/codebuild/$ENV/vpn_hosted_zone_id" \
+    "/route53/$ENV/vpn_hosted_zone_domain" \
+    "/staff-device/dhcp/$ENV/transit_gateway_id" \
+    "/staff-device/dhcp/$ENV/transit_gateway_route_table_id" \
+    "/staff-device/dhcp/$ENV/load_balancer_private_ip_eu_west_2a" \
+    "/staff-device/dhcp/$ENV/load_balancer_private_ip_eu_west_2b" \
     --query Parameters)
 
 export PARAM3=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
-    "/moj-network-access-control/$ENV/radsec_private_key_password" \
-    "/moj-network-access-control/$ENV/debug/radius/enable_packet_capture" \
-    "/moj-network-access-control/$ENV/debug/radius/packet_capture_duration_seconds" \
-    "/moj-network-access-control/$ENV/cloudwatch_link" \
-    "/moj-network-access-control/$ENV/grafana_dashboard_link" \
-    "/moj-network-access-control/development/route53/ns_upsert" \
-    "/moj-network-access-control/pre-production/route53/ns_upsert" \
-    "/moj-network-access-control/$ENV/hosted_zone_id" \
+    "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2a" \
+    "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2b" \
+    "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2a" \
+    "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2b" \
+    "/staff-device/admin/sentry_dsn" \
+    "/staff-device/admin/$ENV/dns_private_zone" \
+    "/staff-device/dhcp/sentry_dsn" \
+    "/staff-device/dns/sentry_dsn" \
+    "/staff-device/corsham_testing/bastion_allowed_ingress_ip" \
+    "/staff-device/corsham_testing/bastion_allowed_egress_ip" \
+    --query Parameters)
+
+export PARAM4=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
+    "/staff-device/corsham_testing/corsham_vm_ip" \
+    "/staff-device/dns-dhcp/model_office_vm_ip" \
+    "/staff-device/$ENV/dhcp_egress_transit_gateway_routes" \
+    "/staff-device/dns/$ENV/public_ip_pool_id" \
+    "/staff-device/dns-dhcp/$ENV/enable_bastion" \
+    "/staff-device/dns-dhcp/admin/$ENV/allowed_ip_ranges" \
     "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role" \
+    "/codebuild/dhcp/admin/api/basic_auth_username" \
+    "/codebuild/dhcp/admin/api/basic_auth_password" \
     "/codebuild/staff_device_shared_services_account_id" \
     --query Parameters)
 
