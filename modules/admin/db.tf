@@ -12,7 +12,7 @@ resource "aws_db_instance" "admin_db" {
   apply_immediately           = true
   instance_class              = "db.t2.medium"
   identifier                  = "${var.prefix}-db"
-  db_name                        = replace(var.prefix, "-", "")
+  db_name                     = replace(var.prefix, "-", "")
   username                    = var.admin_db_username
   password                    = var.admin_db_password
   backup_retention_period     = var.admin_db_backup_retention_period
