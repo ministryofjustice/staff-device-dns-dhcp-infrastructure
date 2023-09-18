@@ -29,7 +29,7 @@ output "ecs_dhcp_api" {
 output "rds" {
   value = {
     endpoint = aws_db_instance.dhcp_server_db.endpoint
-    name     = aws_db_instance.dhcp_server_db.name
+    name     = aws_db_instance.dhcp_server_db.db_name
   }
 }
 
@@ -68,7 +68,7 @@ output "dhcp_config_bucket_key_arn" {
 }
 
 output "db_name" {
-  value = aws_db_instance.dhcp_server_db.name
+  value = aws_db_instance.dhcp_server_db.db_name
 }
 
 output "db_host" {
