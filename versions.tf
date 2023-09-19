@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.1.8"
+  required_version = "1.1.8"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -11,15 +11,15 @@ terraform {
     }
     mysql = {
       source  = "terraform-providers/mysql"
-      version = "~> 1.9"
+      version = "1.9"
     }
     template = {
       source  = "hashicorp/template"
-      version = "~> 2.2"
+      version = "2.2"
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "~> 3.3"
+      version = "3.3"
     }
   }
 }
