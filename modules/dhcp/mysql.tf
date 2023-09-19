@@ -17,7 +17,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   monitoring_interval         = 30
   monitoring_role_arn         = aws_iam_role.rds_monitoring_role.arn
   multi_az                    = true
-  db_name                        = replace(var.prefix, "-", "")
+  db_name                     = replace(var.prefix, "-", "")
   password                    = var.dhcp_db_password
   publicly_accessible         = false
   skip_final_snapshot         = true
