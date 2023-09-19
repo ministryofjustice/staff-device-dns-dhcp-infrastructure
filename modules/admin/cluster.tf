@@ -99,7 +99,7 @@ resource "aws_ecs_task_definition" "admin_task" {
           "value": "${var.admin_db_password}"
         },{
           "name": "DB_NAME",
-          "value": "${aws_db_instance.admin_db.name}"
+          "value": "${aws_db_instance.admin_db.db_name}"
         },{
           "name": "DB_HOST",
           "value": "${aws_route53_record.admin_db.fqdn}"
