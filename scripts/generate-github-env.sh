@@ -38,12 +38,12 @@ echo "TF_VAR_enable_ssh_key_generation=false" >> $GITHUB_ENV
 ## We don't want to use the default variable's value here.
 echo "TF_VAR_enable_dhcp_cloudwatch_log_metrics=true" >> $GITHUB_ENV
 
-for key in "${!parameters[@]}"
+for key in "${!params[@]}"
 do
     ## uppercase key do not prefix with TF_VAR
     if [[ "${key}" =~ [A-Z] ]]; then
-        echo "${key}=${parameters[${key}]}" >> $GITHUB_ENV
+        echo "${key}=${params[${key}]}" >> $GITHUB_ENV
     else
-        echo "TF_VAR_${key}=${parameters[${key}]}" >> $GITHUB_ENV
+        echo "TF_VAR_${key}=${params[${key}]}" >> $GITHUB_ENV
     fi
 done

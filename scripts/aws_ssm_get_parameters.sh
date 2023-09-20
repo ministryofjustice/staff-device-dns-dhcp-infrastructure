@@ -1,15 +1,17 @@
+#!/usr/bin/env bash
+
 export PARAM=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
     "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role" \
     "/staff-device/dns/pdns/ips" \
-    "/staff-device/dns/pdns/ips_list" \
     "/codebuild/dhcp/$ENV/db/username" \
     "/codebuild/dhcp/$ENV/db/password" \
+    "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/azure_federation_metadata_url" \
     --query Parameters)
 
 export PARAM2=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
     "/codebuild/dhcp/$ENV/admin/db/username" \
     "/codebuild/dhcp/$ENV/admin/db/password" \
-    "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/azure_federation_metadata_url" \
+    "/staff-device/dns/pdns/ips_list" \
     "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/critical_notification_recipients" \
     "/codebuild/$ENV/vpn_hosted_zone_id" \
     "/route53/$ENV/vpn_hosted_zone_domain" \
@@ -45,44 +47,43 @@ export PARAM4=$(aws ssm get-parameters --region eu-west-2 --with-decryption --na
     "/codebuild/staff_device_shared_services_account_id" \
     --query Parameters)
 
-declare -A parameters
+declare -A params
 
+params["assume_role"]="$(echo $PARAM | jq '.[] | select(.Name | test("assume_role")) | .Value' --raw-output)"
+params["pdns_ips"]="$(echo $PARAM | jq '.[] | select(.Name | test("dns/pdns/ips")) | .Value' --raw-output)"
+params["azure_federation_metadata_url"]="$(echo $PARAM | jq '.[] | select(.Name | test("azure_federation_metadata_url")) | .Value' --raw-output)"
+params["dhcp_db_username"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/username")) | .Value' --raw-output)"
+params["dhcp_db_password"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/password")) | .Value' --raw-output)"
 
-parameters["assume_role"]="$(echo $PARAM | jq '.[] | select(.Name | test("assume_role")) | .Value' --raw-output)"
-parameters["pdns_ips"]="$(echo $PARAM | jq '.[] | select(.Name | test("dns/pdns/ips")) | .Value' --raw-output)"
-parameters["pdns_ips_list"]="$(echo $PARAM | jq '.[] | select(.Name | test("dns/pdns/ips_list")) | .Value' --raw-output)"
-parameters["dhcp_db_username"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/username")) | .Value' --raw-output)"
-parameters["dhcp_db_password"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/password")) | .Value' --raw-output)"
+params["admin_db_username"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/db/username")) | .Value' --raw-output)"
+params["admin_db_password"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/db/password")) | .Value' --raw-output)"
+params["pdns_ips_list"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("dns/pdns/ips_list")) | .Value' --raw-output)"
+params["critical_notification_recipients"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("critical_notification_recipients")) | .Value' --raw-output)"
+params["vpn_hosted_zone_id"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("vpn_hosted_zone_id")) | .Value' --raw-output)"
+params["vpn_hosted_zone_domain"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("vpn_hosted_zone_domain")) | .Value' --raw-output)"
+params["dhcp_transit_gateway_id"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("transit_gateway_id")) | .Value' --raw-output)"
+params["transit_gateway_route_table_id"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("transit_gateway_route_table_id")) | .Value' --raw-output)"
+params["dhcp_load_balancer_private_ip_eu_west_2a"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("load_balancer_private_ip_eu_west_2a")) | .Value' --raw-output)"
+params["dhcp_load_balancer_private_ip_eu_west_2b"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("load_balancer_private_ip_eu_west_2b")) | .Value' --raw-output)"
 
-parameters["admin_db_username"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("admin/db/username")) | .Value' --raw-output)"
-parameters["admin_db_password"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("admin/db/password")) | .Value' --raw-output)"
-parameters["azure_federation_metadata_url"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("azure_federation_metadata_url")) | .Value' --raw-output)"
-parameters["critical_notification_recipients"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("critical_notification_recipients")) | .Value' --raw-output)"
-parameters["vpn_hosted_zone_id"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("vpn_hosted_zone_id")) | .Value' --raw-output)"
-parameters["vpn_hosted_zone_domain"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("vpn_hosted_zone_domain")) | .Value' --raw-output)"
-parameters["dhcp_transit_gateway_id"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("transit_gateway_id")) | .Value' --raw-output)"
-parameters["transit_gateway_route_table_id"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("transit_gateway_route_table_id")) | .Value' --raw-output)"
-parameters["dhcp_load_balancer_private_ip_eu_west_2a"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("load_balancer_private_ip_eu_west_2a")) | .Value' --raw-output)"
-parameters["dhcp_load_balancer_private_ip_eu_west_2b"]="$(echo $PARAM1 | jq '.[] | select(.Name | test("load_balancer_private_ip_eu_west_2b")) | .Value' --raw-output)"
+params["dns_load_balancer_private_ip_eu_west_2a"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("load_balancer_private_ip_eu_west_2a")) | .Value' --raw-output)"
+params["dns_load_balancer_private_ip_eu_west_2b"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("load_balancer_private_ip_eu_west_2b")) | .Value' --raw-output)"
+params["dns_route53_resolver_ip_eu_west_2a"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("dns_route53_resolver_ip_eu_west_2a")) | .Value' --raw-output)"
+params["dns_route53_resolver_ip_eu_west_2b"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("dns_route53_resolver_ip_eu_west_2b")) | .Value' --raw-output)"
+params["admin_sentry_dsn"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("admin/sentry_dsn")) | .Value' --raw-output)"
+params["dns_private_zone"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("dns_private_zone")) | .Value' --raw-output)"
+params["dhcp_sentry_dsn"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("dhcp/sentry_dsn")) | .Value' --raw-output)"
+params["dns_sentry_dsn"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("dns/sentry_dsn")) | .Value' --raw-output)"
+params["bastion_allowed_ingress_ip"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("bastion_allowed_ingress_ip")) | .Value' --raw-output)"
+params["bastion_allowed_egress_ip"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("bastion_allowed_egress_ip")) | .Value' --raw-output)"
 
-parameters["dns_load_balancer_private_ip_eu_west_2a"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("load_balancer_private_ip_eu_west_2a")) | .Value' --raw-output)"
-parameters["dns_load_balancer_private_ip_eu_west_2b"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("load_balancer_private_ip_eu_west_2b")) | .Value' --raw-output)"
-parameters["dns_route53_resolver_ip_eu_west_2a"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("dns_route53_resolver_ip_eu_west_2a")) | .Value' --raw-output)"
-parameters["dns_route53_resolver_ip_eu_west_2b"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("dns_route53_resolver_ip_eu_west_2b")) | .Value' --raw-output)"
-parameters["admin_sentry_dsn"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/sentry_dsn")) | .Value' --raw-output)"
-parameters["dns_private_zone"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("dns_private_zone")) | .Value' --raw-output)"
-parameters["dhcp_sentry_dsn"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("dhcp/sentry_dsn")) | .Value' --raw-output)"
-parameters["dns_sentry_dsn"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("dns/sentry_dsn")) | .Value' --raw-output)"
-parameters["bastion_allowed_ingress_ip"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("bastion_allowed_ingress_ip")) | .Value' --raw-output)"
-parameters["bastion_allowed_egress_ip"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("bastion_allowed_egress_ip")) | .Value' --raw-output)"
-
-parameters["corsham_vm_ip"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("corsham_vm_ip")) | .Value' --raw-output)"
-parameters["model_office_vm_ip"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("model_office_vm_ip")) | .Value' --raw-output)"
-parameters["dhcp_egress_transit_gateway_routes"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("dhcp_egress_transit_gateway_routes")) | .Value' --raw-output)"
-parameters["byoip_pool_id"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("public_ip_pool_id")) | .Value' --raw-output)"
-parameters["enable_corsham_test_bastion"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("enable_bastion")) | .Value' --raw-output)"
-parameters["allowed_ip_ranges"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("allowed_ip_ranges")) | .Value' --raw-output)"
-parameters["ROLE_ARN"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("assume_role")) | .Value' --raw-output)"
-parameters["api_basic_auth_username"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("basic_auth_username")) | .Value' --raw-output)"
-parameters["api_basic_auth_password"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("basic_auth_password")) | .Value' --raw-output)"
-parameters["shared_services_account_id"]="$(echo $PARAM3 | jq '.[] | select(.Name | test("staff_device_shared_services_account_id")) | .Value' --raw-output)"
+params["corsham_vm_ip"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("corsham_vm_ip")) | .Value' --raw-output)"
+params["model_office_vm_ip"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("model_office_vm_ip")) | .Value' --raw-output)"
+params["dhcp_egress_transit_gateway_routes"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("dhcp_egress_transit_gateway_routes")) | .Value' --raw-output)"
+params["byoip_pool_id"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("public_ip_pool_id")) | .Value' --raw-output)"
+params["enable_corsham_test_bastion"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("enable_bastion")) | .Value' --raw-output)"
+params["allowed_ip_ranges"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("allowed_ip_ranges")) | .Value' --raw-output)"
+params["ROLE_ARN"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("assume_role")) | .Value' --raw-output)"
+params["api_basic_auth_username"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("basic_auth_username")) | .Value' --raw-output)"
+params["api_basic_auth_password"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("basic_auth_password")) | .Value' --raw-output)"
+params["shared_services_account_id"]="$(echo $PARAM4 | jq '.[] | select(.Name | test("staff_device_shared_services_account_id")) | .Value' --raw-output)"

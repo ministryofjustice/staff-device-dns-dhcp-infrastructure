@@ -65,6 +65,8 @@ export AWS_VAULT_PROFILE=mojo-shared-services-cli
 
 ### ${ENV} ###
 export ENV=${ENV}
+export TF_VAR_env=${ENV}
+
 
 
 ## buildspec defaults
@@ -105,13 +107,13 @@ export TF_VAR_enable_dhcp_cloudwatch_log_metrics=true
 
 EOF
 
-for key in "${!parameters[@]}"
+for key in "${!params[@]}"
 do
     ## uppercase key do not prefix with TF_VAR
     if [[ "${key}" =~ [A-Z] ]]; then
-        echo "export ${key}=${parameters[${key}]}"  >> ./.env
+        echo "export ${key}=${params[${key}]}"  >> ./.env
     else
-        echo "export TF_VAR_${key}=${parameters[${key}]}"  >> ./.env
+        echo "export TF_VAR_${key}=${params[${key}]}"  >> ./.env
     fi
 done
 
