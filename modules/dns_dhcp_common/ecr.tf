@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "3.75.0"
+      version = "5.14.0"
     }
   }
 }
@@ -26,7 +26,7 @@ resource "aws_ecr_repository_policy" "docker_repository_policy" {
         {
             "Sid": "1",
             "Effect": "Allow",
-            "Principal":{ 
+            "Principal":{
               "AWS": ["${data.aws_caller_identity.current.account_id}","${var.shared_services_account_id}"]
             },
             "Action": [

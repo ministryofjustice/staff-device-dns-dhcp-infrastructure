@@ -9,6 +9,10 @@ init:
 	aws-vault exec $$AWS_VAULT_PROFILE -- terraform init -reconfigure \
 	--backend-config="key=terraform.$$ENV.state"
 
+init-upgrade:
+	aws-vault exec $$AWS_VAULT_PROFILE -- terraform init -upgrade \
+	--backend-config="key=terraform.$$ENV.state"
+
 workspace-list:
 	aws-vault exec $$AWS_VAULT_PROFILE -- terraform workspace list
 
