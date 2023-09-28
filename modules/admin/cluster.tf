@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "3.75.0"
+      version = "5.14.0"
     }
   }
 }
@@ -44,7 +44,7 @@ resource "aws_ecr_repository_policy" "admin_docker_dhcp_repository_policy" {
         {
             "Sid": "1",
             "Effect": "Allow",
-            "Principal":{ 
+            "Principal":{
               "AWS": ["${data.aws_caller_identity.current.account_id}", "${var.shared_services_account_id}"]
             },
             "Action": [
@@ -99,7 +99,7 @@ resource "aws_ecs_task_definition" "admin_task" {
           "value": "${var.admin_db_password}"
         },{
           "name": "DB_NAME",
-          "value": "${aws_db_instance.admin_db.name}"
+          "value": "${aws_db_instance.admin_db.db_name}"
         },{
           "name": "DB_HOST",
           "value": "${aws_route53_record.admin_db.fqdn}"

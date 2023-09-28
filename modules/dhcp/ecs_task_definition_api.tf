@@ -22,7 +22,7 @@ resource "aws_ecs_task_definition" "api_server_task" {
     "environment": [
       {
         "name": "DB_NAME",
-        "value": "${aws_db_instance.dhcp_server_db.name}"
+        "value": "${aws_db_instance.dhcp_server_db.db_name}"
       },
       {
         "name": "DB_USER",

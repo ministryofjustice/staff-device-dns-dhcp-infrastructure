@@ -2,15 +2,16 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "3.75.0"
+      version = "5.14.0"
     }
   }
 }
 
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "3.14.0"
-  name    = var.prefix
+  source = "../vpc_hashicorp"
+  # source  = "terraform-aws-modules/vpc/aws"
+  # version = "3.14.0"
+  name = var.prefix
 
   cidr                 = var.cidr_block
   enable_nat_gateway   = true
