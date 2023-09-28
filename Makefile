@@ -54,7 +54,10 @@ clean:
 generate-tfvars:
 	./scripts/generate_tfvars.sh
 
+tfenv:
+	tfenv use $(cat versions.tf 2> /dev/null | grep required_version | cut -d "\"" -f 2 | cut -d " " -f 2) && tfenv pin
 
 .PHONY:
 	fmt init workspace-list workspace-select validate plan-out plan \
-	refresh output apply state-list show destroy clean generate-tfvars
+	refresh output apply state-list show destroy clean generate-tfvars \
+	tfenv
