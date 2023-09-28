@@ -8,10 +8,10 @@ terraform {
 }
 
 module "vpc" {
-  source  = "../vpc_hashicorp"
+  source = "../vpc_hashicorp"
   # source  = "terraform-aws-modules/vpc/aws"
   # version = "3.14.0"
-  name    = var.prefix
+  name = var.prefix
 
   cidr                 = var.cidr_block
   enable_nat_gateway   = true
