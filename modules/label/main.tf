@@ -15,7 +15,7 @@ module "label" {
     "business-unit" = "HQ"
     "application"   = "dhcp-dns",
     "is-production" = tostring(local.is_production)
-    "owner"         = "NVVS DevOps Team:${var.owner_email}"
+    "owner"         = "NVVS DevOps Team: ${var.owner_email}"
 
     "environment-name" = terraform.workspace
     "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
