@@ -77,10 +77,6 @@ export TF_VAR_env=${ENV}
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
 ## We don't want to use the default variable's value here.
-export TF_VAR_owner_email=staff-device-dns-dhcp@justice.gov.uk
-
-## This value has been applied to the envs via AWS CodePipeline CI.
-## We don't want to use the default variable's value here.
 export TF_VAR_enable_critical_notifications=true
 
 ## This value has been applied to the envs via AWS CodePipeline CI.

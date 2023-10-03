@@ -41,26 +41,31 @@ locals {
 module "dhcp_label" {
   source       = "./modules/label"
   service_name = "dhcp"
+  owner_email = var.owner_email
 }
 
 module "dhcp_standby_label" {
   source       = "./modules/label"
   service_name = "dhcp-standby"
+  owner_email = var.owner_email
 }
 
 module "heartbeat_label" {
   source       = "./modules/label"
   service_name = "dns-dhcp-heartbeat"
+  owner_email = var.owner_email
 }
 
 module "admin_label" {
   source       = "./modules/label"
   service_name = "admin"
+  owner_email = var.owner_email
 }
 
 module "auth_label" {
   source       = "./modules/label"
   service_name = "auth"
+  owner_email = var.owner_email
 }
 
 data "aws_region" "current_region" {}
@@ -283,6 +288,7 @@ module "corsham_test_bastion" {
 module "dns_label" {
   source       = "./modules/label"
   service_name = "dns"
+  owner_email = var.owner_email
 }
 
 module "dhcp_dns_vpc_flow_logs" {
