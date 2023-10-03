@@ -40,30 +40,21 @@ Assuming you have been granted necessary access permissions to the Shared Servic
 
 ## Prepare the variables
 
-1. Copy `.env.example` to `.env`
-1. Modify the `.env` file and provide values for variables as below:
+Run the following command, enter your AWS-VAULT password when requested. The script will retrive the SSM Parameters (by default for development environment) and write out a `.env` file.
+This file is used by the Makefile to source the TF_VARS required.
 
-| Variables             | How?                                                                                                                                                                                                                                         |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AWS_PROFILE=`        | your **AWS-CLI** profile name for the **Shared Services** AWS account. Check [this guide](https://ministryofjustice.github.io/nvvs-devops/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) if you need help. |
-| `AWS_DEFAULT_REGION=` | `eu-west-2`                                                                                                                                                                                                                                  |
-| `ENV=`                | your unique terraform workspace name. :bell:                                                                                                                                                                                                 |
+```shell
+export AWS_PROFILE=mojo-shared-services-cli
+
+./scripts/generate-env-file.sh
+```
+
+
 
 | :bell: HELP                                                                                                            |
 | :--------------------------------------------------------------------------------------------------------------------- |
 | See [Create Terraform workspace](#create-terraform-workspace) section to find out how to create a terraform workspace! |
 
-## terraform.tfvars
-
-This file is used to set default local development variables, which Terraform depends on.
-
-When creating infrastructure through the build pipeline, these variables are retrieved from SSM Parameter Store and used by Terraform.
-
-You can find an example of the variables file in SSM Parameter store in the Shared Services AWS account.
-
-The name of the parameter is: `/staff-device/dns-dhcp/terraform.tfvars`
-
-Please ensure to replace '[your-tf-workspace]' with your own workspace name in the example `tfvars` file.
 
 ## Initialize your Terraform
 
@@ -94,7 +85,7 @@ This should create a new workspace and select that new workspace at the same tim
 > ### Select a Terraform workspace
 >
 > ```shell
-> AWS_PROFILE=mojo-shared-services-cli terraform workspace select "YOUR_WORKSPACE_NAME"
+> make workspace-select "YOUR_WORKSPACE_NAME"
 > ```
 
 ## Finally spin up your own Infra
