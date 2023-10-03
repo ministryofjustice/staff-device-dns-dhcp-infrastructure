@@ -10,10 +10,6 @@ SCRIPT_PATH="${SCRIPT_DIR}/aws_ssm_get_parameters.sh"
 
 ## This value has been applied to the envs via AWS CodePipeline CI.
 ## We don't want to use the default variable's value here.
-echo "TF_VAR_owner_email=staff-device-dns-dhcp@justice.gov.uk" >> $GITHUB_ENV
-
-## This value has been applied to the envs via AWS CodePipeline CI.
-## We don't want to use the default variable's value here.
 echo "TF_VAR_enable_critical_notifications=true" >> $GITHUB_ENV
 
 ## This value has been applied to the envs via AWS CodePipeline CI.

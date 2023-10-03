@@ -182,3 +182,8 @@ variable "api_basic_auth_password" {
 variable "shared_services_account_id" {
   type = string
 }
+
+variable "owner_email" {
+  type    = string
+  default = "lanwifi-devops@digital.justice.gov.uk"
+}
