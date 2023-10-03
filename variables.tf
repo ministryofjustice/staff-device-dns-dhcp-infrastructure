@@ -187,3 +187,7 @@ variable "owner_email" {
   type    = string
   default = "lanwifi-devops@digital.justice.gov.uk"
 }
+variable "enable_bastion_jumpbox" {
+  type    = bool
+  default = false
+}

@@ -262,6 +262,30 @@ module "dns" {
   }
 }
 
+module "bastion_label" {
+  source        = "./modules/label"
+  service_name  = "dns-bastion"
+  owner_email   = var.owner_email
+}
+
+module "bastion" {
+  source          = "./modules/bastion"
+  prefix          = module.bastion_label.id
+  vpc_id          = module.servers_vpc.vpc.vpc_id
+  vpc_cidr_block  = module.servers_vpc.vpc.vpc_cidr_block
+  private_subnets = module.servers_vpc.vpc.private_subnets
+  //bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
+  tags = module.bastion_label.tags
+
+  providers = {
+    aws = aws.env
+  }
+
+  depends_on = [module.servers_vpc]
+
+  count = var.enable_bastion_jumpbox == true ? 1 : 0
+}
+
 module "corsham_test_bastion" {
   source = "./modules/corsham_test"
 
@@ -284,6 +308,7 @@ module "corsham_test_bastion" {
 
   count = var.enable_corsham_test_bastion == true ? 1 : 0
 }
+
 
 module "dns_label" {
   source       = "./modules/label"
