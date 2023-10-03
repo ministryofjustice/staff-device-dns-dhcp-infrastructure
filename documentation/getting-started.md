@@ -49,12 +49,9 @@ export AWS_PROFILE=mojo-shared-services-cli
 ./scripts/generate-env-file.sh
 ```
 
-
-
 | :bell: HELP                                                                                                            |
 | :--------------------------------------------------------------------------------------------------------------------- |
 | See [Create Terraform workspace](#create-terraform-workspace) section to find out how to create a terraform workspace! |
-
 
 ## Initialize your Terraform
 
