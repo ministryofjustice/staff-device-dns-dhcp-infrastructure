@@ -263,9 +263,9 @@ module "dns" {
 }
 
 module "bastion_label" {
-  source        = "./modules/label"
-  service_name  = "dns-bastion"
-  owner_email   = var.owner_email
+  source       = "./modules/label"
+  service_name = "dns-bastion"
+  owner_email  = var.owner_email
 }
 
 module "bastion" {
