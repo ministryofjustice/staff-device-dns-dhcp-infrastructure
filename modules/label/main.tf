@@ -7,13 +7,17 @@ module "label" {
   name      = var.service_name
   delimiter = "-"
 
+local{
+ is_production = "${terraform.workspace == "production" ? "true" : "false"}"
+}
+
   tags = {
     "business-unit" = "HQ"
     "application"   = "dhcp-dns",
-    "is-production" = "true"
-    "owner"         = "NVVS DevOps Team https://ministryofjustice.github.io/nvvs-devops"
+    "is-production" = tostring(local.is_production)
+    "owner"         = "NVVS DevOps Team:${var.owner_email}"
 
-    "environment-name" = "global"
+    "environment-name" = terraform.workspace.environment
     "source-code"      = "https://github.com/ministryofjustice/staff-device-dns-dhcp-infrastructure"
   }
 }
