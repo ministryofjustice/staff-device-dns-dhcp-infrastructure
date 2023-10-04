@@ -6,6 +6,7 @@ export PARAM=$(aws ssm get-parameters --region eu-west-2 --with-decryption --nam
     "/codebuild/dhcp/$ENV/db/username" \
     "/codebuild/dhcp/$ENV/db/password" \
     "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/azure_federation_metadata_url" \
+    "/staff-device/dns-dhcp/$ENV/enable_bastion_jumpbox" \
     --query Parameters)
 
 export PARAM2=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
@@ -54,6 +55,7 @@ params["pdns_ips"]="$(echo $PARAM | jq '.[] | select(.Name | test("dns/pdns/ips"
 params["azure_federation_metadata_url"]="$(echo $PARAM | jq '.[] | select(.Name | test("azure_federation_metadata_url")) | .Value' --raw-output)"
 params["dhcp_db_username"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/username")) | .Value' --raw-output)"
 params["dhcp_db_password"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/password")) | .Value' --raw-output)"
+params["enable_bastion_jumpbox"]="$(echo $PARAM | jq '.[] | select(.Name | test("enable_bastion_jumpbox")) | .Value' --raw-output)"
 
 params["admin_db_username"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/db/username")) | .Value' --raw-output)"
 params["admin_db_password"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/db/password")) | .Value' --raw-output)"
