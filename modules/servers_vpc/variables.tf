@@ -48,6 +48,6 @@ variable "model_office_vm_ip" {
 }
 
 variable "ssm_session_manager_endpoints" {
-  type = bool
+  type    = bool
   default = false
 }
