@@ -46,3 +46,8 @@ variable "corsham_vm_ip" {
 variable "model_office_vm_ip" {
   type = string
 }
+
+variable "ssm_session_manager_endpoints" {
+  type    = bool
+  default = false
+}

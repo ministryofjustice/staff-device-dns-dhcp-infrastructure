@@ -42,7 +42,7 @@ env:
     TF_VAR_dhcp_egress_transit_gateway_routes: "/staff-device/$ENV/dhcp_egress_transit_gateway_routes"
     TF_VAR_byoip_pool_id: "/staff-device/dns/$ENV/public_ip_pool_id"
     TF_VAR_enable_corsham_test_bastion: "/staff-device/dns-dhcp/$ENV/enable_bastion"
-    TF_VAR_enable_bastion_jumpbox: "/staff-device/dns-dhcp/$ENV/enable_bastion_jumpbox"
+    TF_VAR_enable_load_testing: "/staff-device/dns-dhcp/$ENV/enable_load_testing"
     TF_VAR_allowed_ip_ranges: "/staff-device/dns-dhcp/admin/$ENV/allowed_ip_ranges"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
     TF_VAR_api_basic_auth_username: "/codebuild/dhcp/admin/api/basic_auth_username"

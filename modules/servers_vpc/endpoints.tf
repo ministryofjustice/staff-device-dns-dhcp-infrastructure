@@ -64,6 +64,7 @@ resource "aws_vpc_endpoint" "s3" {
 // endpoints required for session manager
 
 resource "aws_vpc_endpoint" "ssm" {
+  count               = var.ssm_session_manager_endpoints ? 1 : 0
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.private_subnets
   service_name        = "com.amazonaws.${var.region}.ssm"
@@ -75,6 +76,7 @@ resource "aws_vpc_endpoint" "ssm" {
 }
 
 resource "aws_vpc_endpoint" "ssmmessages" {
+  count               = var.ssm_session_manager_endpoints ? 1 : 0
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.private_subnets
   service_name        = "com.amazonaws.${var.region}.ssmmessages"
@@ -86,6 +88,7 @@ resource "aws_vpc_endpoint" "ssmmessages" {
 }
 
 resource "aws_vpc_endpoint" "ec2messages" {
+  count               = var.ssm_session_manager_endpoints ? 1 : 0
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.private_subnets
   service_name        = "com.amazonaws.${var.region}.ec2messages"
@@ -97,6 +100,7 @@ resource "aws_vpc_endpoint" "ec2messages" {
 }
 
 resource "aws_vpc_endpoint" "kms" {
+  count               = var.ssm_session_manager_endpoints ? 1 : 0
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.private_subnets
   service_name        = "com.amazonaws.${var.region}.kms"
