@@ -34,7 +34,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+    values = ["nvvs-devops/loadtesting/ubuntu-jammy-22.04-amd64-server-1.0.0"]
   }
 
   filter {
@@ -42,5 +42,10 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  #   filter {
+  #   name = "tag:env_${terraform.workspace}"
+  #   values = ["true"]
+  # }
+
+  owners = ["683290208331"] # shared services accunt
 }
