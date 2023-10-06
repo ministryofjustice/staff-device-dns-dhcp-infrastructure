@@ -7,6 +7,7 @@ export PARAM=$(aws ssm get-parameters --region eu-west-2 --with-decryption --nam
     "/codebuild/dhcp/$ENV/db/password" \
     "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/azure_federation_metadata_url" \
     "/staff-device/dns-dhcp/$ENV/enable_load_testing" \
+    "/staff-device/dns-dhcp/$ENV/number_of_load_testing_nodes" \
     --query Parameters)
 
 export PARAM2=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
@@ -56,6 +57,7 @@ params["azure_federation_metadata_url"]="$(echo $PARAM | jq '.[] | select(.Name 
 params["dhcp_db_username"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/username")) | .Value' --raw-output)"
 params["dhcp_db_password"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/password")) | .Value' --raw-output)"
 params["enable_load_testing"]="$(echo $PARAM | jq '.[] | select(.Name | test("enable_load_testing")) | .Value' --raw-output)"
+params["number_of_load_testing_nodes"]="$(echo $PARAM | jq '.[] | select(.Name | test("number_of_load_testing_nodes")) | .Value' --raw-output)"
 
 params["admin_db_username"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/db/username")) | .Value' --raw-output)"
 params["admin_db_password"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/db/password")) | .Value' --raw-output)"

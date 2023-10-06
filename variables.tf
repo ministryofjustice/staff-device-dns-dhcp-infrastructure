@@ -191,3 +191,7 @@ variable "enable_load_testing" {
   type    = bool
   default = false
 }
+
+variable "number_of_load_testing_nodes" {
+  type = number
+}
