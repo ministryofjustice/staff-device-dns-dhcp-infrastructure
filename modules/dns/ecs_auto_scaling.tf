@@ -6,7 +6,7 @@ resource "aws_appautoscaling_target" "auth_ecs_target" {
   scalable_dimension = "ecs:service:DesiredCount"
 }
 
-resource "aws_appautoscaling_policy" "ecs_policy_up" {
+resource "aws_appautoscaling_policy" "ecs_policy_up_average" {
   name               = "ECS Scale Up"
   service_namespace  = "ecs"
   policy_type        = "StepScaling"
@@ -16,6 +16,26 @@ resource "aws_appautoscaling_policy" "ecs_policy_up" {
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
     metric_aggregation_type = "Average"
+
+    step_adjustment {
+      metric_interval_lower_bound = 0
+      scaling_adjustment          = 1
+    }
+  }
+
+  depends_on = [aws_appautoscaling_target.auth_ecs_target]
+}
+
+resource "aws_appautoscaling_policy" "ecs_policy_up_max" {
+  name               = "ECS Scale Up"
+  service_namespace  = "ecs"
+  policy_type        = "StepScaling"
+  resource_id        = "service/${aws_ecs_cluster.server_cluster.name}/${aws_ecs_service.service.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+
+  step_scaling_policy_configuration {
+    adjustment_type         = "ChangeInCapacity"
+    metric_aggregation_type = "Maximum"
 
     step_adjustment {
       metric_interval_lower_bound = 0
@@ -64,7 +84,8 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_alarm_high" {
   alarm_description = "This alarm tells ECS to scale up based on high CPU"
 
   alarm_actions = [
-    aws_appautoscaling_policy.ecs_policy_up.arn
+    aws_appautoscaling_policy.ecs_policy_up_average.arn,
+    aws_appautoscaling_policy.ecs_policy_up_max.arn
   ]
 
   treat_missing_data = "breaching"
