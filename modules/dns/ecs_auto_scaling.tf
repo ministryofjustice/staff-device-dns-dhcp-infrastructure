@@ -85,7 +85,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_average_alarm_high" {
   alarm_description = "This alarm tells ECS to scale up based on average high CPU"
 
   alarm_actions = [
-      aws_appautoscaling_policy.ecs_policy_up_average.arn
+    aws_appautoscaling_policy.ecs_policy_up_average.arn
   ]
 
   treat_missing_data = "breaching"
@@ -109,7 +109,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_maximum_alarm_high" {
   alarm_description = "This alarm tells ECS to scale up based on maxmium high CPU"
 
   alarm_actions = [
-      aws_appautoscaling_policy.ecs_policy_up_max.arn
+    aws_appautoscaling_policy.ecs_policy_up_max.arn
   ]
 
   treat_missing_data = "breaching"
