@@ -2,7 +2,7 @@ resource "aws_appautoscaling_target" "auth_ecs_target" {
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.server_cluster.name}/${aws_ecs_service.service.name}"
   max_capacity       = 12
-  min_capacity       = 2
+  min_capacity       = terraform.workspace == "production" ? 3 : 2
   scalable_dimension = "ecs:service:DesiredCount"
 }
 
@@ -48,7 +48,7 @@ resource "aws_appautoscaling_policy" "ecs_policy_up_max" {
 }
 
 resource "aws_appautoscaling_policy" "ecs_policy_down" {
-  name               = "ECS Scale Down"
+  name               = "ECS Scale Down Average"
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.server_cluster.name}/${aws_ecs_service.service.name}"
   policy_type        = "StepScaling"
@@ -57,6 +57,7 @@ resource "aws_appautoscaling_policy" "ecs_policy_down" {
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
     metric_aggregation_type = "Average"
+    cooldown                = 300
 
     step_adjustment {
       metric_interval_upper_bound = 0
@@ -116,14 +117,14 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_maximum_alarm_high" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "ecs_cpu_alarm_low" {
-  alarm_name          = "${var.prefix}-ecs-cpu-alarm-low"
+  alarm_name          = "${var.prefix}-ecs-cpu-alarm-low-average"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
   period              = "60"
   statistic           = "Average"
-  threshold           = "1"
+  threshold           = "20"
 
   dimensions = {
     ClusterName = aws_ecs_cluster.server_cluster.name
