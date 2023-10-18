@@ -1,5 +1,5 @@
 #!make
-SHELL := '/usr/local/opt/bash/bin/bash'
+SHELL := '/bin/bash'
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 include .env
 export
@@ -9,12 +9,11 @@ fmt:
 
 init:
 	docker run --rm -it \
-	-v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker \
 	-v $$(pwd):/data -w /data \
 	--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
 	--env-file <(env | grep ^TF_VAR_) \
-	hashicorp/terraform:1.1.8 \
-	init -reconfigure \
+	ghcr.io/thinkinglabs/terraform:v1.1.8 \
+	terraform init -reconfigure \
 	--backend-config="key=terraform.$$ENV.state"
 
 	# aws-vault exec $$AWS_VAULT_PROFILE -- terraform init -reconfigure \
@@ -28,13 +27,12 @@ workspace-list:
 	aws-vault exec $$AWS_VAULT_PROFILE -- terraform workspace list
 
 workspace-select:
-	docker run --rm -it \
-	-v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker \
+	docker run --rm \
 	-v $$(pwd):/data -w /data \
 	--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
 	--env-file <(env | grep ^TF_VAR_) \
-	hashicorp/terraform:1.1.8 \
-	workspace select $$ENV
+	ghcr.io/thinkinglabs/terraform:v1.1.8 \
+	terraform workspace select $$ENV
 
 	# aws-vault exec $$AWS_VAULT_PROFILE -- terraform workspace select $$ENV || \
 	# aws-vault exec $$AWS_VAULT_PROFILE -- terraform workspace new $$ENV
@@ -46,13 +44,12 @@ plan-out:
 	aws-vault exec $$AWS_VAULT_PROFILE -- terraform plan -no-color > $$ENV.tfplan
 
 plan:
-	docker run --rm -it \
-	-v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker \
+	docker run --rm \
 	-v $$(pwd):/data -w /data \
 	--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
 	--env-file <(env | grep ^TF_VAR_) \
-	hashicorp/terraform:1.1.8 \
-	plan
+	ghcr.io/thinkinglabs/terraform:v1.1.8 \
+	terraform plan
 	#aws-vault exec $$AWS_VAULT_PROFILE -- terraform plan
 
 refresh:
