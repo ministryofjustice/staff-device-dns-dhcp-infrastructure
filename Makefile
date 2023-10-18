@@ -1,5 +1,6 @@
 #!make
 SHELL := '/usr/local/opt/bash/bin/bash'
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 include .env
 export
 
