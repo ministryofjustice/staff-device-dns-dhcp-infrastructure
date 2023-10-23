@@ -1,79 +1,71 @@
 #!make
 SHELL := '/bin/bash'
+
+CURRENT_TIME := `date "+%Y.%m.%d-%H.%M.%S"`
+TERRAFORM_VERSION := `cat versions.tf 2> /dev/null | grep required_version | cut -d "\\"" -f 2 | cut -d " " -f 2`
+
+#BUILD_TOOLS_DOCKER_IMAGE := ghcr.io/ministryofjustice/nvvs/terraform:initial-setup terraform
+BUILD_TOOLS_DOCKER_IMAGE := hashicorp/terraform:$(TERRAFORM_VERSION)
+
+DOCKER_RUN := @docker run --rm \
+				--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
+				--env-file <(env | grep ^TF_VAR_) \
+				-v `pwd`:/data \
+				--workdir /data \
+				--platform linux/amd64 \
+				$(BUILD_TOOLS_DOCKER_IMAGE)
+
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 include .env
-export
+
 
 fmt:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform fmt --recursive
+	$(DOCKER_RUN) fmt --recursive
 
 init:
-	docker run --rm -it \
-	-v $$(pwd):/data -w /data \
-	--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
-	--env-file <(env | grep ^TF_VAR_) \
-	ghcr.io/thinkinglabs/terraform:v1.1.8 \
-	terraform init -reconfigure \
-	--backend-config="key=terraform.$$ENV.state"
-
-	# aws-vault exec $$AWS_VAULT_PROFILE -- terraform init -reconfigure \
-	# --backend-config="key=terraform.$$ENV.state"
+	$(DOCKER_RUN) init --backend-config="key=terraform.$$ENV.state"
 
 init-upgrade:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform init -upgrade \
-	--backend-config="key=terraform.$$ENV.state"
+	$(DOCKER_RUN) init -upgrade --backend-config="key=terraform.$$ENV.state"
 
 workspace-list:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform workspace list
+	$(DOCKER_RUN) workspace list
 
 workspace-select:
-	docker run --rm \
-	-v $$(pwd):/data -w /data \
-	--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
-	--env-file <(env | grep ^TF_VAR_) \
-	ghcr.io/thinkinglabs/terraform:v1.1.8 \
-	terraform workspace select $$ENV
-
-	# aws-vault exec $$AWS_VAULT_PROFILE -- terraform workspace select $$ENV || \
-	# aws-vault exec $$AWS_VAULT_PROFILE -- terraform workspace new $$ENV
+	$(DOCKER_RUN) workspace select $$ENV || \
+	$(DOCKER_RUN) workspace new $$ENV
 
 validate:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform validate
+	$(DOCKER_RUN) validate
 
 plan-out:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform plan -no-color > $$ENV.tfplan
+	$(DOCKER_RUN) plan -no-color > $$ENV.$(CURRENT_TIME).tfplan
 
 plan:
-	docker run --rm \
-	-v $$(pwd):/data -w /data \
-	--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
-	--env-file <(env | grep ^TF_VAR_) \
-	ghcr.io/thinkinglabs/terraform:v1.1.8 \
-	terraform plan
-	#aws-vault exec $$AWS_VAULT_PROFILE -- terraform plan
+	$(DOCKER_RUN) plan
 
 refresh:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform refresh
+	$(DOCKER_RUN) refresh
 
 output:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform output -json
+	$(DOCKER_RUN) output -json
 
 apply:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform apply
+	$(DOCKER_RUN) apply
 	./scripts/publish_terraform_outputs.sh
 
 state-list:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform state list
+	$(DOCKER_RUN) state list
 
 show:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform show -no-color
+	$(DOCKER_RUN) show -no-color
 
 destroy:
-	aws-vault exec $$AWS_VAULT_PROFILE -- terraform destroy
+	$(DOCKER_RUN) destroy
 
 lock:
 	rm .terraform.lock.hcl
-	terraform providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64
+	$(DOCKER_RUN) providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64
 
 clean:
 	rm -rf .terraform/ terraform.tfstate*
