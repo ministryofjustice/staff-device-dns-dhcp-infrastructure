@@ -50,11 +50,29 @@ resource "aws_route" "transit-gateway" {
   ]
 }
 
-resource "aws_route" "pdns-route-2a-pdns-1" {
-  for_each = var.enable_dhcp_transit_gateway_attachment ? toset(module.vpc.private_route_table_ids) : []
+data "aws_route_tables" "availability_zone_2a" {
+  vpc_id = module.vpc.vpc_id
 
-  route_table_id         = each.value
-  destination_cidr_block = "${var.pdns_ips[0]}/32"
+  filter {
+    name   = "tag:Name"
+    values = ["staff-device-${terraform.workspace}-dhcp-dns-private-eu-west-2a"]
+  }
+}
+
+data "aws_route_tables" "availability_zone_2b" {
+  vpc_id = module.vpc.vpc_id
+
+  filter {
+    name   = "tag:Name"
+    values = ["staff-device-${terraform.workspace}-dhcp-dns-private-eu-west-2b"]
+  }
+}
+
+resource "aws_route" "pdns-route-2a-pdns-1" {
+  for_each = toset(var.pdns_ips)
+
+  route_table_id         = var.enable_dhcp_transit_gateway_attachment ? data.aws_route_tables.availability_zone_2a.ids[0] : null
+  destination_cidr_block = "${each.value}/32"
   nat_gateway_id         = aws_nat_gateway.eu_west_2a.id
 
   timeouts {
@@ -66,12 +84,12 @@ resource "aws_route" "pdns-route-2a-pdns-1" {
   ]
 }
 
-resource "aws_route" "pdns-route-2a-pdns-2" {
-  for_each = var.enable_dhcp_transit_gateway_attachment ? toset(module.vpc.private_route_table_ids) : []
+resource "aws_route" "pdns-route-2b-pdns-1" {
+  for_each = toset(var.pdns_ips)
 
-  route_table_id         = each.value
-  destination_cidr_block = "${var.pdns_ips[1]}/32"
-  nat_gateway_id         = aws_nat_gateway.eu_west_2a.id
+  route_table_id         = var.enable_dhcp_transit_gateway_attachment ? data.aws_route_tables.availability_zone_2b.ids[0] : null
+  destination_cidr_block = "${each.value}/32"
+  nat_gateway_id         = aws_nat_gateway.eu_west_2b.id
 
   timeouts {
     create = "5m"
