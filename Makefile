@@ -28,6 +28,11 @@ init:
 init-upgrade:
 	$(DOCKER_RUN) init -upgrade --backend-config="key=terraform.$$ENV.state"
 
+# How to use
+# IMPORT_ARGUMENT=module.foo.bar some_resource make import
+import:
+	aws-vault exec $$AWS_VAULT_PROFILE -- terraform import $$IMPORT_ARGUMENT
+
 workspace-list:
 	$(DOCKER_RUN) workspace list
 
