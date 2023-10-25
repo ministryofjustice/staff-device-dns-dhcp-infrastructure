@@ -10,6 +10,7 @@ DOCKER_IMAGE := ministryofjustice/nvvs/terraforms:latest
 DOCKER_RUN := @docker run --rm \
 				--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
 				--env-file <(env | grep ^TF_VAR_) \
+				--env-file <(env | grep ^ENV) \
 				-e TFENV_TERRAFORM_VERSION=$(TERRAFORM_VERSION) \
 				-v `pwd`:/data \
 				--workdir /data \
@@ -19,6 +20,7 @@ DOCKER_RUN := @docker run --rm \
 DOCKER_RUN_IT := @docker run --rm -it \
 				--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
 				--env-file <(env | grep ^TF_VAR_) \
+				--env-file <(env | grep ^ENV) \
 				-e TFENV_TERRAFORM_VERSION=$(TERRAFORM_VERSION) \
 				-v `pwd`:/data \
 				--workdir /data \
@@ -88,7 +90,7 @@ output: ## terraform output (make output OUTPUT_ARGUMENT='--raw dns_dhcp_vpc_id'
 .PHONY: apply
 apply: ## terraform apply
 	$(DOCKER_RUN) terraform apply
-	./scripts/publish_terraform_outputs.sh
+	$(DOCKER_RUN) /bin/bash -c "./scripts/publish_terraform_outputs.sh"
 
 .PHONY: state-list
 state-list: ## terraform state list
