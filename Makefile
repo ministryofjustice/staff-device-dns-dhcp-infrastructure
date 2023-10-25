@@ -5,7 +5,8 @@ SHELL := '/bin/bash'
 CURRENT_TIME := `date "+%Y.%m.%d-%H.%M.%S"`
 TERRAFORM_VERSION := `cat versions.tf 2> /dev/null | grep required_version | cut -d "\\"" -f 2 | cut -d " " -f 2`
 
-DOCKER_IMAGE := ministryofjustice/nvvs/terraforms:latest
+LOCAL_IMAGE := ministryofjustice/nvvs/terraforms:latest
+DOCKER_IMAGE := ghcr.io/ministryofjustice/nvvs/terraforms:v0.2.0
 
 DOCKER_RUN := @docker run --rm \
 				--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
