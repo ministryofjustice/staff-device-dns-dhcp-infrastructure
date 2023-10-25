@@ -1,83 +1,119 @@
 #!make
+.DEFAULT_GOAL := help
 SHELL := '/bin/bash'
 
 CURRENT_TIME := `date "+%Y.%m.%d-%H.%M.%S"`
 TERRAFORM_VERSION := `cat versions.tf 2> /dev/null | grep required_version | cut -d "\\"" -f 2 | cut -d " " -f 2`
 
-#BUILD_TOOLS_DOCKER_IMAGE := ghcr.io/ministryofjustice/nvvs/terraform:initial-setup terraform
-BUILD_TOOLS_DOCKER_IMAGE := hashicorp/terraform:$(TERRAFORM_VERSION)
+DOCKER_IMAGE := ministryofjustice/nvvs/terraforms:latest
 
 DOCKER_RUN := @docker run --rm \
 				--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
 				--env-file <(env | grep ^TF_VAR_) \
+				-e TFENV_TERRAFORM_VERSION=$(TERRAFORM_VERSION) \
 				-v `pwd`:/data \
 				--workdir /data \
 				--platform linux/amd64 \
-				$(BUILD_TOOLS_DOCKER_IMAGE)
+				$(DOCKER_IMAGE)
+
+DOCKER_RUN_IT := @docker run --rm -it \
+				--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
+				--env-file <(env | grep ^TF_VAR_) \
+				-e TFENV_TERRAFORM_VERSION=$(TERRAFORM_VERSION) \
+				-v `pwd`:/data \
+				--workdir /data \
+				--platform linux/amd64 \
+				$(DOCKER_IMAGE)
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 include .env
 
+TERRAFORM_OUTPUTS := `$(MAKE) output OUTPUT_ARGUMENT="--json terraform_outputs"`
+DNS_DHCP_VPC_ID := `$(MAKE) output OUTPUT_ARGUMENT="--raw dns_dhcp_vpc_id"`
 
-fmt:
-	$(DOCKER_RUN) fmt --recursive
+.PHONY: aws
+aws:  ## provide aws cli command as an arg e.g. (make aws AWSCLI_ARGUMENT="s3 ls")
+	$(DOCKER_RUN) /bin/bash -c "aws $$AWSCLI_ARGUMENT"
 
-init:
-	$(DOCKER_RUN) init --backend-config="key=terraform.$$ENV.state"
+.PHONY: shell
+shell: ## Run Docker container with interactive terminal
+	$(DOCKER_RUN_IT) /bin/bash
 
-init-upgrade:
-	$(DOCKER_RUN) init -upgrade --backend-config="key=terraform.$$ENV.state"
+.PHONY: fmt
+fmt: ## terraform fmt
+	$(DOCKER_RUN) terraform fmt --recursive
 
-# How to use
-# IMPORT_ARGUMENT=module.foo.bar some_resource make import
-import:
-	$(DOCKER_RUN) import $$IMPORT_ARGUMENT
+.PHONY: init
+init: ## terraform init (also selects env's workspace)
+	$(DOCKER_RUN) terraform init --backend-config="key=terraform.$$ENV.state"
+	$(MAKE) workspace-select
 
-workspace-list:
-	$(DOCKER_RUN) workspace list
+.PHONY: init-upgrade
+init-upgrade: ## terraform init -upgrade
+	$(DOCKER_RUN) terraform init -upgrade --backend-config="key=terraform.$$ENV.state"
 
-workspace-select:
-	$(DOCKER_RUN) workspace select $$ENV || \
-	$(DOCKER_RUN) workspace new $$ENV
+.PHONY: import
+import: ## terraform import e.g. (make import IMPORT_ARGUMENT=module.foo.bar some_resource)
+	$(DOCKER_RUN) terraform import $$IMPORT_ARGUMENT
 
-validate:
-	$(DOCKER_RUN) validate
+.PHONY: workspace-list
+workspace-list: ## terraform workspace list
+	$(DOCKER_RUN) terraform workspace list
 
-plan-out:
-	$(DOCKER_RUN) plan -no-color > $$ENV.$(CURRENT_TIME).tfplan
+.PHONY: workspace-select
+workspace-select: ## terraform workspace select
+	$(DOCKER_RUN) terraform workspace select $$ENV || \
+	$(DOCKER_RUN) terraform workspace new $$ENV
 
-plan:
-	$(DOCKER_RUN) plan
+.PHONY: validate
+validate: ## terraform validate
+	$(DOCKER_RUN) terraform validate
 
-refresh:
-	$(DOCKER_RUN) refresh
+.PHONY: plan-out
+plan-out: ## terraform plan - output to timestamped file
+	$(DOCKER_RUN) terraform plan -no-color > $$ENV.$(CURRENT_TIME).tfplan
 
-output:
-	$(DOCKER_RUN) output -json
+.PHONY: plan
+plan: ## terraform plan
+	$(DOCKER_RUN) terraform plan
 
-apply:
-	$(DOCKER_RUN) apply
+.PHONY: refresh
+refresh: ## terraform refresh
+	$(DOCKER_RUN) terraform refresh
+
+.PHONY: output
+output: ## terraform output (make output OUTPUT_ARGUMENT='--raw dns_dhcp_vpc_id')
+	$(DOCKER_RUN) terraform output -no-color $$OUTPUT_ARGUMENT
+
+.PHONY: apply
+apply: ## terraform apply
+	$(DOCKER_RUN) terraform apply
 	./scripts/publish_terraform_outputs.sh
 
-state-list:
-	$(DOCKER_RUN) state list
+.PHONY: state-list
+state-list: ## terraform state list
+	$(DOCKER_RUN) terraform state list
 
-show:
-	$(DOCKER_RUN) show -no-color
+.PHONY: show
+show: ## terraform show
+	$(DOCKER_RUN) terraform show -no-color
 
-destroy:
-	$(DOCKER_RUN) destroy
+.PHONY: destroy
+destroy: ## terraform destroy
+	$(DOCKER_RUN) terraform destroy
 
-lock:
+.PHONY: lock
+lock: ## terraform providers lock (reset hashes after upgrades prior to commit)
 	rm .terraform.lock.hcl
-	$(DOCKER_RUN) providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64
+	$(DOCKER_RUN) terraform providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64
 
-clean:
+.PHONY: clean
+clean: ## clean terraform cached providers etc
 	rm -rf .terraform/ terraform.tfstate*
 
-tfenv:
+.PHONY: tfenv
+tfenv: ## tfenv pin - terraform version from versions.tf
 	tfenv use $(cat versions.tf 2> /dev/null | grep required_version | cut -d "\"" -f 2 | cut -d " " -f 2) && tfenv pin
 
-.PHONY:
-	fmt init workspace-list workspace-select validate plan-out plan \
-	refresh output apply state-list show destroy lock clean tfenv
+help:
+	@grep -h -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
