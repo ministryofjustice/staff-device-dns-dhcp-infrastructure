@@ -29,10 +29,11 @@ DOCKER_RUN_IT := @docker run --rm -it \
 				$(DOCKER_IMAGE)
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
-include .env
 
-TERRAFORM_OUTPUTS := `$(MAKE) output OUTPUT_ARGUMENT="--json terraform_outputs"`
-DNS_DHCP_VPC_ID := `$(MAKE) output OUTPUT_ARGUMENT="--raw dns_dhcp_vpc_id"`
+.PHONY: debug
+debug:  ## debug
+	@echo "debug"
+	$(info target is $@)
 
 .PHONY: aws
 aws:  ## provide aws cli command as an arg e.g. (make aws AWSCLI_ARGUMENT="s3 ls")
