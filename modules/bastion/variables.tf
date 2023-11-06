@@ -30,7 +30,7 @@ variable "name" {
 variable "log_retention" {
   type        = number
   description = "The amount of days the logs need to be kept"
-  default     = 30
+  default     = 90
 }
 
 variable "number_of_bastions" {

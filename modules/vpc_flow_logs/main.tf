@@ -36,7 +36,7 @@ resource "aws_kms_alias" "vpc_flow_logs_kms_key_alias" {
 resource "aws_cloudwatch_log_group" "vpc_flow_logs_log_group" {
   name              = "${var.prefix}-vpc-flow-logs-log-group"
   kms_key_id        = aws_kms_key.vpc_flow_logs_kms_key.arn
-  retention_in_days = terraform.workspace == "development" ? 30 : 7
+  retention_in_days = 90
 
   tags = var.tags
 }
