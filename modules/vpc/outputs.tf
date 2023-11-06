@@ -13,3 +13,7 @@ output "public_subnet_cidr_blocks" {
 output "public_route_table_ids" {
   value = module.vpc.public_route_table_ids
 }
+
+output "vpc" {
+  value = module.vpc
+}
