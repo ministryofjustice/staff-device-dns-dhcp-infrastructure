@@ -48,7 +48,25 @@ fmt: ## terraform fmt
 	$(DOCKER_RUN) terraform fmt --recursive
 
 .PHONY: init
-init: ## terraform init (also selects env's workspace)
+init: ## terraform init (make init ENV_ARGUMENT=pre-production) NOTE: Will also select the env's workspace.
+
+## INFO: Do not indent the conditional below, make stops with an error.
+ifneq ("$(wildcard .env)","")
+$(info Using config file ".env")
+include .env
+init: -init
+else
+$(info Config file ".env" does not exist.)
+init: -init-gen-env
+endif
+
+.PHONY: -init-gen-env
+-init-gen-env:
+	$(MAKE) gen-env
+	$(MAKE) -init
+
+.PHONY: -init
+-init:
 	$(DOCKER_RUN) terraform init --backend-config="key=terraform.$$ENV.state"
 	$(MAKE) workspace-select
 
@@ -113,7 +131,11 @@ lock: ## terraform providers lock (reset hashes after upgrades prior to commit)
 
 .PHONY: clean
 clean: ## clean terraform cached providers etc
-	rm -rf .terraform/ terraform.tfstate*
+	rm -rf .terraform/ terraform.tfstate* .env
+
+.PHONY: gen-env
+gen-env: ## generate a ".env" file with the correct TF_VARS for the environment e.g. (make gen-env ENV_ARGUMENT=pre-production)
+	$(DOCKER_RUN) /bin/bash -c "./scripts/generate-env-file.sh $$ENV_ARGUMENT"
 
 .PHONY: tfenv
 tfenv: ## tfenv pin - terraform version from versions.tf
