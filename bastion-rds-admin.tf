@@ -20,5 +20,6 @@ module "rds_admin" {
   }
 
   depends_on = [module.servers_vpc]
-  count      = 1
+  // Set in SSM parameter store, true or false to enable or disable this module.
+  count = var.enable_rds_admin == true ? 1 : 0
 }

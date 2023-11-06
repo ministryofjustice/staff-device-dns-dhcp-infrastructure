@@ -90,7 +90,7 @@ module "servers_vpc" {
   region                                 = data.aws_region.current_region.id
   tags                                   = module.dhcp_label.tags
   transit_gateway_route_table_id         = var.transit_gateway_route_table_id
-  ssm_session_manager_endpoints          = var.enable_load_testing
+  ssm_session_manager_endpoints          = var.enable_rds_admin
 
   providers = {
     aws = aws.env
@@ -100,10 +100,11 @@ module "servers_vpc" {
 module "admin_vpc" {
   source = "./modules/vpc"
 
-  cidr_block = "10.0.0.0/16"
-  prefix     = "${module.dhcp_label.id}-admin"
-  region     = data.aws_region.current_region.id
-  tags       = module.admin_label.tags
+  cidr_block                    = "10.0.0.0/16"
+  prefix                        = "${module.dhcp_label.id}-admin"
+  region                        = data.aws_region.current_region.id
+  tags                          = module.admin_label.tags
+  ssm_session_manager_endpoints = var.enable_rds_admin
 
   providers = {
     aws = aws.env

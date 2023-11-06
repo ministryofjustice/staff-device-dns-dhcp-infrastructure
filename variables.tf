@@ -187,6 +187,7 @@ variable "owner_email" {
   type    = string
   default = "lanwifi-devops@digital.justice.gov.uk"
 }
+
 variable "enable_load_testing" {
   type    = bool
   default = false
@@ -194,4 +195,9 @@ variable "enable_load_testing" {
 
 variable "number_of_load_testing_nodes" {
   type = number
+}
+
+variable "enable_rds_admin" {
+  type    = bool
+  default = false
 }
