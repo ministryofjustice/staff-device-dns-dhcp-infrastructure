@@ -37,3 +37,8 @@ variable "number_of_bastions" {
   type    = number
   default = 1
 }
+
+variable "security_group_ids" {
+  type    = list(any)
+  default = []
+}
