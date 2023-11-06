@@ -19,3 +19,8 @@ variable "tags" {
   type = map(string)
 }
 
+variable "ssm_session_manager_endpoints" {
+  type    = bool
+  default = false
+}
+
