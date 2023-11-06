@@ -12,7 +12,7 @@ resource "aws_instance" "bastion" {
   instance_type = "t3a.small"
   count         = var.number_of_bastions
 
-  vpc_security_group_ids = append(security_group_ids, tolist(aws_security_group.bastion.id))
+  vpc_security_group_ids = setunion(var.security_group_ids, [aws_security_group.bastion.id])
 
   subnet_id                            = var.private_subnets[0]
   monitoring                           = true

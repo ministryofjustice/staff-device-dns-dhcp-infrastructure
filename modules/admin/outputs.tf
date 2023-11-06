@@ -17,3 +17,9 @@ output "ecs" {
 output "ecr" {
   value = aws_ecr_repository.admin_ecr.repository_url
 }
+
+output "security_group_ids" {
+  value = {
+    admin_ecs = aws_security_group.admin_ecs.id
+  }
+}
