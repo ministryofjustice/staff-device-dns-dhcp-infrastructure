@@ -60,7 +60,7 @@ data "template_file" "bucket_access_policy" {
 }
 
 resource "aws_iam_policy" "s3_bucket_access" {
-  name   = "s3-bucket-access"
+  name   = "${local.name}s3-bucket-access"
   policy = data.template_file.bucket_access_policy.rendered
 }
 

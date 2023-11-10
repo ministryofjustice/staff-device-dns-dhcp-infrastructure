@@ -31,7 +31,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = [var.ami_name]
+    values = ["${var.ami_name}"]
   }
 
   filter {
