@@ -49,3 +49,23 @@ resource "aws_iam_instance_profile" "this" {
   name = local.name
   role = aws_iam_role.iam_instance_role.name
 }
+
+## S3 Bucket Acccess
+data "template_file" "bucket_access_policy" {
+  template = file("${path.module}/policies/bucket_access_policy_template.json")
+
+  vars = {
+    s3_mojo_file_transfer_arn = "arn:aws:s3:::mojo-file-transfer"
+  }
+}
+
+resource "aws_iam_policy" "s3_bucket_access" {
+  name   = "s3-bucket-access"
+  policy = data.template_file.bucket_access_policy.rendered
+}
+
+resource "aws_iam_role_policy_attachment" "s3_bucket_access" {
+  role       = aws_iam_role.iam_instance_role.name
+  policy_arn = aws_iam_policy.s3_bucket_access.arn
+}
+

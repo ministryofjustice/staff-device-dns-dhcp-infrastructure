@@ -31,7 +31,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["nvvs-devops/loadtesting/ubuntu-jammy-22.04-amd64-server-1.0.0"]
+    values = [var.ami_name]
   }
 
   filter {
