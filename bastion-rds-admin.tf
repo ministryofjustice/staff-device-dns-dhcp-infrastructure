@@ -13,6 +13,7 @@ module "rds_admin" {
   security_group_ids = [module.admin.security_group_ids.admin_ecs]
   ami_name           = "diso-devops/bastion/rds-admin/ubuntu-jammy-22.04-amd64-server-1.0.1"
   number_of_bastions = 1
+  assume_role        = local.s3-mojo_file_transfer_assume_role_arn
   //bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
   tags = module.rds_admin_label.tags
 

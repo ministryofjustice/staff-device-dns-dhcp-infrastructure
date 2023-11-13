@@ -11,6 +11,7 @@ module "load_testing" {
   vpc_cidr_block     = module.servers_vpc.vpc.vpc_cidr_block
   private_subnets    = module.servers_vpc.vpc.private_subnets
   number_of_bastions = var.number_of_load_testing_nodes
+  assume_role        = local.s3-mojo_file_transfer_assume_role_arn
   #  ami_name           = "nvvs-devops/loadtesting/ubuntu-jammy-22.04-amd64-server-1.0.0"
   //bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
   tags = module.load_testing_label.tags

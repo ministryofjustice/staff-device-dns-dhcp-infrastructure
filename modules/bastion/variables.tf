@@ -48,3 +48,8 @@ variable "ami_name" {
   description = "The ami name"
   default     = "diso-devops/bastion/rds-admin/ubuntu-jammy-22.04-amd64-server-1.0.1"
 }
+
+variable "assume_role" {
+  type = string
+  description = "The name for the role the instance assumes for S3 bucket access"
+}
