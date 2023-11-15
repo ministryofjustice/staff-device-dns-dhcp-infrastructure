@@ -13,7 +13,7 @@ module "load_testing" {
   number_of_bastions = var.number_of_load_testing_nodes
   assume_role        = local.s3-mojo_file_transfer_assume_role_arn
   ami_name           = "nvvs-devops/loadtesting/ubuntu-jammy-22.04-amd64-server-1.0.0"
-  tags = module.load_testing_label.tags
+  tags               = module.load_testing_label.tags
 
   providers = {
     aws = aws.env
