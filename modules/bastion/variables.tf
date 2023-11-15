@@ -50,6 +50,11 @@ variable "ami_name" {
 }
 
 variable "assume_role" {
-  type = string
+  type        = string
   description = "The name for the role the instance assumes for S3 bucket access"
+}
+
+variable "associate_public_ip_address" {
+  type    = bool
+  default = false
 }

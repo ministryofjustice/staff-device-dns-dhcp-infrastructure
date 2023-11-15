@@ -16,7 +16,7 @@ resource "aws_instance" "bastion" {
 
   subnet_id                            = var.private_subnets[0]
   monitoring                           = true
-  associate_public_ip_address          = false
+  associate_public_ip_address          = var.associate_public_ip_address
   iam_instance_profile                 = aws_iam_instance_profile.this.id
   instance_initiated_shutdown_behavior = "terminate"
   tags                                 = var.tags
