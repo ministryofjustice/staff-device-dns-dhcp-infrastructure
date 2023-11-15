@@ -12,15 +12,11 @@ resource "aws_instance" "bastion" {
   instance_type = "t3a.small"
   count         = var.number_of_bastions
 
-  vpc_security_group_ids = [
-    aws_security_group.bastion.id
-  ]
-
-
+  vpc_security_group_ids = setunion(var.security_group_ids, [aws_security_group.bastion.id])
 
   subnet_id                            = var.private_subnets[0]
   monitoring                           = true
-  associate_public_ip_address          = false
+  associate_public_ip_address          = var.associate_public_ip_address
   iam_instance_profile                 = aws_iam_instance_profile.this.id
   instance_initiated_shutdown_behavior = "terminate"
   tags                                 = var.tags
@@ -35,7 +31,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["nvvs-devops/loadtesting/ubuntu-jammy-22.04-amd64-server-1.0.0"]
+    values = ["${var.ami_name}"]
   }
 
   filter {

@@ -20,5 +20,4 @@ output "public_route_table_ids" {
 
 output "vpc" {
   value = module.vpc
-
 }

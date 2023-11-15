@@ -37,3 +37,24 @@ variable "number_of_bastions" {
   type    = number
   default = 1
 }
+
+variable "security_group_ids" {
+  type    = list(any)
+  default = []
+}
+
+variable "ami_name" {
+  type        = string
+  description = "The ami name"
+  default     = "diso-devops/bastion/rds-admin/ubuntu-jammy-22.04-amd64-server-1.0.1"
+}
+
+variable "assume_role" {
+  type        = string
+  description = "The name for the role the instance assumes for S3 bucket access"
+}
+
+variable "associate_public_ip_address" {
+  type    = bool
+  default = false
+}
