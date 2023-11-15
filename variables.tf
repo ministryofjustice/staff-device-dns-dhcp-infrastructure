@@ -197,7 +197,7 @@ variable "number_of_load_testing_nodes" {
   type = number
 }
 
-variable "enable_rds_admin" {
+variable "enable_rds_admin_bastion" {
   type    = bool
   default = false
 }
