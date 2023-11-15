@@ -109,7 +109,7 @@ output: ## terraform output (make output OUTPUT_ARGUMENT='--raw dns_dhcp_vpc_id'
 
 .PHONY: apply
 apply: ## terraform apply
-	$(DOCKER_RUN) terraform apply -auto-approve
+	$(DOCKER_RUN_IT) terraform apply
 	$(DOCKER_RUN) /bin/bash -c "./scripts/publish_terraform_outputs.sh"
 
 .PHONY: state-list
