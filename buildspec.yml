@@ -43,6 +43,7 @@ env:
     TF_VAR_byoip_pool_id: "/staff-device/dns/$ENV/public_ip_pool_id"
     TF_VAR_enable_corsham_test_bastion: "/staff-device/dns-dhcp/$ENV/enable_bastion"
     TF_VAR_enable_load_testing: "/staff-device/dns-dhcp/$ENV/enable_load_testing"
+    TF_VAR_enable_rds_admin: "/staff-device/dns-dhcp/$ENV/enable_rds_admin"
     TF_VAR_number_of_load_testing_nodes: "/staff-device/dns-dhcp/$ENV/number_of_load_testing_nodes"
     TF_VAR_allowed_ip_ranges: "/staff-device/dns-dhcp/admin/$ENV/allowed_ip_ranges"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
