@@ -15,7 +15,6 @@ module "rds_admin_bastion" {
   number_of_bastions          = 1
   assume_role                 = local.s3-mojo_file_transfer_assume_role_arn
   associate_public_ip_address = true
-  //bastion_allowed_ingress_ip = var.bastion_allowed_ingress_ip
   tags = module.rds_admin_bastion_label.tags
 
   providers = {
