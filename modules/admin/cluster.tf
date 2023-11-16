@@ -21,7 +21,7 @@ resource "aws_ecs_cluster" "admin_cluster" {
 resource "aws_cloudwatch_log_group" "admin_log_group" {
   name = "${var.prefix}-log-group"
 
-  retention_in_days = terraform.workspace == "development" ? 30 : 7
+  retention_in_days = 90
 
   tags = var.tags
 }
