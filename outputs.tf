@@ -3,6 +3,7 @@ output "terraform_outputs" {
     dhcp = {
       ecs = module.dhcp.ecs
       ecr = module.dhcp.ecr
+      db  = module.dhcp.db
     }
 
     dhcp_standby = {

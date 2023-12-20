@@ -79,6 +79,16 @@ output "db_port" {
   value = aws_db_instance.dhcp_server_db.port
 }
 
+output "db" {
+  value = {
+    address  = aws_db_instance.dhcp_server_db.address
+    name     = aws_db_instance.dhcp_server_db.db_name
+    fqdn     = aws_route53_record.dhcp_db.fqdn
+    port     = aws_db_instance.dhcp_server_db.port
+    endpoint = aws_db_instance.dhcp_server_db.endpoint
+  }
+}
+
 output "ec2" {
   value = {
     dhcp_server_security_group_id = aws_security_group.dhcp_server.id
