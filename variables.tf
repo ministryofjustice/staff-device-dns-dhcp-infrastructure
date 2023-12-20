@@ -201,3 +201,8 @@ variable "enable_rds_admin_bastion" {
   type    = bool
   default = false
 }
+
+variable "enable_rds_servers_bastion" {
+  type    = bool
+  default = false
+}
