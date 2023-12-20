@@ -9,6 +9,7 @@ export PARAM=$(aws ssm get-parameters --region eu-west-2 --with-decryption --nam
     "/staff-device/dns-dhcp/$ENV/enable_load_testing" \
     "/staff-device/dns-dhcp/$ENV/number_of_load_testing_nodes" \
     "/staff-device/dns-dhcp/$ENV/enable_rds_admin_bastion" \
+    "/staff-device/dns-dhcp/$ENV/enable_rds_servers_bastion" \
     --query Parameters)
 
 export PARAM2=$(aws ssm get-parameters --region eu-west-2 --with-decryption --names \
@@ -60,6 +61,7 @@ params["dhcp_db_password"]="$(echo $PARAM | jq '.[] | select(.Name | test("db/pa
 params["enable_load_testing"]="$(echo $PARAM | jq '.[] | select(.Name | test("enable_load_testing")) | .Value' --raw-output)"
 params["number_of_load_testing_nodes"]="$(echo $PARAM | jq '.[] | select(.Name | test("number_of_load_testing_nodes")) | .Value' --raw-output)"
 params["enable_rds_admin_bastion"]="$(echo $PARAM | jq '.[] | select(.Name | test("enable_rds_admin_bastion")) | .Value' --raw-output)"
+params["enable_rds_servers_bastion"]="$(echo $PARAM | jq '.[] | select(.Name | test("enable_rds_servers_bastion")) | .Value' --raw-output)"
 
 params["admin_db_username"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/db/username")) | .Value' --raw-output)"
 params["admin_db_password"]="$(echo $PARAM2 | jq '.[] | select(.Name | test("admin/db/password")) | .Value' --raw-output)"
