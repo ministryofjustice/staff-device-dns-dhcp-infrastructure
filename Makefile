@@ -6,7 +6,7 @@ CURRENT_TIME := `date "+%Y.%m.%d-%H.%M.%S"`
 TERRAFORM_VERSION := `cat versions.tf 2> /dev/null | grep required_version | cut -d "\\"" -f 2 | cut -d " " -f 2`
 
 LOCAL_IMAGE := ministryofjustice/nvvs/terraforms:latest
-DOCKER_IMAGE := ghcr.io/ministryofjustice/nvvs/terraforms:v0.2.0
+DOCKER_IMAGE := ghcr.io/ministryofjustice/nvvs/terraforms:latest
 
 DOCKER_RUN := @docker run --rm \
 				--env-file <(aws-vault exec $$AWS_PROFILE -- env | grep ^AWS_) \
@@ -136,6 +136,14 @@ clean: ## clean terraform cached providers etc
 .PHONY: gen-env
 gen-env: ## generate a ".env" file with the correct TF_VARS for the environment e.g. (make gen-env ENV_ARGUMENT=pre-production)
 	$(DOCKER_RUN) /bin/bash -c "./scripts/generate-env-file.sh $$ENV_ARGUMENT"
+
+.PHONY: aws_describe_instances
+aws_describe_instances: ## Use AWS CLI to describe EC2 instances - outputs a table with instance id, type, IP and name for current environment
+	$(DOCKER_RUN) /bin/bash -c "./scripts/aws_describe_instances.sh"
+
+.PHONY: aws_ssm_start_session
+aws_ssm_start_session: ## Use AWS CLI to start SSM session on an EC2 instance (make aws_ssm_start_session INSTANCE_ID=i-01d4de517c7336ff3)
+	$(DOCKER_RUN_IT) /bin/bash -c "./scripts/aws_ssm_start_session.sh $$INSTANCE_ID"
 
 .PHONY: tfenv
 tfenv: ## tfenv pin - terraform version from versions.tf
