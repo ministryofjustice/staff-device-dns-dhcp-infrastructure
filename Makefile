@@ -143,7 +143,7 @@ aws_describe_instances: ## Use AWS CLI to describe EC2 instances - outputs a tab
 
 .PHONY: aws_ssm_start_session
 aws_ssm_start_session: ## Use AWS CLI to start SSM session on an EC2 instance (make aws_ssm_start_session INSTANCE_ID=i-01d4de517c7336ff3)
-	$(DOCKER_RUN) /bin/bash -c "./scripts/aws_ssm_start_session.sh $$INSTANCE_ID"
+	$(DOCKER_RUN_IT) /bin/bash -c "./scripts/aws_ssm_start_session.sh $$INSTANCE_ID"
 
 .PHONY: tfenv
 tfenv: ## tfenv pin - terraform version from versions.tf
