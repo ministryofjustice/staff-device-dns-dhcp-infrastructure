@@ -23,3 +23,16 @@ output "security_group_ids" {
     admin_ecs = aws_security_group.admin_ecs.id
   }
 }
+
+output "db" {
+  value = {
+    arn                 = aws_db_instance.admin_db.arn
+    endpoint            = aws_db_instance.admin_db.endpoint
+    fqdn                = aws_route53_record.admin_db.fqdn
+    id                  = aws_db_instance.admin_db.id
+    name                = aws_db_instance.admin_db.db_name
+    port                = aws_db_instance.admin_db.port
+    rds_monitoring_role = aws_iam_role.rds_monitoring_role.arn
+    username            = aws_db_instance.admin_db.username
+  }
+}

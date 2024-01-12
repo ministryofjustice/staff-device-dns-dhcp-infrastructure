@@ -82,10 +82,13 @@ output "db_port" {
 output "db" {
   value = {
     address  = aws_db_instance.dhcp_server_db.address
-    name     = aws_db_instance.dhcp_server_db.db_name
-    fqdn     = aws_route53_record.dhcp_db.fqdn
-    port     = aws_db_instance.dhcp_server_db.port
+    arn      = aws_db_instance.dhcp_server_db.arn
     endpoint = aws_db_instance.dhcp_server_db.endpoint
+    fqdn     = aws_route53_record.dhcp_db.fqdn
+    id       = aws_db_instance.dhcp_server_db.id
+    name     = aws_db_instance.dhcp_server_db.db_name
+    port     = aws_db_instance.dhcp_server_db.port
+    username = aws_db_instance.dhcp_server_db.username
   }
 }
 
