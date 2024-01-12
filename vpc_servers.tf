@@ -13,7 +13,7 @@ module "servers_vpc" {
   region                                 = data.aws_region.current_region.id
   tags                                   = module.dhcp_label.tags
   transit_gateway_route_table_id         = var.transit_gateway_route_table_id
-  ssm_session_manager_endpoints          = var.enable_load_testing
+  ssm_session_manager_endpoints          = var.enable_load_testing || var.enable_rds_servers_bastion ? true : false
 
   providers = {
     aws = aws.env
