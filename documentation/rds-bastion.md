@@ -7,18 +7,19 @@ The bastion doesn't have any service exposed to the public like a "jump box" bas
 The routine is
 
 - Enable
+
   - Enable the bastion via an "enable" flag set in AWS SSM Parameter Store to `true`.
   - Deploy by running the CI pipeline.
   - Create an SSM Session.
   - Carry out required procedure
 
 - Configure
+
   - Simple set up to enable assuming a role
 
 - Removal
   - Disallow the bastion via an "enable" flag set in AWS SSM Parameter Store to `false`.
   - Omit by running the CI pipeline.
-
 
 ## Enable
 
@@ -40,6 +41,7 @@ make aws_describe_instances
 ```
 
 Then identify the running bastion host
+
 ```
 i-019174128cf7b4563|  t3a.small  |  None           |  running |  mojo-production-rds-admin-bastion
 ```
@@ -80,7 +82,7 @@ then access to the s3 bucket
 
 ```
 aws s3 ls s3://mojo-file-transfer/ --profile s3-role;
-````
+```
 
 ## Get a DB dump
 
@@ -93,16 +95,19 @@ make shell
 the issue a terraform command to get the database details
 
 Admin (dhcp & dns)
+
 ```shell
 terraform output -json terraform_outputs | jq '.admin.db'
 ```
 
 DHCP
+
 ```shell
 terraform output -json terraform_outputs | jq '.dhcp.db'
 ```
 
-Admin (NAC)* note: NAC code used `rds` as module name.
+Admin (NAC)\* note: NAC code used `rds` as module name.
+
 ```shell
 terraform output -json terraform_outputs | jq '.admin.rds'
 ```
@@ -113,7 +118,7 @@ To get the password run
 ./scripts/get_db_parameters.sh
 ```
 
-##   DHCP Database Backup and Restore
+## DHCP Database Backup and Restore
 
 In order to connect to the database the following items will be needed.
 
@@ -168,7 +173,7 @@ show databases;
 ### Use the database and see the table names
 
 ```sql
-mysql> 
+mysql>
 use staffdevicedevelopmentdhcpadmin;
 show tables;
 ```
