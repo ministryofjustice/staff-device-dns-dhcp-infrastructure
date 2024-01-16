@@ -31,6 +31,7 @@ This repository defines the **system infrastructure only**. Specific components 
 - [Networking](documentation/networking.md)
 - [Disaster Recovery](documentation/disaster-recovery.md)
 - [Incident Reports](documentation/incident-reports.md)
+- [Database Access - dump with bastion](documentation/rds-bastion.md)
 
 ## Architecture
 
