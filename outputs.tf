@@ -19,9 +19,15 @@ output "terraform_outputs" {
       ecr = module.dns.ecr
     }
 
+    servers = {
+      vpc = module.servers_vpc.vpc_brief
+    }
+
     admin = {
       ecs = module.admin.ecs
       ecr = module.admin.ecr
+      db  = module.admin.db
+      vpc = module.admin_vpc.vpc_brief
     }
 
     metrics_namespace = var.metrics_namespace
