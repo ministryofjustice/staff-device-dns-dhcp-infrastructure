@@ -4,14 +4,14 @@ locals {
 
 resource "aws_db_instance" "dhcp_server_db" {
   allocated_storage           = 20
-  allow_major_version_upgrade = false
+  allow_major_version_upgrade = true
   apply_immediately           = true
   auto_minor_version_upgrade  = true
   backup_retention_period     = local.is_production ? "30" : "0"
   db_subnet_group_name        = aws_db_subnet_group.db.name
   deletion_protection         = local.is_production ? true : false
   engine                      = "mysql"
-  engine_version              = "5.7"
+  engine_version              = "8.0"
   identifier                  = "${var.prefix}-db"
   instance_class              = local.is_production ? "db.t2.large" : "db.t2.medium"
   monitoring_interval         = 30
@@ -28,7 +28,7 @@ resource "aws_db_instance" "dhcp_server_db" {
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
 
-  parameter_group_name = aws_db_parameter_group.dhcp_db_parameter_group.name
+  parameter_group_name = aws_db_parameter_group.dhcp_db_parameter_group_8_0.name
 
   tags = var.tags
 }
@@ -53,5 +53,29 @@ resource "aws_db_parameter_group" "dhcp_db_parameter_group" {
   parameter {
     name  = "log_bin_trust_function_creators"
     value = "1"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_db_parameter_group" "dhcp_db_parameter_group_8_0" {
+  name        = "${var.prefix}-db-parameter-group-8-0"
+  family      = "mysql8.0"
+  description = "DHCP DB parameter group"
+
+  parameter {
+    name  = "sql_mode"
+    value = "STRICT_ALL_TABLES"
+  }
+
+  parameter {
+    name  = "log_bin_trust_function_creators"
+    value = "1"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
