@@ -66,4 +66,7 @@ resource "aws_cognito_identity_provider" "cognito_identity_provider" {
     email             = "email"
     "custom:app_role" = "https://aws.amazon.com/SAML/Attributes/Role"
   }
+  lifecycle {
+    ignore_changes = [provider_details]
+  }
 }
