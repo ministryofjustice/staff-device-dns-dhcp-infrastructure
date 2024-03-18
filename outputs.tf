@@ -45,3 +45,7 @@ output "terraform_outputs" {
 output "dns_dhcp_vpc_id" {
   value = module.servers_vpc.vpc_id
 }
+
+output "dhcp_xsiam_s3_bucket" {
+  value = module.kinesis_firehose_xsiam.xsiam_s3_bucket_name
+}
