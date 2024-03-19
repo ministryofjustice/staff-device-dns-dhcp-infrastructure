@@ -20,8 +20,8 @@ resource "aws_kinesis_firehose_delivery_stream" "xsiam_delivery_stream" {
     s3_configuration {
       role_arn           = aws_iam_role.xsiam_kinesis_firehose_role.arn
       bucket_arn         = aws_s3_bucket.xsiam_firehose_bucket.arn
-      buffering_size        = 10
-      buffering_interval    = 400
+      buffering_size     = 10
+      buffering_interval = 400
       compression_format = "GZIP"
     }
     cloudwatch_logging_options {
