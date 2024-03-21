@@ -57,3 +57,17 @@ module "auth_label" {
   service_name = "auth"
   owner_email  = var.owner_email
 }
+
+module "kinesis_firehose_xsiam" {
+  source                                = "./modules/kinesis_firehose_xsiam"
+  http_endpoint                         = jsondecode(data.aws_secretsmanager_secret_version.xsiam_secrets_version.secret_string)["http_endpoint"]
+  access_key                            = jsondecode(data.aws_secretsmanager_secret_version.xsiam_secrets_version.secret_string)["access_key"]
+  prefix                                = "${module.dhcp_label.id}-xsiam"
+  tags                                  = module.dhcp_label.tags
+  cloudwatch_log_group_for_subscription = module.dhcp.cloudwatch.server_log_group_name
+
+  providers = {
+    aws = aws.env
+  }
+}
+
