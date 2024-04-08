@@ -8,7 +8,7 @@ resource "aws_db_instance" "admin_db" {
   engine                      = "mysql"
   engine_version              = "8.0"
   auto_minor_version_upgrade  = true
-  allow_major_version_upgrade = true
+  allow_major_version_upgrade = false
   apply_immediately           = true
   instance_class              = "db.t2.medium"
   identifier                  = "${var.prefix}-db"

@@ -4,7 +4,7 @@ locals {
 
 resource "aws_db_instance" "dhcp_server_db" {
   allocated_storage           = 20
-  allow_major_version_upgrade = true
+  allow_major_version_upgrade = fales
   apply_immediately           = true
   auto_minor_version_upgrade  = true
   backup_retention_period     = local.is_production ? "30" : "0"
