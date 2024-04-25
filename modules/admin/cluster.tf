@@ -69,6 +69,30 @@ resource "aws_ecr_repository_policy" "admin_docker_dhcp_repository_policy" {
 EOF
 }
 
+resource "aws_ecr_lifecycle_policy" "lifecycle_policy" {
+  repository = aws_ecr_repository.admin_ecr.name
+
+  policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire images older than 90 days",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "imageCountMoreThan",
+                "countNumber": 15
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+
+EOF
+}
+
 resource "aws_ecs_task_definition" "admin_task" {
   family                   = "${var.prefix}-task"
   requires_compatibilities = ["FARGATE"]
