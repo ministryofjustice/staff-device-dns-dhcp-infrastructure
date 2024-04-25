@@ -77,7 +77,7 @@ resource "aws_ecr_lifecycle_policy" "lifecycle_policy" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire images older than 90 days",
+            "description": "Expire older versions of untagged images, keeping the latest 15",
             "selection": {
                 "tagStatus": "untagged",
                 "countType": "imageCountMoreThan",
