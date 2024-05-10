@@ -11,7 +11,7 @@ aws_describe_instances() {
 	--output text
 }
 
-instances=""
+echo "" > instances.txt
 
 input="prod-ec2-publicip.txt"
 ######################################
