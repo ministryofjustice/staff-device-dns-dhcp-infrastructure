@@ -34,6 +34,7 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 debug:  ## debug
 	@echo "debug"
 	$(info target is $@)
+	echo $$AWS_PROFILE
 
 .PHONY: aws
 aws:  ## provide aws cli command as an arg e.g. (make aws AWSCLI_ARGUMENT="s3 ls")
@@ -148,6 +149,10 @@ aws_ssm_start_session: ## Use AWS CLI to start SSM session on an EC2 instance (m
 .PHONY: tfenv
 tfenv: ## tfenv pin - terraform version from versions.tf
 	tfenv use $(cat versions.tf 2> /dev/null | grep required_version | cut -d "\"" -f 2 | cut -d " " -f 2) && tfenv pin
+
+.PHONY: iplist
+iplist: ## terraform apply
+	$(DOCKER_RUN) /bin/bash -c "./scripts/describe-instances.sh"
 
 help:
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
