@@ -40,6 +40,7 @@ module "dhcp_standby" {
   tags                                = module.dhcp_standby_label.tags
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   vpc_id                              = module.servers_vpc.vpc_id
+  env                                 = var.env
 
   providers = {
     aws = aws.env
