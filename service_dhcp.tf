@@ -69,6 +69,8 @@ module "dhcp" {
   vpc_id                               = module.servers_vpc.vpc_id
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
+  env                                  = var.env
+
 
   providers = {
     aws = aws.env
