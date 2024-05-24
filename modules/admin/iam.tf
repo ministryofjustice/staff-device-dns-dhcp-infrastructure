@@ -60,9 +60,19 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
+#resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment" {
+#  role       = aws_iam_role.ecs_execution_role.name
+#  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+#}
+
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment" {
+  for_each = toset([
+    "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy", 
+    "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
+  ])
+
   role       = aws_iam_role.ecs_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  policy_arn = each.value
 }
 
 resource "aws_iam_role" "rds_monitoring_role" {
