@@ -1,13 +1,13 @@
 data "aws_caller_identity" "current" {}
 
-output "account_id" {
-  value = local.account_id
-}
-
 locals {
   memory     = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "4096" : "1024"
   cpu        = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "2048" : "512"
   account_id = data.aws_caller_identity.current.account_id
+}
+
+output "account_id" {
+  value = local.account_id
 }
 
 resource "aws_ecs_task_definition" "server_task" {

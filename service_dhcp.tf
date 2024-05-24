@@ -21,7 +21,7 @@ module "dhcp_standby" {
 
   dhcp_db_host                        = module.dhcp.db_host
   dhcp_db_password                    = var.dhcp_db_password
-  dhcp_db_username                    = var.dhcp_db_username
+  #dhcp_db_username                    = var.dhcp_db_username
   dhcp_log_search_metric_filters      = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
   dhcp_repository_url                 = module.dhcp.ecr.repository_url
   dhcp_server_cluster_id              = module.dhcp.ecs.cluster_id
@@ -56,7 +56,7 @@ module "dhcp" {
   shared_services_account_id           = var.shared_services_account_id
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   dhcp_db_password                     = var.dhcp_db_password
-  dhcp_db_username                     = var.dhcp_db_username
+  #dhcp_db_username                     = var.dhcp_db_username
   dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
   load_balancer_private_ip_eu_west_2a  = var.dhcp_load_balancer_private_ip_eu_west_2a
   load_balancer_private_ip_eu_west_2b  = var.dhcp_load_balancer_private_ip_eu_west_2b
