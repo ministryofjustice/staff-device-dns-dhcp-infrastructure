@@ -226,11 +226,11 @@ resource "aws_ecs_task_definition" "admin_task" {
         },
         {
           "name": "API_BASIC_AUTH_USERNAME",
-          "valueFrom": "arn:aws:ssm:eu-west-2:${local.account_id}:parameter/codebuild/dhcp/admin/api/basic_auth_username"
+          "valueFrom": "arn:aws:ssm:eu-west-2:${local.account_id}:parameter/codebuild/dhcp/${var.env}/admin/api/basic_auth_username"
         },
         {
           "name": "API_BASIC_AUTH_PASSWORD",
-          "valueFrom": "arn:aws:ssm:eu-west-2:${local.account_id}:parameter/codebuild/dhcp/admin/api/basic_auth_password"
+          "valueFrom": "arn:aws:ssm:eu-west-2:${local.account_id}:parameter/codebuild/dhcp/${var.env}/admin/api/basic_auth_password"
         }
     ], 
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",

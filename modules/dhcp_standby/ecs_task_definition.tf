@@ -38,6 +38,10 @@ resource "aws_ecs_task_definition" "server_task" {
     "name": "dhcp-server",
     "environment": [
       {
+        "name": "DB_NAME",
+        "value": "${var.dhcp_server_db_name}"
+      },
+      {
         "name": "DB_HOST",
         "value": "${var.dhcp_db_host}"
       },
