@@ -2,9 +2,9 @@ variable "assume_role" {
   type = string
 }
 
-#variable "dhcp_db_username" {
-#  type = string
-#}
+variable "dhcp_db_username" {
+  type = string
+}
 
 variable "dhcp_db_password" {
   type = string
