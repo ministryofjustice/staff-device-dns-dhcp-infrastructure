@@ -3,7 +3,7 @@ locals {
 }
 
 data "aws_ssm_parameter" "dhcp_db_username" {
-  name = "arn:aws:ssm:eu-west-2:${local.account_id}:parameter/codebuild/dhcp/${var.env}/db/username"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/username"
 }
 
 resource "aws_db_instance" "dhcp_server_db" {

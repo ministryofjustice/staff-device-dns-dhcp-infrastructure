@@ -1,13 +1,5 @@
 data "aws_caller_identity" "current" {}
 
-locals {
-  account_id = data.aws_caller_identity.current.account_id
-}
-
-output "account_id" {
-  value = local.account_id
-}
-
 resource "aws_ecs_task_definition" "server_task" {
   family                   = "${var.prefix}-server-task"
   task_role_arn            = module.dns_dhcp_common.iam.ecs_task_role_arn
@@ -42,7 +34,7 @@ resource "aws_ecs_task_definition" "server_task" {
     "secrets": [
       {
         "name": "SENTRY_DSN",
-        "valueFrom": "arn:aws:ssm:eu-west-2:${local.account_id}:parameter/staff-device/dhcp/sentry_dsn"
+        "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/staff-device/dhcp/sentry_dsn"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
