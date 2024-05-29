@@ -1,8 +1,8 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  memory     = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "4096" : "1024"
-  cpu        = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "2048" : "512"
+  memory = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "4096" : "1024"
+  cpu    = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "2048" : "512"
 }
 
 resource "aws_ecs_task_definition" "server_task" {
