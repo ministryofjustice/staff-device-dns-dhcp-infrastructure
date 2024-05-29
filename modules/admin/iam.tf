@@ -62,7 +62,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment" {
   for_each = toset([
-    "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy", 
+    "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
     "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
   ])
 
