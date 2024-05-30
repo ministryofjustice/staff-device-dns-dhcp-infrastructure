@@ -91,7 +91,3 @@ variable "metrics_namespace" {
 variable "dhcp_log_search_metric_filters" {
   type = set(string)
 }
-
-variable "env" {
-  type = string
-}

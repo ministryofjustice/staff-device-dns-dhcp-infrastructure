@@ -37,7 +37,6 @@ module "admin" {
   api_basic_auth_username              = var.api_basic_auth_username
   api_basic_auth_password              = var.api_basic_auth_password
   shared_services_account_id           = var.shared_services_account_id
-  env                                  = var.env
 
   depends_on = [
     module.admin_vpc
