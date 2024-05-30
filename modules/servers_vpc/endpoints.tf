@@ -61,10 +61,10 @@ resource "aws_vpc_endpoint" "s3" {
   tags            = var.tags
 }
 
-// endpoints required for session manager
+
+// enpoint required for bastions and ecs task get ssm parameters
 
 resource "aws_vpc_endpoint" "ssm" {
-  count               = var.ssm_session_manager_endpoints ? 1 : 0
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.private_subnets
   service_name        = "com.amazonaws.${var.region}.ssm"
@@ -75,8 +75,9 @@ resource "aws_vpc_endpoint" "ssm" {
   depends_on          = [aws_security_group.endpoints]
 }
 
+// endpoints required for session manager
+
 resource "aws_vpc_endpoint" "ssmmessages" {
-  count               = var.ssm_session_manager_endpoints ? 1 : 0
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.private_subnets
   service_name        = "com.amazonaws.${var.region}.ssmmessages"
