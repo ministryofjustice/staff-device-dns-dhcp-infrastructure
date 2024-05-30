@@ -4,7 +4,7 @@ env:
   variables:
     #TF_IN_AUTOMATION: true
     TF_INPUT: 0
-    TF_VAR_env: ${ENV}
+    TF_VAR_env: development
     TF_VAR_enable_critical_notifications: true
     TF_VAR_enable_authentication: true
     TF_VAR_admin_db_backup_retention_period: 30
