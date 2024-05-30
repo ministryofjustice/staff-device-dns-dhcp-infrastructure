@@ -4,7 +4,6 @@ env:
   variables:
     #TF_IN_AUTOMATION: true
     TF_INPUT: 0
-    TF_VAR_env: development
     TF_VAR_enable_critical_notifications: true
     TF_VAR_enable_authentication: true
     TF_VAR_admin_db_backup_retention_period: 30
@@ -61,6 +60,7 @@ phases:
 
   build:
     commands:
+      - export TF_VAR_env=${ENV} 
       - export AWS_DEFAULT_REGION=eu-west-2
       - terraform init -no-color --backend-config="key=terraform.$ENV.state"
       - terraform workspace new $ENV || true
