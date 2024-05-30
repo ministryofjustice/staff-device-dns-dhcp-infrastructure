@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 locals {
   memory = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "4096" : "1024"
   cpu    = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "2048" : "512"
@@ -35,14 +37,6 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "${var.dhcp_server_db_name}"
       },
       {
-        "name": "DB_USER",
-        "value": "${var.dhcp_db_username}"
-      },
-      {
-        "name": "DB_PASS",
-        "value": "${var.dhcp_db_password}"
-      },
-      {
         "name": "DB_HOST",
         "value": "${var.dhcp_db_host}"
       },
@@ -67,14 +61,6 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "standby"
       },
       {
-        "name": "PRIMARY_IP",
-        "value": "${var.load_balancer_private_ip_eu_west_2a}"
-      },
-      {
-        "name": "STANDBY_IP",
-        "value": "${var.load_balancer_private_ip_eu_west_2b}"
-      },
-      {
         "name": "PUBLISH_METRICS",
         "value": "true"
       },
@@ -87,6 +73,24 @@ resource "aws_ecs_task_definition" "server_task" {
         "value": "2"
       }
     ],
+    "secrets": [
+      {
+        "name": "DB_USER",
+        "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/username"
+      },
+      {
+        "name": "DB_PASS",
+        "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/password"
+      },
+      {
+        "name": "PRIMARY_IP",
+        "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/staff-device/dhcp/${var.env}/load_balancer_private_ip_eu_west_2a"
+      },
+      {
+        "name": "STANDBY_IP",
+        "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/staff-device/dhcp/${var.env}/load_balancer_private_ip_eu_west_2b"
+      }
+    ], 
     "image": "${var.dhcp_repository_url}",
     "logConfiguration": {
       "logDriver": "awslogs",

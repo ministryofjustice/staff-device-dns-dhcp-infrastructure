@@ -1,4 +1,5 @@
 output "terraform_outputs" {
+  sensitive = true
   value = {
     dhcp = {
       ecs = module.dhcp.ecs
