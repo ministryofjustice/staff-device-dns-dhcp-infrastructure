@@ -2,8 +2,8 @@ module "admin" {
   source = "./modules/admin"
 
   admin_db_backup_retention_period     = var.admin_db_backup_retention_period
-  admin_db_password                    = var.admin_db_password
-  admin_db_username                    = var.admin_db_username
+  admin_db_password                    = data.aws_ssm_parameter.admin_db_password.value
+  admin_db_username                    = data.aws_ssm_parameter.admin_db_username.value
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
   bind_config_bucket_key_arn           = module.dns.bind_config_bucket_key_arn
