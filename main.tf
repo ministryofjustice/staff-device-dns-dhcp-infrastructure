@@ -6,10 +6,12 @@ terraform {
   }
 }
 
+data "aws_caller_identity" "current" {}
+
 provider "mysql" {
   endpoint = module.dhcp.rds.endpoint
-  username = var.dhcp_db_username
-  password = var.dhcp_db_password
+  username = data.aws_ssm_parameter.dhcp_db_username.value
+  password = data.aws_ssm_parameter.dhcp_db_password.value
 }
 
 provider "aws" {

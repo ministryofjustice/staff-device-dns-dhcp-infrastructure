@@ -2,14 +2,6 @@ variable "assume_role" {
   type = string
 }
 
-variable "dhcp_db_username" {
-  type = string
-}
-
-variable "dhcp_db_password" {
-  type = string
-}
-
 variable "env" {
   type = string
 }
@@ -206,3 +198,12 @@ variable "enable_rds_servers_bastion" {
   type    = bool
   default = false
 }
+
+variable "dhcp_db_username" {
+  type = string
+}
+
+variable "dhcp_db_password" {
+  type = string
+}
+

@@ -2,10 +2,6 @@ locals {
   is_production = terraform.workspace == "production" || terraform.workspace == "pre-production" ? true : false
 }
 
-data "aws_ssm_parameter" "dhcp_db_username" {
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/username"
-}
-
 resource "aws_db_instance" "dhcp_server_db" {
   allocated_storage           = 20
   allow_major_version_upgrade = false
@@ -27,7 +23,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   skip_final_snapshot         = true
   storage_encrypted           = true
   storage_type                = "gp2"
-  username                    = data.aws_ssm_parameter.dhcp_db_username.value
+  username                    = var.dhcp_db_username
   vpc_security_group_ids      = [aws_security_group.dhcp_db_in.id]
 
   enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
