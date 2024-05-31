@@ -39,7 +39,7 @@ module "dhcp_standby" {
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   vpc_id                              = module.servers_vpc.vpc_id
   env                                 = var.env
-  
+
 
 
   providers = {
