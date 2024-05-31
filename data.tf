@@ -19,3 +19,11 @@ data "aws_secretsmanager_secret_version" "xsiam_secrets_version" {
   secret_id  = data.aws_secretsmanager_secret.xsiam_endpoint_secrets.id
   version_id = terraform.workspace == "pre-production" ? local.xsiam_secrets_version_pre_production : terraform.workspace == "production" ? local.xsiam_secrets_version_production : local.xsiam_secrets_version_development
 }
+
+data "aws_ssm_parameter" "dhcp_db_username" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/username"
+}
+
+data "aws_ssm_parameter" "dhcp_db_password" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/password"
+}

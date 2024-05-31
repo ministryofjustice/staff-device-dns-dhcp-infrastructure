@@ -69,6 +69,8 @@ module "dhcp" {
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   env                                  = var.env
+  dhcp_db_username                     = data.aws_ssm_parameter.dhcp_db_username.value
+  dhcp_db_password                     = data.aws_ssm_parameter.dhcp_db_password.value
 
 
 
