@@ -198,3 +198,12 @@ variable "enable_rds_servers_bastion" {
   type    = bool
   default = false
 }
+
+variable "dhcp_db_username" {
+  type = string
+}
+
+variable "dhcp_db_password" {
+  type = string
+}
+
