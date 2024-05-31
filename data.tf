@@ -27,3 +27,11 @@ data "aws_ssm_parameter" "dhcp_db_username" {
 data "aws_ssm_parameter" "dhcp_db_password" {
   name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/password"
 }
+
+data "aws_ssm_parameter" "admin_db_username" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/admin/db/username"
+}
+
+data "aws_ssm_parameter" "admin_db_password" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/admin/db/password"
+}
