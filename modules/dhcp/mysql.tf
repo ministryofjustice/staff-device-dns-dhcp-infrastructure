@@ -6,6 +6,10 @@ data "aws_ssm_parameter" "dhcp_db_username" {
   name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/username"
 }
 
+data "aws_ssm_parameter" "dhcp_db_password" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/password"
+}
+
 resource "aws_db_instance" "dhcp_server_db" {
   allocated_storage           = 20
   allow_major_version_upgrade = false
@@ -22,7 +26,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   monitoring_role_arn         = aws_iam_role.rds_monitoring_role.arn
   multi_az                    = true
   db_name                     = replace(var.prefix, "-", "")
-  password                    = var.dhcp_db_password
+  password                    = data.aws_ssm_parameter.dhcp_db_password.value
   publicly_accessible         = false
   skip_final_snapshot         = true
   storage_encrypted           = true

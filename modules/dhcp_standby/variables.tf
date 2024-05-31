@@ -22,14 +22,6 @@ variable "vpc_cidr" {
   type = string
 }
 
-variable "dhcp_db_username" {
-  type = string
-}
-
-variable "dhcp_db_password" {
-  type = string
-}
-
 variable "load_balancer_private_ip_eu_west_2a" {
   type = string
 }
