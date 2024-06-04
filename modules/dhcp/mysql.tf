@@ -23,7 +23,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   skip_final_snapshot          = true
   storage_encrypted            = true
   storage_type                 = "gp2"
-  username                     = data.aws_ssm_parameter.dhcp_db_username.value
+  username                     = var.dhcp_db_username
   vpc_security_group_ids       = [aws_security_group.dhcp_db_in.id]
   performance_insights_enabled = true
   ca_cert_identifier           = "rds-ca-rsa2048-g1"
