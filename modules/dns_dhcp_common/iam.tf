@@ -88,6 +88,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment"
     "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
     "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
   ])
+
   role       = aws_iam_role.ecs_execution_role.name
   policy_arn = each.value
 }
