@@ -9,7 +9,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   auto_minor_version_upgrade   = true
   backup_retention_period      = local.is_production ? "30" : "0"
   db_subnet_group_name         = aws_db_subnet_group.db.name
-  deletion_protection          = local.is_production ? false : false
+  deletion_protection          = local.is_production ? true : false
   engine                       = "mysql"
   engine_version               = "8.0"
   identifier                   = "${var.prefix}-db"

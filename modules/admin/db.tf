@@ -23,7 +23,7 @@ resource "aws_db_instance" "admin_db" {
   monitoring_role_arn          = aws_iam_role.rds_monitoring_role.arn
   monitoring_interval          = 60
   skip_final_snapshot          = true
-  deletion_protection          = local.is_production ? false : false
+  deletion_protection          = local.is_production ? true : false
   publicly_accessible          = false
   performance_insights_enabled = true
   ca_cert_identifier           = "rds-ca-rsa2048-g1"
