@@ -42,10 +42,12 @@ data "aws_ssm_parameter" "dns_private_zone" {
 
 data "aws_ssm_parameter" "api_basic_auth_username" {
   name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/admin/api/basic_auth_username"
+  // "http basic auth username for the dhcp-stats api endpoint"
 }
 
 data "aws_ssm_parameter" "api_basic_auth_password" {
   name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/admin/api/basic_auth_password"
+  // "http basic auth password for the dhcp-stats api endpoint"
 }
 
 data "aws_ssm_parameter" "dhcp_load_balancer_private_ip_eu_west_2a" {
