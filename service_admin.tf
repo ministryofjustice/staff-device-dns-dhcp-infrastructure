@@ -23,7 +23,7 @@ module "admin" {
   kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
   pdns_ips                             = var.pdns_ips
   prefix                               = "${module.dhcp_label.id}-admin"
-  private_zone                         = var.dns_private_zone
+  private_zone                         = data.aws_ssm_parameter.dns_private_zone.value
   region                               = data.aws_region.current_region.id
   secret_key_base                      = "tbc"
   sentry_dsn                           = var.admin_sentry_dsn
@@ -34,8 +34,8 @@ module "admin" {
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   allowed_ip_ranges                    = var.allowed_ip_ranges
-  api_basic_auth_username              = var.api_basic_auth_username
-  api_basic_auth_password              = var.api_basic_auth_password
+  api_basic_auth_username              = data.aws_ssm_parameter.api_basic_auth_username.value
+  api_basic_auth_password              = data.aws_ssm_parameter.api_basic_auth_password.value
   shared_services_account_id           = var.shared_services_account_id
   env                                  = var.env
 

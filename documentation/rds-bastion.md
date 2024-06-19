@@ -115,9 +115,8 @@ terraform output -json terraform_outputs | jq '.admin.rds'
 
 To get the password run
 
-```shell
-./scripts/get_db_parameters.sh
-```
+Login to the AWS target account e.g. Development via the console.
+Go to SSM and search for parameter `/codebuild/dhcp/development/db/password` 
 
 ## DHCP Database Backup and Restore
 
