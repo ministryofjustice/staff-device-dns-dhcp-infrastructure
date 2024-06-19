@@ -35,3 +35,23 @@ data "aws_ssm_parameter" "admin_db_username" {
 data "aws_ssm_parameter" "admin_db_password" {
   name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/admin/db/password"
 }
+
+data "aws_ssm_parameter" "dns_private_zone" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/staff-device/admin/${var.env}/dns_private_zone"
+}
+
+data "aws_ssm_parameter" "api_basic_auth_username" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/admin/api/basic_auth_username"
+}
+
+data "aws_ssm_parameter" "api_basic_auth_password" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/admin/api/basic_auth_password"
+}
+
+data "aws_ssm_parameter" "dhcp_load_balancer_private_ip_eu_west_2a" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/staff-device/dhcp/${var.env}/load_balancer_private_ip_eu_west_2a"
+}
+
+data "aws_ssm_parameter" "dhcp_load_balancer_private_ip_eu_west_2b" {
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/staff-device/dhcp/${var.env}/load_balancer_private_ip_eu_west_2b"
+}
