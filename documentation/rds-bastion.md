@@ -25,8 +25,9 @@ The routine is
 
 ### Spin up a bastion
 
-Set the boolean value in parameter store to `true`
-run the pipeline
+Navigate to the ssm parameter store in the Shared Services AWS account.
+Set the boolean value for /staff-device/dns-dhcp/{environment}/enable_rds_admin_bastion in parameter store to `true`
+Run the Staff-Device-DNS-DHCP-Infrastructure pipeline to create the bastion instance.
 
 ### Get environment details for the target env
 
