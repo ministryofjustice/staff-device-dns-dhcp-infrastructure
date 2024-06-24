@@ -43,3 +43,26 @@ resource "aws_ecr_repository" "docker_repository_nginx" {
     scan_on_push = true
   }
 }
+
+resource "aws_ecr_lifecycle_policy" "nginx_lifecycle_policy" {
+  repository = aws_ecr_repository.docker_repository_nginx.name
+
+  policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire older versions of untagged images, keeping the latest 15",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "imageCountMoreThan",
+                "countNumber": 15
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+}
