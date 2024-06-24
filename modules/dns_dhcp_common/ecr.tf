@@ -16,6 +16,30 @@ resource "aws_ecr_repository" "docker_repository" {
   }
 }
 
+resource "aws_ecr_lifecycle_policy" "lifecycle_policy" {
+  repository = aws_ecr_repository.docker_repository.name
+
+  policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire older versions of untagged images, keeping the latest 15",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "imageCountMoreThan",
+                "countNumber": 15
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+}
+
+
 resource "aws_ecr_repository_policy" "docker_repository_policy" {
   repository = aws_ecr_repository.docker_repository.name
 
