@@ -121,7 +121,7 @@ Set the profile to the correct env:
 - mojo-production-cli
 
 ```shell
-export export AWS_PROFILE=mojo-production-cli
+export AWS_PROFILE=mojo-production-cli
 make shell
 ```
 
@@ -133,7 +133,7 @@ export ENV=production
 ```
 
 Or Login to the AWS target account e.g. Development via the console.
-Go to SSM and search for parameter `/codebuild/dhcp/development/db/password`
+Go to SSM and search for parameter `/codebuild/dhcp/{env name}/db/password`
 
 ## DHCP Database Backup and Restore
 
