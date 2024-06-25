@@ -114,7 +114,25 @@ terraform output -json terraform_outputs | jq '.admin.rds'
 
 To get the password run
 
-Login to the AWS target account e.g. Development via the console.
+Set the profile to the correct env:
+
+- mojo-development-cli
+- mojo-pre-production-cli
+- mojo-production-cli
+
+```shell
+export export AWS_PROFILE=mojo-production-cli
+make shell
+```
+
+Within the container set the ENV var and run the script.
+
+```shell
+export ENV=production
+./scripts/get_db_parameters.sh
+```
+
+Or Login to the AWS target account e.g. Development via the console.
 Go to SSM and search for parameter `/codebuild/dhcp/development/db/password`
 
 ## DHCP Database Backup and Restore
