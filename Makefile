@@ -75,7 +75,7 @@ init-upgrade: ## terraform init -upgrade
 	$(DOCKER_RUN) terraform init -upgrade --backend-config="key=terraform.$$ENV.state"
 
 .PHONY: import
-import: ## terraform import e.g. (make import IMPORT_ARGUMENT=module.foo.bar some_resource)
+import: ## terraform import e.g. (make import IMPORT_ARGUMENT="module.foo.bar some_resource")
 	$(DOCKER_RUN) terraform import $$IMPORT_ARGUMENT
 
 .PHONY: workspace-list
