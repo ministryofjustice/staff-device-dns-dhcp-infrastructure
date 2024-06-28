@@ -6,7 +6,9 @@ terraform {
   }
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "target_account" {
+  provider = "aws.env"
+}
 
 provider "mysql" {
   endpoint = module.dhcp.rds.endpoint
