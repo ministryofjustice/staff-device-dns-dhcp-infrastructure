@@ -34,15 +34,9 @@ data "aws_ami" "ubuntu" {
     values = ["${var.ami_name}"]
   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+  tags = {
+    deploy_to_all_environments = "True"
   }
-
-  #   filter {
-  #   name = "tag:env_${terraform.workspace}"
-  #   values = ["true"]
-  # }
 
   owners = ["683290208331"] # shared services accunt
 }
