@@ -38,5 +38,5 @@ data "aws_ami" "ubuntu" {
     deploy_to_all_environments = "True"
   }
 
-  owners = ["683290208331"] # shared services accunt
+  owners = ["683290208331"] # shared services account
 }

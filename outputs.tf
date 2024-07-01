@@ -50,3 +50,11 @@ output "dns_dhcp_vpc_id" {
 output "dhcp_xsiam_s3_bucket" {
   value = module.kinesis_firehose_xsiam.xsiam_s3_bucket_name
 }
+
+output "rds_bastion" {
+  value = {
+    admin        = module.rds_admin_bastion[*].bastion
+    server       = module.rds_servers_bastion[*].bastion
+    load_testing = module.load_testing[*].bastion
+  }
+}
