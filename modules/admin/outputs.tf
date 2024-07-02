@@ -2,6 +2,18 @@ output "admin_db_identifier" {
   value = aws_db_instance.admin_db.identifier
 }
 
+output "admin_db_details" {
+  value = <<EOF
+{
+  "engine": "${aws_db_instance.admin_db.engine}",
+  "host": "${aws_db_instance.admin_db.endpoint}",
+  "port": ${aws_db_instance.admin_db.port},
+  "dbname": ${aws_db_instance.admin_db.db_name},
+  "dbClusterIdentifier": "${aws_db_instance.admin_db.identifier}"
+}
+EOF
+}
+
 output "admin_url" {
   value = aws_route53_record.admin_app.fqdn
 }
