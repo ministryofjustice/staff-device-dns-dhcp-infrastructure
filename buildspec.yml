@@ -24,7 +24,6 @@ env:
     TF_VAR_dns_load_balancer_private_ip_eu_west_2b: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2b"
     TF_VAR_dns_route53_resolver_ip_eu_west_2a: "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2a"
     TF_VAR_dns_route53_resolver_ip_eu_west_2b: "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2b"
-    TF_VAR_admin_sentry_dsn: "/staff-device/admin/sentry_dsn"
     TF_VAR_dns_private_zone: "/staff-device/admin/$ENV/dns_private_zone"
     TF_VAR_bastion_allowed_ingress_ip: "/staff-device/corsham_testing/bastion_allowed_ingress_ip"
     TF_VAR_bastion_allowed_egress_ip: "/staff-device/corsham_testing/bastion_allowed_egress_ip"
