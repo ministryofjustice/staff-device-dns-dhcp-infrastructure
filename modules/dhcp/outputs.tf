@@ -107,3 +107,16 @@ output "security_group_ids" {
     dhcp_server = aws_security_group.dhcp_server.id
   }
 }
+
+output "dhcp_db_details" {
+  value = jsondecode(<<EOF
+    {
+      "engine": "${aws_db_instance.dhcp_server_db.engine}",
+      "host": "${aws_db_instance.dhcp_server_db.endpoint}",
+      "port": "${aws_db_instance.dhcp_server_db.port}",
+      "dbname": "${aws_db_instance.dhcp_server_db.db_name}",
+      "dbClusterIdentifier": "${aws_db_instance.dhcp_server_db.identifier}"
+    }
+  EOF
+  )
+}
