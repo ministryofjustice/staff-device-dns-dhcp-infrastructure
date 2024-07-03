@@ -1,11 +1,11 @@
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_db" {
-  name = "/codebuild/dhcp/${terraform.workspace}/admin/db"
+  name     = "/codebuild/dhcp/${terraform.workspace}/admin/db"
   provider = "aws.env"
 }
 
 resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_db" {
-  provider = "aws.env"
-  secret_id     = aws_secretsmanager_secret.codebuild_dhcp_env_admin_db.id
+  provider  = "aws.env"
+  secret_id = aws_secretsmanager_secret.codebuild_dhcp_env_admin_db.id
   secret_string = jsonencode(
     merge(
       {
@@ -17,7 +17,7 @@ resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_db" {
   )
 }
 
-resource "random_password" "codebuild_dhcp_env_admin_db"{
+resource "random_password" "codebuild_dhcp_env_admin_db" {
   length           = 24
   special          = true
   override_special = "_!%^"
@@ -31,13 +31,13 @@ resource "random_password" "codebuild_dhcp_env_admin_db"{
 }
 
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_db" {
-  name = "/codebuild/dhcp/${terraform.workspace}/db"
+  name     = "/codebuild/dhcp/${terraform.workspace}/db"
   provider = "aws.env"
 }
 
 resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_db" {
-  provider = "aws.env"
-  secret_id     = aws_secretsmanager_secret.codebuild_dhcp_env_db.id
+  provider  = "aws.env"
+  secret_id = aws_secretsmanager_secret.codebuild_dhcp_env_db.id
   secret_string = jsonencode(
     merge(
       {
@@ -49,7 +49,7 @@ resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_db" {
   )
 }
 
-resource "random_password" "codebuild_dhcp_env_db"{
+resource "random_password" "codebuild_dhcp_env_db" {
   length           = 24
   special          = true
   override_special = "_!%^"
@@ -63,29 +63,29 @@ resource "random_password" "codebuild_dhcp_env_db"{
 }
 
 resource "aws_secretsmanager_secret" "staff_device_dhcp_sentry_dsn" {
-  name = "/staff-device/dhcp/sentry_dsn"
+  name     = "/staff-device/dhcp/sentry_dsn"
   provider = "aws.env"
 }
 
 resource "aws_secretsmanager_secret_version" "staff_device_dhcp_sentry_dsn" {
-  provider = "aws.env"
+  provider      = "aws.env"
   secret_id     = aws_secretsmanager_secret.staff_device_dhcp_sentry_dsn.id
   secret_string = "REPLACE_ME"
 }
 
 resource "aws_secretsmanager_secret" "staff_device_dns_sentry_dsn_1" {
-  name = "/staff-device/dns/sentry_dsn"
+  name     = "/staff-device/dns/sentry_dsn"
   provider = "aws.env"
 }
 
 resource "aws_secretsmanager_secret_version" "staff_device_dns_sentry_dsn" {
-  provider = "aws.env"
+  provider      = "aws.env"
   secret_id     = aws_secretsmanager_secret.staff_device_dns_sentry_dsn_1.id
   secret_string = "REPLACE_ME"
 }
 
 resource "aws_secretsmanager_secret" "staff_device_admin_sentry_dsn_1" {
-  name = "/staff-device/admin/sentry_dsn"
+  name     = "/staff-device/admin/sentry_dsn"
   provider = "aws.env"
 }
 
@@ -96,13 +96,13 @@ resource "aws_secretsmanager_secret_version" "staff_device_admin_sentry_dsn" {
 }
 
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_api" {
-  name = "/codebuild/dhcp/${terraform.workspace}/admin/api"
+  name     = "/codebuild/dhcp/${terraform.workspace}/admin/api"
   provider = "aws.env"
 }
 
 resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_api" {
-  provider = "aws.env"
-  secret_id     = aws_secretsmanager_secret.codebuild_dhcp_env_admin_api.id
+  provider  = "aws.env"
+  secret_id = aws_secretsmanager_secret.codebuild_dhcp_env_admin_api.id
   secret_string = jsonencode(
     merge(
       {
