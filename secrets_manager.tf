@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_db" {
-  name = "/codebuild/dhcp/${var.env}/admin/db"
+  name = "/codebuild/dhcp/${terraform.workspace}/admin/db"
   provider = "aws.env"
 }
 
@@ -31,7 +31,7 @@ resource "random_password" "codebuild_dhcp_env_admin_db"{
 }
 
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_db" {
-  name = "/codebuild/dhcp/${var.env}/db"
+  name = "/codebuild/dhcp/${terraform.workspace}/db"
   provider = "aws.env"
 }
 
@@ -96,7 +96,7 @@ resource "aws_secretsmanager_secret_version" "staff_device_admin_sentry_dsn" {
 }
 
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_api" {
-  name = "/codebuild/dhcp/${var.env}/admin/api"
+  name = "/codebuild/dhcp/${terraform.workspace}/admin/api"
   provider = "aws.env"
 }
 
