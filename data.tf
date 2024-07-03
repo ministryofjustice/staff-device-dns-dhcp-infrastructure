@@ -22,56 +22,56 @@ data "aws_secretsmanager_secret_version" "xsiam_secrets_version" {
 
 data "aws_ssm_parameter" "dhcp_db_username" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${var.env}/db/username"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${terraform.workspace}/db/username"
   #depends_on = [aws_ssm_parameter.codebuild_dhcp_env_db_username]
 }
 
 data "aws_ssm_parameter" "dhcp_db_password" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${var.env}/db/password"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${terraform.workspace}/db/password"
   #depends_on = [aws_ssm_parameter.codebuild_dhcp_env_db_password]
 }
 
 data "aws_ssm_parameter" "admin_db_username" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${var.env}/admin/db/username"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${terraform.workspace}/admin/db/username"
   #depends_on = [aws_ssm_parameter.codebuild_dhcp_env_admin_db_username]
 }
 
 data "aws_ssm_parameter" "admin_db_password" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${var.env}/admin/db/password"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${terraform.workspace}/admin/db/password"
   #depends_on = [aws_ssm_parameter.codebuild_dhcp_env_admin_db_password]
 }
 
 data "aws_ssm_parameter" "dns_private_zone" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/staff-device/admin/${var.env}/dns_private_zone"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/staff-device/admin/${terraform.workspace}/dns_private_zone"
   #depends_on = [aws_ssm_parameter.staff_device_admin_env_dns_private_zone]
 }
 
 data "aws_ssm_parameter" "api_basic_auth_username" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${var.env}/admin/api/basic_auth_username"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${terraform.workspace}/admin/api/basic_auth_username"
   #depends_on = [aws_ssm_parameter.codebuild_dhcp_env_admin_api_basic_auth_username]
   // "http basic auth username for the dhcp-stats api endpoint"
 }
 
 data "aws_ssm_parameter" "api_basic_auth_password" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${var.env}/admin/api/basic_auth_password"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/codebuild/dhcp/${terraform.workspace}/admin/api/basic_auth_password"
   #depends_on = [aws_ssm_parameter.codebuild_dhcp_env_admin_api_basic_auth_password]
   // "http basic auth password for the dhcp-stats api endpoint"
 }
 
 data "aws_ssm_parameter" "dhcp_load_balancer_private_ip_eu_west_2a" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/staff-device/dhcp/${var.env}/load_balancer_private_ip_eu_west_2a"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/staff-device/dhcp/${terraform.workspace}/load_balancer_private_ip_eu_west_2a"
   #depends_on = [aws_ssm_parameter.staff_device_dhcp_env_load_balancer_private_ip_eu_west_2a]
 }
 
 data "aws_ssm_parameter" "dhcp_load_balancer_private_ip_eu_west_2b" {
   provider = "aws.env"
-  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/staff-device/dhcp/${var.env}/load_balancer_private_ip_eu_west_2b"
+  name = "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.target_account.account_id}:parameter/staff-device/dhcp/${terraform.workspace}/load_balancer_private_ip_eu_west_2b"
   #depends_on = [aws_ssm_parameter.staff_device_dhcp_env_load_balancer_private_ip_eu_west_2b]
 }
