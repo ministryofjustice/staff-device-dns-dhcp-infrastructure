@@ -13,7 +13,7 @@ module "dns" {
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   vpc_id                              = module.servers_vpc.vpc_id
   shared_services_account_id          = var.shared_services_account_id
-  secret_arns                          = local.secret_manager_arns
+  secret_arns                         = local.secret_manager_arns
 
   depends_on = [
     module.servers_vpc

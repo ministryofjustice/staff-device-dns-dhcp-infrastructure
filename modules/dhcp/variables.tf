@@ -71,5 +71,5 @@ variable "dhcp_db_password" {
 }
 
 variable "secret_arns" {
-  type = map
+  type = map(any)
 }

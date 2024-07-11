@@ -89,5 +89,5 @@ variable "env" {
 }
 
 variable "secret_arns" {
-  type = map
+  type = map(any)
 }
