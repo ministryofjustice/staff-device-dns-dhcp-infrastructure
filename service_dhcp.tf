@@ -71,6 +71,7 @@ module "dhcp" {
   env                                  = var.env
   dhcp_db_username                     = data.aws_ssm_parameter.dhcp_db_username.value
   dhcp_db_password                     = data.aws_ssm_parameter.dhcp_db_password.value
+  secret_arns                          = local.secret_manager_arns
 
 
 
