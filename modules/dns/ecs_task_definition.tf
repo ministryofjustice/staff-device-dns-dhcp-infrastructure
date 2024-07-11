@@ -34,7 +34,7 @@ resource "aws_ecs_task_definition" "server_task" {
     "secrets": [
       {
         "name": "SENTRY_DSN",
-        "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/staff-device/dns/sentry_dsn"
+        "valueFrom": "${var.secret_arns["staff_device_dns_sentry_dsn"]}"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
