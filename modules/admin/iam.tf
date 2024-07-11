@@ -67,18 +67,18 @@ resource "aws_iam_policy" "secrets_manager_read_only" {
 
 
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Effect": "Allow",
-        "Action": [
+        "Effect" : "Allow",
+        "Action" : [
           "secretsmanager:GetResourcePolicy",
           "secretsmanager:GetSecretValue",
           "secretsmanager:DescribeSecret",
           "secretsmanager:ListSecretVersionIds",
           "secretsmanager:ListSecrets"
         ],
-        "Resource": [
+        "Resource" : [
           "*"
         ]
       }
