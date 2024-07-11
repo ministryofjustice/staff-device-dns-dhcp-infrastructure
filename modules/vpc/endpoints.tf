@@ -31,7 +31,7 @@ resource "aws_vpc_endpoint" "s3" {
 
 resource "aws_vpc_endpoint" "secrets" {
   vpc_id              = module.vpc.vpc_id
-  subnet_ids          = module.vpc.private_subnets
+  subnet_ids          = module.vpc.public_subnets
   service_name        = "com.amazonaws.${var.region}.secretsmanager"
   vpc_endpoint_type   = "Interface"
   security_group_ids  = [aws_security_group.endpoints.id]
@@ -42,7 +42,7 @@ resource "aws_vpc_endpoint" "secrets" {
 
 resource "aws_vpc_endpoint" "ssm" {
   vpc_id              = module.vpc.vpc_id
-  subnet_ids          = module.vpc.private_subnets
+  subnet_ids          = module.vpc.public_subnets
   service_name        = "com.amazonaws.${var.region}.ssm"
   vpc_endpoint_type   = "Interface"
   security_group_ids  = [aws_security_group.endpoints.id]
