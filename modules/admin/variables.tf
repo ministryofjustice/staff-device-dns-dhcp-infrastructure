@@ -150,3 +150,7 @@ variable "shared_services_account_id" {
 variable "env" {
   type = string
 }
+
+variable "secret_arns" {
+  type = map
+}

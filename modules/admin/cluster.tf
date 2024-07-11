@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.14.0"
+      version = "5.56.1"
     }
   }
 }
@@ -205,15 +205,15 @@ resource "aws_ecs_task_definition" "admin_task" {
       "secrets": [
         {
           "name": "DB_USER",
-           "valueFrom": "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:/codebuild/dhcp/${terraform.workspace}/admin/db:username"
+          "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_db"]}:username::"
         },
         {
           "name": "DB_PASS",
-          "valueFrom": "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:/codebuild/dhcp/${terraform.workspace}/admin/db:password"
+          "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_db"]}:password::"
         },
         {
           "name": "SENTRY_DSN",
-          "valueFrom": "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:/staff-device/admin/sentry_dsn"
+          "valueFrom": "${var.secret_arns["staff_device_admin_sentry_dsn"]}"
         },
         {
           "name": "PRIVATE_ZONE",
@@ -221,11 +221,11 @@ resource "aws_ecs_task_definition" "admin_task" {
         },
         {
           "name": "API_BASIC_AUTH_USERNAME",
-          "valueFrom": "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:/codebuild/dhcp/${terraform.workspace}/admin/api:basic_auth_username"
+          "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_api"]}:basic_auth_username::"
         },
         {
           "name": "API_BASIC_AUTH_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:/codebuild/dhcp/${terraform.workspace}/admin/api:basic_auth_password"
+          "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_api"]}:basic_auth_password::"
         }
     ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
