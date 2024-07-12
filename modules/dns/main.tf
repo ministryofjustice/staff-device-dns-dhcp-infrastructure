@@ -13,5 +13,5 @@ module "dns_dhcp_common" {
   vpc_id                     = var.vpc_id
   tags                       = var.tags
   shared_services_account_id = var.shared_services_account_id
-  secret_arns = var.secret_arns
+  secret_arns                = var.secret_arns
 }
