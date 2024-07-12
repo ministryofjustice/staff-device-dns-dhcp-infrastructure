@@ -101,9 +101,7 @@ resource "aws_iam_policy" "secrets_manager_read_only" {
           "secretsmanager:ListSecretVersionIds",
           "secretsmanager:ListSecrets"
         ],
-        "Resource" : [
-          "*"
-        ]
+        "Resource" : values(var.secret_arns)
       }
     ]
   })
