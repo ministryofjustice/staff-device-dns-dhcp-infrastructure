@@ -87,3 +87,7 @@ variable "dhcp_log_search_metric_filters" {
 variable "env" {
   type = string
 }
+
+variable "secret_arns" {
+  type = map(any)
+}

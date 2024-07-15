@@ -13,3 +13,7 @@ variable "vpc_id" {
 variable "shared_services_account_id" {
   type = string
 }
+
+variable "secret_arns" {
+  type = map(any)
+}

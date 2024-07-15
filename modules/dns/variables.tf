@@ -45,3 +45,7 @@ variable "dns_route53_resolver_ip_eu_west_2b" {
 variable "shared_services_account_id" {
   type = string
 }
+
+variable "secret_arns" {
+  type = map(any)
+}

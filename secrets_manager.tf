@@ -1,3 +1,14 @@
+locals {
+  secret_manager_arns = {
+    codebuild_dhcp_env_admin_db   = aws_secretsmanager_secret.codebuild_dhcp_env_admin_db.arn
+    codebuild_dhcp_env_db         = aws_secretsmanager_secret.codebuild_dhcp_env_db.arn
+    staff_device_dhcp_sentry_dsn  = aws_secretsmanager_secret.staff_device_dhcp_sentry_dsn.arn
+    staff_device_dns_sentry_dsn   = aws_secretsmanager_secret.staff_device_dns_sentry_dsn_1.arn
+    staff_device_admin_sentry_dsn = aws_secretsmanager_secret.staff_device_admin_sentry_dsn_1.arn
+    codebuild_dhcp_env_admin_api  = aws_secretsmanager_secret.codebuild_dhcp_env_admin_api.arn
+  }
+}
+
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_db" {
   name     = "/codebuild/dhcp/${terraform.workspace}/admin/db"
   provider = "aws.env"

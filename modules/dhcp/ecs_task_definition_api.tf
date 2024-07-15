@@ -46,13 +46,13 @@ resource "aws_ecs_task_definition" "api_server_task" {
       }
     ],
         "secrets": [
-      {  
+      {
         "name": "DB_USER",
-        "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/username"
+        "valueFrom": "${var.secret_arns["codebuild_dhcp_env_db"]}:username::"
       },
       {
         "name": "DB_PASS",
-        "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/codebuild/dhcp/${var.env}/db/password"
+        "valueFrom": "${var.secret_arns["codebuild_dhcp_env_db"]}:password::"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",

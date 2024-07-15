@@ -39,6 +39,7 @@ module "dhcp_standby" {
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   vpc_id                              = module.servers_vpc.vpc_id
   env                                 = var.env
+  secret_arns                         = local.secret_manager_arns
 
 
 
@@ -71,6 +72,7 @@ module "dhcp" {
   env                                  = var.env
   dhcp_db_username                     = data.aws_ssm_parameter.dhcp_db_username.value
   dhcp_db_password                     = data.aws_ssm_parameter.dhcp_db_password.value
+  secret_arns                          = local.secret_manager_arns
 
 
 

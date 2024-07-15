@@ -38,6 +38,7 @@ module "admin" {
   api_basic_auth_password              = data.aws_ssm_parameter.api_basic_auth_password.value
   shared_services_account_id           = var.shared_services_account_id
   env                                  = var.env
+  secret_arns                          = local.secret_manager_arns
 
   depends_on = [
     module.admin_vpc
