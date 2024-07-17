@@ -70,8 +70,8 @@ module "dhcp" {
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   env                                  = var.env
-  dhcp_db_username                     = data.aws_ssm_parameter.dhcp_db_username.value
-  dhcp_db_password                     = data.aws_ssm_parameter.dhcp_db_password.value
+  dhcp_db_username                     = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["username"]
+  dhcp_db_password                     = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["password"]
   secret_arns                          = local.secret_manager_arns
 
 
