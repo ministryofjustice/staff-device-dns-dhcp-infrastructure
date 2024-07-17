@@ -16,7 +16,7 @@ resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_db" {
 
 data "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_db" {
   secret_id = aws_secretsmanager_secret.codebuild_dhcp_env_admin_db.id
-  provider = aws.env
+  provider  = aws.env
 }
 
 resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_db" {
@@ -53,7 +53,7 @@ resource "aws_secretsmanager_secret" "codebuild_dhcp_env_db" {
 
 data "aws_secretsmanager_secret_version" "codebuild_dhcp_env_db" {
   secret_id = aws_secretsmanager_secret.codebuild_dhcp_env_db.id
-  provider = aws.env
+  provider  = aws.env
 }
 
 resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_db" {
@@ -123,7 +123,7 @@ resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_api" {
 
 data "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_api" {
   secret_id = aws_secretsmanager_secret.codebuild_dhcp_env_admin_api.id
-  provider = aws.env
+  provider  = aws.env
 }
 
 resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_api" {
