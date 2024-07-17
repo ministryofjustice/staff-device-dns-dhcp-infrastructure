@@ -2,8 +2,8 @@ module "admin" {
   source = "./modules/admin"
 
   admin_db_backup_retention_period     = var.admin_db_backup_retention_period
-  admin_db_password                    = data.aws_ssm_parameter.admin_db_password.value
-  admin_db_username                    = data.aws_ssm_parameter.admin_db_username.value
+  admin_db_password                    = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_db.secret_string)["password"]
+  admin_db_username                    = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_db.secret_string)["username"]
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
   bind_config_bucket_key_arn           = module.dns.bind_config_bucket_key_arn
@@ -34,8 +34,8 @@ module "admin" {
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   allowed_ip_ranges                    = var.allowed_ip_ranges
-  api_basic_auth_username              = data.aws_ssm_parameter.api_basic_auth_username.value
-  api_basic_auth_password              = data.aws_ssm_parameter.api_basic_auth_password.value
+  api_basic_auth_username              = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_api.secret_string)["basic_auth_username"]
+  api_basic_auth_password              = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_api.secret_string)["basic_auth_password"]
   shared_services_account_id           = var.shared_services_account_id
   env                                  = var.env
   secret_arns                          = local.secret_manager_arns
