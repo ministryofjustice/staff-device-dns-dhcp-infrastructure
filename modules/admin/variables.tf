@@ -146,3 +146,11 @@ variable "api_basic_auth_password" {
 variable "shared_services_account_id" {
   type = string
 }
+
+variable "env" {
+  type = string
+}
+
+variable "secret_arns" {
+  type = map(any)
+}

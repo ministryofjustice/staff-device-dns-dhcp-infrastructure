@@ -25,8 +25,9 @@ The routine is
 
 ### Spin up a bastion
 
-Set the boolean value in parameter store to `true`
-run the pipeline
+Navigate to the ssm parameter store in the Shared Services AWS account.
+Set the boolean value for /staff-device/dns-dhcp/{environment}/enable_rds_admin_bastion in parameter store to `true`
+Run the Staff-Device-DNS-DHCP-Infrastructure pipeline to create the bastion instance.
 
 ### Get environment details for the target env
 
@@ -114,9 +115,26 @@ terraform output -json terraform_outputs | jq '.admin.rds'
 
 To get the password run
 
+Set the profile to the correct env:
+
+- mojo-development-cli
+- mojo-pre-production-cli
+- mojo-production-cli
+
 ```shell
+export AWS_PROFILE=mojo-production-cli
+make shell
+```
+
+Within the container set the ENV var and run the script.
+
+```shell
+export ENV=production
 ./scripts/get_db_parameters.sh
 ```
+
+Or Login to the AWS target account e.g. Development via the console.
+Go to SSM and search for parameter `/codebuild/dhcp/{env name}/db/password`
 
 ## DHCP Database Backup and Restore
 

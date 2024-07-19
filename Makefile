@@ -76,8 +76,12 @@ init-upgrade: ## terraform init -upgrade
 	$(DOCKER_RUN) terraform init -upgrade --backend-config="key=terraform.$$ENV.state"
 
 .PHONY: import
-import: ## terraform import e.g. (make import IMPORT_ARGUMENT=module.foo.bar some_resource)
+import: ## terraform import e.g. (make import IMPORT_ARGUMENT="module.foo.bar some_resource")
 	$(DOCKER_RUN) terraform import $$IMPORT_ARGUMENT
+
+.PHONY: rm
+rm: ## terraform import e.g. (make rm RM_ARGUMENT="module.foo.bar")
+	$(DOCKER_RUN) terraform state rm $$RM_ARGUMENT
 
 .PHONY: workspace-list
 workspace-list: ## terraform workspace list
@@ -107,6 +111,18 @@ refresh: ## terraform refresh
 .PHONY: output
 output: ## terraform output (make output OUTPUT_ARGUMENT='--raw dns_dhcp_vpc_id')
 	$(DOCKER_RUN) terraform output -no-color $$OUTPUT_ARGUMENT
+
+.PHONY: output-bastion-rds-admin
+output-bastion-rds-admin: ## terraform output (make output-bastion-rds-admin)
+	$(DOCKER_RUN) /bin/bash -c "terraform output -no-color -json rds_bastion | jq -r .admin[][]"
+
+.PHONY: output-bastion-rds-server
+output-bastion-rds-server: ## terraform output (make output-bastion-rds-server)
+	$(DOCKER_RUN) /bin/bash -c "terraform output -no-color -json rds_bastion | jq -r .server[][]"
+
+.PHONY: output-bastion-rds-load_testing
+output-bastion-rds-load_testing: ## terraform output (make output-bastion-rds-load_testing)
+	$(DOCKER_RUN) /bin/bash -c "terraform output -no-color -json rds_bastion | jq -r .load_testing[][]"
 
 .PHONY: apply
 apply: ## terraform apply

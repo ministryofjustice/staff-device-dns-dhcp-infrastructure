@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.14.0"
+      version = "5.56.1"
     }
   }
 }
@@ -15,6 +15,30 @@ resource "aws_ecr_repository" "docker_repository" {
     scan_on_push = true
   }
 }
+
+resource "aws_ecr_lifecycle_policy" "lifecycle_policy" {
+  repository = aws_ecr_repository.docker_repository.name
+
+  policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire older versions of untagged images, keeping the latest 15",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "imageCountMoreThan",
+                "countNumber": 15
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+}
+
 
 resource "aws_ecr_repository_policy" "docker_repository_policy" {
   repository = aws_ecr_repository.docker_repository.name

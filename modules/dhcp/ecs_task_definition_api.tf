@@ -25,14 +25,6 @@ resource "aws_ecs_task_definition" "api_server_task" {
         "value": "${aws_db_instance.dhcp_server_db.db_name}"
       },
       {
-        "name": "DB_USER",
-        "value": "${var.dhcp_db_username}"
-      },
-      {
-        "name": "DB_PASS",
-        "value": "${var.dhcp_db_password}"
-      },
-      {
         "name": "DB_HOST",
         "value": "${aws_route53_record.dhcp_db.fqdn}"
       },
@@ -51,6 +43,16 @@ resource "aws_ecs_task_definition" "api_server_task" {
       {
         "name": "SERVER_NAME",
         "value": "api"
+      }
+    ],
+        "secrets": [
+      {
+        "name": "DB_USER",
+        "valueFrom": "${var.secret_arns["codebuild_dhcp_env_db"]}:username::"
+      },
+      {
+        "name": "DB_PASS",
+        "valueFrom": "${var.secret_arns["codebuild_dhcp_env_db"]}:password::"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",

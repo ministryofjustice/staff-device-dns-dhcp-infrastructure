@@ -6,10 +6,14 @@ terraform {
   }
 }
 
+data "aws_caller_identity" "target_account" {
+  provider = aws.env
+}
+
 provider "mysql" {
   endpoint = module.dhcp.rds.endpoint
-  username = var.dhcp_db_username
-  password = var.dhcp_db_password
+  username = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["username"]
+  password = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["password"]
 }
 
 provider "aws" {

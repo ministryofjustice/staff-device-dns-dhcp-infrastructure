@@ -2,14 +2,6 @@ variable "assume_role" {
   type = string
 }
 
-variable "dhcp_db_username" {
-  type = string
-}
-
-variable "dhcp_db_password" {
-  type = string
-}
-
 variable "env" {
   type = string
 }
@@ -31,14 +23,6 @@ variable "enable_critical_notifications" {
 variable "critical_notification_recipients" {
   type    = list(any)
   default = []
-}
-
-variable "admin_db_username" {
-  type = string
-}
-
-variable "admin_db_password" {
-  type = string
 }
 
 variable "vpn_hosted_zone_id" {
@@ -64,14 +48,6 @@ variable "enable_dhcp_transit_gateway_attachment" {
 }
 
 variable "transit_gateway_route_table_id" {
-  type = string
-}
-
-variable "dhcp_load_balancer_private_ip_eu_west_2a" {
-  type = string
-}
-
-variable "dhcp_load_balancer_private_ip_eu_west_2b" {
   type = string
 }
 
@@ -161,22 +137,8 @@ variable "dns_route53_resolver_ip_eu_west_2b" {
   type = string
 }
 
-variable "dns_private_zone" {
-  type = string
-}
-
 variable "allowed_ip_ranges" {
   type = list(string)
-}
-
-variable "api_basic_auth_username" {
-  type        = string
-  description = "http basic auth username for the dhcp-stats api endpoint"
-}
-
-variable "api_basic_auth_password" {
-  type        = string
-  description = "http basic auth password for the dhcp-stats api endpoint"
 }
 
 variable "shared_services_account_id" {

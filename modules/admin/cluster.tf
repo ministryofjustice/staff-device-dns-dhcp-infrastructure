@@ -2,9 +2,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.14.0"
+      version = "5.56.1"
     }
   }
+}
+
+locals {
+  memory = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "4096" : "1024"
+  cpu    = terraform.workspace == "production" || terraform.workspace == "pre-production" ? "2048" : "512"
 }
 
 resource "aws_ecs_cluster" "admin_cluster" {
@@ -116,39 +121,38 @@ resource "aws_ecs_task_definition" "admin_task" {
       "name": "admin",
       "environment": [
         {
-          "name": "DB_USER",
-          "value": "${var.admin_db_username}"
-        },{
-          "name": "DB_PASS",
-          "value": "${var.admin_db_password}"
-        },{
           "name": "DB_NAME",
           "value": "${aws_db_instance.admin_db.db_name}"
-        },{
+        },
+        {
           "name": "DB_HOST",
           "value": "${aws_route53_record.admin_db.fqdn}"
-        },{
+        },
+        {
           "name": "RACK_ENV",
           "value": "production"
-        },{
+        },
+        {
           "name": "SECRET_KEY_BASE",
           "value": "${var.secret_key_base}"
-        },{
+        },
+        {
           "name": "RAILS_LOG_TO_STDOUT",
           "value": "1"
-        },{
+        },
+        {
           "name": "RAILS_SERVE_STATIC_FILES",
           "value": "1"
-        },{
-          "name": "SENTRY_DSN",
-          "value": "${var.sentry_dsn}"
-        },{
+        },
+        {
           "name": "SENTRY_CURRENT_ENV",
           "value": "${var.short_prefix}"
-        },{
+        },
+        {
           "name": "S3_KEA_CONFIG_OBJECT_KEY",
           "value": "config.json"
-        },{
+        },
+        {
           "name": "KEA_CONFIG_BUCKET",
           "value": "${var.kea_config_bucket_name}"
         },
@@ -194,22 +198,36 @@ resource "aws_ecs_task_definition" "admin_task" {
           "value": "${var.pdns_ips}"
         },
         {
-          "name": "PRIVATE_ZONE",
-          "value": "${var.private_zone}"
-        },
-        {
           "name": "KEA_CONTROL_AGENT_URI",
           "value": "http://${aws_vpc_endpoint.dhcp_api_vpc_endpoint.dns_entry[0].dns_name}:8000/"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "DB_USER",
+          "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_db"]}:username::"
+        },
+        {
+          "name": "DB_PASS",
+          "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_db"]}:password::"
+        },
+        {
+          "name": "SENTRY_DSN",
+          "valueFrom": "${var.secret_arns["staff_device_admin_sentry_dsn"]}"
+        },
+        {
+          "name": "PRIVATE_ZONE",
+          "valueFrom": "arn:aws:ssm:${var.region}:${data.aws_caller_identity.current.account_id}:parameter/staff-device/admin/${terraform.workspace}/dns_private_zone"
         },
         {
           "name": "API_BASIC_AUTH_USERNAME",
-          "value": "${var.api_basic_auth_username}"
+          "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_api"]}:basic_auth_username::"
         },
         {
           "name": "API_BASIC_AUTH_PASSWORD",
-          "value": "${var.api_basic_auth_password}"
+          "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_api"]}:basic_auth_password::"
         }
-      ],
+    ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
       "logConfiguration": {
         "logDriver": "awslogs",

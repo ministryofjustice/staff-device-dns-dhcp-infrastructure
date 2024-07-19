@@ -18,14 +18,6 @@ variable "vpc_cidr" {
   type = string
 }
 
-variable "dhcp_db_username" {
-  type = string
-}
-
-variable "dhcp_db_password" {
-  type = string
-}
-
 variable "load_balancer_private_ip_eu_west_2a" {
   type = string
 }
@@ -64,4 +56,20 @@ variable "sentry_dsn" {
 
 variable "shared_services_account_id" {
   type = string
+}
+
+variable "env" {
+  type = string
+}
+
+variable "dhcp_db_username" {
+  type = string
+}
+
+variable "dhcp_db_password" {
+  type = string
+}
+
+variable "secret_arns" {
+  type = map(any)
 }

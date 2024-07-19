@@ -2,8 +2,8 @@ module "admin" {
   source = "./modules/admin"
 
   admin_db_backup_retention_period     = var.admin_db_backup_retention_period
-  admin_db_password                    = var.admin_db_password
-  admin_db_username                    = var.admin_db_username
+  admin_db_password                    = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_db.secret_string)["password"]
+  admin_db_username                    = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_db.secret_string)["username"]
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
   bind_config_bucket_key_arn           = module.dns.bind_config_bucket_key_arn
@@ -23,7 +23,7 @@ module "admin" {
   kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
   pdns_ips                             = var.pdns_ips
   prefix                               = "${module.dhcp_label.id}-admin"
-  private_zone                         = var.dns_private_zone
+  private_zone                         = data.aws_ssm_parameter.dns_private_zone.value
   region                               = data.aws_region.current_region.id
   secret_key_base                      = "tbc"
   sentry_dsn                           = var.admin_sentry_dsn
@@ -34,9 +34,11 @@ module "admin" {
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
   allowed_ip_ranges                    = var.allowed_ip_ranges
-  api_basic_auth_username              = var.api_basic_auth_username
-  api_basic_auth_password              = var.api_basic_auth_password
+  api_basic_auth_username              = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_api.secret_string)["basic_auth_username"]
+  api_basic_auth_password              = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_api.secret_string)["basic_auth_password"]
   shared_services_account_id           = var.shared_services_account_id
+  env                                  = var.env
+  secret_arns                          = local.secret_manager_arns
 
   depends_on = [
     module.admin_vpc

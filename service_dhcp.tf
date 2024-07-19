@@ -20,8 +20,6 @@ module "dhcp_standby" {
   source = "./modules/dhcp_standby"
 
   dhcp_db_host                        = module.dhcp.db_host
-  dhcp_db_password                    = var.dhcp_db_password
-  dhcp_db_username                    = var.dhcp_db_username
   dhcp_log_search_metric_filters      = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
   dhcp_repository_url                 = module.dhcp.ecr.repository_url
   dhcp_server_cluster_id              = module.dhcp.ecs.cluster_id
@@ -30,8 +28,8 @@ module "dhcp_standby" {
   ecs_task_execution_role_arn         = module.dhcp.iam.task_execution_role_arn
   ecs_task_role_arn                   = module.dhcp.iam.task_role_arn
   kea_config_bucket_name              = module.dhcp.kea_config_bucket_name
-  load_balancer_private_ip_eu_west_2a = var.dhcp_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b = var.dhcp_load_balancer_private_ip_eu_west_2b
+  load_balancer_private_ip_eu_west_2a = data.aws_ssm_parameter.dhcp_load_balancer_private_ip_eu_west_2a.value
+  load_balancer_private_ip_eu_west_2b = data.aws_ssm_parameter.dhcp_load_balancer_private_ip_eu_west_2b.value
   metrics_namespace                   = var.metrics_namespace
   nginx_repository_url                = module.dhcp.ecr.nginx_repository_url
   prefix                              = module.dhcp_standby_label.id
@@ -40,6 +38,10 @@ module "dhcp_standby" {
   tags                                = module.dhcp_standby_label.tags
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   vpc_id                              = module.servers_vpc.vpc_id
+  env                                 = var.env
+  secret_arns                         = local.secret_manager_arns
+
+
 
   providers = {
     aws = aws.env
@@ -54,11 +56,9 @@ module "dhcp" {
   source                               = "./modules/dhcp"
   shared_services_account_id           = var.shared_services_account_id
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
-  dhcp_db_password                     = var.dhcp_db_password
-  dhcp_db_username                     = var.dhcp_db_username
   dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
-  load_balancer_private_ip_eu_west_2a  = var.dhcp_load_balancer_private_ip_eu_west_2a
-  load_balancer_private_ip_eu_west_2b  = var.dhcp_load_balancer_private_ip_eu_west_2b
+  load_balancer_private_ip_eu_west_2a  = data.aws_ssm_parameter.dhcp_load_balancer_private_ip_eu_west_2a.value
+  load_balancer_private_ip_eu_west_2b  = data.aws_ssm_parameter.dhcp_load_balancer_private_ip_eu_west_2b.value
   metrics_namespace                    = var.metrics_namespace
   prefix                               = module.dhcp_label.id
   private_subnets                      = module.servers_vpc.private_subnets
@@ -69,6 +69,13 @@ module "dhcp" {
   vpc_id                               = module.servers_vpc.vpc_id
   vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
+  env                                  = var.env
+  dhcp_db_username                     = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["username"]
+  dhcp_db_password                     = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["password"]
+  secret_arns                          = local.secret_manager_arns
+
+
+
 
   providers = {
     aws = aws.env

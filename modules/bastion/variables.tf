@@ -46,7 +46,7 @@ variable "security_group_ids" {
 variable "ami_name" {
   type        = string
   description = "The ami name"
-  default     = "diso-devops/bastion/rds-admin/ubuntu-jammy-22.04-amd64-server-1.0.1"
+  default     = "diso-devops/bastion/ubuntu-jammy-22.04-amd64-server-generic-*"
 }
 
 variable "assume_role" {
