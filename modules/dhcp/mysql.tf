@@ -22,7 +22,7 @@ resource "aws_db_instance" "dhcp_server_db" {
   publicly_accessible          = false
   skip_final_snapshot          = true
   storage_encrypted            = true
-  storage_type                 = "gp2"
+  storage_type                 = "gp3"
   username                     = var.dhcp_db_username
   vpc_security_group_ids       = [aws_security_group.dhcp_db_in.id]
   performance_insights_enabled = true
