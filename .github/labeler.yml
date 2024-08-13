@@ -1,7 +1,10 @@
 dhcp-dns:
-  - '**'
+- changed-files:
+  - any-glob-to-any-file: '**'
 
 documentation:
-  - "diagrams/**"
-  - "documentation/**"
-  - "README.md"
+- changed-files:
+  - any-glob-to-any-file:
+    - "diagrams/**"
+    - "documentation/**"
+    - "README.md"
