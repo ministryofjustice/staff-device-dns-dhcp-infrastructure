@@ -38,6 +38,7 @@ resource "aws_ecs_task_definition" "server_task" {
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
+    "readonlyRootFilesystem": true,
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
@@ -48,6 +49,7 @@ resource "aws_ecs_task_definition" "server_task" {
     },
     "expanded": true
   }, {
+    "readonlyRootFilesystem": true,
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {

@@ -229,6 +229,7 @@ resource "aws_ecs_task_definition" "admin_task" {
         }
     ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
+      "readonlyRootFilesystem": true,
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {

@@ -91,8 +91,9 @@ resource "aws_ecs_task_definition" "server_task" {
         "name": "STANDBY_IP",
         "valueFrom": "arn:aws:ssm:eu-west-2:${data.aws_caller_identity.current.account_id}:parameter/staff-device/dhcp/${var.env}/load_balancer_private_ip_eu_west_2b"
       }
-    ], 
+    ],
     "image": "${var.dhcp_repository_url}",
+    "readonlyRootFilesystem": true,
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
@@ -103,6 +104,7 @@ resource "aws_ecs_task_definition" "server_task" {
     },
     "expanded": true
   }, {
+    "readonlyRootFilesystem": true,
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
