@@ -107,6 +107,10 @@ resource "aws_ecs_task_definition" "admin_task" {
   memory                   = "1024"
   network_mode             = "awsvpc"
 
+  volume {
+    name      = "tmp-pids-volume"
+  }
+
   container_definitions = <<EOF
 [
     {
@@ -230,6 +234,13 @@ resource "aws_ecs_task_definition" "admin_task" {
     ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
       "readonlyRootFilesystem": true,
+      "mountPoints": [
+        {
+          "sourceVolume": "tmp-pids-volume",
+          "containerPath": "/tmp/test",
+          "readOnly": false
+        }
+      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -238,7 +249,8 @@ resource "aws_ecs_task_definition" "admin_task" {
           "awslogs-stream-prefix": "${var.prefix}-docker-logs"
         }
       },
-      "expanded": true
+      "expanded": true,
+      "ephemeralStorage": {"sizeInGiB": 200 }
     }
 ]
 EOF
