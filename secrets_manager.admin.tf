@@ -1,10 +1,10 @@
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_db" {
-  name        = "/codebuild/dhcp/${terraform.workspace}/admin/db"
-#   description = "DNS & DHCP ADMIN - Service RDS Database username & password."
-  provider    = aws.env
-#   tags = merge(local.tags_admin_minus_name,
-#     { "Name" : "/codebuild/dhcp/${terraform.workspace}/admin/db" }
-#   )
+  name = "/codebuild/dhcp/${terraform.workspace}/admin/db"
+  #   description = "DNS & DHCP ADMIN - Service RDS Database username & password."
+  provider = aws.env
+  #   tags = merge(local.tags_admin_minus_name,
+  #     { "Name" : "/codebuild/dhcp/${terraform.workspace}/admin/db" }
+  #   )
 }
 
 data "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_db" {
@@ -41,12 +41,12 @@ resource "random_password" "codebuild_dhcp_env_admin_db" {
 
 
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_admin_api" {
-  name        = "/codebuild/dhcp/${terraform.workspace}/admin/api"
-#   description = "DNS & DHCP ADMIN - Prometheus - HTTP API"
-  provider    = aws.env
-#   tags = merge(local.tags_admin_minus_name,
-#     { "Name" : "/codebuild/dhcp/${terraform.workspace}/admin/api" }
-#   )
+  name = "/codebuild/dhcp/${terraform.workspace}/admin/api"
+  #   description = "DNS & DHCP ADMIN - Prometheus - HTTP API"
+  provider = aws.env
+  #   tags = merge(local.tags_admin_minus_name,
+  #     { "Name" : "/codebuild/dhcp/${terraform.workspace}/admin/api" }
+  #   )
 }
 
 data "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_api" {
@@ -69,12 +69,12 @@ resource "aws_secretsmanager_secret_version" "codebuild_dhcp_env_admin_api" {
 }
 
 resource "aws_secretsmanager_secret" "staff_device_admin_sentry_dsn_1" {
-  name        = "/staff-device/admin/sentry_dsn"
-#   description = "DNS & DHCP ADMIN - Sentry - Application monitoring and debugging software - Data Source Name (DSN)."
-  provider    = aws.env
-#   tags = merge(local.tags_admin_minus_name,
-#     { "Name" : "/staff-device/admin/sentry_dsn" }
-#   )
+  name = "/staff-device/admin/sentry_dsn"
+  #   description = "DNS & DHCP ADMIN - Sentry - Application monitoring and debugging software - Data Source Name (DSN)."
+  provider = aws.env
+  #   tags = merge(local.tags_admin_minus_name,
+  #     { "Name" : "/staff-device/admin/sentry_dsn" }
+  #   )
 }
 
 resource "aws_secretsmanager_secret_version" "staff_device_admin_sentry_dsn" {

@@ -1,10 +1,10 @@
 resource "aws_secretsmanager_secret" "codebuild_dhcp_env_db" {
-  name        = "/codebuild/dhcp/${terraform.workspace}/db"
-#   description = "DHCP - Service RDS Database username & password."
-  provider    = aws.env
-#   tags = merge(local.tags_dhcp_minus_name,
-#     { "Name" : "/codebuild/dhcp/${terraform.workspace}/db" }
-#   )
+  name = "/codebuild/dhcp/${terraform.workspace}/db"
+  #   description = "DHCP - Service RDS Database username & password."
+  provider = aws.env
+  #   tags = merge(local.tags_dhcp_minus_name,
+  #     { "Name" : "/codebuild/dhcp/${terraform.workspace}/db" }
+  #   )
 }
 
 data "aws_secretsmanager_secret_version" "codebuild_dhcp_env_db" {
@@ -40,12 +40,12 @@ resource "random_password" "codebuild_dhcp_env_db" {
 }
 
 resource "aws_secretsmanager_secret" "staff_device_dhcp_sentry_dsn" {
-  name        = "/staff-device/dhcp/sentry_dsn"
-#   description = "DHCP - Sentry - Application monitoring and debugging software - Data Source Name (DSN)."
-  provider    = aws.env
-#   tags = merge(local.tags_dhcp_minus_name,
-#     { "Name" : "/staff-device/dhcp/sentry_dsn" }
-#   )
+  name = "/staff-device/dhcp/sentry_dsn"
+  #   description = "DHCP - Sentry - Application monitoring and debugging software - Data Source Name (DSN)."
+  provider = aws.env
+  #   tags = merge(local.tags_dhcp_minus_name,
+  #     { "Name" : "/staff-device/dhcp/sentry_dsn" }
+  #   )
 }
 
 resource "aws_secretsmanager_secret_version" "staff_device_dhcp_sentry_dsn" {
