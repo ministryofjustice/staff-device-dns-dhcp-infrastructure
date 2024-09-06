@@ -108,7 +108,7 @@ resource "aws_ecs_task_definition" "admin_task" {
   network_mode             = "awsvpc"
 
   volume {
-    name      = "tmp-volume"
+    name = "tmp-volume"
   }
 
   container_definitions = <<EOF
