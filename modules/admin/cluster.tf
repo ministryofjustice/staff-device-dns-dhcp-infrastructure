@@ -108,7 +108,7 @@ resource "aws_ecs_task_definition" "admin_task" {
   network_mode             = "awsvpc"
 
   volume {
-    name      = "tmp-pids-volume"
+    name      = "tmp-volume"
   }
 
   container_definitions = <<EOF
@@ -236,8 +236,8 @@ resource "aws_ecs_task_definition" "admin_task" {
       "readonlyRootFilesystem": true,
       "mountPoints": [
         {
-          "sourceVolume": "tmp-pids-volume",
-          "containerPath": "/tmp/test",
+          "sourceVolume": "tmp-volume",
+          "containerPath": "/home/app/staff-device-dns-dhcp-admin/tmp",
           "readOnly": false
         }
       ],
