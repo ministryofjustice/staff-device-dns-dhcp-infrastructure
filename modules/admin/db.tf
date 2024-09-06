@@ -4,7 +4,7 @@ locals {
 
 resource "aws_db_instance" "admin_db" {
   allocated_storage            = 20
-  storage_type                 = "gp2"
+  storage_type                 = "gp3"
   engine                       = "mysql"
   engine_version               = "8.0"
   auto_minor_version_upgrade   = true

@@ -3,11 +3,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.56.1"
+      version = "5.62.0"
     }
     local = {
       source  = "hashicorp/local"
-      version = "2.2.2"
+      version = "2.4.0"
     }
     mysql = {
       source  = "terraform-providers/mysql"
@@ -19,7 +19,7 @@ terraform {
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "~> 3.3"
+      version = "~> 4.0"
     }
   }
 }
