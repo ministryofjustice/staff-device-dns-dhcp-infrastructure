@@ -115,26 +115,15 @@ terraform output -json terraform_outputs | jq '.admin.rds'
 
 To get the password run
 
-Set the profile to the correct env:
-
-- mojo-development-cli
-- mojo-pre-production-cli
-- mojo-production-cli
-
 ```shell
-export AWS_PROFILE=mojo-production-cli
-make shell
+make rds-admin-password
 ```
 
-Within the container set the ENV var and run the script.
+or
 
 ```shell
-export ENV=production
-./scripts/get_db_parameters.sh
+make rds-server-password
 ```
-
-Or Login to the AWS target account e.g. Development via the console.
-Go to SSM and search for parameter `/codebuild/dhcp/{env name}/db/password`
 
 ## DHCP Database Backup and Restore
 
@@ -143,6 +132,21 @@ In order to connect to the database the following items will be needed.
 - fqdn e.g. `"fqdn": "dhcp-dns-admin-dhcp-db.dev.staff.service.justice.gov.uk",`
 - username e.g. `"username": "adminuser"`
 - password
+
+Connection strings for testing conncetivity and accessing the DBs are described below, however you can obtain ready baked dynamically created versions by running:
+
+```shell
+make rds-admin
+```
+
+or
+
+```shell
+make rds-server-password
+```
+
+A file will be created and shown on the terminal with all the correct details for the environment, examples are below.
+
 
 ### Test connection
 
@@ -155,7 +159,7 @@ fqdn=dhcp-dns-admin-db.dev.staff.service.justice.gov.uk && curl -v telnet://${fq
 ```shell
 fqdn=dhcp-dns-admin-db.dev.staff.service.justice.gov.uk
 admin_db_username=adminuser
-mysql -u ${admin_db_username} -p -h ${fqdn}
+mysql -u ${admin_db_username} -p -h ${fqdn} --ssl
 
 ## enter password when prompted
 Enter password:
@@ -209,6 +213,7 @@ admin_db_username="adminuser"; \
 mysqldump \
 	-u "${admin_db_username}" \
 	-p \
+	--ssl \
 	--set-gtid-purged=OFF \
 	--triggers --routines --events \
 	-h "${fqdn}"  \
