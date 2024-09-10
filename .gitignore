@@ -36,6 +36,7 @@ override.tf.json
 *.terraform-version
 
 /.env
+/.db_connection*
 
 
 # Vscode
