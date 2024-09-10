@@ -116,11 +116,11 @@ output: ## terraform output (make output OUTPUT_ARGUMENT='--raw dns_dhcp_vpc_id'
 #	$(DOCKER_RUN) /bin/bash -c "./scripts/get_db_parameters.sh"
 .PHONY: rds-admin
 rds-admin: ## Get RDS admin connection details (make rds-admin)
-	$(DOCKER_RUN) /bin/bash -c "./scripts/get_db_parameters.sh admin"
+	$(DOCKER_RUN) /bin/bash -c "./scripts/create_db_connection_details.sh admin"
 
 .PHONY: rds-server
 rds-server: ## Get RDS server connection details (make rds-server)
-	$(DOCKER_RUN) /bin/bash -c "./scripts/get_db_parameters.sh server"
+	$(DOCKER_RUN) /bin/bash -c "./scripts/create_db_connection_details.sh server"
 
 .PHONY: rds-admin-password
 rds-admin-password: ## Get RDS admin password (make rds-admin-password)

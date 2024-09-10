@@ -2,8 +2,7 @@
 
 db_type=${1}
 file_name=".db_connection.${ENV}.${db_type}"
-#terraform_outputs=$(terraform output -json)
-terraform_outputs=$(cat ./TFO.json)
+terraform_outputs=$(terraform output -json)
 
 if [ ${db_type} == "admin" ]; then
   ## Admin RDS
