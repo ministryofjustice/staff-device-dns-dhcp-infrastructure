@@ -34,11 +34,10 @@ filename="\`date "+%Y_%m_%d-%H_%M_%S"\`_${ENV}_${admin_db_name}_rds-dump.sql"; \
 mysqldump \\
 	-u "${admin_db_username}" \\
 	-p \\
-	--ssl \\
 	--set-gtid-purged=OFF \\
 	--triggers --routines --events \\
 	-h "${admin_db_fqdn}"  \\
-	"${admin_db_name}" > ~/${filename}; \\
+	"${admin_db_name}" > ~/\${filename}; \\
 	ls -al; \\
 aws s3 cp ~/\${filename} s3://mojo-file-transfer/ --profile s3-role; \\
 aws s3 ls s3://mojo-file-transfer/ --profile s3-role;

@@ -31,8 +31,21 @@ Run the Staff-Device-DNS-DHCP-Infrastructure pipeline to create the bastion inst
 
 ### Get environment details for the target env
 
+We will need to query the Terraform state for the environment we need to run the init command, which will get then necessary env vars and terraform providers and modules.
+For development we do need to add an ENV_ARGUMENT
+
 ```
-make gen-env ENV_ARGUMENT=production
+make clean
+make init
+make init
+```
+
+For pre-production and production we do add the ENV_ARGUMENT as shown below.
+
+```
+make clean
+make init ENV_ARGUMENT=production
+make init ENV_ARGUMENT=production
 ```
 
 ### run the script to identify the bastion instance id
@@ -45,6 +58,18 @@ Then identify the running bastion host
 
 ```
 i-019174128cf7b4563|  t3a.small  |  None           |  running |  mojo-production-rds-admin-bastion
+```
+
+Alternatively there is another make target that will return the bastion's instance_id if it exists.
+
+```shell
+make instanceid-bastion-rds-admin
+```
+
+or
+
+```shell
+make instanceid-bastion-rds-server
 ```
 
 ### Start session on bastion
@@ -133,7 +158,7 @@ In order to connect to the database the following items will be needed.
 - username e.g. `"username": "adminuser"`
 - password
 
-Connection strings for testing conncetivity and accessing the DBs are described below, however you can obtain ready baked dynamically created versions by running:
+Connection strings for testing connectivity and accessing the DBs are described below, however you can obtain ready baked dynamically created versions by running:
 
 ```shell
 make rds-admin
@@ -146,7 +171,6 @@ make rds-server-password
 ```
 
 A file will be created and shown on the terminal with all the correct details for the environment, examples are below.
-
 
 ### Test connection
 

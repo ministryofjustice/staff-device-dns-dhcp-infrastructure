@@ -46,6 +46,6 @@ output "db" {
     name                = aws_db_instance.admin_db.db_name
     port                = aws_db_instance.admin_db.port
     rds_monitoring_role = aws_iam_role.rds_monitoring_role.arn
-#     username            = aws_db_instance.admin_db.username  ## non-secret now coming from Secret Manager, Terraform treats as sensitive.
+    #     username            = aws_db_instance.admin_db.username  ## non-secret now coming from Secret Manager, Terraform treats as sensitive.
   }
 }
