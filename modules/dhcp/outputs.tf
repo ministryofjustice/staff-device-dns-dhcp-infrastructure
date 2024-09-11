@@ -88,7 +88,7 @@ output "db" {
     id       = aws_db_instance.dhcp_server_db.id
     name     = aws_db_instance.dhcp_server_db.db_name
     port     = aws_db_instance.dhcp_server_db.port
-#     username = aws_db_instance.dhcp_server_db.username ## non-secret now coming from Secret Manager, Terraform treats as sensitive.
+    #     username = aws_db_instance.dhcp_server_db.username ## non-secret now coming from Secret Manager, Terraform treats as sensitive.
   }
 }
 
