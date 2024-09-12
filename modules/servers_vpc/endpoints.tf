@@ -65,11 +65,13 @@ resource "aws_vpc_endpoint" "s3" {
 }
 
 resource "aws_vpc_endpoint" "sts" {
-  vpc_id            = module.vpc.vpc_id
-  route_table_ids   = module.vpc.public_route_table_ids
-  service_name      = "com.amazonaws.${var.region}.sts"
-  vpc_endpoint_type = "Interface"
-  tags              = var.tags
+  vpc_id              = module.vpc.vpc_id
+  subnet_ids          = module.vpc.public_subnets
+  service_name        = "com.amazonaws.${var.region}.sts"
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+  security_group_ids  = [aws_security_group.endpoints.id]
+  tags                = var.tags
 }
 
 
