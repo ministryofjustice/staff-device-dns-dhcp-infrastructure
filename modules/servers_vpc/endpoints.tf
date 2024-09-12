@@ -64,6 +64,13 @@ resource "aws_vpc_endpoint" "s3" {
   tags            = var.tags
 }
 
+resource "aws_vpc_endpoint" "sts" {
+  vpc_id          = module.vpc.vpc_id
+  route_table_ids = module.vpc.public_route_table_ids
+  service_name    = "com.amazonaws.${var.region}.sts"
+  tags            = var.tags
+}
+
 
 // enpoint required for bastions and ecs task get ssm parameters & secrets manager
 
