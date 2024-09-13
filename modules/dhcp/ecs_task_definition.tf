@@ -14,6 +14,10 @@ resource "aws_ecs_task_definition" "server_task" {
   memory                   = local.memory
   network_mode             = "awsvpc"
 
+  volume {
+    name = "tmp-volume"
+  }
+
   container_definitions = <<EOF
 [
   {
@@ -100,6 +104,15 @@ resource "aws_ecs_task_definition" "server_task" {
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
+    "readonlyRootFilesystem": true,
+    "mountPoints": [
+      {
+        "sourceVolume": "tmp-volume",
+        "containerPath": "/tmp",
+        "readOnly": false
+      }
+    ],
+    "ephemeralStorage": {"sizeInGiB": 200 },
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
