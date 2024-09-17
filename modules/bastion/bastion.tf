@@ -7,10 +7,20 @@ terraform {
   }
 }
 
+data "template_file" "user_data" {
+  template = file("${path.module}/user_data/user_data.sh")
+
+  vars = {
+    project_name = var.ami_name
+  }
+}
+
 resource "aws_instance" "bastion" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3a.small"
   count         = var.number_of_bastions
+
+  user_data = data.template_file.user_data.rendered
 
   vpc_security_group_ids = setunion(var.security_group_ids, [aws_security_group.bastion.id])
 
