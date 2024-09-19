@@ -8,14 +8,21 @@ The routine is
 
 - Enable
 
-  - Enable the bastion via an "enable" flag set in AWS SSM Parameter Store to `true`.
-  - Deploy by running the CI pipeline.
-  - Create an SSM Session.
-  - Carry out required procedure
+  - Spin up a bastion
+    - Enable the bastion via an "enable" flag set in AWS SSM Parameter Store to `true`.
+    - Deploy by running the CI pipeline.
 
 - Configure
 
-  - Simple set up to enable assuming a role
+  - Prepare Terraform locally for the environment.
+
+- Action
+
+  - Create an SSM Session.
+  - Retrieve connection details.
+  - Carry out required procedure.
+    - Get DB Dump.
+    - Query DB.
 
 - Removal
   - Disallow the bastion via an "enable" flag set in AWS SSM Parameter Store to `false`.
@@ -26,14 +33,34 @@ The routine is
 ### Spin up a bastion
 
 Navigate to the ssm parameter store in the Shared Services AWS account.
-Set the boolean value for /staff-device/dns-dhcp/{environment}/enable_rds_admin_bastion in parameter store to `true`
-Run the Staff-Device-DNS-DHCP-Infrastructure pipeline to create the bastion instance.
+Set the boolean value for
 
-### Get environment details for the target env
+- Admin DB: `/staff-device/dns-dhcp/{environment}/enable_rds_admin_bastion` in [AWS SSM Parameter Store](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/?region=eu-west-2&tab=Table) to `true`
+- DHCP Server DB: `/staff-device/dns-dhcp/{environment}/enable_rds_admin_bastion` in [AWS SSM Parameter Store](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/?region=eu-west-2&tab=Table) to `true`
+- Run the `Staff-Device-DNS-DHCP-Infrastructure` [pipeline](https://eu-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/Staff-Device-DNS-DHCP-Infrastructure/view?region=eu-west-2) to create the bastion instance.
+
+## Configure
+
+### Prepare Terraform locally for the environment.
+
+We will need to query the Terraform state for the environment we need to run the init command, which will get then necessary env vars and terraform providers and modules.
+For the `development` environment we do not need to add an ENV_ARGUMENT
 
 ```
-make gen-env ENV_ARGUMENT=production
+make clean
+make init
+make init
 ```
+
+For pre-production and production we do add the ENV_ARGUMENT as shown below.
+
+```
+make clean
+make init ENV_ARGUMENT=production
+make init ENV_ARGUMENT=production
+```
+
+## Action
 
 ### run the script to identify the bastion instance id
 
@@ -55,9 +82,13 @@ Run make command with instance id
 make aws_ssm_start_session INSTANCE_ID=i-019174128cf7b4563
 ```
 
-## Configure
+When the SSM session starts issue `sudo su -` command.
 
-First we need to enable an AWS role to transfer files to (or from) an S3 transfer bucket.
+### Configure
+
+The bastions are now configured at deployment time with the following AWS role to transfer files to (or from) an S3 transfer bucket.
+
+Should this not be the case for any reason here is how
 
 ```
 #######################
@@ -82,67 +113,50 @@ aws sts get-caller-identity
 then access to the s3 bucket
 
 ```
-aws s3 ls s3://mojo-file-transfer/ --profile s3-role;
+aws s3 ls s3://mojo-file-transfer/ --profile s3-role
 ```
-
-## Get a DB dump
 
 from another terminal window in the root of the project run
 
-```shell
-make shell
-```
-
-the issue a terraform command to get the database details
-
-Admin (dhcp & dns)
-
-```shell
-terraform output -json terraform_outputs | jq '.admin.db'
-```
-
-DHCP
-
-```shell
-terraform output -json terraform_outputs | jq '.dhcp.db'
-```
-
-Admin (NAC)\* note: NAC code used `rds` as module name.
-
-```shell
-terraform output -json terraform_outputs | jq '.admin.rds'
-```
-
-To get the password run
-
-Set the profile to the correct env:
-
-- mojo-development-cli
-- mojo-pre-production-cli
-- mojo-production-cli
-
-```shell
-export AWS_PROFILE=mojo-production-cli
-make shell
-```
-
-Within the container set the ENV var and run the script.
-
-```shell
-export ENV=production
-./scripts/get_db_parameters.sh
-```
-
-Or Login to the AWS target account e.g. Development via the console.
-Go to SSM and search for parameter `/codebuild/dhcp/{env name}/db/password`
-
-## DHCP Database Backup and Restore
+## Get a DB dump
 
 In order to connect to the database the following items will be needed.
 
 - fqdn e.g. `"fqdn": "dhcp-dns-admin-dhcp-db.dev.staff.service.justice.gov.uk",`
 - username e.g. `"username": "adminuser"`
 - password
+
+### Retrieve connection details
+
+Connection strings for testing connectivity and accessing the DBs are described below, however you can obtain ready baked dynamically created versions by running:
+
+```shell
+make rds-admin
+```
+
+or
+
+```shell
+make rds-server
+```
+
+To get the password run
+
+```shell
+make rds-admin-password
+```
+
+or
+
+```shell
+make rds-server-password
+```
+
+A file will be created and shown on the terminal with all the correct details retrieved from Terraform outputs for the environment. You can view that file at any time it will be named `.db_connection.{ENV}.admin|server`.
+
+```shell
+cat .db_connection.{ENV}.admin
+```
 
 ### Test connection
 
@@ -198,7 +212,9 @@ show tables;
 
 ### Get a DB dump
 
-Create a timestamped database dump and upload it to S3 transfer bucket (copy and paste as below, update variable values as required.)
+Create a timestamped database dump and upload it to S3 transfer bucket (copy and paste from your local `.db_connection.{env}.admin` file).
+
+Example below for illustration only.
 
 ```shell
 env="DEVELOPMENT"; \
