@@ -25,7 +25,7 @@ curl -v telnet://${admin_db_fqdn}:${admin_db_port} --output rds.admin.txt
 Connect to DB with MySQL client:
 Copy command below to test RDS DB access from Admin RDS Bastion.
 -----
-mysql --user=${admin_db_username} --host=${admin_db_fqdn} --port=${admin_db_port} --ssl --password
+mysql --user=${admin_db_username} --host=${admin_db_fqdn} --port=${admin_db_port} --password
 
 
 Create DB dump and push to S3
