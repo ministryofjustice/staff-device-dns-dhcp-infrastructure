@@ -66,7 +66,7 @@ curl -v telnet://${dhcp_db_fqdn}:${dhcp_db_port} --output rds.dhcp.txt
 Connect to DB with MySQL client:
 Copy command below to test RDS DB access from Servers RDS Bastion.
 -----
-mysql --user=${dhcp_db_username} --host=${dhcp_db_fqdn} --port=${dhcp_db_port} --ssl --password
+mysql --user=${dhcp_db_username} --host=${dhcp_db_fqdn} --port=${dhcp_db_port} --password
 
 
 Create DB dump and push to S3
