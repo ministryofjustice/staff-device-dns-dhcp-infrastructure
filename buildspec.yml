@@ -49,7 +49,6 @@ phases:
 
   build:
     commands:
-      - echo terraform --version
       - export TF_VAR_env=${ENV}
       - export AWS_DEFAULT_REGION=eu-west-2
       - terraform init -no-color --backend-config="key=terraform.$ENV.state"
