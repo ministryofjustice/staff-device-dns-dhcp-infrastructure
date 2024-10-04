@@ -5,11 +5,12 @@ module "load_testing_label" {
 }
 
 module "load_testing" {
-  source             = "./modules/bastion"
+  source             = "github.com/ministryofjustice/diso-devops-module-ssm-bastion.git?ref=1fa79052e1e19a9dd3d18953db3db1b80c098986"
   prefix             = module.load_testing_label.id
+  ami_owners         = ["${var.shared_services_account_id}"]
   vpc_id             = module.servers_vpc.vpc.vpc_id
   vpc_cidr_block     = module.servers_vpc.vpc.vpc_cidr_block
-  private_subnets    = module.servers_vpc.vpc.private_subnets
+  subnets            = module.servers_vpc.vpc.private_subnets
   number_of_bastions = var.number_of_load_testing_nodes
   assume_role        = local.s3-mojo_file_transfer_assume_role_arn
   tags               = module.load_testing_label.tags
