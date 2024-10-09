@@ -10,7 +10,7 @@ module "load_testing" {
   vpc_id             = module.servers_vpc.vpc.vpc_id
   vpc_cidr_block     = module.servers_vpc.vpc.vpc_cidr_block
   private_subnets    = module.servers_vpc.vpc.private_subnets
-  number_of_bastions = var.number_of_load_testing_nodes
+  number_of_bastions = local.number_of_load_testing_nodes
   assume_role        = local.s3-mojo_file_transfer_assume_role_arn
   tags               = module.load_testing_label.tags
 
@@ -20,5 +20,5 @@ module "load_testing" {
 
   depends_on = [module.servers_vpc]
   // Set in SSM parameter store, true or false to enable or disable this module.
-  count = var.enable_load_testing == true ? 1 : 0
+  count = local.enable_load_testing == true ? 1 : 0
 }

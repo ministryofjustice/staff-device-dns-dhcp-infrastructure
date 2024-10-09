@@ -5,7 +5,7 @@ module "admin_vpc" {
   prefix                        = "${module.dhcp_label.id}-admin"
   region                        = data.aws_region.current_region.id
   tags                          = module.admin_label.tags
-  ssm_session_manager_endpoints = var.enable_rds_admin_bastion
+  ssm_session_manager_endpoints = local.enable_rds_admin_bastion
 
   providers = {
     aws = aws.env

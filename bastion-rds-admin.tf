@@ -22,5 +22,6 @@ module "rds_admin_bastion" {
 
   depends_on = [module.admin_vpc]
   // Set in SSM parameter store, true or false to enable or disable this module.
-  count = var.enable_rds_admin_bastion == true ? 1 : 0
+  count = local.enable_rds_admin_bastion == true ? 1 : 0
 }
+

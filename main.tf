@@ -19,7 +19,7 @@ provider "mysql" {
 provider "aws" {
   alias = "env"
   assume_role {
-    role_arn = var.assume_role
+    role_arn = data.aws_ssm_parameter.assume_role.value
   }
 }
 

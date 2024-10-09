@@ -54,7 +54,7 @@ module "dhcp_standby" {
 
 module "dhcp" {
   source                               = "./modules/dhcp"
-  shared_services_account_id           = var.shared_services_account_id
+  shared_services_account_id           = local.shared_services_account_id
   admin_local_development_domain_affix = var.admin_local_development_domain_affix
   dhcp_log_search_metric_filters       = var.enable_dhcp_cloudwatch_log_metrics == true ? local.dhcp_log_metrics : []
   load_balancer_private_ip_eu_west_2a  = data.aws_ssm_parameter.dhcp_load_balancer_private_ip_eu_west_2a.value
@@ -67,8 +67,8 @@ module "dhcp" {
   tags                                 = module.dhcp_label.tags
   vpc_cidr                             = local.dns_dhcp_vpc_cidr
   vpc_id                               = module.servers_vpc.vpc_id
-  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
-  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
+  vpn_hosted_zone_domain               = local.vpn_hosted_zone_domain
+  vpn_hosted_zone_id                   = local.vpn_hosted_zone_id
   env                                  = var.env
   dhcp_db_username                     = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["username"]
   dhcp_db_password                     = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["password"]

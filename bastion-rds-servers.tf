@@ -22,5 +22,5 @@ module "rds_servers_bastion" {
 
   depends_on = [module.servers_vpc]
   // Set in SSM parameter store, true or false to enable or disable this module.
-  count = var.enable_rds_servers_bastion == true ? 1 : 0
+  count = local.enable_rds_servers_bastion == true ? 1 : 0
 }
