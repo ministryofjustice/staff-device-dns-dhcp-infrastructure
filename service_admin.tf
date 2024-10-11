@@ -21,7 +21,7 @@ module "admin" {
   dns_service_name                     = module.dns.ecs.service_name
   kea_config_bucket_arn                = module.dhcp.kea_config_bucket_arn
   kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
-  pdns_ips                             = data.aws_ssm_parameter.pdns_ips.value
+  pdns_ips                             = local.pdns_ips
   prefix                               = "${module.dhcp_label.id}-admin"
   private_zone                         = data.aws_ssm_parameter.dns_private_zone.value
   region                               = data.aws_region.current_region.id

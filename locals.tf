@@ -19,6 +19,7 @@ locals {
   enable_rds_servers_bastion              = tobool(data.aws_ssm_parameter.enable_rds_servers_bastion.value)
   model_office_vm_ip                      = nonsensitive(data.aws_ssm_parameter.model_office_vm_ip.value)
   number_of_load_testing_nodes            = tonumber(data.aws_ssm_parameter.number_of_load_testing_nodes.value)
+  pdns_ips                                = data.aws_ssm_parameter.pdns_ips.value
   pdns_ips_list                           = nonsensitive(jsondecode(data.aws_ssm_parameter.pdns_ips_list.value))
   shared_services_account_id              = nonsensitive(data.aws_ssm_parameter.shared_services_account_id.value)
   transit_gateway_route_table_id          = nonsensitive(data.aws_ssm_parameter.transit_gateway_route_table_id.value)
