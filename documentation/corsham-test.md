@@ -15,7 +15,7 @@ This is integrated with the production MoJ network so will only work on our prod
 
 1. Add your public IP address to AWS SSM parameter store (Shared Services Account) `/staff-device/corsham_testing/bastion_allowed_ingress_ip`.
 
-2. Modify the `/staff-device/dns-dhcp/$ENV/enable_bastion` ssm parameter in AWS shared services account and set it to `true`.
+2. Modify the `enable_corsham_test_bastion` variable in `./variables.tf` and set it to `true`.
 
 3. Run the pipeline.
 

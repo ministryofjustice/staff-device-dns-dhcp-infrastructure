@@ -8,11 +8,6 @@ variable "enable_critical_notifications" {
   default = false
 }
 
-variable "critical_notification_recipients" {
-  type    = list(any)
-  default = []
-}
-
 variable "admin_db_backup_retention_period" {
   type    = number
   default = 30

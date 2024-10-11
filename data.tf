@@ -76,11 +76,6 @@ data "aws_ssm_parameter" "pdns_ips_list" {
   with_decryption = true
 }
 
-# I DONT THINK THIS ONE IS NEEDED
-# data "aws_ssm_parameter" "critical_notification_recipients" {
-#   name     = "codebuild/pttp-ci-infrastructure-core-pipeline/${terraform.workspace}/critical_notification_recipients"
-# }
-
 data "aws_ssm_parameter" "vpn_hosted_zone_id" {
   name     = "/codebuild/${terraform.workspace}/vpn_hosted_zone_id"
   with_decryption = true
@@ -150,12 +145,6 @@ data "aws_ssm_parameter" "model_office_vm_ip" {
   name     = "/staff-device/dns-dhcp/model_office_vm_ip"
   with_decryption = true
 }
-
-# I DONT THINK THIS ONE IS NEEDED - it's not used anywhere
-# data "aws_ssm_parameter" "dhcp_egress_transit_gateway_routes" {
-#   name     = "/staff-device/${terraform.workspace}/dhcp_egress_transit_gateway_routes"
-#   with_decryption = true
-# }
 
 data "aws_ssm_parameter" "allowed_ip_ranges" {
   name     = "/staff-device/dns-dhcp/admin/${terraform.workspace}/allowed_ip_ranges"

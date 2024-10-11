@@ -66,7 +66,7 @@ endif
 	$(MAKE) -init
 
 .PHONY: -init
--init: ## terraform init (make init ENV=development)
+-init:
 	$(DOCKER_RUN) terraform init --backend-config="key=terraform.$$ENV.state"
 	$(MAKE) workspace-select
 
