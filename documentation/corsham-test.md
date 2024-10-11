@@ -29,17 +29,17 @@ This is integrated with the production MoJ network so will only work on our prod
 
 3. Change the permission of the pem file by running:
 
-    ```bash
-    chmod 600 corsham_test.pem
-    ```
+   ```bash
+   chmod 600 corsham_test.pem
+   ```
 
 4. Copy the IP address of the bastion server found under `/corsham/testing/bastion/ip` (referred to as <BASTION_IP> below)
 
 5. SSH onto the bastion server:
 
-    ```bash
-    ssh -i corsham_test.pem ubuntu@<BASTION_IP>
-    ```
+   ```bash
+   ssh -i corsham_test.pem ubuntu@<BASTION_IP>
+   ```
 
 ### SSH onto the Corsham VM from the bastion server
 
@@ -49,18 +49,18 @@ This is integrated with the production MoJ network so will only work on our prod
 
 3. SSH onto the Corsham VM:
 
-    ```bash
-    ssh mt@<VM_IP>
-    ```
+   ```bash
+   ssh mt@<VM_IP>
+   ```
 
 4. When prompted for the password enter `<VM_PASSWORD>`
 
 ### Run PerfDHCP
 
 1. Execute the test script
-    
-    ```bash
-    ./run_perfdhcp
-    ```
+
+   ```bash
+   ./run_perfdhcp
+   ```
 
 The results of the test will display when `perfdhcp` has completed.

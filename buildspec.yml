@@ -6,7 +6,6 @@ env:
     TF_INPUT: 0
   parameter-store:
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
-    
 
 phases:
   install:

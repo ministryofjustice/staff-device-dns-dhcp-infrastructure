@@ -1,5 +1,5 @@
 locals {
-  env = terraform.workspace
+  env               = terraform.workspace
   dns_dhcp_vpc_cidr = "10.180.80.0/22"
 
   allowed_ip_ranges                       = nonsensitive(jsondecode(data.aws_ssm_parameter.allowed_ip_ranges.value))
@@ -20,7 +20,7 @@ locals {
   model_office_vm_ip                      = nonsensitive(data.aws_ssm_parameter.model_office_vm_ip.value)
   number_of_load_testing_nodes            = tonumber(data.aws_ssm_parameter.number_of_load_testing_nodes.value)
   pdns_ips_list                           = nonsensitive(jsondecode(data.aws_ssm_parameter.pdns_ips_list.value))
-  shared_services_account_id              = nonsensitive(data.aws_ssm_parameter.shared_services_account_id.value) 
+  shared_services_account_id              = nonsensitive(data.aws_ssm_parameter.shared_services_account_id.value)
   transit_gateway_route_table_id          = nonsensitive(data.aws_ssm_parameter.transit_gateway_route_table_id.value)
   vpn_hosted_zone_id                      = nonsensitive(data.aws_ssm_parameter.vpn_hosted_zone_id.value)
   vpn_hosted_zone_domain                  = nonsensitive(data.aws_ssm_parameter.vpn_hosted_zone_domain.value)
@@ -45,5 +45,3 @@ locals {
     codebuild_dhcp_env_admin_api  = aws_secretsmanager_secret.codebuild_dhcp_env_admin_api.arn
   }
 }
-
-
