@@ -1,7 +1,9 @@
 locals {
+  env = terraform.workspace
   dns_dhcp_vpc_cidr = "10.180.80.0/22"
 
   allowed_ip_ranges                       = nonsensitive(jsondecode(data.aws_ssm_parameter.allowed_ip_ranges.value))
+  azure_federation_metadata_url           = data.aws_ssm_parameter.azure_federation_metadata_url.value
   bastion_allowed_ingress_ip              = nonsensitive(data.aws_ssm_parameter.bastion_allowed_ingress_ip.value)
   bastion_allowed_egress_ip               = nonsensitive(data.aws_ssm_parameter.bastion_allowed_egress_ip.value)
   byoip_pool_id                           = nonsensitive(data.aws_ssm_parameter.byoip_pool_id.value)

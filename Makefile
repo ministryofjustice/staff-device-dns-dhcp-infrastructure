@@ -66,7 +66,7 @@ endif
 	$(MAKE) -init
 
 .PHONY: -init
--init:
+-init: ## terraform init (make init ENV=development)
 	$(DOCKER_RUN) terraform init --backend-config="key=terraform.$$ENV.state"
 	$(MAKE) workspace-select
 
@@ -106,11 +106,6 @@ plan: ## terraform plan
 .PHONY: refresh
 refresh: ## terraform refresh
 	$(DOCKER_RUN) terraform refresh
-
-.PHONY: console
-console: ## terraform refresh
-	$(DOCKER_RUN) terraform console
-	
 
 .PHONY: output
 output: ## terraform output (make output OUTPUT_ARGUMENT='--raw dns_dhcp_vpc_id')
@@ -188,10 +183,6 @@ aws_ssm_start_session: ## Use AWS CLI to start SSM session on an EC2 instance (m
 .PHONY: tfenv
 tfenv: ## tfenv pin - terraform version from versions.tf
 	tfenv use $(cat versions.tf 2> /dev/null | grep required_version | cut -d "\"" -f 2 | cut -d " " -f 2) && tfenv pin
-
-.PHONY: target
-target: ## terraform target
-	$(DOCKER_RUN) terraform plan -target='module.rds_admin_bastion[0].aws_iam_role.iam_instance_role'
 
 help:
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

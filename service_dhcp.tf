@@ -38,7 +38,7 @@ module "dhcp_standby" {
   tags                                = module.dhcp_standby_label.tags
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   vpc_id                              = module.servers_vpc.vpc_id
-  env                                 = var.env
+  env                                 = local.env
   secret_arns                         = local.secret_manager_arns
 
 
@@ -69,7 +69,7 @@ module "dhcp" {
   vpc_id                               = module.servers_vpc.vpc_id
   vpn_hosted_zone_domain               = local.vpn_hosted_zone_domain
   vpn_hosted_zone_id                   = local.vpn_hosted_zone_id
-  env                                  = var.env
+  env                                  = local.env
   dhcp_db_username                     = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["username"]
   dhcp_db_password                     = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_db.secret_string)["password"]
   secret_arns                          = local.secret_manager_arns

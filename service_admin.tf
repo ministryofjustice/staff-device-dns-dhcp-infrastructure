@@ -37,7 +37,7 @@ module "admin" {
   api_basic_auth_username              = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_api.secret_string)["basic_auth_username"]
   api_basic_auth_password              = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_api.secret_string)["basic_auth_password"]
   shared_services_account_id           = local.shared_services_account_id
-  env                                  = var.env
+  env                                  = local.env
   secret_arns                          = local.secret_manager_arns
 
   depends_on = [

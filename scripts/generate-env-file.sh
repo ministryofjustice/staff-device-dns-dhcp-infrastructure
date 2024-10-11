@@ -44,12 +44,6 @@ case $key in
         ;;
 esac
 
-# run aws_ssm_get_parameters.sh
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-SCRIPT_PATH="${SCRIPT_DIR}/aws_ssm_get_parameters.sh"
-. "${SCRIPT_PATH}"
-
-
 cat << EOF > ./.env
 # env file
 # regenerate by running "./scripts/generate-env-file.sh"
@@ -68,50 +62,7 @@ export ENV=${ENV}
 export TF_VAR_env=${ENV}
 
 
-
-## buildspec defaults
-
-## We do not want to disable prompt for local builds.
-## https://developer.hashicorp.com/terraform/cli/config/environment-variables#tf_input
-##TF_INPUT: 0 ## We wnat this locally to ensure we have provided all
-
-## This value has been applied to the envs via AWS CodePipeline CI.
-## We don't want to use the default variable's value here.
-export TF_VAR_enable_critical_notifications=true
-
-## This value has been applied to the envs via AWS CodePipeline CI.
-## We don't want to use the default variable's value here.
-export TF_VAR_enable_authentication=true
-
-## This value has been applied to the envs via AWS CodePipeline CI.
-## We don't want to use the default variable's value here.
-## (what about dev?)
-export TF_VAR_admin_db_backup_retention_period=30
-
-## This value has been applied to the envs via AWS CodePipeline CI.
-## We don't want to use the default variable's value here.
-## (what about dev?)
-export TF_VAR_enable_dhcp_transit_gateway_attachment=true
-
-## This value has been applied to the envs via AWS CodePipeline CI.
-## it is not present in variables.tf (check)
-export TF_VAR_enable_ssh_key_generation=false
-
-## This value has been applied to the envs via AWS CodePipeline CI.
-## We don't want to use the default variable's value here.
-export TF_VAR_enable_dhcp_cloudwatch_log_metrics=true
-
 EOF
-
-for key in "${!params[@]}"
-do
-    ## uppercase key do not prefix with TF_VAR
-    if [[ "${key}" =~ [A-Z] ]]; then
-        echo "export ${key}=${params[${key}]}"  >> ./.env
-    else
-        echo "export TF_VAR_${key}=${params[${key}]}"  >> ./.env
-    fi
-done
 
 chmod u+x ./.env
 

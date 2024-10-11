@@ -110,6 +110,7 @@ data "aws_ssm_parameter" "dns_load_balancer_private_ip_eu_west_2a" {
   with_decryption = true
 }
 
+
 data "aws_ssm_parameter" "dns_load_balancer_private_ip_eu_west_2b" {
   name     = "/staff-device/dns/${terraform.workspace}/load_balancer_private_ip_eu_west_2b"
   with_decryption = true

@@ -2,7 +2,7 @@ module "authentication" {
   source = "./modules/authentication"
 
   admin_url                     = module.admin.admin_url
-  azure_federation_metadata_url = data.aws_ssm_parameter.azure_federation_metadata_url.value
+  azure_federation_metadata_url = local.azure_federation_metadata_url
   enable_authentication         = var.enable_authentication
   prefix                        = module.dhcp_label.id
   region                        = data.aws_region.current_region.id
