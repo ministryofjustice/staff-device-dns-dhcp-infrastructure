@@ -40,7 +40,7 @@ Assuming you have been granted necessary access permissions to the Shared Servic
 
 ## Prepare the variables
 
-Run the following command, enter your AWS-VAULT password when requested. The script will retrive the SSM Parameters (by default for development environment) and write out a `.env` file.
+Run the following command, enter your AWS-VAULT password when requested. The script will default to the development environment and write out a `.env` file.
 This file is used by the Makefile to source the TF_VARS required.
 
 ```shell

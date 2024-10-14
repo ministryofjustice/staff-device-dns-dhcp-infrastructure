@@ -4,41 +4,8 @@ env:
   variables:
     #TF_IN_AUTOMATION: true
     TF_INPUT: 0
-    TF_VAR_enable_critical_notifications: true
-    TF_VAR_enable_authentication: true
-    TF_VAR_admin_db_backup_retention_period: 30
-    TF_VAR_enable_dhcp_transit_gateway_attachment: true
-    TF_VAR_enable_ssh_key_generation: false
-    TF_VAR_enable_dhcp_cloudwatch_log_metrics: true
   parameter-store:
-    TF_VAR_assume_role: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
-    TF_VAR_pdns_ips: "/staff-device/dns/pdns/ips"
-    TF_VAR_pdns_ips_list: "/staff-device/dns/pdns/ips_list"
-    TF_VAR_azure_federation_metadata_url: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/azure_federation_metadata_url"
-    TF_VAR_critical_notification_recipients: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/critical_notification_recipients"
-    TF_VAR_vpn_hosted_zone_id: "/codebuild/$ENV/vpn_hosted_zone_id"
-    TF_VAR_vpn_hosted_zone_domain: "/route53/$ENV/vpn_hosted_zone_domain"
-    TF_VAR_dhcp_transit_gateway_id: "/staff-device/dhcp/$ENV/transit_gateway_id"
-    TF_VAR_transit_gateway_route_table_id: "/staff-device/dhcp/$ENV/transit_gateway_route_table_id"
-    TF_VAR_dns_load_balancer_private_ip_eu_west_2a: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2a"
-    TF_VAR_dns_load_balancer_private_ip_eu_west_2b: "/staff-device/dns/$ENV/load_balancer_private_ip_eu_west_2b"
-    TF_VAR_dns_route53_resolver_ip_eu_west_2a: "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2a"
-    TF_VAR_dns_route53_resolver_ip_eu_west_2b: "/staff-device/dns/$ENV/dns_route53_resolver_ip_eu_west_2b"
-    TF_VAR_dns_private_zone: "/staff-device/admin/$ENV/dns_private_zone"
-    TF_VAR_bastion_allowed_ingress_ip: "/staff-device/corsham_testing/bastion_allowed_ingress_ip"
-    TF_VAR_bastion_allowed_egress_ip: "/staff-device/corsham_testing/bastion_allowed_egress_ip"
-    TF_VAR_corsham_vm_ip: "/staff-device/corsham_testing/corsham_vm_ip"
-    TF_VAR_model_office_vm_ip: "/staff-device/dns-dhcp/model_office_vm_ip"
-    TF_VAR_dhcp_egress_transit_gateway_routes: "/staff-device/$ENV/dhcp_egress_transit_gateway_routes"
-    TF_VAR_byoip_pool_id: "/staff-device/dns/$ENV/public_ip_pool_id"
-    TF_VAR_enable_corsham_test_bastion: "/staff-device/dns-dhcp/$ENV/enable_bastion"
-    TF_VAR_enable_load_testing: "/staff-device/dns-dhcp/$ENV/enable_load_testing"
-    TF_VAR_enable_rds_admin_bastion: "/staff-device/dns-dhcp/$ENV/enable_rds_admin_bastion"
-    TF_VAR_enable_rds_servers_bastion: "/staff-device/dns-dhcp/$ENV/enable_rds_servers_bastion"
-    TF_VAR_number_of_load_testing_nodes: "/staff-device/dns-dhcp/$ENV/number_of_load_testing_nodes"
-    TF_VAR_allowed_ip_ranges: "/staff-device/dns-dhcp/admin/$ENV/allowed_ip_ranges"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
-    TF_VAR_shared_services_account_id: "/codebuild/staff_device_shared_services_account_id"
 
 phases:
   install:

@@ -21,7 +21,7 @@ module "admin" {
   dns_service_name                     = module.dns.ecs.service_name
   kea_config_bucket_arn                = module.dhcp.kea_config_bucket_arn
   kea_config_bucket_name               = module.dhcp.kea_config_bucket_name
-  pdns_ips                             = var.pdns_ips
+  pdns_ips                             = local.pdns_ips
   prefix                               = "${module.dhcp_label.id}-admin"
   private_zone                         = data.aws_ssm_parameter.dns_private_zone.value
   region                               = data.aws_region.current_region.id
@@ -31,13 +31,13 @@ module "admin" {
   subnet_ids                           = module.admin_vpc.public_subnets
   tags                                 = module.admin_label.tags
   vpc_id                               = module.admin_vpc.vpc_id
-  vpn_hosted_zone_domain               = var.vpn_hosted_zone_domain
-  vpn_hosted_zone_id                   = var.vpn_hosted_zone_id
-  allowed_ip_ranges                    = var.allowed_ip_ranges
+  vpn_hosted_zone_domain               = local.vpn_hosted_zone_domain
+  vpn_hosted_zone_id                   = local.vpn_hosted_zone_id
+  allowed_ip_ranges                    = local.allowed_ip_ranges
   api_basic_auth_username              = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_api.secret_string)["basic_auth_username"]
   api_basic_auth_password              = jsondecode(data.aws_secretsmanager_secret_version.codebuild_dhcp_env_admin_api.secret_string)["basic_auth_password"]
-  shared_services_account_id           = var.shared_services_account_id
-  env                                  = var.env
+  shared_services_account_id           = local.shared_services_account_id
+  env                                  = local.env
   secret_arns                          = local.secret_manager_arns
 
   depends_on = [
