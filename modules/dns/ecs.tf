@@ -17,6 +17,10 @@ resource "aws_ecs_service" "service" {
   launch_type     = "FARGATE"
   tags            = var.tags
 
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
     container_name   = "dns-server"
