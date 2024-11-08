@@ -228,7 +228,7 @@ resource "aws_ecs_task_definition" "admin_task" {
           "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_api"]}:basic_auth_password::"
         }
     ],
-      "image": "${aws_ecr_repository.admin_ecr.repository_url}",
+      "image": "683290208331.dkr.ecr.eu-west-2.amazonaws.com/staff-device-dhcp-admin:${var.env}-latest",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
