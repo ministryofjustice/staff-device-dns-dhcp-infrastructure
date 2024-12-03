@@ -16,6 +16,7 @@ resource "aws_ecs_service" "service" {
   desired_count   = 5
   launch_type     = "FARGATE"
   tags            = var.tags
+  enable_execute_command = true
 
   lifecycle {
     ignore_changes = [desired_count]
