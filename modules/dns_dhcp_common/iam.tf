@@ -77,7 +77,16 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
         "cloudwatch:PutMetricData"
       ],
       "Resource": ["*"]
-    }
+    },{
+      "Effect": "Allow",
+      "Action": [
+      "ssmmessages:CreateControlChannel",
+      "ssmmessages:CreateDataChannel",
+      "ssmmessages:OpenControlChannel",
+      "ssmmessages:OpenDataChannel"
+      ],
+      "Resource": ["*"]
+  }
   ]
 }
 EOF
