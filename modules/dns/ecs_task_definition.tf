@@ -6,7 +6,7 @@ resource "aws_ecs_task_definition" "server_task" {
   execution_role_arn       = module.dns_dhcp_common.iam.ecs_execution_role_arn
   requires_compatibilities = ["FARGATE"]
   cpu                      = "1024"
-  memory                   = "1024"
+  memory                   = "2048"
   network_mode             = "awsvpc"
 
   container_definitions = <<EOF
