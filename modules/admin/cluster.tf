@@ -157,20 +157,8 @@ resource "aws_ecs_task_definition" "admin_task" {
           "value": "${var.kea_config_bucket_name}"
         },
         {
-          "name": "COGNITO_CLIENT_ID",
-          "value": "${var.cognito_user_pool_client_id}"
-        },
-        {
-          "name": "COGNITO_CLIENT_SECRET",
-          "value": "${var.cognito_user_pool_client_secret}"
-        },
-        {
           "name": "COGNITO_USER_POOL_SITE",
           "value": "https://${var.cognito_user_pool_domain}.auth.${var.region}.amazoncognito.com"
-        },
-        {
-          "name": "COGNITO_USER_POOL_ID",
-          "value": "${var.cognito_user_pool_id}"
         },
         {
           "name": "DHCP_CLUSTER_NAME",
@@ -226,6 +214,18 @@ resource "aws_ecs_task_definition" "admin_task" {
         {
           "name": "API_BASIC_AUTH_PASSWORD",
           "valueFrom": "${var.secret_arns["codebuild_dhcp_env_admin_api"]}:basic_auth_password::"
+        },
+        {
+          "name": "COGNITO_USER_POOL_ID",
+          "valueFrom": "${var.secret_arns["staff_device_admin_env_cognito_userpool_id"]}"
+        },
+        {
+          "name": "COGNITO_CLIENT_SECRET",
+          "valueFrom": "${var.secret_arns["staff_device_admin_env_cognito_client_secret"]}"
+        },
+        {
+          "name": "COGNITO_CLIENT_ID",
+          "valueFrom": "${var.secret_arns["staff_device_admin_env_cognito_client_id"]}"
         }
     ],
       "image": "${aws_ecr_repository.admin_ecr.repository_url}",
