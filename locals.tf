@@ -38,11 +38,14 @@ locals {
   tags_dns_minus_name   = { for k, v in module.dns_label.tags : k => v if !contains(["Name"], k) }
 
   secret_manager_arns = {
-    codebuild_dhcp_env_admin_db   = aws_secretsmanager_secret.codebuild_dhcp_env_admin_db.arn
-    codebuild_dhcp_env_db         = aws_secretsmanager_secret.codebuild_dhcp_env_db.arn
-    staff_device_dhcp_sentry_dsn  = aws_secretsmanager_secret.staff_device_dhcp_sentry_dsn.arn
-    staff_device_dns_sentry_dsn   = aws_secretsmanager_secret.staff_device_dns_sentry_dsn_1.arn
-    staff_device_admin_sentry_dsn = aws_secretsmanager_secret.staff_device_admin_sentry_dsn_1.arn
-    codebuild_dhcp_env_admin_api  = aws_secretsmanager_secret.codebuild_dhcp_env_admin_api.arn
+    codebuild_dhcp_env_admin_db                  = aws_secretsmanager_secret.codebuild_dhcp_env_admin_db.arn
+    codebuild_dhcp_env_db                        = aws_secretsmanager_secret.codebuild_dhcp_env_db.arn
+    staff_device_dhcp_sentry_dsn                 = aws_secretsmanager_secret.staff_device_dhcp_sentry_dsn.arn
+    staff_device_dns_sentry_dsn                  = aws_secretsmanager_secret.staff_device_dns_sentry_dsn_1.arn
+    staff_device_admin_sentry_dsn                = aws_secretsmanager_secret.staff_device_admin_sentry_dsn_1.arn
+    codebuild_dhcp_env_admin_api                 = aws_secretsmanager_secret.codebuild_dhcp_env_admin_api.arn
+    staff_device_admin_env_cognito_client_id     = aws_secretsmanager_secret.staff_device_admin_env_cognito_client_id.arn
+    staff_device_admin_env_cognito_client_secret = aws_secretsmanager_secret.staff_device_admin_env_cognito_client_secret.arn
+    staff_device_admin_env_cognito_userpool_id   = aws_secretsmanager_secret.staff_device_admin_env_cognito_userpool_id.arn
   }
 }

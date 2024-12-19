@@ -8,10 +8,10 @@ module "admin" {
   bind_config_bucket_arn               = module.dns.bind_config_bucket_arn
   bind_config_bucket_key_arn           = module.dns.bind_config_bucket_key_arn
   bind_config_bucket_name              = module.dns.bind_config_bucket_name
-  cognito_user_pool_client_id          = module.authentication.cognito_user_pool_client_id
-  cognito_user_pool_client_secret      = module.authentication.cognito_user_pool_client_secret
+  cognito_user_pool_client_id          = data.aws_secretsmanager_secret_version.staff_device_admin_env_cognito_userpool_id.secret_string
+  cognito_user_pool_client_secret      = data.aws_secretsmanager_secret_version.staff_device_admin_env_cognito_client_secret.secret_string
   cognito_user_pool_domain             = module.authentication.cognito_user_pool_domain
-  cognito_user_pool_id                 = module.authentication.cognito_user_pool_id
+  cognito_user_pool_id                 = data.aws_secretsmanager_secret_version.staff_device_admin_env_cognito_client_id.secret_string
   dhcp_cluster_name                    = module.dhcp.ecs.cluster_name
   dhcp_config_bucket_key_arn           = module.dhcp.dhcp_config_bucket_key_arn
   dhcp_http_api_load_balancer_arn      = module.dhcp.http_api_load_balancer_arn

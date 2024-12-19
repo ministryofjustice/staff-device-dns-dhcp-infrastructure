@@ -82,3 +82,54 @@ resource "aws_secretsmanager_secret_version" "staff_device_admin_sentry_dsn" {
   secret_id     = aws_secretsmanager_secret.staff_device_admin_sentry_dsn_1.id
   secret_string = "REPLACE_ME"
 }
+
+resource "aws_secretsmanager_secret" "staff_device_admin_env_cognito_client_id" {
+  name = "/staff_device/admin/${terraform.workspace}/cognito/cognito_client_id"
+  #  description = "Admin - Cognito client id"
+  provider = aws.env
+}
+
+resource "aws_secretsmanager_secret_version" "staff_device_admin_env_cognito_client_id" {
+  provider      = aws.env
+  secret_id     = aws_secretsmanager_secret.staff_device_admin_env_cognito_client_id.id
+  secret_string = "REPLACE_ME"
+}
+
+data "aws_secretsmanager_secret_version" "staff_device_admin_env_cognito_client_id" {
+  secret_id = aws_secretsmanager_secret.staff_device_admin_env_cognito_client_id.id
+  provider  = aws.env
+}
+
+resource "aws_secretsmanager_secret" "staff_device_admin_env_cognito_userpool_id" {
+  name = "/staff_device/admin/${terraform.workspace}/cognito/cognito_userpool_id"
+  #  description = "Admin - Cognito user pool id"
+  provider = aws.env
+}
+
+resource "aws_secretsmanager_secret_version" "staff_device_admin_env_cognito_userpool_id" {
+  provider      = aws.env
+  secret_id     = aws_secretsmanager_secret.staff_device_admin_env_cognito_userpool_id.id
+  secret_string = "REPLACE_ME"
+}
+
+data "aws_secretsmanager_secret_version" "staff_device_admin_env_cognito_userpool_id" {
+  secret_id = aws_secretsmanager_secret.staff_device_admin_env_cognito_userpool_id.id
+  provider  = aws.env
+}
+
+resource "aws_secretsmanager_secret" "staff_device_admin_env_cognito_client_secret" {
+  name = "/staff_device/admin/${terraform.workspace}/cognito/cognito_client_secret"
+  #  description = "Admin - Cognito client secret"
+  provider = aws.env
+}
+
+resource "aws_secretsmanager_secret_version" "staff_device_admin_env_cognito_client_secret" {
+  provider      = aws.env
+  secret_id     = aws_secretsmanager_secret.staff_device_admin_env_cognito_client_secret.id
+  secret_string = "REPLACE_ME"
+}
+
+data "aws_secretsmanager_secret_version" "staff_device_admin_env_cognito_client_secret" {
+  secret_id = aws_secretsmanager_secret.staff_device_admin_env_cognito_client_secret.id
+  provider  = aws.env
+}
