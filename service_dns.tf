@@ -14,6 +14,7 @@ module "dns" {
   vpc_id                              = module.servers_vpc.vpc_id
   shared_services_account_id          = local.shared_services_account_id
   secret_arns                         = local.secret_manager_arns
+  ssm_arns                            = local.ssm_arns
 
   depends_on = [
     module.servers_vpc

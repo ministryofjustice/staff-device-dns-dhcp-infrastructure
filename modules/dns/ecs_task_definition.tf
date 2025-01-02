@@ -29,6 +29,10 @@ resource "aws_ecs_task_definition" "server_task" {
       {
         "name": "SENTRY_CURRENT_ENV",
         "value": "${var.short_prefix}"
+      },
+      {
+        "name": "DNS_HEALTH_CHECK_URL",
+        "valueFrom": "${var.ssm_arns["DNS_HEALTH_CHECK_URL"]}"
       }
     ],
     "secrets": [
