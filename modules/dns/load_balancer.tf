@@ -39,8 +39,10 @@ resource "aws_lb_target_group" "target_group" {
   deregistration_delay = 300
 
   health_check {
+    matcher  = 200
     port     = 80
-    protocol = "TCP"
+    protocol = "HTTP"
+    path     = "/health"
   }
 
   tags = var.tags

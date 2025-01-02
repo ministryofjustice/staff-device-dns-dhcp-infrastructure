@@ -49,3 +49,7 @@ variable "shared_services_account_id" {
 variable "secret_arns" {
   type = map(any)
 }
+
+variable "ssm_arns" {
+  type = map(any)
+}
