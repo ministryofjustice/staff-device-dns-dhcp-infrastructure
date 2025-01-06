@@ -17,6 +17,11 @@ resource "aws_ecs_task_definition" "server_task" {
         "hostPort": 53,
         "containerPort": 53,
         "protocol": "udp"
+      },
+      {
+        "hostPort": 80,
+        "protocol": "tcp",
+        "containerPort": 80
       }
     ],
     "essential": true,
@@ -35,6 +40,10 @@ resource "aws_ecs_task_definition" "server_task" {
       {
         "name": "SENTRY_DSN",
         "valueFrom": "${var.secret_arns["staff_device_dns_sentry_dsn"]}"
+      },
+      {
+        "name": "DNS_HEALTH_CHECK_URL",
+        "valueFrom": "arn:aws:ssm:eu-west-2:068084030754:parameter/DNS_HEALTH_CHECK_URL"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
@@ -47,24 +56,6 @@ resource "aws_ecs_task_definition" "server_task" {
       }
     },
     "expanded": true
-  }, {
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-group": "${module.dns_dhcp_common.cloudwatch.server_nginx_log_group_name}",
-        "awslogs-region": "eu-west-2",
-        "awslogs-stream-prefix": "eu-west-2-docker-logs"
-      }
-    },
-    "portMappings": [
-      {
-        "hostPort": 80,
-        "protocol": "tcp",
-        "containerPort": 80
-      }
-    ],
-    "image": "${module.dns_dhcp_common.ecr.nginx_repository_url}",
-    "name": "NGINX"
   }
 ]
 EOF

@@ -37,6 +37,11 @@ locals {
   tags_dhcp_minus_name  = { for k, v in module.dhcp_label.tags : k => v if !contains(["Name"], k) }
   tags_dns_minus_name   = { for k, v in module.dns_label.tags : k => v if !contains(["Name"], k) }
 
+
+  ssm_arns = {
+    DNS_HEALTH_CHECK_URL = aws_ssm_parameter.dns_health_check_url.arn
+  }
+
   secret_manager_arns = {
     codebuild_dhcp_env_admin_db                  = aws_secretsmanager_secret.codebuild_dhcp_env_admin_db.arn
     codebuild_dhcp_env_db                        = aws_secretsmanager_secret.codebuild_dhcp_env_db.arn
