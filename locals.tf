@@ -39,7 +39,7 @@ locals {
 
 
   ssm_arns = {
-    DNS_HEALTH_CHECK_URL                        = aws_ssm_parameter.dns_health_check_url.arn
+    DNS_HEALTH_CHECK_URL = aws_ssm_parameter.dns_health_check_url.arn
   }
 
   secret_manager_arns = {
