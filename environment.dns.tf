@@ -15,7 +15,7 @@ resource "aws_secretsmanager_secret_version" "staff_device_dns_sentry_dsn" {
 
 resource "aws_ssm_parameter" "dns_health_check_url" {
   provider = aws.env
-  name  = "DNS_HEALTH_CHECK_URL"
-  type  = "String"
-  value = "gov.uk"
+  name     = "DNS_HEALTH_CHECK_URL"
+  type     = "String"
+  value    = "gov.uk"
 }
