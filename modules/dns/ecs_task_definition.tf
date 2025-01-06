@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "server_task" {
       },
       {
         "name": "DNS_HEALTH_CHECK_URL",
-        "valueFrom": "arn:aws:ssm:eu-west-2:068084030754:parameter/DNS_HEALTH_CHECK_URL"
+        "valueFrom": "${var.ssm_arns["DNS_HEALTH_CHECK_URL"]}"
       }
     ],
     "image": "${module.dns_dhcp_common.ecr.repository_url}",
