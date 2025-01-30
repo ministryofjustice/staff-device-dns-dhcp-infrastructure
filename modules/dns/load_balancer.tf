@@ -38,11 +38,12 @@ resource "aws_lb_target_group" "target_group" {
   target_type          = "ip"
   deregistration_delay = 300
 
+  # health check changed to TCP port 53 due to P1 - this allows continers to come up healthy.
   health_check {
-    matcher  = 200
-    port     = 80
-    protocol = "HTTP"
-    path     = "/health"
+    port                = 53
+    protocol            = "TCP"
+    unhealthy_threshold = 10
+    interval            = 300
   }
 
   tags = var.tags
