@@ -1,6 +1,6 @@
 locals {
   env               = terraform.workspace
-  dns_dhcp_vpc_cidr = "10.180.80.0/22"
+  dns_dhcp_vpc_cidr = nonsensitive(jsondecode(data.aws_ssm_parameter.dns_dhcp_vpc_cidr.value))
 
   allowed_ip_ranges                       = nonsensitive(jsondecode(data.aws_ssm_parameter.allowed_ip_ranges.value))
   azure_federation_metadata_url           = data.aws_ssm_parameter.azure_federation_metadata_url.value

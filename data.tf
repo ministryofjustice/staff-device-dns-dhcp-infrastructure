@@ -154,3 +154,9 @@ data "aws_ssm_parameter" "shared_services_account_id" {
   name            = "/codebuild/staff_device_shared_services_account_id"
   with_decryption = true
 }
+
+data "aws_ssm_parameter" "dns_dhcp_vpc_cidr" {
+  name = "/staff-device/dns-dhcp/${terraform.workspace}/vpc_cidr"
+  with_decryption = true
+}
+
