@@ -101,7 +101,7 @@ resource "aws_security_group_rule" "prisma_resolver_endpoint_dns_udp_in" {
   to_port           = 53
   protocol          = "udp"
   security_group_id = aws_security_group.resolver_endpoint.id
-  cidr_blocks = split(",",var.prisma_cidr)
+  cidr_blocks       = split(",", var.prisma_cidr)
 }
 
 resource "aws_security_group_rule" "prisma_resolver_endpoint_dns_udp_out" {
@@ -111,5 +111,5 @@ resource "aws_security_group_rule" "prisma_resolver_endpoint_dns_udp_out" {
   to_port           = 53
   protocol          = "udp"
   security_group_id = aws_security_group.resolver_endpoint.id
-  cidr_blocks = split(",",var.prisma_cidr)
+  cidr_blocks       = split(",", var.prisma_cidr)
 }
