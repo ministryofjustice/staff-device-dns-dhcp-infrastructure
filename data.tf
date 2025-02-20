@@ -156,5 +156,5 @@ data "aws_ssm_parameter" "shared_services_account_id" {
 }
 
 data "aws_ssm_parameter" "prisma_cidr" {
-  name = "/staff-device/dns-dhcp/admin/${terraform.workspace}/prisma_cidr"
+  name = "/staff-device/dns-dhcp/${terraform.workspace}/prisma_cidr"
 }

@@ -55,5 +55,7 @@ variable "ssm_arns" {
 }
 
 variable "prisma_cidr" {
-  type = string
+  description = "The CIDR block for Prisma Direct"
+  type        = string
 }
+
