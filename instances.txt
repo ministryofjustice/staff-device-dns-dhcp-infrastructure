@@ -1,0 +1,23 @@
+
+i-02e86161fff83fbf8	m5.large	None	running	MOJ-AW2-GPC-PORTAL-FW01B
+18.133.200.124
+i-0387fd986e1dd1cdf	m5.xlarge	None	running	MOJ-AW2-PSN-FW01A
+18.170.16.220
+i-043cd610d804cccad	m5.xlarge	None	running	MOJ-AW2-SOP-FW01A
+18.168.124.240
+i-04a5d8e85d8559423	m5.xlarge	None	running	MOJ-AW2-PSN-FW01B
+3.9.237.245
+i-089919edc12fa0a49	m5.large	None	running	MOJ-AW2-GPC-PORTAL-DOM1
+51.149.250.247
+i-09f1913ad59230358	m5.2xlarge	None	running	MOJ-AW2-GPC-GW-FW02C
+51.149.250.252
+i-0b761b4dc3e0e0162	m5.xlarge	None	running	MOJ-AW2-SOP-FW01B
+18.134.23.238
+i-0bab76c0a31dac1af	c5.4xlarge	35.176.169.81	running	MOJ-AW2-PAN01B
+35.176.169.81
+i-0bb22ec41bdfcad2d	m5.2xlarge	None	running	MOJ-AW2-GPC-GW-FW03A
+51.149.250.113
+i-0c15e6f34b8b2ac36	m5.2xlarge	None	running	MOJ-AW2-GPC-GW-FW02A
+51.149.250.154
+i-0e39c20c6a12fcbae	c5.4xlarge	35.177.215.166	running	MOJ-AW2-PAN01A
+35.177.215.166

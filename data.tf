@@ -155,7 +155,6 @@ data "aws_ssm_parameter" "shared_services_account_id" {
   with_decryption = true
 }
 
-data "aws_ssm_parameter" "dns_dhcp_vpc_cidr" {
-  name            = "/staff-device/dns-dhcp/${terraform.workspace}/vpc_cidr"
-  with_decryption = true
+data "aws_ssm_parameter" "prisma_cidr" {
+  name = "/staff-device/dns-dhcp/admin/${terraform.workspace}/prisma_cidr"
 }

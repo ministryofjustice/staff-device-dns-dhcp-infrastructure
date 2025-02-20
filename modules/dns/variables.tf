@@ -53,3 +53,7 @@ variable "secret_arns" {
 variable "ssm_arns" {
   type = map(any)
 }
+
+variable "prisma_cidr" {
+  type = string
+}

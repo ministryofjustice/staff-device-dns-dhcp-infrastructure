@@ -95,27 +95,21 @@ resource "aws_security_group_rule" "resolver_endpoint_dns_udp_out" {
 }
 
 resource "aws_security_group_rule" "prisma_resolver_endpoint_dns_udp_in" {
-  description       = "Allow incoming dns udp traffic from prisma direct 10.184.0.0/14 and 10.180.224.0/21"
+  description       = "Allow incoming dns udp traffic from prisma direct"
   type              = "ingress"
   from_port         = 53
   to_port           = 53
   protocol          = "udp"
   security_group_id = aws_security_group.resolver_endpoint.id
-  cidr_blocks = [
-    "10.184.0.0/14",
-    "10.180.224.0/21"
-  ]
+  cidr_blocks = split(",",var.prisma_cidr)
 }
 
 resource "aws_security_group_rule" "prisma_resolver_endpoint_dns_udp_out" {
-  description       = "Allow outgoing dns udp traffic from prisma direct 10.184.0.0/14 and 10.180.224.0/21"
+  description       = "Allow outgoing dns udp traffic from prisma direct"
   type              = "egress"
   from_port         = 53
   to_port           = 53
   protocol          = "udp"
   security_group_id = aws_security_group.resolver_endpoint.id
-  cidr_blocks = [
-    "10.184.0.0/14",
-    "10.180.224.0/21"
-  ]
+  cidr_blocks = split(",",var.prisma_cidr)
 }
