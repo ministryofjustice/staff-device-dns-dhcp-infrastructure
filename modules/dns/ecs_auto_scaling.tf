@@ -6,6 +6,32 @@ resource "aws_appautoscaling_target" "auth_ecs_target" {
   scalable_dimension = "ecs:service:DesiredCount"
 }
 
+resource "aws_appautoscaling_scheduled_action" "ecs_morning_scale_up" {
+  name               = "ECS morning scale up"
+  service_namespace  = "ecs"
+  resource_id        = "service/${aws_ecs_cluster.server_cluster.name}/${aws_ecs_service.service.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  schedule           = "cron(0 0 6 ? * MON-FRI)"
+
+  scalable_target_action {
+    min_capacity = 8
+    max_capacity = 18
+  }
+}
+
+resource "aws_appautoscaling_scheduled_action" "ecs_resume_dynamic_scaling" {
+  name               = "ECS resume dynamic scaling"
+  service_namespace  = "ecs"
+  resource_id        = "service/${aws_ecs_cluster.server_cluster.name}/${aws_ecs_service.service.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  schedule           = "cron(0 0 9 ? * MON-FRI)"
+
+  scalable_target_action {
+    min_capacity = 2
+    max_capacity = 18
+  }
+}
+
 resource "aws_appautoscaling_policy" "ecs_policy_up_average" {
   name               = "ECS Scale Up Average"
   service_namespace  = "ecs"
