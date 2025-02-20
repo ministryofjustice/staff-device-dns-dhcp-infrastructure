@@ -53,9 +53,3 @@ variable "secret_arns" {
 variable "ssm_arns" {
   type = map(any)
 }
-
-variable "prisma_cidr" {
-  description = "The CIDR block for Prisma Direct"
-  type        = string
-}
-
