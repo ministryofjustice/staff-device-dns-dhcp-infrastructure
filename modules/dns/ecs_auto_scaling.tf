@@ -14,7 +14,7 @@ resource "aws_appautoscaling_scheduled_action" "ecs_morning_scale_up" {
   schedule           = "cron(0 0 6 ? * MON-FRI)"
 
   scalable_target_action {
-    min_capacity = 15
+    min_capacity = terraform.workspace == "production" ? 15 : 2
     max_capacity = 18
   }
 }
