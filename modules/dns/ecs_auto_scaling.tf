@@ -2,7 +2,7 @@ resource "aws_appautoscaling_target" "auth_ecs_target" {
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.server_cluster.name}/${aws_ecs_service.service.name}"
   max_capacity       = 18
-  min_capacity       = terraform.workspace == "production" ? 3 : 2
+  min_capacity       = terraform.workspace == "production" ? 15 : 2
   scalable_dimension = "ecs:service:DesiredCount"
 }
 
@@ -14,7 +14,7 @@ resource "aws_appautoscaling_scheduled_action" "ecs_morning_scale_up" {
   schedule           = "cron(0 0 6 ? * MON-FRI)"
 
   scalable_target_action {
-    min_capacity = 8
+    min_capacity = 15
     max_capacity = 18
   }
 }
