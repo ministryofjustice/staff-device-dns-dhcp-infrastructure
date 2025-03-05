@@ -10,6 +10,7 @@ module "dns" {
   short_prefix                        = module.dns_label.stage
   subnets                             = module.servers_vpc.private_subnets
   tags                                = module.dns_label.tags
+  prisma_cidr                         = local.dns_dhcp_prisma_cidr
   vpc_cidr                            = local.dns_dhcp_vpc_cidr
   vpc_id                              = module.servers_vpc.vpc_id
   shared_services_account_id          = local.shared_services_account_id
