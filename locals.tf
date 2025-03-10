@@ -9,6 +9,7 @@ locals {
   byoip_pool_id                           = nonsensitive(data.aws_ssm_parameter.byoip_pool_id.value)
   corsham_vm_ip                           = nonsensitive(data.aws_ssm_parameter.corsham_vm_ip.value)
   dhcp_transit_gateway_id                 = nonsensitive(data.aws_ssm_parameter.dhcp_transit_gateway_id.value)
+  dhcp_dns_slack_webhook                  = nonsensitive(data.aws_ssm_parameter.dhcp_dns_slack_webhook.value)
   dns_load_balancer_private_ip_eu_west_2a = nonsensitive(data.aws_ssm_parameter.dns_load_balancer_private_ip_eu_west_2a.value)
   dns_load_balancer_private_ip_eu_west_2b = nonsensitive(data.aws_ssm_parameter.dns_load_balancer_private_ip_eu_west_2b.value)
   dns_route53_resolver_ip_eu_west_2a      = nonsensitive(data.aws_ssm_parameter.dns_route53_resolver_ip_eu_west_2a.value)

@@ -53,3 +53,7 @@ variable "secret_arns" {
 variable "ssm_arns" {
   type = map(any)
 }
+
+variable "dhcp_dns_slack_webhook" {
+  type = string
+}

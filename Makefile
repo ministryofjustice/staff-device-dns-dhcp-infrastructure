@@ -147,6 +147,11 @@ apply: ## terraform apply
 	$(DOCKER_RUN_IT) terraform apply
 	$(DOCKER_RUN) /bin/bash -c "./scripts/publish_terraform_outputs.sh"
 
+.PHONY: target
+target: ## terraform target apply
+	$(DOCKER_RUN_IT) terraform apply -target=module.dns.aws_cloudwatch_metric_alarm.ecs_max_task_scale_alarm -target=module.dns.aws_sns_topic.ecs_alarm -target=module.dns.aws_sns_topic_subscription.email_subscription -target=module.dns.aws_sns_topic_subscription.slack_subscription
+	$(DOCKER_RUN) /bin/bash -c "./scripts/publish_terraform_outputs.sh"
+
 .PHONY: state-list
 state-list: ## terraform state list
 	$(DOCKER_RUN) terraform state list

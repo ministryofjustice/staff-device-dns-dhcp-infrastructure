@@ -154,3 +154,7 @@ data "aws_ssm_parameter" "shared_services_account_id" {
   name            = "/codebuild/staff_device_shared_services_account_id"
   with_decryption = true
 }
+data "aws_ssm_parameter" "dhcp_dns_slack_webhook" {
+  name = "/codebuild/pttp-ci-datasource-config-pipeline/production/mojo-staff-device-dhcp-dns-alerts_slackwebhook"
+  with_decryption = true
+}
