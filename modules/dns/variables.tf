@@ -59,7 +59,7 @@ variable "dhcp_dns_slack_webhook" {
 }
 
 variable "email_addresses" {
-  type    = list(string)
+  type = list(string)
   default = [
     "InfrastructureAutomationTeam@justice.gov.uk",
     "mojnoc@justice.gov.uk",

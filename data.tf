@@ -156,6 +156,6 @@ data "aws_ssm_parameter" "shared_services_account_id" {
 }
 
 data "aws_ssm_parameter" "dhcp_dns_slack_webhook" {
-  name = "/staff-device/sns/dhcp_dns_slack_webhook"
+  name            = "/staff-device/sns/dhcp_dns_slack_webhook"
   with_decryption = true
 }
