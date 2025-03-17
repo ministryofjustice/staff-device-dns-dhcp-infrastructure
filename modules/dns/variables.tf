@@ -57,3 +57,12 @@ variable "ssm_arns" {
 variable "dhcp_dns_slack_webhook" {
   type = string
 }
+
+variable "email_addresses" {
+  type    = list(string)
+  default = [
+    "InfrastructureAutomationTeam@justice.gov.uk",
+    "mojnoc@justice.gov.uk",
+    "mojnoc_alerts@justice.gov.uk"
+  ]
+}
