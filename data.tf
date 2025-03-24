@@ -154,3 +154,8 @@ data "aws_ssm_parameter" "shared_services_account_id" {
   name            = "/codebuild/staff_device_shared_services_account_id"
   with_decryption = true
 }
+
+data "aws_ssm_parameter" "dhcp_dns_slack_webhook" {
+  name            = "/staff-device/sns/dhcp_dns_slack_webhook"
+  with_decryption = true
+}
