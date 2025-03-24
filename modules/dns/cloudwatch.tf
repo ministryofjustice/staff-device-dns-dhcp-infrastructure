@@ -1,3 +1,5 @@
+########### DNS max task alarm ########### 
+
 resource "aws_sns_topic" "ecs_alarm" {
   count = terraform.workspace == "production" ? 1 : 0
   name  = "dns-max-scaling-ecs-alarm"
@@ -42,3 +44,5 @@ resource "aws_cloudwatch_metric_alarm" "ecs_max_task_scale_alarm" {
     aws_sns_topic.ecs_alarm[0].arn
   ]
 }
+
+############################################
