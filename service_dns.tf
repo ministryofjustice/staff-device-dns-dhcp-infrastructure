@@ -1,6 +1,7 @@
 module "dns" {
   source = "./modules/dns"
 
+  dhcp_dns_slack_webhook              = local.dhcp_dns_slack_webhook
   dns_route53_resolver_ip_eu_west_2a  = local.dns_route53_resolver_ip_eu_west_2a
   dns_route53_resolver_ip_eu_west_2b  = local.dns_route53_resolver_ip_eu_west_2b
   load_balancer_private_ip_eu_west_2a = local.dns_load_balancer_private_ip_eu_west_2a
