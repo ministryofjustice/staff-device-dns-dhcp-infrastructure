@@ -155,6 +155,10 @@ data "aws_ssm_parameter" "shared_services_account_id" {
   with_decryption = true
 }
 
+data "aws_ssm_parameter" "prisma_cidr" {
+  name = "/staff-device/dns-dhcp/${terraform.workspace}/prisma_cidr"
+}
+
 data "aws_ssm_parameter" "dhcp_dns_slack_webhook" {
   name            = "/staff-device/sns/dhcp_dns_slack_webhook"
   with_decryption = true
