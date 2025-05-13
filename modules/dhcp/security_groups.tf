@@ -39,6 +39,10 @@ resource "aws_security_group_rule" "dhcp_container_kea_api_out" {
   ]
 }
 
+# This security group rule allows inbound DHCP (UDP port 67) traffic to reach the KEA DHCP server.
+# The 172.16.0.0/12 range (specifically includes the Class B range 172.16.0.0 to 172.31.255.255)
+# is included to support HMCTS sites as part of the Atos DHCP migration project,
+# ensuring clients from those subnets can obtain IP leases from the KEA server.
 resource "aws_security_group_rule" "dhcp_container_udp_in" {
   description       = "Allow inbound traffic to the KEA server"
   type              = "ingress"
